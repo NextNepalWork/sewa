@@ -33,6 +33,410 @@
 @endsection
 
 @section('content')
+    <!-- Breadcrumbs -->
+    <section id="breadcrumb-wrapper" class="position-relative">
+        <div class="image">
+            <img src="{{asset('frontend/assets/images/banner/1.jpg')}}" alt="breadcrumb-image" class="img-fluid">
+        </div>
+        <div class="overlay position-absolute">
+            <div class="title p-4">
+                <ol class="breadcrumb p-0 bg-transparent p-0 m-0">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('home') }}">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('product',$detailedProduct->slug) }}">{{$detailedProduct->name}}</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumbs Ends -->
+
+    <!-- Product Detail  -->
+    <section id="product-detail-wrapper" class="py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-12 col-12">
+                    <div class="product-carousel">
+                        @if(is_array(json_decode($detailedProduct->photos)) && count(json_decode($detailedProduct->photos)) > 0)
+                        <!-- Swiper and EasyZoom plugins start -->
+                        <div class="swiper-container gallery-top" style="height: 400px">
+                            <div class="swiper-wrapper">
+                                @foreach (json_decode($detailedProduct->photos) as $key => $photo)
+                                <div class="swiper-slide easyzoom easyzoom--overlay">
+                                    <a href="{{ asset($photo) }}">
+                                        <img src="{{ asset($photo) }}" class="img-fluid" data-src="{{ asset($photo) }}" alt="{{$detailedProduct->name}}" @if($key == 0) xpreview="{{ asset($photo) }}"  @endif>
+                                    </a>
+                                    
+                                </div>
+                                @endforeach
+                            </div>
+                            <!-- Add Arrows -->
+                            <div class="swiper-button-next swiper-button-white"></div>
+                            <div class="swiper-button-prev swiper-button-white"></div>
+                        </div>
+                        <div class="swiper-container gallery-thumbs">
+                            <div class="swiper-wrapper">
+                                @foreach (json_decode($detailedProduct->photos) as $key => $photo)
+                                <div class="swiper-slide">
+                                    <a href="{{ asset($photo) }}">
+                                        <img src="{{ asset($photo) }}" class="img-fluid"  width="80" data-src="{{ asset($photo) }}"  @if($key == 0) xpreview="{{ asset($photo) }}" @endif>
+                                    </a>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <!-- Swiper and EasyZoom plugins end -->
+                        @endif
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-12 col-12 mx-auto">
+                    <div class="d-flex justify-content-center h-100 product-detail flex-column">
+                        <div class="about mb-1">
+                            <div class="d-flex flex-row align-items-center flex-wrap mb-2">
+                                <h3 class="font-weight-bold m-0">{{ __($detailedProduct->name) }}</h3>
+                                @if(home_price($detailedProduct->id) != home_discounted_price($detailedProduct->id))
+                                <div class="product-price d-flex ml-3">
+                                    <div class="first-price mr-2">{{ home_price($detailedProduct->id) }}
+                                        <span>/{{ $detailedProduct->unit }}</span></div>
+                                    <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
+                                    <span class="piece">/{{ $detailedProduct->unit }}</span></div>
+                                </div>
+                                @else
+                                <div class="product-price d-flex ml-3">
+                                    <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
+                                    <span class="piece">/{{ $detailedProduct->unit }}</span></div>
+                                </div>
+                                @endif
+                            </div>
+
+                            <div class="d-flex flex-wrap align-items-center">
+                                <!-- Rating -->
+                                <div class="rating-wrapper mr-3">
+                                    <div class="p-ratings">
+                                        @php
+                                        $total = 0;
+                                        $total += $detailedProduct->reviews->count();
+                                    @endphp
+                                    <i class="star-rating">
+                                        {{ renderStarRating($detailedProduct->rating) }}
+                                    </i>
+                                    
+                                    <span class="rating-count ml-1">
+                                        ({{ $total }} {{__('reviews')}})
+                                    </span>
+                                    </div>
+                                </div>
+                                <!-- Rating Ends -->
+                                <div class="social-media font-weight-bold d-inline-flex align-items-center">
+                                    <!-- <label class="mr-3 mb-0 font-weight-bold">
+                                    Share On
+                                    </label> -->
+                                    <ul class="p-0 m-0 d-flex align-items-center">
+                                        <li class="mr-2">
+                                            <a href="#">
+                                                <i class="fa fa-youtube-play" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                        <li class="mr-2">
+                                            <a href="#">
+                                                <i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        </li>
+                                        <li class="mr-2">
+                                            <a href="#">
+                                                <i class="fa fa-instagram" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="descrip mb-2">
+                            <h5>Description</h5>
+                            <p>
+                                {{$detailedProduct->description}}
+                            </p>
+                        </div>
+                        <form class="image-size-wrapper">
+                            <div class="form-row">
+                                <div class="form-group col-lg-4 col-md-6">
+                                    <div class="quantity">
+                                        <h5>Quantity</h5>
+                                        
+                                        @php
+                                        $qty = 0;
+                                        if($detailedProduct->variant_product){
+                                            foreach ($detailedProduct->stocks as $key => $stock) {
+
+                                                $qty += $stock->qty;
+                                            }
+                                        }
+                                        else{
+                                            $qty = $detailedProduct->current_stock ;
+                                        }
+                                    @endphp
+                                    
+                                        <div class="qty-1">
+                                            <span onclick="{inc}" class="minus">-</span>
+                                            <input type="number" class="count" name="qty" value="1" disabled="">
+                                            <span class="plus">+</span>
+                                            @if ($qty > 0)
+                                                <div class="badge badge-md badge-pill" style="background-color: limegreen">{{__('In stock')}}({{$qty}})</div>
+                                            @else
+                                                <div class="badge badge-md badge-pill" style="background-color: red">{{__('Out of stock')}}({{$qty}})</div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-8 col-md-6">
+                                    <div class="image-select pl-4">
+                                        <h5>Color</h5>
+                                        <div class="my-color">
+                                            <label class="radio m-0">
+                                                <input type="radio" name="c" value="1" checked="">
+                                                <span class="red"></span> </label>
+                                            <label class="radio m-0"> <input type="radio" name="c" value="2">
+                                                <span class="blue"></span>
+                                            </label>
+                                            <label class="radio m-0">
+                                                <input type="radio" name="c" value="3">
+                                                <span class="green"></span> </label>
+                                            <label class="radio m-0">
+                                                <input type="radio" name="c" value="4">
+                                                <span class="orange"></span> </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-12 col-md-6">
+                                    <div class="size-wrapper">
+                                        <div class="size-select">
+                                            <h5>Size</h5>
+                                            <div class="select-size">
+                                                <div class="size">S</div>
+                                                <div class="size">M</div>
+                                                <div class="size">L</div>
+                                                <div class="size">XL</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-3 col-md-6">
+                                    <h5>Weight</h5>
+                                    <select id="size" class="form-control">
+                                        <option selected>Choose...</option>
+                                        <option>1kg</option>
+                                        <option>2kg</option>
+                                        <option>3kg</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <a href="cart.html" class="btn-custom">Add to Cart</a>
+                            <a href="cart.html" class="btn-custom ml-2">Buy Now</a>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="col-12 mt-3">
+                    <nav>
+                        <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="first-tab" data-toggle="tab" href="#first"
+                                role="tab" aria-controls="first" aria-selected="true"
+                                style="color: rgb(72, 77, 103);">Additional Information</a>
+                            <a class="nav-item nav-link" id="second-tab" data-toggle="tab" href="#second" role="tab"
+                                aria-controls="second" aria-selected="false"
+                                style="color: rgb(72, 77, 103);">Reviews <span>(9)</span>
+                            </a>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade p-3 w-75 active show" id="first" role="tabpanel"
+                            aria-labelledby="first-tab">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            Commodi, non praesentium corrupti illum, repudiandae adipisci, fuga nesciunt deserunt
+                            ipsam inventore ad fugit beatae necessitatibus maiores mollitia rem officiis tenetur!
+                            Corrupti.
+                            <div class="table-responsive mt-4">
+                                <h4>Branded T-Shirt</h4>
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Available Size</th>
+                                            <td>Large, Medium, Small</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Material</th>
+                                            <td>Silk</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade p-3" id="second" role="tabpanel" aria-labelledby="second-tab">
+                            <div class="row align-items-center justify-content-center">
+                                <div class="col-lg-4 col-12 mx-auto">
+                                    <!-- User Comment -->
+                                    <div class="user-comment py-4 px-3">
+                                        <div class="title mb-3 text-center">
+                                            <h2 class="font-weight-bold mb-2">Add a comment</h2>
+                                        </div>
+                                        <div class="col-12">
+                                            <form>
+                                                <div class="row">
+                                                    <div class="col-12 my-2">
+                                                        <input type="text" class="form-control rounded-0"
+                                                            placeholder="Name">
+                                                    </div>
+                                                    <div class="col-12 my-2">
+                                                        <input type="email" class="form-control rounded-0"
+                                                            placeholder="Email address">
+                                                    </div>
+                                                    <div class="col-12 my-2">
+                                                        <div class="col-text-area d-flex justify-content-center">
+                                                            <textarea class="w-100 p-3 rounded-0"
+                                                                placeholder="Add Comment"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="d-flex justify-content-center mb-4">
+                                                            <div class="p-ratings">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="button-wrapper mx-auto mb-3">
+                                                        <button class="btn-custom px-4">Send</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- User Comment Ends-->
+                                </div>
+                                <!-- people Comments -->
+                                <div class="col-xl-8 col-lg-8 col-12 mb-4">
+                                    <div class="d-flex people-comment">
+                                        <ul class="comment-wrapper">
+                                            <li class="d-flex mb-2 p-4">
+                                                <div class="image mr-3">
+                                                    <a href="#">
+                                                        <img class="img-responsive user-photo"
+                                                            src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h5>Azar Hank</h5>
+                                                    <div class="comment-date mb-2">
+                                                        <p class="m-0 text-uppercase"> 12 March, 2021 AT 10:51 </p>
+                                                    </div>
+                                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed
+                                                        consequuntur repudiandae, ducimus error animi neque
+                                                        recusandae optio tempora non sequi cupiditate ipsum
+                                                        perspiciatis porro maxime praesentium
+                                                        doloribus amet delectus velit.</p>
+                                                    <!-- Comment Reply -->
+                                                    <ul>
+                                                        <li>
+                                                            <div class="comment-reply">
+                                                                <div class="d-flex">
+                                                                    <div class="image mr-3">
+                                                                        <a href="#">
+                                                                            <img class="img-responsive user-photo"
+                                                                                src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="media-body">
+                                                                        <h5>Azar Hank</h5>
+                                                                        <div class="comment-date mb-2">
+                                                                            <p class="m-0 text-uppercase"> 12 March,
+                                                                                2021 AT 10:50 </p>
+                                                                        </div>
+                                                                        <p>Lorem ipsum, dolor sit amet consectetur
+                                                                            adipisicing elit. Sed consequuntur
+                                                                            repudiandae, ducimus error animi neque
+                                                                            recusandae optio tempora non sequi
+                                                                            cupiditate ipsum perspiciatis
+                                                                            porro maxime praesentium doloribus amet
+                                                                            delectus velit.</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    <!-- Comment Reply Ends -->
+                                                    <div class="button">
+                                                        <a href="#"> Reply</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="d-flex mb-2 p-4">
+                                                <div class="image mr-3">
+                                                    <a href="#">
+                                                        <img class="img-responsive user-photo"
+                                                            src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h5>Azar Hank</h5>
+                                                    <div class="comment-date mb-2">
+                                                        <p class="m-0 text-uppercase"> 12 March, 2021 AT 10:51 </p>
+                                                    </div>
+                                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed
+                                                        consequuntur repudiandae, ducimus error animi neque
+                                                        recusandae optio tempora non sequi cupiditate ipsum
+                                                        perspiciatis porro maxime praesentium
+                                                        doloribus amet delectus velit.</p>
+                                                    <!-- Comment Reply -->
+                                                    <ul>
+                                                        <li>
+                                                            <div class="comment-reply">
+                                                                <div class="d-flex">
+                                                                    <div class="image mr-3">
+                                                                        <a href="#">
+                                                                            <img class="img-responsive user-photo"
+                                                                                src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="media-body">
+                                                                        <h5>Azar Hank</h5>
+                                                                        <div class="comment-date mb-2">
+                                                                            <p class="m-0 text-uppercase"> 12 March,
+                                                                                2021 AT 10:50 </p>
+                                                                        </div>
+                                                                        <p>Lorem ipsum, dolor sit amet consectetur
+                                                                            adipisicing elit. Sed consequuntur
+                                                                            repudiandae, ducimus error animi neque
+                                                                            recusandae optio tempora non sequi
+                                                                            cupiditate ipsum perspiciatis
+                                                                            porro maxime praesentium doloribus amet
+                                                                            delectus velit.</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    <!-- Comment Reply Ends -->
+                                                    <div class="button">
+                                                        <a href="#"> Reply</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- people Comments Ends -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <!-- Product Detail Ends -->
     <!-- SHOP GRID WRAPPER -->
     <section class="product-details-area gry-bg">
         <div class="container">
