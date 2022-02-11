@@ -50,7 +50,7 @@
 <link type="image/x-icon" href="{{ asset(\App\GeneralSetting::first()->favicon) }}" rel="shortcut icon" />
 
 <!-- Fonts -->
-{{-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" type="text/css" media="all">
@@ -69,68 +69,32 @@
 <link type="text/css" href="{{ asset('frontend/css/intlTelInput.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 <link type="text/css" href="{{ asset('css/spectrum.css')}}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 
-   <!-- Font Link Ends -->
-   <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}" />
-
-   <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}" />
-   <link rel="stylesheet" href="{{ asset('frontend/assets/css/style2.css') }}" />
-   <!-- Custom Links Ends -->
-   <!-- Countdown start -->
-   <link rel="stylesheet" href="{{ asset('frontend/assets/countdown/css/flipclock.css') }}" />
-   <!-- Countdown end -->
-</head>
 <!-- Global style (main) -->
 <link type="text/css" href="{{ asset('frontend/css/active-shop.css') }}" rel="stylesheet" media="all">
 
 {{-- martin edit css --}}
-{{-- <link type="text/css" href="{{ asset('frontend/css/martinedit.css') }}" rel="stylesheet" media="all"> --}}
+<link type="text/css" href="{{ asset('frontend/css/martinedit.css') }}" rel="stylesheet" media="all">
 
 
 
 
-{{-- 
-<link type="text/css" href="{{ asset('frontend/css/main.css') }}" rel="stylesheet" media="all"> --}}
+
+<link type="text/css" href="{{ asset('frontend/css/main.css') }}" rel="stylesheet" media="all">
 
 {{-- style-new css --}}
-{{-- <link type="text/css" href="{{ asset('frontend/css/style-new.css') }}" rel="stylesheet" media="all"> --}}
+<link type="text/css" href="{{ asset('frontend/css/style-new.css') }}" rel="stylesheet" media="all">
 
 
-{{-- @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
+@if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
      <!-- RTL -->
     <link type="text/css" href="{{ asset('frontend/css/active.rtl.css') }}" rel="stylesheet" media="all">
-@endif --}}
+@endif
 
 <!-- color theme -->
-{{-- <link href="{{ asset('frontend/css/colors/'.\App\GeneralSetting::first()->frontend_color.'.css')}}" rel="stylesheet" media="all"> --}}
+<link href="{{ asset('frontend/css/colors/'.\App\GeneralSetting::first()->frontend_color.'.css')}}" rel="stylesheet" media="all">
 
 <!-- Custom style -->
-{{-- <link type="text/css" href="{{ asset('frontend/css/custom-style.css') }}" rel="stylesheet" media="all"> --}} 
-<link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css') }}" />
-   <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css.map') }}" />
-   <!-- Bootstrap link Ends -->
-   <!-- Font Awesome Link Starts -->
-   <link rel="stylesheet" href="{{ asset('frontend/assets/font-awesome-4.7.0/css/font-awesome.min.css') }}" />
-   <!-- Font Awesome Link Ends -->
-   <!-- Slick Css -->
-   <link rel="stylesheet" href="{{ asset('frontend/assets/slick/slick.css') }}" />
-   <link rel="stylesheet" href="{{ asset('frontend/assets/slick/slick-theme.css') }}" />
-   <!-- Slick Css Ends-->
-   <!-- Custom Links -->
-   <!-- Font Link -->
-   <link rel="preconnect" href="https://fonts.googleapis.com" />
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-   <!-- google font  -->
-   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Readex+Pro:wght@200&display=swap"
-      rel="stylesheet" />
-   <!-- Font Link Ends -->
-   <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}" />
-
-   <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}" />
-   <link rel="stylesheet" href="{{ asset('frontend/assets/css/style2.css') }}" />
-   <!-- Custom Links Ends -->
-   <!-- Countdown start -->
-   <link rel="stylesheet" href="{{ asset('frontend/assets/countdown/css/flipclock.css') }}" />
-
+<link type="text/css" href="{{ asset('frontend/css/custom-style.css') }}" rel="stylesheet" media="all">
 
 <!-- jQuery -->
 <script src="{{ asset('frontend/js/vendor/jquery.min.js') }}"></script>
@@ -216,11 +180,11 @@
 <!-- <a href="#" class="back-to-top btn-back-to-top"></a> -->
 
 <!-- Core -->
-{{-- <script src="{{ asset('frontend/js/vendor/popper.min.js') }}"></script>
-<script src="{{ asset('frontend/js/vendor/bootstrap.min.js') }}"></script> --}}
+<script src="{{ asset('frontend/js/vendor/popper.min.js') }}"></script>
+<script src="{{ asset('frontend/js/vendor/bootstrap.min.js') }}"></script>
 
 <!-- Plugins: Sorted A-Z -->
-{{-- <script src="{{ asset('frontend/js/jquery.countdown.min.js') }}"></script>
+<script src="{{ asset('frontend/js/jquery.countdown.min.js') }}"></script>
 <script src="{{ asset('frontend/js/select2.min.js') }}"></script>
 <script src="{{ asset('frontend/js/nouislider.min.js') }}"></script>
 <script src="{{ asset('frontend/js/sweetalert2.min.js') }}"></script>
@@ -231,40 +195,15 @@
 <script src="{{ asset('frontend/js/xzoom.min.js') }}"></script>
 <script src="{{ asset('frontend/js/fb-script.js') }}"></script>
 <script src="{{ asset('frontend/js/lazysizes.min.js') }}"></script>
-<script src="{{ asset('frontend/js/intlTelInput.min.js') }}"></script> --}}
+<script src="{{ asset('frontend/js/intlTelInput.min.js') }}"></script>
 
 <!-- App JS -->
-{{-- <script src="{{ asset('frontend/js/active-shop.js') }}"></script>
-<script src="{{ asset('frontend/js/main.js') }}"></script> --}}
+<script src="{{ asset('frontend/js/active-shop.js') }}"></script>
+<script src="{{ asset('frontend/js/main.js') }}"></script>
 
 {{-- script-new js --}}
-{{-- <script src="{{ asset('frontend/js/script-new.js') }}"></script> --}}
+<script src="{{ asset('frontend/js/script-new.js') }}"></script>
 
-<!-- NEW SCRIPTS -->
- <!-- 1st Jquery Link Starts-->
- <script src="{{ asset('frontend/assets/jquery-3.5.1/jquery-3.5.1.js') }}"></script>
- <!-- Jquery Link Ends-->
- <!-- Popper -->
- <script src="{{ asset('frontend/assets/popper/popper.min.js') }}"></script>
- <!-- Popper Ends-->
- <!-- 3rd Bootstrap Js Link Starts -->
- <script src="{{ asset('frontend/assets/bootstrap-4.3.1/js/bootstrap.min.js') }}"></script>
- <script src="{{ asset('frontend/assets/bootstrap-4.3.1/js/bootstrap.min.js.map') }}"></script>
- <!-- Bootstrap Js Link Ends -->
- <!-- Slick Js -->
- <script src="{{ asset('frontend/assets/slick/slick.min.js') }}"></script>
- <!-- Slick Js Ends-->
- <!-- Magnific Popup -->
- <script src="{{ asset('frontend/assets/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
- <!-- Magnific Popup Ends-->
- <!-- Countdown start -->
- <script src="{{ asset('frontend/assets/countdown/js/flipclock.js') }}"></script>
- <!-- <script src="frontend/assets/countdown/js/flipclock.min.js"></script> -->
- <!-- Countdown end -->
- <!-- Custom Js Starts -->
- <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
- <script src="{{ asset('frontend/js/main.js') }}"></script>
- <!-- Custom Js Ends -->
 
 
 <script>
