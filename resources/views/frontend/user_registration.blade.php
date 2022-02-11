@@ -11,27 +11,34 @@
                             <h2 class="font-weight-bold my-xl-3 my-md-3 my-4">Register</h2>
                             <div class="form-group position-relative mb-xl-4 mb-md-3 mb-2">
                                 <input type="text" class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none bg-transparent {{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}" id="username" placeholder="Fullname" name="name">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user-o" ></i>
+                                </span>
                                 @if ($errors->has('name'))
+                                <script> $('.input-group-addon').hide(); </script>
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                                 @endif
-                                <i class="fa fa-user-o" aria-hidden="true"></i>
                             </div>
                             @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated)
                                 <div class="form-group position-relative mb-xl-4 mb-md-3 mb-2">
                                     <input type="tel" id="phone-code" class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none bg-transparent{{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ old('phone') }}" placeholder="{{ __('Mobile Number') }}" name="phone">
+                                    <span class="input-group-addon">
                                         <i class="text-md la la-phone"></i>
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('phone') }}</strong>
-                                        </span>
+                                    </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('phone') }}</strong>
+                                    </span>
                                 </div>
 
                                 <input type="hidden" name="country_code" value="">
 
                                 <div class="form-group position-relative mb-xl-4 mb-md-3 mb-2">
                                     <input type="email" class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none bg-transparent {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" id="email" placeholder="Email" name="email">
-                                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-envelope-o" ></i>
+                                    </span>
                                     @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -45,7 +52,9 @@
                             @else
                                 <div class="form-group position-relative mb-xl-4 mb-md-3 mb-2">
                                     <input type="email" class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none bg-transparent {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" id="email" placeholder="Email" name="email">
-                                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-envelope-o" ></i>
+                                    </span>
                                     @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -55,8 +64,11 @@
                             @endif
                             <div class="form-group position-relative mb-xl-4 mb-md-3 mb-2">
                                 <input type="password" class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none bg-transparent {{ $errors->has('password') ? ' is-invalid' : '' }}" id="username" placeholder="Password" name="password">
-                                <i class="fa fa-key" aria-hidden="true"></i>
+                                <span class="input-group-addon">
+                                    <i class="fa fa-key" ></i>
+                                </span>
                                 @if ($errors->has('password'))
+                                <script> $('.input-group-addon').hide(); </script>
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('password') }}</strong>
                                 </span>
@@ -64,7 +76,9 @@
                             </div>
                             <div class="form-group position-relative mb-xl-4 mb-md-3 mb-2">
                                 <input type="password" class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none bg-transparent" id="username" placeholder="Re-type Password" name="password_confirmation">
-                                <i class="fa fa-key" aria-hidden="true"></i>
+                                <span class="input-group-addon">
+                                    <i class="fa fa-key" ></i>
+                                </span>
                             </div>
                             <!-- <div class="row my-2">
                                     <div class="col-md-6">
@@ -94,17 +108,17 @@
                                 <div class="social-media d-flex justify-content-center h-100">
                                     @if (\App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1)
                                     <div class="facebook text-center mr-3">
-                                        <a href="{{ route('social.login', ['provider' => 'facebook']) }}" class="fa fa-facebook" aria-hidden="true"></a>
+                                        <a href="{{ route('social.login', ['provider' => 'facebook']) }}" class="fa fa-facebook" ></a>
                                     </div>
                                     @endif
                                     @if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1)
                                     <div class="twitter text-center mr-3">
-                                        <a href="{{ route('social.login', ['provider' => 'google']) }}" class="fa fa-google" aria-hidden="true"></a>
+                                        <a href="{{ route('social.login', ['provider' => 'google']) }}" class="fa fa-google" ></a>
                                     </div>
                                     @endif
                                     @if (\App\BusinessSetting::where('type', 'twitter_login')->first()->value == 1)
                                     <div class="linkedin text-center mr-3">
-                                        <a href="{{ route('social.login', ['provider' => 'twitter']) }}" class="fa fa-twitter" aria-hidden="true">
+                                        <a href="{{ route('social.login', ['provider' => 'twitter']) }}" class="fa fa-twitter" >
                                     </a>
                                     </div>
                                     @endif
@@ -121,6 +135,7 @@
 @endsection
 
 @section('script')
+
     <script type="text/javascript">
 
         var isPhoneShown = true;

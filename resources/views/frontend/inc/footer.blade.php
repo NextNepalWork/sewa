@@ -1,43 +1,4 @@
 
-{{-- <section class="slice-sm footer-top-bar bg-white">
-    <div class="container sct-inner">
-        <div class="row no-gutters">
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-top-box text-center">
-                    <a href="{{ route('sellerpolicy') }}">
-                        <i class="la la-file-text"></i>
-                        <h4 class="heading-5">{{__('Seller Policy')}}</h4>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-top-box text-center">
-                    <a href="{{ route('returnpolicy') }}">
-                        <i class="la la-mail-reply"></i>
-                        <h4 class="heading-5">{{__('Return Policy')}}</h4>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-top-box text-center">
-                    <a href="{{ route('supportpolicy') }}">
-                        <i class="la la-support"></i>
-                        <h4 class="heading-5">{{__('Support Policy')}}</h4>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-top-box text-center">
-                    <a href="{{ route('profile') }}">
-                        <i class="la la-dashboard"></i>
-                        <h4 class="heading-5">{{__('My Profile')}}</h4>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> --}}
-
 <a href="" class='button_chat'>chat</a>
 <a href="#" class='top_btn'><i class="fa fa-angle-up"></i></a>
 
