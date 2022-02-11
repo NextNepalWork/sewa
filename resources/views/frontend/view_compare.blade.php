@@ -19,24 +19,27 @@
             </div>
         </div>
     </div> --}}
+    <!-- Breadcrumbs -->
     <section id="breadcrumb-wrapper" class="position-relative">
         <div class="image">
-           <img src="frontend/assets/images/banner/1.jpg" alt="breadcrumb-image" class="img-fluid">
+            <img src="{{asset('frontend/assets/images/banner/1.jpg')}}" alt="breadcrumb-image" class="img-fluid">
         </div>
         <div class="overlay position-absolute">
-           <div class="title p-lg-4 p-md-3 p-3">
-              <ol class="breadcrumb p-0 bg-transparent p-0 m-0">
-                 <li class="breadcrumb-item">
-                    <a href="{{ route('home') }}">Home</a>
-                 </li>
-                 <li class="breadcrumb-item">
-                    <a href="{{ route('compare') }}">Compare</a>
-                 </li>
-              </ol>
-           </div>
+            <div class="title p-4">
+                <!-- <a class="mr-3" href="index.html">Home</a>
+                                                                            <a class="mr-3" href="product-details.html">Product Detail</a> -->
+                <ol class="breadcrumb p-0 bg-transparent p-0 m-0">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('home') }}">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('home') }}">Compare</a>
+                    </li>
+                </ol>
+            </div>
         </div>
     </section>
-
+    <!-- Breadcrumbs Ends -->
     {{-- <section class="gry-bg py-4" id="compare_page">
         <div class="container">
             <div class="row">
@@ -99,7 +102,7 @@
                                             <tr>
                                                 <th scope="row">{{__('Description')}}</th>
                                                 @foreach (Session::get('compare') as $key => $item)
-                                                    <td><?php echo \App\Product::find($item)->description; ?></td>
+                                                    <td>@php echo \App\Product::find($item)->description; @endphp</td>
                                                 @endforeach
                                             </tr>
                                             <tr>
