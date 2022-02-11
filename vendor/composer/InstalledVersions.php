@@ -25,12 +25,12 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => 'dev-main',
-    'version' => 'dev-main',
+    'pretty_version' => 'dev-master',
+    'version' => 'dev-master',
     'aliases' => 
     array (
     ),
-    'reference' => '680090b9084c1218b7a4d39f528d329d234d3f02',
+    'reference' => '192b02066113014185b4a3ae5dc60488a409b0de',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -506,12 +506,12 @@ private static $installed = array (
     ),
     'laravel/laravel' => 
     array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
       'aliases' => 
       array (
       ),
-      'reference' => '680090b9084c1218b7a4d39f528d329d234d3f02',
+      'reference' => '192b02066113014185b4a3ae5dc60488a409b0de',
     ),
     'laravel/passport' => 
     array (
@@ -1057,8 +1057,8 @@ private static $installed = array (
     array (
       'provided' => 
       array (
-        0 => '1.0|2.0',
-        1 => '1.0.0',
+        0 => '1.0.0',
+        1 => '1.0|2.0',
       ),
     ),
     'psr/simple-cache' => 
@@ -1543,12 +1543,12 @@ private static $installed = array (
     ),
     'twilio/sdk' => 
     array (
-      'pretty_version' => '6.33.1',
-      'version' => '6.33.1.0',
+      'pretty_version' => '6.34.0',
+      'version' => '6.34.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '569441b5e63e41d8fea3907298718eb569c980b0',
+      'reference' => '336cc54d70a6e05f397ee25777d79482a4574efd',
     ),
     'vlucas/phpdotenv' => 
     array (
