@@ -123,6 +123,8 @@
    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Readex+Pro:wght@200&display=swap"
       rel="stylesheet" />
    <!-- Font Link Ends -->
+   <link rel="stylesheet" href="https://k1ngzed.com/dist/swiper/swiper.min.css" />
+   <link rel="stylesheet" href="https://k1ngzed.com/dist/EasyZoom/easyzoom.css" />
    <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}" />
 
    <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}" />
@@ -257,12 +259,16 @@
  <!-- Magnific Popup -->
  <script src="{{ asset('frontend/assets/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
  <!-- Magnific Popup Ends-->
+ <script src="https://k1ngzed.com/dist/swiper/swiper.min.js"></script>
+ <script src="https://k1ngzed.com/dist/EasyZoom/easyzoom.js"></script>
  <!-- Countdown start -->
  <script src="{{ asset('frontend/assets/countdown/js/flipclock.js') }}"></script>
  <!-- <script src="frontend/assets/countdown/js/flipclock.min.js"></script> -->
  <!-- Countdown end -->
  <!-- Custom Js Starts -->
  <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+ <script src="{{asset('frontend/assets/js/secondary.js')}}"></script>
+
  <script src="{{ asset('frontend/js/main.js') }}"></script>
  <script src="{{ asset('frontend/js/select2.min.js') }}"></script>
 <script src="{{ asset('frontend/js/nouislider.min.js') }}"></script>
