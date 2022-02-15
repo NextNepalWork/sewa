@@ -74,7 +74,6 @@ class OrderController extends Controller
      */
     public function admin_orders(Request $request)
     {
-        CoreComponentRepository::instantiateShopRepository();
 
         $payment_status = null;
         $delivery_status = null;
@@ -110,7 +109,6 @@ class OrderController extends Controller
      */
     public function sales(Request $request)
     {
-        CoreComponentRepository::instantiateShopRepository();
 
         $sort_search = null;
         $orders = Order::orderBy('code', 'desc');
