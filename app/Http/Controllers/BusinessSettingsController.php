@@ -7,43 +7,43 @@ use App\Currency;
 use App\BusinessSetting;
 use App\Category;
 use Artisan;
-use CoreComponentRepository;
+
 
 class BusinessSettingsController extends Controller
 {
     public function activation(Request $request)
     {
-        CoreComponentRepository::instantiateShopRepository();
+       
     	return view('business_settings.activation');
     }
 
     public function social_login(Request $request)
     {
-        CoreComponentRepository::instantiateShopRepository();
+       
         return view('business_settings.social_login');
     }
 
     public function smtp_settings(Request $request)
     {
-        CoreComponentRepository::instantiateShopRepository();
+       
         return view('business_settings.smtp_settings');
     }
 
     public function google_analytics(Request $request)
     {
-        CoreComponentRepository::instantiateShopRepository();
+       
         return view('business_settings.google_analytics');
     }
 
     public function facebook_chat(Request $request)
     {
-        CoreComponentRepository::instantiateShopRepository();
+       
         return view('business_settings.facebook_chat');
     }
 
     public function payment_method(Request $request)
     {
-        CoreComponentRepository::instantiateShopRepository();
+       
         return view('business_settings.payment_method');
     }
 
