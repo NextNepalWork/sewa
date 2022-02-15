@@ -4,7 +4,7 @@
 /.idea
 /.vscode
 /.vagrant
-/.vendor
+/vendor
 /public/uploads
 Homestead.json
 Homestead.yaml
