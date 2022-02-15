@@ -2,164 +2,119 @@
 
 @section('content')
 
-    <section class="gry-bg py-4 profile">
+    <!-- Profile -->
+    <section id="profile-wrapper" class="py-3">
         <div class="container">
-            <div class="row cols-xs-space cols-sm-space cols-md-space">
-                <div class="col-lg-3 d-none d-lg-block">
+           <div class="row py-xl-5 py-md-3 py-0">
+              <div class="col-xl-3 col-lg-4 col-12 mb-xl-0 mb-lg-0 mb-3">
+                 <div class="dashboard-list py-lg-5 px-lg-3">
                     @if(Auth::user()->user_type == 'seller')
                         @include('frontend.inc.seller_side_nav')
                     @elseif(Auth::user()->user_type == 'customer')
                         @include('frontend.inc.customer_side_nav')
                     @endif
-                </div>
-
-                <div class="col-lg-9">
-                    <div class="main-content">
-                        <!-- Page title -->
-                        <div class="page-title">
-                            <div class="row align-items-center">
-                                <div class="col-md-6 col-12">
-                                    <h2 class="heading heading-6 text-capitalize strong-600 mb-0">
-                                        {{__('Manage Profile')}}
-                                    </h2>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="float-md-right">
-                                        <ul class="breadcrumb">
-                                            <li><a href="{{ route('home') }}">{{__('Home')}}</a></li>
-                                            <li><a href="{{ route('dashboard') }}">{{__('Dashboard')}}</a></li>
-                                            <li class="active"><a href="{{ route('profile') }}">{{__('Manage Profile')}}</a></li>
-                                        </ul>
+                 </div>
+  
+              </div>
+              <div class="col-xl-9 col-lg-8 col-md-12 col-12 ">
+                <form  action="{{ route('customer.profile.update') }}" method="POST" enctype="multipart/form-data"></form>
+                 <div class="profile-side-detail-edit">
+                    <div class="dashboard-content d-flex align-items-center h-100">
+                       <div class="submit-section">
+                          <h4 class="font-weight-bold mb-3">Account</h4>
+                          <div class="form-row">
+                             <div class="form-group col-md-6 mb-4"><label>Your Name</label>
+                                <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}" placeholder="{{__('Your Name')}}">
+                             </div>
+                             <div class="form-group col-md-6 mb-4">
+                                <label>Email</label>
+                                <input type="email" class="form-control" placeholder="{{__('Your Email')}}" name="email" value="{{ Auth::user()->email }}" disabled>
+                             </div>
+                             <div class="form-group col-md-6 mb-4">
+                                <label>Choose Image</label>
+                                <input type="file" class="form-control" name="photo" id="file-3" class="custom-input-file custom-input-file--4" data-multiple-caption="{count} files selected" accept="image/*" />
+                             </div>
+                             <div class="form-group col-md-6 mb-4">
+                                <label> Password</label>
+                                <input type="password" class="form-control mb-3" placeholder="{{__('New Password')}}" name="new_password">
+                             </div>
+                             <div class="form-group col-md-6 mb-4">
+                                <label>Confirm Password</label>
+                                <input type="password" class="form-control mb-3" placeholder="{{__('Confirm Password')}}" name="confirm_password">
+                             </div>
+                             <div class="form-group col-12 mx-auto text-center">
+                                <button type="submit" class="btn-custom rounded-0 px-5 text-left d-block">Save</button>
+                             </div>
+  
+                          </div>
+                       </div>
+                    </div>         
+                 </div>
+                 <div class="form-box bg-white mt-4">
+                    <div class="form-box-title px-3 py-2">
+                        {{__('Addresses')}}
+                    </div>
+                    <div class="form-box-content p-3">
+                        <div class="row gutters-10">
+                            @foreach (Auth::user()->addresses as $key => $address)
+                                <div class="col-lg-6">
+                                    <div class="border p-3 pr-5 rounded mb-3 position-relative">
+                                        <div class='mb-2'>
+                                            <span class="alpha-6">Address:</span>
+                                            <span class="strong-600 ml-2">{{ $address->address }}</span>
+                                        </div>
+                                        <div class='mb-2'>
+                                            <span class="alpha-6">Postal Code:</span>
+                                            <span class="strong-600 ml-2">{{ $address->postal_code }}</span>
+                                        </div>
+                                        <div class='mb-2'>
+                                            <span class="alpha-6">City:</span>
+                                            <span class="strong-600 ml-2">{{ $address->city }}</span>
+                                        </div>
+                                        <div class='mb-2'>
+                                            <span class="alpha-6">Country:</span>
+                                            <span class="strong-600 ml-2">{{ $address->country }}</span>
+                                        </div>
+                                        <div class='mb-2'>
+                                            <span class="alpha-6">Phone:</span>
+                                            <span class="strong-600 ml-2">{{ $address->phone }}</span>
+                                        </div>
+                                        @if ($address->set_default)
+                                            <div class="position-absolute right-0 bottom-0 pr-2 pb-3">
+                                                <span class="badge badge-primary bg-base-1">Default</span>
+                                            </div>
+                                        @endif
+                                        <div class="dropdown position-absolute right-0 top-0">
+                                            <button class="btn bg-gray px-2" type="button" data-toggle="dropdown">
+                                                <i class="la la-ellipsis-v"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                                @if (!$address->set_default)
+                                                    <a class="dropdown-item" href="{{ route('addresses.set_default', $address->id) }}">Make This Default</a>
+                                                @endif
+                                                {{-- <a class="dropdown-item" href="">Edit</a> --}}
+                                                <a class="dropdown-item" href="{{ route('addresses.destroy', $address->id) }}">Delete</a>
+                                            </div>
+                                        </div>
                                     </div>
+                                </div>
+                            @endforeach
+                            <div class="col-lg-6 mx-auto" onclick="add_new_address()">
+                                <div class="border p-3 rounded mb-3 c-pointer text-center bg-light">
+                                    <i class="la la-plus la-2x"></i>
+                                    <div class="alpha-7">Add New Address</div>
                                 </div>
                             </div>
                         </div>
-                        <form class="" action="{{ route('customer.profile.update') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="form-box bg-white mt-4">
-                                <div class="form-box-title px-3 py-2">
-                                    {{__('Basic info')}}
-                                </div>
-                                <div class="form-box-content p-3">
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <label>{{__('Your Name')}}</label>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control mb-3" placeholder="{{__('Your Name')}}" name="name" value="{{ Auth::user()->name }}">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <label>{{__('Your Email')}}</label>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <input type="email" class="form-control mb-3" placeholder="{{__('Your Email')}}" name="email" value="{{ Auth::user()->email }}" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <label>{{__('Photo')}}</label>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <input type="file" name="photo" id="file-3" class="custom-input-file custom-input-file--4" data-multiple-caption="{count} files selected" accept="image/*" />
-                                            <label for="file-3" class="mw-100 mb-3">
-                                                <span></span>
-                                                <strong>
-                                                    <i class="fa fa-upload"></i>
-                                                    {{__('Choose image')}}
-                                                </strong>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <label>{{__('Your Password')}}</label>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <input type="password" class="form-control mb-3" placeholder="{{__('New Password')}}" name="new_password">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <label>{{__('Confirm Password')}}</label>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <input type="password" class="form-control mb-3" placeholder="{{__('Confirm Password')}}" name="confirm_password">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="text-right mt-4">
-                                <button type="submit" class="btn btn-styled btn-base-1">{{__('Update Profile')}}</button>
-                            </div>
-
-                            <div class="form-box bg-white mt-4">
-                                <div class="form-box-title px-3 py-2">
-                                    {{__('Addresses')}}
-                                </div>
-                                <div class="form-box-content p-3">
-                                    <div class="row gutters-10">
-                                        @foreach (Auth::user()->addresses as $key => $address)
-                                            <div class="col-lg-6">
-                                                <div class="border p-3 pr-5 rounded mb-3 position-relative">
-                                                    <div class='mb-2'>
-                                                        <span class="alpha-6">Address:</span>
-                                                        <span class="strong-600 ml-2">{{ $address->address }}</span>
-                                                    </div>
-                                                    <div class='mb-2'>
-                                                        <span class="alpha-6">Postal Code:</span>
-                                                        <span class="strong-600 ml-2">{{ $address->postal_code }}</span>
-                                                    </div>
-                                                    <div class='mb-2'>
-                                                        <span class="alpha-6">City:</span>
-                                                        <span class="strong-600 ml-2">{{ $address->city }}</span>
-                                                    </div>
-                                                    <div class='mb-2'>
-                                                        <span class="alpha-6">Country:</span>
-                                                        <span class="strong-600 ml-2">{{ $address->country }}</span>
-                                                    </div>
-                                                    <div class='mb-2'>
-                                                        <span class="alpha-6">Phone:</span>
-                                                        <span class="strong-600 ml-2">{{ $address->phone }}</span>
-                                                    </div>
-                                                    @if ($address->set_default)
-                                                        <div class="position-absolute right-0 bottom-0 pr-2 pb-3">
-                                                            <span class="badge badge-primary bg-base-1">Default</span>
-                                                        </div>
-                                                    @endif
-                                                    <div class="dropdown position-absolute right-0 top-0">
-                                                        <button class="btn bg-gray px-2" type="button" data-toggle="dropdown">
-                                                            <i class="la la-ellipsis-v"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                                            @if (!$address->set_default)
-                                                                <a class="dropdown-item" href="{{ route('addresses.set_default', $address->id) }}">Make This Default</a>
-                                                            @endif
-                                                            {{-- <a class="dropdown-item" href="">Edit</a> --}}
-                                                            <a class="dropdown-item" href="{{ route('addresses.destroy', $address->id) }}">Delete</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                        <div class="col-lg-6 mx-auto" onclick="add_new_address()">
-                                            <div class="border p-3 rounded mb-3 c-pointer text-center bg-light">
-                                                <i class="la la-plus la-2x"></i>
-                                                <div class="alpha-7">Add New Address</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </form>
                     </div>
                 </div>
-            </div>
+                </form>
+              </div>
+           </div>
         </div>
-    </section>
+        </div>
+     </section>
+     <!-- Profile Ends -->
 
     <div class="modal fade" id="new-address-modal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-zoom" role="document">

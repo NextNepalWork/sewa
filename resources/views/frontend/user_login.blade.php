@@ -1,6 +1,16 @@
 @extends('frontend.layouts.app')
-​
 @section('content')
+
+ <!-- Login Register -->
+ <section id="login-register-wrapper" class="py-5">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-4 col-md-7 mx-auto form-wrapper">
+                <form class="px-3 py-4" action="{{ route('login') }}" method="POST">
+                    @csrf
+                    @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated)
+                    <span>{{ __('Use country code before number') }}</span>
+
 <!-- Login Register -->
 <section id="login-register-wrapper" class="py-5">
     <div class="container">
@@ -10,11 +20,37 @@
                     @csrf
                     @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated)
                         <span>{{ __('Use country code before number') }}</span>
+
                     @endif
                     <div class="text-center">
                         <h2 class="font-weight-bold title my-xl-3 my-md-3 my-4">Login</h2>
                         <div class="form-group position-relative mb-xl-4 mb-md-3 mb-2">
                             @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated)
+
+                            <input type="email"
+                                class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none bg-transparent {{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                id="username" value="{{ old('email') }}" placeholder="Email" name="email">
+
+                            <i class="fa fa-user-o" aria-hidden="true"></i>
+                            @else
+                            <input type="email"
+                                class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none bg-transparent {{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                id="username" value="{{ old('email') }}" placeholder="Email" name="email">
+                            @endif
+                        </div>
+                        <div class="form-group position-relative mb-xl-4 mb-md-3 mb-2">
+                            <input type="password" class="form-control border-top-0 border-right-0 border-left-0 rounded-0
+                                    shadow-none bg-transparent {{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" id="password" placeholder="Type Password">
+                            <i class="fa fa-key" aria-hidden="true"></i>
+                        </div>
+                        <div class="row my-2">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }} >
+                                    <label class="form-check-label custom-font-size" for="defaultCheck1">
+                                        Remember me
+                                    </label>
+
                                 <input type="text" class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none bg-transparent {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{__('Email Or Phone')}}" name="email" id="email">
                             @else
                                 <input type="email" class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none bg-transparent {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{ __('Email') }}" name="email">
@@ -126,7 +162,7 @@
                                                 </span>
                                             </div>
                                         </div>
-​
+
                                         <div class="form-group">
                                             <div class="input-group input-group--style-1">
                                                 <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{__('Password')}}" name="password" id="password">
@@ -135,7 +171,7 @@
                                                 </span>
                                             </div>
                                         </div>
-​
+
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
@@ -151,8 +187,7 @@
                                                 <a href="{{ route('password.request') }}" class="link link-xs link--style-3">{{__('Forgot password?')}}</a>
                                             </div>
                                         </div>
-​
-​
+
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-styled btn-base-1 btn-md w-100">{{ __('Login') }}</button>
                                         </div>
@@ -179,39 +214,48 @@
                                         @endif
                                         </div>
                                     @endif
+
                                 </div>
                             </div>
-                            <div class="text-center px-35 pb-3">
-                                <p class="text-md">
-                                    {{__('Need an account?')}} <a href="{{ route('user.registration') }}" class="strong-600">{{__('Register Now')}}</a>
-                                </p>
+                            <div class="col-md-6 text-xl-right text-lg-right text-center mt-xl-0 mt-lg-0 mt-2">
+                                <a href="{{ route('password.request') }}">Forgot Password?</a>
+                            </div>
+                        </div>
+                        <button class="btn-custom text-uppercase text-white py-2" type="submit">
+                        Login
+                        </button>
+                        <p class="text-center mt-4 custom-font-size">
+                            Don't have an account?
+                            <span>
+                                <a href="{{ route('user.registration') }}">Register</a>
+                            </span>
+                        </p>
+                        <div class="row mb-4 px-3 justify-content-center align-items-center">
+                            <h6 class="mb-xl-0 mb-md-2 mb-2 mr-2 custom-font-size">Sign in with</h6>
+                            <div class="social-media d-flex justify-content-center h-100">
+                                <div class="facebook text-center mr-3">
+                                    <a class="fa fa-facebook" aria-hidden="true"></a>
+                                </div>
+                                <div class="twitter text-center mr-3">
+                                    <a class="fa fa-twitter" aria-hidden="true"></a>
+                                </div>
+                                <div class="linkedin text-center mr-3">
+                                    <a class="fa fa-linkedin" aria-hidden="true"></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    @if (env("DEMO_MODE") == "On")
-                        <div class="bg-white p-4 mx-auto mt-4">
-                            <div class="">
-                                <table class="table table-responsive table-bordered mb-0">
-                                    <tbody>
-                                        <tr>
-                                            <td>{{__('Seller Account')}}</td>
-                                            <td><button class="btn btn-info" onclick="autoFillSeller()">Copy credentials</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{__('Customer Account')}}</td>
-                                            <td><button class="btn btn-info" onclick="autoFillCustomer()">Copy credentials</button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    @endif
-                </div>
+                </form>
             </div>
         </div>
+
+    </div>
+</section>
+<!-- Login Register Ends -->
+
     </section> --}}
+
 @endsection
-​
 @section('script')
     <script type="text/javascript">
         function autoFillSeller(){

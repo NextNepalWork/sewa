@@ -239,58 +239,37 @@
                      @endif
                         </a>
                    <!-- cart dropdown start  -->
+                  
                    <div class="dropdown-menu" id="cart_header_table" aria-labelledby="dropdownMenuButton">
-                      <h6 class="text-center font-weight-bold pt-1">Cart Items</h6>
+                     @if(Session::has('cart'))
+                     @if(count($cart = Session::get('cart')) > 0)
+                     <h6 class="text-center font-weight-bold pt-1">Cart Items</h6>
+                      
                       <div class="table-responsive">
                          <table class="table mb-0">
-
                             <tbody>
+                              @php
+                              $total = 0;
+                          @endphp
+                          @foreach($cart as $key => $cartItem)
+                              @php
+                                  $product = \App\Product::find($cartItem['id']);
+                                  $total = $total + $cartItem['price']*$cartItem['quantity'];
+                              @endphp
                                <tr>
-
                                   <td class="img_header_cart">
                                      <div>
                                         <a href=""><img
-                                              src="http://127.0.0.1:8000/uploads/products/thumbnail/awQYj0DwQtoWwENvsPuEeWNoHTzOqOZIihRxRj2u.jpeg"
-                                              alt=""></a>
+                                              src="{{ asset(json_decode($product->photos)[0]) }}"
+                                              alt="{{ __($product->name) }}"></a>
                                      </div>
                                   </td>
-                                  <td class="cart_header_title"> <a href="" class="text-dark">Electric Keema Machine
-                                        Keema Maker</a> </td>
-                                  <td> <a href="" class="header_cart_icon">
-                                        <ii class="fa fa-trash-o" aria-hidden="true"></i>
+                                  <td class="cart_header_title"> <a href="" class="text-dark">{{ __($product->name) }}</a> </td>
+                                  <td> <a onclick="removeFromCart({{ $key }})" class="header_cart_icon">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
                                      </a> </td>
                                </tr>
-                               <tr>
-
-                                  <td class="img_header_cart">
-                                     <div>
-                                        <a href=""><img
-                                              src="http://127.0.0.1:8000/uploads/products/thumbnail/awQYj0DwQtoWwENvsPuEeWNoHTzOqOZIihRxRj2u.jpeg"
-                                              alt=""></a>
-                                     </div>
-                                  </td>
-                                  <td class="cart_header_title"> <a href="" class="text-dark">Electric Keema </a>
-                                  </td>
-                                  <td> <a href="" class="header_cart_icon">
-                                        <ii class="fa fa-trash-o" aria-hidden="true"></i>
-                                     </a> </td>
-                               </tr>
-                               <tr>
-
-                                  <td class="img_header_cart">
-                                     <div>
-                                        <a href=""><img
-                                              src="http://127.0.0.1:8000/uploads/products/thumbnail/awQYj0DwQtoWwENvsPuEeWNoHTzOqOZIihRxRj2u.jpeg"
-                                              alt=""></a>
-                                     </div>
-                                  </td>
-                                  <td class="cart_header_title"> <a href="" class="text-dark">Electric Keema Machine
-                                        Keema Maker</a> </td>
-                                  <td> <a href="" class="header_cart_icon">
-                                        <ii class="fa fa-trash-o" aria-hidden="true"></i>
-                                     </a> </td>
-                               </tr>
-
+                               @endforeach
                             </tbody>
                          </table>
                       </div>
@@ -300,7 +279,7 @@
                             <h6>Subtotal</h6>
                          </div>
                          <div>
-                            <h6>Rs4,300.00</h6>
+                            <h6>{{ single_price($total) }}</h6>
                          </div>
                       </div>
 
@@ -311,17 +290,29 @@
                              align-items-center
                              w-100 pt-2 
                            ">
-                         <a href="cart.html" class="btn-custom rounded-0 py-2">
+                         <a href="{{ route('cart') }}" class="btn-custom rounded-0 py-2">
                             <img src="./frontend/assets/images/logo/cart.svg" class="img-fluid" alt="">&nbsp; View
                             Cart</a>
-                         <a href="checkout.html" class="btn-custom rounded-0 py-2"> <img
+                            @if (Auth::check())
+                         <a href="{{ route('checkout.shipping_info') }}" class="btn-custom rounded-0 py-2"> <img
                                src="./frontend/assets/images/logo/cart.svg" class="img-fluid" alt="">&nbsp; Proceed
                             Checkout</a>
+                            @endif
                       </div>
 
 
                    </div>
-
+                   @else
+                   <span>Your cart is empty</span>
+               
+                   @endif
+                
+                  @else 
+                  <div class="justify-content-center">
+                     <span>Your cart is empty</span>
+                  </div>
+                  
+               @endif
                    <!-- cart dropdown end  -->
                 </li>
              </ul>

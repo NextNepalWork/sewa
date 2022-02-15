@@ -270,6 +270,16 @@
  <script src="{{asset('frontend/assets/js/secondary.js')}}"></script>
 
  <script src="{{ asset('frontend/js/main.js') }}"></script>
+ <script src="{{ asset('frontend/js/select2.min.js') }}"></script>
+<script src="{{ asset('frontend/js/nouislider.min.js') }}"></script>
+<script src="{{ asset('frontend/js/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('frontend/js/jssocials.min.js') }}"></script>
+<script src="{{ asset('frontend/js/bootstrap-tagsinput.min.js') }}"></script>
+<script src="{{ asset('frontend/js/jodit.min.js') }}"></script>
+<script src="{{ asset('frontend/js/xzoom.min.js') }}"></script>
+<script src="{{ asset('frontend/js/fb-script.js') }}"></script>
+<script src="{{ asset('frontend/js/lazysizes.min.js') }}"></script>
+<script src="{{ asset('frontend/js/intlTelInput.min.js') }}"></script>
  <!-- Custom Js Ends -->
 
 

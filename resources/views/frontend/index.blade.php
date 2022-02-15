@@ -17,14 +17,15 @@
                 @php
                     $brands = array();
                 @endphp
-                <li class="px-3 product_icon position-relative d-block">
+                <li class="px-3 product_icon position-relative d-block" data-id="{{ $category->id }}">
                    <div style="
                          display: flex;
                          justify-content: space-between;
                          ">
                       <div>
-                         <a href="{{ route('products.category', $category->slug) }}" class="sub_icon"><span class="pr-2 category_icon_img"><img
-                                  src="https://electro.madrasthemes.com/wp-content/uploads/2016/03/Ultrabooks-300x300.png"
+                         <a href="{{ route('products.category', $category->slug) }}" class="sub_icon"><span class="pr-2 category_icon_img">
+                             <img
+                                  src="{{ $category->icon }}"
                                   class="img-fluid" alt=""></span>
                                   {{ __($category->name) }}
                             </a>
@@ -34,13 +35,16 @@
                       </div>
                    </div>
                    <ul class="sub_menu_list">
-                      <li>
-
-                         <a href="product-listing.html">
-                            <span><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                            {{ __($category->subcategory) }}</a>
-                      </li>
-                      
+                    @if(count($category->subcategories)>0)
+                    @foreach ($category->subcategories as $sub)
+                    <li>
+                        <a href="{{ route('products.subcategory', $category->slug) }}">
+                            <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                            {{$sub->name}}
+                        </a>
+                    </li>
+                    @endforeach                                        
+                    @endif
                    </ul>
                 </li>
                 @endforeach
@@ -85,7 +89,7 @@
      <!--============================================================ CATEGORY END ====-->
                
 
-    @php
+    {{-- @php
         $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
         
        
@@ -170,7 +174,7 @@
             </div>
         </div>
     </section>
-    @endif
+    @endif --}}
 
     {{-- <div class="mb-4">
         <div class="container">
@@ -205,14 +209,23 @@
     </div> --}}
 
        <!--=========================================== BEST SELLING START ======-->
-  
+       @php
+       $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();   
+        @endphp
+    @if($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date)
    <section id="product-listing-wrapper" class=" product_listing padding_defauld">
     <div class="container">
        <div class="product-lists">
           <div class="row">
 
              <div class="col-xl-12">
+
                 <div class="row">
+                    @foreach ($flash_deal->flash_deal_products as $key => $flash_deal_product)
+                            @php
+                                $product = \App\Product::find($flash_deal_product->product_id);
+                            @endphp
+                            @if ($product != null && $product->published != 0)
                    <div class="col-xl-3 col-md-4 ">
                       <div class="flash_men my-4 my-md-0">
                          <div class="special_offer_men p-4 text-center">
@@ -224,20 +237,26 @@
                                   <span class="savings-text">
                                      <span class="font-weight-normal"> Save</span> <span
                                         class="woocommerce-Price-amount amount font-weight-bold"><bdi><span
-                                              class="woocommerce-Price-currencySymbol">$</span>20.00</bdi></span>
+                                              class="woocommerce-Price-currencySymbol"></span>{{ $product->discout }}</bdi></span>
                                   </span>
                                </div>
                             </div>
                             <div class="special_left">
-                               <a href="">
-                                  <img
-                                     src="https://electro.madrasthemes.com/wp-content/uploads/2016/03/consal-300x300.png"
-                                     class="img-fluid" alt="">
-                                  <h6>Game Console Controller + USB 3.0 Cable</h6>
+                               <a href="{{ route('product', $product->slug) }}">
+                                @if (!empty($product->featured_img))
+                                <img class="img-fit lazyload" src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                            @else
+                                <img class="img-fit lazyload" src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+
+                            @endif
+                                  <h6>{{ __($product->name) }}</h6>
                                </a>
                             </div>
                             <div class="special_price_le py-2">
-                               <h4> <span class="red_text">Rs79.00</span> <small><strike>Rs999</strike></small> </h4>
+                                @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
+                            @endif
+                            <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
                             </div>
                             <div class="special_countdown">
                                <div class="content_left">
@@ -253,10 +272,10 @@
                                </div>
                             </div>
                          </div>
-                       
-
                       </div>
                    </div>
+                   @endif
+                   @endforeach
                    <div class="col-xl-9 col-md-8">
                       <div class="row">
                          <div class="col-md-12">
@@ -304,8 +323,8 @@
                                            @endif
                                         </div>
                                         <a class="all-deals ico effect" href="" data-toggle="tooltip"
-                                           data-placement="right" title="Add to Cart"><i
-                                              class="fa fa-shopping-cart icon"></i> </a>
+                                           data-placement="right"  title="Add to Cart"><i
+                                              class="fa fa-shopping-cart icon"><button onclick="showAddToCartModal({{ $product->id }})"></button></i> </a>
                                      </div>
                                      <div class="cart-compare">
                                         <a class="all-deals effect gray" href="wishlist.html"><i
@@ -325,7 +344,8 @@
           </div>
        </div>
     </div>
- </section>
+    </section>
+    @endif
  <!--============================================= BEST SELLING END ======-->
  <section id="product-listing-wrapper" class=" product_listing">
     <div class="container">
