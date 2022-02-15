@@ -3,8 +3,8 @@
 /.env
 /.idea
 /.vscode
-/.vagrant
 /vendor
+/.vagrant
 /public/uploads
 Homestead.json
 Homestead.yaml
