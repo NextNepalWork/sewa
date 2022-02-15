@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Attribute;
-use CoreComponentRepository;
+
 
 class AttributeController extends Controller
 {
@@ -15,7 +15,7 @@ class AttributeController extends Controller
      */
     public function index()
     {
-        CoreComponentRepository::instantiateShopRepository();
+        
         $attributes = Attribute::all();
         return view('attribute.index', compact('attributes'));
     }

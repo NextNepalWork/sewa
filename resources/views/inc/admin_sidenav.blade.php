@@ -474,7 +474,7 @@
                         </li>
                         @endif
 
-                        @if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null)
+                        {{-- @if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null)
                             <li>
                                 <a href="#">
                                     <i class="fa fa-link"></i>
@@ -498,7 +498,7 @@
                                     </li>
                                 </ul>
                             </li>
-                        @endif
+                        @endif --}}
 
                         @if (\App\Addon::where('unique_identifier', 'offline_payment')->first() != null)
                             <li>
@@ -624,12 +624,12 @@
                         </li>
                       @endif
 
-                            <li>
+                            {{-- <li>
                                 <a href="#">
                                     <i class="fa fa-btc"></i>
                                     <span class="menu-title">{{__('Delivery Boy')}}</span>
                                     <i class="arrow"></i>
-                                </a>
+                                </a> --}}
 
                                 <!--Submenu-->
                                 <ul class="collapse">
