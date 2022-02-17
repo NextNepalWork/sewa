@@ -13,11 +13,11 @@
                 aria-hidden="true"></i></span>Profile</a>
     </li>
     <li class="mb-3 p-2">
-       <a href="order-status.html"><span class="mr-2"><i class="fa fa-sort"
+       <a href="{{ route('order.status') }}"><span class="mr-2"><i class="fa fa-sort"
                 aria-hidden="true"></i></span>Order Status</a>
     </li>
     <li class="mb-3 p-2">
-       <a href="dashboard-cart.html"><span class="mr-2"><i class="fa fa-shopping-bag"
+       <a href="/cart"><span class="mr-2"><i class="fa fa-shopping-bag"
                 aria-hidden="true"></i></span>My Cart</a>
     </li>
     <li class="mb-3 p-2">
@@ -29,7 +29,7 @@
                 aria-hidden="true"></i></span>Change Password</a>
     </li>
     <li class="mb-3 p-2 ">
-       <a href="login.html"><span class="mr-2"><i class="fa fa-sign-out"
+       <a href="{{ route('logout') }}"><span class="mr-2"><i class="fa fa-sign-out"
                 aria-hidden="true"></i></span>Logout</a>
     </li>
  </ul>

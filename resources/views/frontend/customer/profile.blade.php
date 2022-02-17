@@ -30,10 +30,7 @@
                                 <label>Email</label>
                                 <input type="email" class="form-control" placeholder="{{__('Your Email')}}" name="email" value="{{ Auth::user()->email }}" disabled>
                              </div>
-                             <div class="form-group col-md-6 mb-4">
-                                <label>Choose Image</label>
-                                <input type="file" class="form-control" name="photo" id="file-3" class="custom-input-file custom-input-file--4" data-multiple-caption="{count} files selected" accept="image/*" />
-                             </div>
+                            
                              <div class="form-group col-md-6 mb-4">
                                 <label> Password</label>
                                 <input type="password" class="form-control mb-3" placeholder="{{__('New Password')}}" name="new_password">
@@ -41,6 +38,10 @@
                              <div class="form-group col-md-6 mb-4">
                                 <label>Confirm Password</label>
                                 <input type="password" class="form-control mb-3" placeholder="{{__('Confirm Password')}}" name="confirm_password">
+                             </div>
+                             <div class="form-group col-md-6 mb-4">
+                                <label>Choose Image</label>
+                                <input type="file" class="form-control" name="photo" id="file-3" class="custom-input-file custom-input-file--4" data-multiple-caption="{count} files selected" accept="image/*" />
                              </div>
                              <div class="form-group col-12 mx-auto text-center">
                                 <button type="submit" class="btn-custom rounded-0 px-5 text-left d-block">Save</button>
