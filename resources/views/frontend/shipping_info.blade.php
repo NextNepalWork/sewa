@@ -2,206 +2,149 @@
 
 @section('content')
 
-    <div id="page-content">
-        <section class="slice-xs sct-color-2 border-bottom">
-            <div class="container container-sm">
-                <div class="row cols-delimited justify-content-center">
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center ">
-                            <div class="block-icon c-gray-light mb-0">
-                                <i class="la la-shopping-cart"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">1. {{__('My Cart')}}</h3>
-                            </div>
-                        </div>
-                    </div>
+<section id="order_list_top">
+    <div class="container">
+       <div class="row delivery_row_block">
 
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center active">
-                            <div class="block-icon mb-0">
-                                <i class="la la-map-o"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">2. {{__('Shipping info')}}</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center">
-                            <div class="block-icon mb-0 c-gray-light">
-                                <i class="la la-truck"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">3. {{__('Delivery info')}}</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center">
-                            <div class="block-icon c-gray-light mb-0">
-                                <i class="la la-credit-card"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">4. {{__('Payment')}}</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center">
-                            <div class="block-icon c-gray-light mb-0">
-                                <i class="la la-check-circle"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">5. {{__('Confirmation')}}</h3>
-                            </div>
-                        </div>
-                    </div>
+          <div class="offset-md-1 offset-0 col-md-2 col-4  text-center ">
+             <div class="img_order_list ">
+                <div class="img_block_icon">
+                   <img src="./frontend/assets/images/logo/cart.svg" class="img-fluid" alt="">
                 </div>
-            </div>
-        </section>
-
-        <section class="py-4 gry-bg">
-            <div class="container">
-                <div class="row cols-xs-space cols-sm-space cols-md-space">
-                    <div class="col-lg-8">
-                        <form class="form-default" data-toggle="validator" action="{{ route('checkout.store_shipping_infostore') }}" role="form" method="POST">
-                            @csrf
-                                @if(Auth::check())
-                                    <div class="row gutters-5">
-                                        @foreach (Auth::user()->addresses as $key => $address)
-                                            <div class="col-md-6">
-                                                <label class="aiz-megabox d-block bg-white">
-                                                    <input type="radio" name="address_id" value="{{ $address->id }}" @if ($address->set_default)
-                                                        checked
-                                                    @endif required>
-                                                    <span class="d-flex p-3 aiz-megabox-elem">
-                                                        <span class="aiz-rounded-check flex-shrink-0 mt-1"></span>
-                                                        <span class="flex-grow-1 pl-3">
-                                                            <div>
-                                                                <span class="alpha-6">Address:</span>
-                                                                <span class="strong-600 ml-2">{{ $address->address }}</span>
-                                                            </div>
-                                                            <div>
-                                                                <span class="alpha-6">Postal Code:</span>
-                                                                <span class="strong-600 ml-2">{{ $address->postal_code }}</span>
-                                                            </div>
-                                                            <div>
-                                                                <span class="alpha-6">City:</span>
-                                                                <span class="strong-600 ml-2">{{ $address->city }}</span>
-                                                            </div>
-                                                            <div>
-                                                                <span class="alpha-6">Country:</span>
-                                                                <span class="strong-600 ml-2">{{ $address->country }}</span>
-                                                            </div>
-                                                            <div>
-                                                                <span class="alpha-6">Phone:</span>
-                                                                <span class="strong-600 ml-2">{{ $address->phone }}</span>
-                                                            </div>
-                                                        </span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        @endforeach
-                                        <input type="hidden" name="checkout_type" value="logged">
-                                        <div class="col-md-6 mx-auto" onclick="add_new_address()">
-                                            <div class="border p-3 rounded mb-3 c-pointer text-center bg-white">
-                                                <i class="la la-plus la-2x"></i>
-                                                <div class="alpha-7">Add New Address</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @else
-                                    <div class="card">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="control-label">{{__('Name')}}</label>
-                                                    <input type="text" class="form-control" name="name" placeholder="{{__('Name')}}" required>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="control-label">{{__('Email')}}</label>
-                                                    <input type="text" class="form-control" name="email" placeholder="{{__('Email')}}" required>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="control-label">{{__('Address')}}</label>
-                                                    <input type="text" class="form-control" name="address" placeholder="{{__('Address')}}" required>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">{{__('Select your country')}}</label>
-                                                    <select class="form-control custome-control" data-live-search="true" name="country">
-                                                        @foreach (\App\Country::where('status', 1)->get() as $key => $country)
-                                                            <option value="{{ $country->name }}">{{ $country->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group has-feedback">
-                                                    <label class="control-label">{{__('City')}}</label>
-                                                    <input type="text" class="form-control" placeholder="{{__('City')}}" name="city" required>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group has-feedback">
-                                                    <label class="control-label">{{__('Postal code')}}</label>
-                                                    <input type="number" min="0" class="form-control" placeholder="{{__('Postal code')}}" name="postal_code" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group has-feedback">
-                                                    <label class="control-label">{{__('Phone')}}</label>
-                                                    <input type="number" min="0" class="form-control" placeholder="{{__('Phone')}}" name="phone" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <input type="hidden" name="checkout_type" value="guest">
-                                    </div>
-                                    </div>
-                                @endif
-                            <div class="row align-items-center pt-4">
-                                <div class="col-md-6">
-                                    <a href="{{ route('home') }}" class="link link--style-3">
-                                        <i class="ion-android-arrow-back"></i>
-                                        {{__('Return to shop')}}
-                                    </a>
-                                </div>
-                                <div class="col-md-6 text-right">
-                                    <button type="submit" class="btn btn-styled btn-base-1">{{__('Continue to Delivery Info')}}</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="col-lg-4 ml-lg-auto">
-                        @include('frontend.partials.cart_summary')
-                    </div>
+                <div class="content_img ">
+                   <h6 class="active-item"> 1.My Cart</h6>
                 </div>
-            </div>
-        </section>
+             </div>
+          </div>
+          <div class="col-md-2 col-4  text-center">
+             <div class="img_order_list">
+                <div class="img_block_icon">
+                   <img src="./frontend/assets/images/map.svg" class="img-fluid" alt="">
+                </div>
+                <div class="content_img">
+                   <h6 class=""> 2.Shipping Info</h6>
+                </div>
+             </div>
+          </div>
+          <div class="col-md-2 col-4  text-center">
+             <div class="img_order_list">
+                <div class="img_block_icon">
+                   <img src="./frontend/assets/images/delivery_new.svg" class="img-fluid" alt="">
+                </div>
+                <div class="content_img">
+                   <h6 class=""> 3 Delivery Info</h6>
+                </div>
+             </div>
+          </div>
+          <div class="col-md-2 col-4  text-center">
+             <div class="img_order_list">
+                <div class="img_block_icon">
+                   <img src="./frontend/assets/images/payment.svg" class="img-fluid" alt="">
+                </div>
+                <div class="content_img">
+                   <h6 class=""> 4. Payment</h6>
+                </div>
+             </div>
+          </div>
+          <div class="col-md-2 col-4  text-center  mr-xl-5 mr-0 pr-xl-5 pr-0">
+             <div class="img_order_list">
+                <div class="img_block_icon">
+                   <img src="./frontend/assets/images/confirmation.svg" class="img-fluid" alt="">
+                </div>
+                <div class="content_img">
+                   <h6 class=""> 5.Confirmation</h6>
+                </div>
+             </div>
+          </div>
+       </div>
     </div>
+ </section>
+
+   <!--======================================================= CART START ======-->
+   <section id="cart_user" class="py-5">
+    <div class="container">
+        
+       <div class="row">
+        @if(Session::has('cart'))
+          <div class="col-xl-8 col-md-12 bg-white p-3">
+             <div class="table-responsive-lg">
+                <table class="table">
+                   <thead>
+                      <tr>
+                         <th class="img_table text-left th_size border-0">Image</th>
+                         <th class="text-left th_size border-0">Product Name</th>
+                         <th class="text-left th_size border-0">Quantity</th>
+                         <th class="text-left th_size border-0">Total</th>
+                         <th class="text-left remove_block_last border-0">Remove</th>
+                      </tr>
+                   </thead>
+                   <!-- /thead -->
+                   <tbody>
+                    @php
+                    $total = 0;
+                    @endphp
+                    @foreach (Session::get('cart') as $key => $cartItem)
+                        @php
+                        $product = \App\Product::find($cartItem['id']);
+                        $total = $total + $cartItem['price']*$cartItem['quantity'];
+                        $product_name_with_choice = $product->name;
+                        if ($cartItem['variant'] != null) {
+                            $product_name_with_choice = $product->name.' - '.$cartItem['variant'];
+                        }
+                        // if(isset($cartItem['color'])){
+                        //     $product_name_with_choice .= ' - '.\App\Color::where('code', $cartItem['color'])->first()->name;
+                        // }
+                        // foreach (json_decode($product->choice_options) as $choice){
+                        //     $str = $choice->name; // example $str =  choice_0
+                        //     $product_name_with_choice .= ' - '.$cartItem[$str];
+                        // }
+                        @endphp
+                      <tr>
+                         <td id="">
+                            <a class="img_men_cart" href="detail.html">
+                               <img
+                                  src="{{ asset($product->thumbnail_img) }}"
+                                  class="img-fluid" alt="{{ $product->name }}">
+                            </a>
+                         </td>
+                         <td class="">
+                            {{ $product_name_with_choice }}
+                         </td>
+                         <td class="">
+                            <div class="input_b">
+                               <b onclick="decreaseValue()" value="Decrease Value" class="minus_b">-</b>
+                               <input type="number" id="numbers" value="0" class="count_b disabled="" name=" qty">
+                               <b class="plus_b " onclick="increaseValue()" value="Increase Value">+</b>
+                            </div>
+
+
+
+
+                         </td>
+                         <td class="">
+                            <span class="cart-grand-total-price">{{ single_price($cartItem['price']) }}</span>
+                         </td>
+                         <td class=""><a href="#" onclick="removeFromCartView(event, {{ $key }})" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a>
+                         </td>
+                      </tr>
+                   </tbody>
+                   <!-- /tbody -->
+                </table>
+
+             </div>
+             <div class="button_block d-flex justify-content-between align-items-center">
+                <a href=""> <span><i class="fa fa-reply-all"></i></span> Return to shop</a>
+                <!-- <a href="" class="btn_custom">Continue to Shipping</a> -->
+                <a href="shipping.html"> <button class="btn_custom"> Continue to Shipping</button></a>
+             </div>
+          </div>
+          @endif
+          @include('frontend.partials.cart_summary')
+       </div>
+       
+    </div>
+ </section>
+ <!--======================================================= CART END ======-->
 
     <div class="modal fade" id="new-address-modal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-zoom" role="document">
