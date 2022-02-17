@@ -1,15 +1,11 @@
 
- <!--=============================FOOTER START  ============================ -->
- <footer id="footer" class="footer-bg-color position-relative padding_top pt-5" style="--r1: 130%; --r2: 71.5%">
-    <div class="container">
-       <div class="row">
 
 
-<a href="" class='button_chat'>chat</a>
-<a href="#" class='top_btn'><i class="fa fa-angle-up"></i></a>
+{{-- <a href="" class='button_chat'>chat</a>
+<a href="#" class='top_btn'><i class="fa fa-angle-up"></i></a> --}}
 
 <!-- FOOTER -->
-<footer id="footer" class="footer">
+<footer id="footer" class="footer-bg-color position-relative padding_top pt-5" style="--r1: 130%; --r2: 71.5%">
     <div class="footer-top">
         <div class="container">
             <div class="row cols-xs-space cols-sm-space cols-md-space">

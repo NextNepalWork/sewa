@@ -159,6 +159,12 @@ class HomeController extends Controller
         return back();
     }
 
+    public function orderStatus(){
+        $user = Auth::user();
+        $order = Order::where('user_id', $user->id)->get();
+        return view('frontend.customer.order_status', compact('order'));
+    }
+
 
     public function seller_update_profile(Request $request)
     {

@@ -396,7 +396,7 @@
                                    <span>{{ home_base_price($product->id) }}</span>
                                    @endif
                             </div>
-                            <a class="all-deals ico effect" href="dashboard-cart.html" data-toggle="tooltip" data-placement="right"
+                            <a class="all-deals ico effect" onclick="showAddToCartModal({{ $product->id }})" data-toggle="tooltip" data-placement="right"
                                title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
                          </div>
                          <div class="cart-compare">
