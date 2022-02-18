@@ -48,7 +48,7 @@
 
 <!-- Favicon -->
 <link type="image/x-icon" href="{{ asset(\App\GeneralSetting::first()->favicon) }}" rel="shortcut icon" />
-
+<link type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 <!-- Fonts -->
 {{-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 
@@ -61,7 +61,7 @@
 
 <link type="text/css" href="{{ asset('frontend/css/bootstrap-tagsinput.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 <link type="text/css" href="{{ asset('frontend/css/jodit.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
-<link type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+
 <link type="text/css" href="{{ asset('frontend/css/slick.css') }}" rel="stylesheet" media="all">
 <link type="text/css" href="{{ asset('frontend/css/xzoom.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 <link type="text/css" href="{{ asset('frontend/css/jssocials.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
@@ -105,7 +105,7 @@
 
 <!-- Custom style -->
 {{-- <link type="text/css" href="{{ asset('frontend/css/custom-style.css') }}" rel="stylesheet" media="all"> --}} 
-<link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css') }}" />
    <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css.map') }}" />
    <!-- Bootstrap link Ends -->
    <!-- Font Awesome Link Starts -->
@@ -131,16 +131,16 @@
    <link rel="stylesheet" href="{{ asset('frontend/assets/css/style2.css') }}" />
    <!-- Custom Links Ends -->
    <!-- Countdown start -->
-   <link rel="stylesheet" href="{{ asset('frontend/assets/countdown/css/flipclock.css') }}" />
+   {{-- <link rel="stylesheet" href="{{ asset('frontend/assets/countdown/css/flipclock.css') }}" /> --}}
 
 
 <!-- jQuery -->
 <script src="{{ asset('frontend/js/vendor/jquery.min.js') }}"></script>
 
 
-@if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1)
+{{-- @if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1) --}}
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('TRACKING_ID') }}"></script>
+    {{-- <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('TRACKING_ID') }}"></script>
 
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -148,11 +148,11 @@
       gtag('js', new Date());
       gtag('config', '{{ env('TRACKING_ID') }}');
     </script>
-@endif
+@endif --}}
 
-@if (\App\BusinessSetting::where('type', 'facebook_pixel')->first()->value == 1)
+{{-- @if (\App\BusinessSetting::where('type', 'facebook_pixel')->first()->value == 1) --}}
 <!-- Facebook Pixel Code -->
-<script>
+{{-- <script>
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -163,14 +163,25 @@
   'https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', {{ env('FACEBOOK_PIXEL_ID') }});
   fbq('track', 'PageView');
-</script>
-<noscript>
+</script> --}}
+{{-- <noscript>
   <img height="1" width="1" style="display:none"
        src="https://www.facebook.com/tr?id={{ env('FACEBOOK_PIXEL_ID') }}/&ev=PageView&noscript=1"/>
-</noscript>
+</noscript> --}}
 <!-- End Facebook Pixel Code -->
-@endif
-
+{{-- @endif --}}
+<style>
+    .demo{
+        background: #258aff;
+        color: #ffff!important;
+        padding: 10px 10px 10px 9px;
+        font-weight: 800;
+        font-size: 13px;
+    }
+    .swal2-shown{
+        z-index: 9999;
+    }
+</style>
 </head>
 <body>
 
@@ -293,7 +304,7 @@
             type: type,
             title: message,
             showConfirmButton: false,
-            timer: 3000
+            timer: 1000000
         });
     }
 </script>
