@@ -456,11 +456,21 @@
                                     @php
                                 $filepath = $product->featured_img;
                                 @endphp
-                               @if(isset($filepath))
-                            <img src="{{ asset( $product->featured_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1"> </a>  
-                            @else
-                           <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
-                           @endif
+                                
+                                @if(isset($filepath))
+                                    @if (file_exists(public_path($filepath)))
+                                        <img src="{{ asset($product->featured_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
+                                    @else
+                                        <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
+                                    @endif
+                                @else
+                                    <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
+                                @endif
+                                {{-- @if(isset($filepath))
+                                    <img src="{{ asset( $product->featured_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1"> </a>  
+                                @else
+                                    <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
+                                @endif --}}
                                 </a>
                                 
                                 @if (! $product->discount == 0)                                
@@ -628,7 +638,7 @@
             }
             }, 1000);
             // flash counter
-            
+
             $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
                 // console.log(data);
                 $('#section_featured').html(data);
