@@ -32,10 +32,10 @@
                                 <div class="position-relative overflow-hidden">
                                     @php
                                         $image = 'uploads/No_Image.jpg';
-                                        if (!($product->photos)->isEmpty()) {
+                                        if (($product->photos) != '') {
                                             $json = json_decode($product->photos);
                                             if (array_key_exists('0', $json)) {                                                            
-                                                if (file_exists(public_path($filepath))){
+                                                if (file_exists(public_path($json[0]))){
                                                     $image = $json[0];
                                                 }
                                             }
