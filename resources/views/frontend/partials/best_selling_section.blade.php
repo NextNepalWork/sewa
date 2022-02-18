@@ -13,6 +13,9 @@
                 <div class="caorusel-box arrow-round gutters-5">
                     <div class="slick-carousel" data-slick-items="3" data-slick-lg-items="2"  data-slick-md-items="2" data-slick-sm-items="1" data-slick-xs-items="1" data-slick-rows="2">
                         @foreach (filter_products(\App\Product::where('published', 1)->orderBy('num_of_sale', 'desc'))->limit(20)->get() as $key => $product)
+                        {{-- @php
+                            print_r($product);
+                        @endphp --}}
                             <div class="caorusel-card my-1">
                                 <div class="row no-gutters product-box-2 align-items-center">
                                     <div class="col-4">
