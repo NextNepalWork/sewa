@@ -21,7 +21,20 @@
                                     <div class="col-4">
                                         <div class="position-relative overflow-hidden h-100">
                                             <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100">
-                                            <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name) }}">
+                                                @php
+                                                    $image = 'uploads/No_Image.jpg';
+                                                    if (!($product->photos)->isEmpty()) {
+                                                        $json = json_decode($product->photos);
+                                                        if (array_key_exists('0', $json)) {                                                            
+                                                            if (file_exists(public_path($filepath))){
+                                                                $image = $json[0];
+                                                            }
+                                                        }
+                                                    }
+                                                    
+                                                @endphp
+                                            <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" 
+                                            data-src="{{ asset($image) }}" alt="{{ __($product->name) }}">
                                                     
                                             </a>
                                             <div class="product-btns">
