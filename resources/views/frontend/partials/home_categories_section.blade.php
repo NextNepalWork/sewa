@@ -30,8 +30,21 @@
                         <div class="caorusel-card">
                             <div class="product-box-2 bg-white alt-box my-2">
                                 <div class="position-relative overflow-hidden">
+                                    @php
+                                        $image = 'uploads/No_Image.jpg';
+                                        if (!($product->photos)->isEmpty()) {
+                                            $json = json_decode($product->photos);
+                                            if (array_key_exists('0', $json)) {                                                            
+                                                if (file_exists(public_path($filepath))){
+                                                    $image = $json[0];
+                                                }
+                                            }
+                                        }
+                                        
+                                    @endphp
                                     <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center">
-                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name) }}">
+                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" 
+                                    data-src="{{ asset($image) }}" alt="{{ __($product->name) }}">
                                     </a>
                                     <div class="product-btns clearfix">
                                         <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" tabindex="0">
