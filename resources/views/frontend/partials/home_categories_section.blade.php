@@ -1,4 +1,4 @@
-@foreach (\App\HomeCategory::where('status', 1)->get() as $key => $homeCategory)
+@foreach (\App\HomeCategory::where(['status', 1],['featured', 1])->get() as $key => $homeCategory)
     @if ($homeCategory->category != null)
     {{-- @php
     echo '<pre>';

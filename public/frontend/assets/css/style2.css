@@ -1825,3 +1825,117 @@ input[type=number] {
 
 
   
+.product-gal {
+    padding: 20px 15px;
+}
+
+.product-gal-thumb {
+    width: 50px;
+    margin-right: 10px;
+}
+.product-gal-img {
+    border-radius: 8px;
+    overflow: hidden;
+}
+.product-gal-thumb .xzoom-thumbs {
+    margin-bottom: 0;
+}
+
+.product-gal-thumb a {
+    display: block;
+}
+
+.product-gal-thumb a img {
+    max-width: 100%;
+    margin: 0;
+    margin-bottom: 10px;
+    border-radius: 2px;
+}
+
+.product-gal-thumb a img.xactive {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border: 2px solid transparent;
+}
+
+.product-gal-img {
+    width: calc(100% - 60px);
+}
+
+.product-description-wrapper {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+/* product details page */
+.product-details-area {
+    padding: 20px 0;
+}
+
+.product-gallery,
+.product-description-wrapper {
+    padding: 20px;
+}
+
+.product-description-wrapper .product-title {
+    font-size: 18px;
+    line-height: 22px;
+    color: #333;
+    max-height: none;
+}
+
+.product-description-wrapper .product-description-label,
+.product-description-wrapper .avialable-amount {
+    font-size: 13px;
+    color: #777;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-description-wrapper .product-price-old {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.7;
+    font-weight: 500 !important;
+}
+
+.product-description-wrapper .product-price {
+    margin: 0;
+    font-size: 26px;
+    line-height: 24px;
+    display: inline-block;
+}
+
+.product-description-wrapper .product-price .piece {
+    font-size: 13px;
+    color: #777;
+}
+
+.product-desc-tab img {
+    max-width: 100%;
+    height: auto;
+}
+
+.product-desc-tab table {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+#addToCart{
+    z-index: 99999;
+}
+.absolute-close-btn {
+    position: absolute;
+    top: 7px;
+    right: 12px;
+    z-index: 1;
+}
+.btn-styled:hover {
+    background: 0 0!important;
+    color: #dc3545!important;
+    box-shadow: unset!important;
+    border: 1px solid;
+}

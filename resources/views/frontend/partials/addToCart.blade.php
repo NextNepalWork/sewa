@@ -222,7 +222,7 @@
                             </button>
                         @elseif($qty > 0)
                             <button type="button"
-                                    class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart"
+                                    class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart btn-custom"
                                     onclick="addToCart()">
                                 <i class="la la-shopping-cart"></i>
                                 <span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span>
