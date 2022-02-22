@@ -559,6 +559,7 @@
                                                         <div class="row">
                                                             <div class="col-sm-12">
                                                                 <div class="c-rating mt-1 mb-1 clearfix d-inline-block">
+                                                                    
                                                                     <input type="radio" id="star5" name="rating" value="5" required/>
                                                                     <label class="star" for="star5" title="Awesome" aria-hidden="true"></label>
                                                                     <input type="radio" id="star4" name="rating" value="4" required/>
