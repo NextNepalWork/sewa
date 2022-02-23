@@ -63,28 +63,23 @@
                         <!-- Swiper and EasyZoom plugins start -->
                         <div class="swiper-container gallery-top" style="height: 400px">
                             <div class="swiper-wrapper">
-                                @foreach (json_decode($detailedProduct->photos) as $key => $photo)
-                                <div class="swiper-slide easyzoom easyzoom--overlay">
-                                    <a href="{{ asset($photo) }}">
-                                        <img src="{{ asset($photo) }}" class="img-fluid" data-src="{{ asset($photo) }}" alt="{{$detailedProduct->name}}" @if($key == 0) xpreview="{{ asset($photo) }}"  @endif>
-                                    </a>
-                                    
+                                <div class="swiper-slide easyzoom easyzoom--overlay ">
+                                    <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($detailedProduct->photos)[0]) }}" xoriginal="{{ asset(json_decode($detailedProduct->photos)[0]) }}" />
                                 </div>
-                                @endforeach
                             </div>
                             <!-- Add Arrows -->
-                            <div class="swiper-button-next swiper-button-white"></div>
-                            <div class="swiper-button-prev swiper-button-white"></div>
+                            <div class="swiper-button-next swiper-button-white" style="background:none;"></div>
+                            <div class="swiper-button-prev swiper-button-white" style="background:none;"></div>
                         </div>
+
                         <div class="swiper-container gallery-thumbs">
                             <div class="swiper-wrapper">
                                 @foreach (json_decode($detailedProduct->photos) as $key => $photo)
-                                <div class="swiper-slide">
                                     <a href="{{ asset($photo) }}">
-                                        <img src="{{ asset($photo) }}" class="img-fluid"  width="80" data-src="{{ asset($photo) }}"  @if($key == 0) xpreview="{{ asset($photo) }}" @endif>
+                                        <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" width="80" data-src="{{ asset($photo) }}"  @if($key == 0) xpreview="{{ asset($photo) }}" @endif>
                                     </a>
-                                </div>
                                 @endforeach
+
                             </div>
                         </div>
                         <!-- Swiper and EasyZoom plugins end -->
@@ -134,14 +129,14 @@
                                     Share On
                                     </label> -->
                                     <ul class="p-0 m-0 d-flex align-items-center">
-                                        <style>
+                                        {{-- <style>
                                             .jssocials-shares{
                                                 display: inline-flex;
                                             }
                                             .jssocials-share{
                                                 padding-right: 5px;
                                             }
-                                        </style>
+                                        </style> --}}
                                         <li class="mr-2">
                                             <div id="share"></div>
                                         </li>
@@ -184,21 +179,20 @@
                             else{
                                 $qty = $detailedProduct->current_stock ;
                             }
-                        @endphp
+                            @endphp
                             <div class="form-row">
-
                                 <div class="form-group col-lg-4 col-md-6">
                                     <div class="quantity">
                                         <h5>Quantity</h5>
                                         <div class="qty-1">
                                             <span class="input-group-btn minus">
-                                                <button class="btn btn-number" type="button" data-type="minus" data-field="quantity">
+                                                <button class="btn btn-number" type="button" data-type="minus" data-field="quantity" style="padding:0px;">
                                                     -
                                                 </button>
                                             </span>
                                             <input type="text" name="quantity" class="input-number text-center" placeholder="1" value="1" min="1" max="10">
                                             <span class="input-group-btn plus" data-type="plus" data-field="quantity">
-                                                <button class="btn btn-number" type="button" data-type="plus" data-field="quantity">
+                                                <button class="btn btn-number" type="button" data-type="plus" data-field="quantity" style="padding:0px;">
                                                     +
                                                 </button>
                                             </span>
@@ -242,13 +236,13 @@
                                 @endforeach
                                 @endif
                             </div>
-
+                            
                             <div class="row no-gutters py-2 d-none" id="chosen_price_div">
                                 <div class="col-2 m-auto">
                                     <div class="product-description-label">{{__('Total Price')}}:</div>
                                 </div>
                                 <div class="col-10">
-                                    <div class="product-price">
+                                    <div class="product-price" style="background: none;">
                                         <strong id="chosen_price">
                                             
                                         </strong>
@@ -261,15 +255,14 @@
                                     <!-- Buy Now button -->
                                     @if ($qty > 0)
                                         <button type="button" class="btn-custom ml-2" onclick="buyNow()">
-                                            <i class="la la-shopping-cart"></i> {{__('Buy Now')}}
+                                             {{__('Buy Now')}}
                                         </button>
                                         <button type="button" class="btn-custom" onclick="addToCart()">
-                                            <i class="la la-shopping-cart"></i>
                                             <span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span>
                                         </button>
                                     @else
                                         <button type="button" class="btn btn-styled btn-base-3 btn-icon-left strong-700" disabled>
-                                            <i class="la la-cart-arrow-down"></i> {{__('Out of Stock')}}
+                                             {{__('Out of Stock')}}
                                         </button>
                                     @endif
                                 </div>
