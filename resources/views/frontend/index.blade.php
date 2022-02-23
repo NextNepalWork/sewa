@@ -458,10 +458,10 @@
                                 @endphp
                                 
                                 @if(isset($filepath))
-                                    @if (file_exists(public_path($filepath)))
-                                        <img src="{{ asset($product->featured_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
-                                    @else
-                                        <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
+                                @if (file_exists(public_path($filepath)))
+                                <img src="{{ asset($product->featured_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
+                                @else
+                                <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
                                     @endif
                                 @else
                                     <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
@@ -486,8 +486,8 @@
                                    <span>{{ home_base_price($product->id) }}</span>
                                    @endif
                                 </div>
-                                <a class="all-deals ico effect" href="dashboard-cart.html" data-toggle="tooltip" data-placement="right"
-                                   title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
+                                <a class="all-deals ico effect" onclick="showAddToCartModal({{ $product->id }})" data-toggle="tooltip" data-placement="right"
+                                    title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
                              </div>
                              <div class="cart-compare">
                                 

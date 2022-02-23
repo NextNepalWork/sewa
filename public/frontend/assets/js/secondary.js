@@ -1,31 +1,37 @@
 // Product Detail Size choose Js
-$(document).ready(function() {
-    $('.size').click(function() {
-        if ($('.size-active').length) {
-            $('.size-active').not($(this)).removeClass('size-active').addClass('size');
+$(document).ready(function () {
+    $(".size").click(function () {
+        if ($(".size-active").length) {
+            $(".size-active")
+                .not($(this))
+                .removeClass("size-active")
+                .addClass("size");
         }
-        $(this).removeClass('size').addClass('size-active');
+        $(this).removeClass("size").addClass("size-active");
     });
 });
 // Product Detail Size choose Js
 // Product Detail Image Size choose Js
-$(document).ready(function() {
-    $('.imagesize').click(function() {
-        if ($('.imagesize-active').length) {
-            $('.imagesize-active').not($(this)).removeClass('imagesize-active').addClass('image-size');
+$(document).ready(function () {
+    $(".imagesize").click(function () {
+        if ($(".imagesize-active").length) {
+            $(".imagesize-active")
+                .not($(this))
+                .removeClass("imagesize-active")
+                .addClass("image-size");
         }
-        $(this).removeClass('image-size').addClass('imagesize-active');
+        $(this).removeClass("image-size").addClass("imagesize-active");
     });
 });
 // Product Detail Image Size choose Js
 
 // Input Increase and Decrease
-$(document).ready(function() {
+$(document).ready(function () {
     $(".count").prop("disabled", true);
-    $(document).on("click", ".plus", function() {
+    $(document).on("click", ".plus", function () {
         $(".count").val(parseInt($(".count").val()) + 1);
     });
-    $(document).on("click", ".minus", function() {
+    $(document).on("click", ".minus", function () {
         $(".count").val(parseInt($(".count").val()) - 1);
         if ($(".count").val() == 0) {
             $(".count").val(1);
@@ -34,10 +40,10 @@ $(document).ready(function() {
 });
 
 // Input Increase and Decrease Ends
-$(document).ready(function() {
+$(document).ready(function () {
     // product Gallery and Zoom
     // activation carousel plugin
-    var galleryThumbs = new Swiper('.gallery-thumbs', {
+    var galleryThumbs = new Swiper(".gallery-thumbs", {
         spaceBetween: 5,
         freeMode: true,
         watchSlidesVisibility: true,
@@ -49,25 +55,27 @@ $(document).ready(function() {
             992: {
                 slidesPerView: 4,
             },
-        }
+        },
     });
-    var galleryTop = new Swiper('.gallery-top', {
+    var galleryTop = new Swiper(".gallery-top", {
         spaceBetween: 10,
         navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
         },
         thumbs: {
-            swiper: galleryThumbs
+            swiper: galleryThumbs,
         },
     });
     // change carousel item height
     // gallery-top
-    let productCarouselTopWidth = $('.gallery-top').outerWidth();
-    $('.gallery-top').css('height', productCarouselTopWidth);
+    let productCarouselTopWidth = $(".gallery-top").outerWidth();
+    $(".gallery-top").css("height", productCarouselTopWidth);
     // gallery-thumbs
-    let productCarouselThumbsItemWith = $('.gallery-thumbs .swiper-slide').outerWidth();
-    $('.gallery-thumbs').css('height', productCarouselThumbsItemWith);
+    let productCarouselThumbsItemWith = $(
+        ".gallery-thumbs .swiper-slide"
+    ).outerWidth();
+    $(".gallery-thumbs").css("height", productCarouselThumbsItemWith);
     // activation zoom plugin
     // var $easyzoom = $('.easyzoom').easyZoom();
 });
