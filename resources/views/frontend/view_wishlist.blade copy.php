@@ -2,7 +2,7 @@
 
 @section('content')
 
-    {{-- <section class="gry-bg py-4 profile">
+    <section class="gry-bg py-4 profile">
         <section class="gry-bg py-4 profile">
         <div class="container">
             <div class="row cols-xs-space cols-sm-space cols-md-space">
@@ -95,116 +95,7 @@
                 </div>
             </div>
         </div>
-    </section> --}}
-
-     <!-- Breadcrumbs -->
-   <section id="breadcrumb-wrapper" class="position-relative">
-    <div class="image">
-       <img src="frontend/assets/images/banner/1.jpg" alt="breadcrumb-image" class="img-fluid">
-    </div>
-    <div class="overlay position-absolute">
-       <div class="title p-lg-4 p-md-3 p-3">
-          <!-- <a class="mr-3" href="index.html">Home</a>
-                                                                   <a class="mr-3" href="product-details.html">Product Detail</a> -->
-          <ol class="breadcrumb p-0 bg-transparent p-0 m-0">
-             <li class="breadcrumb-item">
-                <a href="{{ route('home') }}">Home</a>
-             </li>
-             <li class="breadcrumb-item">
-                <a href="{{ route('wishlists.index') }}">Wishlist</a>
-             </li>
-          </ol>
-       </div>
-    </div>
- </section>
- <!-- Breadcrumbs Ends -->
- <section id="cart-wrapper" class="py-3">
-    <div class="container">
-       <div class="row py-xl-5 py-md-3 py-0">
-          <div class="col-xl-3 col-lg-4 col-12 mb-xl-0 mb-lg-0 mb-3">
-            @if(Auth::user()->user_type == 'seller')
-            @include('frontend.inc.seller_side_nav')
-        @elseif(Auth::user()->user_type == 'customer')
-            @include('frontend.inc.customer_side_nav')
-        @endif
-          </div>
-          <div class="col-xl-9 col-lg-8 col-md-12 col-12 ">
-             <div class="profile-side-detail-edit">
-                <div class="dashboard-content d-flex align-items-center h-100">
-                   <div class="shopping-cart">
-                      <div class="shopping-cart-table">
-                         <div class="table-responsive-lg">
-                            <table class="table">
-                               <thead>
-                                  <tr>
-                                     <th class="th_size">Image</th>
-                                     <th class="th_size">Product Name</th>
-                                     <th class="th_size">Quantity</th>
-                                     <th class="th_size">Total</th>
-                                     <th class="remove_block_last">Remove</th>
-                                     <th class="th_size"></th>
-
-                                  </tr>
-                               </thead>
-                               <!-- /thead -->
-                               <tbody>
-                                @foreach ($wishlists as $key => $wishlist)
-                                @if ($wishlist->product != null)
-                                  <tr>
-                                     <td class="text-center">
-                                        <a class="img_men_cart" href="{{ route('product', $wishlist->product->slug) }}">
-                                           <img
-                                              src={{ asset(json_decode($wishlist->product->photos)[0]) }}
-                                              class="img-fluid"
-                                              alt="{{ __($wishlist->product->name) }}"
-                                              >
-                                        </a>
-                                     </td>
-                                     <td class="text-center">
-                                        {{ $wishlist->product->name }}
-                                     </td>
-                                     <td class="text-center">
-                                        <div class="input_b m-auto">
-                                           <b onclick="decreaseValue()" value="Decrease Value" class="minus_b">-</b>
-                                           <input type="number" id="numbers" value="0" class="count_b disabled="
-                                              name=" qty">
-                                           <b class="plus_b " onclick="increaseValue()" value="Increase Value">+</b>
-                                        </div>
-                                     </td>
-                                     <td class="text-center">
-                                        @if(home_base_price($wishlist->product->id) != home_discounted_base_price($wishlist->product->id))
-                                        <del class="cart-grand-total-price">{{ home_base_price($wishlist->product->id) }}</del>
-                                    @endif
-                                    <span class="cart-grand-total-price">{{ home_discounted_base_price($wishlist->product->id) }}</span>
-                                      
-                                     </td>
-
-                                     <td class="text-center"><a href="#" title="cancel" class="icon"><i
-                                              class="fa fa-trash-o"></i></a>
-                                     </td>
-                                     <td class="text-center">
-                                        <button onclick="showAddToCartModal({{ $wishlist->product->id }})" class="btn-custom rounded-0">Add to Cart</button>
-                                     </td>
-
-                                  </tr>
-                                
-                                @endif
-                                @endforeach
-                              
-                               </tbody>
-                               <!-- /tbody -->
-                            </table>
-
-                         </div>
-                      </div>
-
-                   </div>
-                </div>
-             </div>
-          </div>
-       </div>
-    </div>
- </section>
+    </section>
 
     <div class="modal fade" id="addToCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">

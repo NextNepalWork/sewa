@@ -291,6 +291,35 @@
                                     <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
                                 @endif
                             @else
+
+                           <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
+                           @endif
+                            </a>
+                            @if (! $product->discount == 0)
+                            <span class="product-discount-label">-{{$product->discount}}%</span>
+                        @endif
+                         </div>
+                         <div class="price-cart text-center pt-2">
+                            <div class="price d-flex align-items-center">
+                               <h6 class="m-0 gray">{{ home_discounted_base_price($product->id) }}</h6>
+                               @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                   <span>{{ home_base_price($product->id) }}</span>
+                                   @endif
+                            </div>
+                            <a class="all-deals ico effect" onclick="showAddToCartModal({{ $product->id }})" data-toggle="tooltip" data-placement="right"
+                               title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
+                         </div>
+                         <div class="cart-compare">
+                            <a class="all-deals effect gray" onclick="addToWishList({{ $product->id }})" tabindex="0"><i class="fa fa-heart icon mr-2"></i>Wishlist
+                            </a>
+                            <a class="all-deals effect gray" href=""> <i class="fa fa-exchange icon mr-2"></i>Compare
+                            </a>
+                         </div>
+                      </div>
+                   </div>
+                   @endforeach
+                </div>
+
                                 <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
                             @endif
                         </a>
@@ -321,6 +350,7 @@
                   </div>
                </div>
                @endforeach
+
              </div>
           </div>
        </div>

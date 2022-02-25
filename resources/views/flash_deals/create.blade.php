@@ -105,6 +105,16 @@
 
 @section('script')
     <script type="text/javascript">
+    $(function() {
+    $("#demo-dp-range .input-daterange").datepicker();
+     });
+        // $('#demo-dp-range .input-daterange').datepicker({
+        //          startDate: '-0d',
+        //         todayBtn: "linked",
+        //         autoclose: true,
+        //         todayHighlight: true
+        // });
+  
         $(document).ready(function(){
             $('#products').on('change', function(){
                 var product_ids = $('#products').val();
@@ -118,7 +128,6 @@
                     $('#discount_table').html(null);
                 }
             });
-
             $('#categories').on('change', function(){
                 if($('#products').val() != ''){ 
                     $('#products').val(null).trigger('change');

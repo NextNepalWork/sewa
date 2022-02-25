@@ -213,29 +213,31 @@
                         </a>
                 </li>
                 <li>
-                   <a href="{{ route('wishlists.index') }}" class="position-relative">
+                  
+                   <a href="{{ route('wishlists.index') }}" class="position-relative" id="wishlist" >
                       {{-- <sub class='sub_block'>0</sub> --}}
                       <img data-toggle="tooltip" data-placement="top" title=""
                          data-original-title="Wishlist" src="{{asset('./frontend/assets/images/logo/wishlist.svg')}}"
                          class="img-fluid" alt="" />
                          @if(Auth::check())
-                         <sup class="sub_block">{{ count(Auth::user()->wishlists)}}</sup>
+                         <sup class="sub_block" >{{ count(Auth::user()->wishlists)}}</sup>
                         @else
                          <sup class="sub_block">0</sup>
                          @endif
                         </a>
+                    
                 </li>
                 <li>
-                   <a href="" class="position-relative" id="dropdownMenuButton" data-toggle="dropdown"
+                   <a href="" class="position-relative" id="dropdownMenuButton cart_header_table" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
                       {{-- <sub class='sub_block'>1</sub> --}}
                       <img data-toggle="tooltip" data-placement="top" title=""
                          data-original-title="Cart" src="{{asset('./frontend/assets/images/logo/cart.svg')}}" class="img-fluid"
                          alt="" />
                          @if(Session::has('cart'))
-                         <sup class="sub_block">{{ count(Session::get('cart'))}}</sup>
+                         <sup id="cart_items_sidenav"  class="sub_block">{{ count(Session::get('cart'))}}</sup>
                      @else
-                         <sup class="sub_block">0</sup>
+                         <sup id="cart_items_sidenav" class="sub_block">0</sup>
                      @endif
                         </a>
                    <!-- cart dropdown start  -->
@@ -243,10 +245,10 @@
                    <div class="dropdown-menu" id="cart_header_table" aria-labelledby="dropdownMenuButton">
                      @if(Session::has('cart'))
                      @if(count($cart = Session::get('cart')) > 0)
-                     <h6 class="text-center font-weight-bold pt-1">Cart Items</h6>
-                      
-                      <div class="table-responsive">
-                         <table class="table mb-0">
+                     <h6 class="text-center font-weight-bold pt-1">Cart Items </h6>
+                  
+                      <div class="table-responsive cart-items">
+                         <table class="table mb-0"> 
                             <tbody>
                               @php
                               $total = 0;

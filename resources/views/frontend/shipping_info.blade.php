@@ -62,10 +62,11 @@
 
    <!--======================================================= CART START ======-->
    <section id="cart_user" class="py-5">
+       @if(Session::has('cart'))
     <div class="container">
         
        <div class="row">
-        @if(Session::has('cart'))
+        
           <div class="col-xl-8 col-md-12 bg-white p-3">
              <div class="table-responsive-lg">
                 <table class="table">
@@ -116,10 +117,6 @@
                                <input type="number" id="numbers" value="0" class="count_b disabled="" name=" qty">
                                <b class="plus_b " onclick="increaseValue()" value="Increase Value">+</b>
                             </div>
-
-
-
-
                          </td>
                          <td class="">
                             <span class="cart-grand-total-price">{{ single_price($cartItem['price']) }}</span>
@@ -127,6 +124,7 @@
                          <td class=""><a href="#" onclick="removeFromCartView(event, {{ $key }})" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a>
                          </td>
                       </tr>
+                      @endforeach
                    </tbody>
                    <!-- /tbody -->
                 </table>
@@ -135,13 +133,13 @@
              <div class="button_block d-flex justify-content-between align-items-center">
                 <a href=""> <span><i class="fa fa-reply-all"></i></span> Return to shop</a>
                 <!-- <a href="" class="btn_custom">Continue to Shipping</a> -->
-                <a href="shipping.html"> <button class="btn_custom"> Continue to Shipping</button></a>
+                <a href="{{ route('checkout.get_shipping_info') }}"> <button class="btn_custom"> Continue to Shipping</button></a>
              </div>
           </div>
-          @endif
+       
           @include('frontend.partials.cart_summary')
        </div>
-       
+       @endif
     </div>
  </section>
  <!--======================================================= CART END ======-->

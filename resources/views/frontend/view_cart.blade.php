@@ -1,7 +1,6 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-
     {{-- <section class="slice-xs sct-color-2 border-bottom">
         <div class="container container-sm">
             <div class="row cols-delimited justify-content-center">
@@ -66,7 +65,7 @@
 
     {{-- <section class="py-4 gry-bg" id="cart-summary">
         <div class="container">
-            @if(Session::has('cart'))
+            @if (Session::has('cart'))
                 <div class="row cols-xs-space cols-sm-space cols-md-space">
                 <div class="col-xl-8">
                     <!-- <form class="form-default bg-white p-4" data-toggle="validator" role="form"> -->
@@ -120,7 +119,7 @@
                                                 </td>
 
                                                 <td class="product-quantity d-none d-md-table-cell">
-                                                    @if($cartItem['digital'] != 1)
+                                                    @if ($cartItem['digital'] != 1)
                                                         <div class="input-group input-group--style-2 pr-4" style="width: 130px;">
                                                             <span class="input-group-btn">
                                                                 <button class="btn btn-number" type="button" data-type="minus" data-field="quantity[{{ $key }}]">
@@ -159,7 +158,7 @@
                                 </a>
                             </div>
                             <div class="col-md-6 text-right">
-                                @if(Auth::check())
+                                @if (Auth::check())
                                     <a href="{{ route('checkout.shipping_info') }}" class="btn btn-styled btn-base-1">{{__('Continue to Shipping')}}</a>
                                 @else
                                     <button class="btn btn-styled btn-base-1" onclick="showCheckoutModal()">{{__('Continue to Shipping')}}</button>
@@ -182,134 +181,138 @@
         </div>
     </section> --}}
 
- <!-- Cart -->
- <section id="cart-wrapper" class="py-3">
-    <div class="container">
-       <div class="row py-xl-5 py-md-3 py-0">
-          <div class="col-xl-3 col-lg-4 col-12 mb-xl-0 mb-lg-0 mb-3">
-             <div class="dashboard-list py-lg-5 px-lg-3">
-               @include('frontend.inc.customer_side_nav')
-             </div>
-          </div>
-          <div class="col-xl-9 col-lg-8 col-md-12 col-12">
-             <div class="profile-side-detail-edit">
-                <div class="dashboard-content d-flex align-items-center h-100">
-                   <div class="shopping-cart">
-                      <div class="shopping-cart-table">
-                         <div class="table-responsive-lg">
-                            <table class="table">
-                               <thead>
-                                  <tr>
-                                     <th class="th_size">Image</th>
-                                     <th class="th_size">Product Name</th>
-                                     <th class="th_size">Quantity</th>
-                                     <th class="th_size">Total</th>
-                                     <th class="remove_block_last">Remove</th>
-                                  </tr>
-                               </thead>
-                               <!-- /thead -->
-                               <tbody>
-                                @php
-                                $total = 0;
-                                @endphp
-                                @foreach (Session::get('cart') as $key => $cartItem)
-                                    @php
-                                    $product = \App\Product::find($cartItem['id']);
-                                    $total = $total + $cartItem['price']*$cartItem['quantity'];
-                                    $product_name_with_choice = $product->name;
-                                    if ($cartItem['variant'] != null) {
-                                        $product_name_with_choice = $product->name.' - '.$cartItem['variant'];
-                                    }
-                                    // if(isset($cartItem['color'])){
-                                    //     $product_name_with_choice .= ' - '.\App\Color::where('code', $cartItem['color'])->first()->name;
-                                    // }
-                                    // foreach (json_decode($product->choice_options) as $choice){
-                                    //     $str = $choice->name; // example $str =  choice_0
-                                    //     $product_name_with_choice .= ' - '.$cartItem[$str];
-                                    // }
-                                    @endphp
-                                  <tr>
-                                     <td class="text-center">
-                                        <a class="img_men_cart" href="#">
-                                           <img
-                                              src="{{ asset(json_decode($product->photos)[0]) }}"
-                                              class="img-fluid">
-                                        </a>
-                                     </td>
-                                     <td class="text-center">
-                                        {{ $product_name_with_choice }}
-                                     </td>
-                                     <td class="text-center">
-                                        <div class="input_b m-auto">
-                                           <b onclick="decreaseValue()" value="Decrease Value" class="minus_b">-</b>
-                                           <input type="number" id="numbers" value="0" class="count_b disabled="
-                                              name=" qty">
-                                           <b class="plus_b " onclick="increaseValue()" value="Increase Value">+</b>
-                                        </div>
-                                     </td>
-                                     <td class="text-center">
-                                        <span class="cart-grand-total-price">{{ single_price($cartItem['price']) }}</span>
-                                     </td>
-                                     <td class="text-center"><a href="#" title="cancel" class="icon"><i
-                                              class="fa fa-trash-o"></i></a>
-                                     </td>
-                                  </tr>
-                                  @endforeach
-                               </tbody>
-                               
-                               <!-- /tbody -->
-                            </table>
-                            <div class="d-flex justify-content-around align-items-center w-100 my-3 flex-wrap">
-                               <!-- <form class="coupon-field d-flex flex-wrap align-items-center justify-content-center">
-                                     <input type="text" placeholder="Apply Coupon Code" class="mr-2">
-                                     <button type="button" class="btn-custom mt-xl-0 mt-md-0 mt-2 rounded-0">Apply Coupon</button>
-                                     </form> -->
-                               <div class="total-amount font-weight-bold mt-xl-0 mt-md-0 mt-2 text-dark">
-                                  Total Amount : <span>$2000</span>
-                               </div>
-                            </div>
-                         </div>
-                      </div>
-                      <div class="row  pl-2 mt-4">
-                         <div class="col-xl-4 col-lg-7 col-md-6 col-12 my-3">
-                            <div class="cart-summary sub_border_shadow p-xl-4 p-lg-4 p-md-3 p-3 text-left ">
-                               <strong class="cart_text mb-3 d-block font-weight-bold">Cart Summary</strong>
-                               <div class="cart-price d-flex justify-content-between mb-2">
-                                  <h6 class="">Sub Total</h6>
-                                  <span class="cart_text">NPR 200</span>
-                               </div>
-                               <div class="cart-price d-flex justify-content-between mb-2">
-                                  <h6 class="">Shipping Cost</h6>
-                                  <span class="cart_text">NPR 0</span>
-                               </div>
-                               <hr>
-                               <div class="cart-price d-flex justify-content-between mb-2">
-                                  <h6 class="">Grand Total</h6>
-                                  <span class="cart_text">NPR 200</span>
-                               </div>
-                            </div>
-                         </div>
-                         <div class="col-xl-4 col-lg-4 col-md-6 col-12 my-3">
-                            <div class="checkout_btn_cart d-flex align-items-center h-100">
-                               <button type="button" class="btn-custom rounded-0">Proceed Checkout</button>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
+    <!-- Cart -->
+    <section id="cart-wrapper" class="py-3">
+        <div class="container">
+            <div class="row py-xl-5 py-md-3 py-0">
+                <div class="col-xl-3 col-lg-4 col-12 mb-xl-0 mb-lg-0 mb-3">
+                    <div class="dashboard-list py-lg-5 px-lg-3">
+                        @include('frontend.inc.customer_side_nav')
+                    </div>
                 </div>
-             </div>
-          </div>
-       </div>
-    </div>
- </section>
- <!-- Cart Ends -->
+                <div class="col-xl-9 col-lg-8 col-md-12 col-12">
+                    <div class="profile-side-detail-edit">
+                        <div class="dashboard-content d-flex align-items-center h-100">
+                            <div class="shopping-cart">
+                                <div class="shopping-cart-table">
+                                    <div class="table-responsive-lg">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="th_size">Image</th>
+                                                    <th class="th_size">Product Name</th>
+                                                    <th class="th_size">Quantity</th>
+                                                    <th class="th_size">Total</th>
+                                                    <th class="remove_block_last">Remove</th>
+                                                </tr>
+                                            </thead>
+                                            <!-- /thead -->
+                                            <tbody>
+                                                @php
+                                                    $total = 0;
+                                                @endphp
+                                                @foreach (Session::get('cart') as $key => $cartItem)
+                                                    @php
+                                                        $product = \App\Product::find($cartItem['id']);
+                                                        $total = $total + $cartItem['price'] * $cartItem['quantity'];
+                                                        $product_name_with_choice = $product->name;
+                                                        if ($cartItem['variant'] != null) {
+                                                            $product_name_with_choice = $product->name . ' - ' . $cartItem['variant'];
+                                                        }
+                                                        // if(isset($cartItem['color'])){
+                                                        //     $product_name_with_choice .= ' - '.\App\Color::where('code', $cartItem['color'])->first()->name;
+                                                        // }
+                                                        // foreach (json_decode($product->choice_options) as $choice){
+                                                        //     $str = $choice->name; // example $str =  choice_0
+                                                        //     $product_name_with_choice .= ' - '.$cartItem[$str];
+                                                        // }
+                                                    @endphp
+                                                    <tr>
+                                                        <td class="text-center">
+                                                            <a class="img_men_cart" href="#">
+                                                                <img src="{{ asset(json_decode($product->photos)[0]) }}"
+                                                                    class="img-fluid">
+                                                            </a>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            {{ $product_name_with_choice }}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <div class="input_b m-auto">
+                                                                <b onclick="decreaseValue()" value="Decrease Value"
+                                                                    class="minus_b">-</b>
+                                                                <input type="number" id="numbers" value="0"
+                                                                    class="count_b disabled=" name=" qty">
+                                                                <b class="plus_b " onclick="increaseValue()"
+                                                                    value="Increase Value">+</b>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <span
+                                                                class="cart-grand-total-price">{{ single_price($cartItem['price']) }}</span>
+                                                        </td>
+                                                        <td class="text-center"><a href="#" title="cancel"
+                                                                class="icon"><i class="fa fa-trash-o"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                            </tbody>
+
+                                            <!-- /tbody -->
+                                        </table>
+                                        <div class="d-flex justify-content-around align-items-center w-100 my-3 flex-wrap">
+                                            <!-- <form class="coupon-field d-flex flex-wrap align-items-center justify-content-center">
+                                         <input type="text" placeholder="Apply Coupon Code" class="mr-2">
+                                         <button type="button" class="btn-custom mt-xl-0 mt-md-0 mt-2 rounded-0">Apply Coupon</button>
+                                         </form> -->
+                                            <div class="total-amount font-weight-bold mt-xl-0 mt-md-0 mt-2 text-dark">
+                                                Total Amount : <span>{{ single_price($total) }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row  pl-2 mt-4">
+                                    <div class="col-xl-4 col-lg-7 col-md-6 col-12 my-3">
+                                        <div class="cart-summary sub_border_shadow p-xl-4 p-lg-4 p-md-3 p-3 text-left ">
+                                            <strong class="cart_text mb-3 d-block font-weight-bold">Cart Summary</strong>
+                                            <div class="cart-price d-flex justify-content-between mb-2">
+                                                <h6 class="">Sub Total</h6>
+                                                <span class="cart_text">NPR 200</span>
+                                            </div>
+                                            <div class="cart-price d-flex justify-content-between mb-2">
+                                                <h6 class="">Shipping Cost</h6>
+                                                <span class="cart_text">NPR 0</span>
+                                            </div>
+                                            <hr>
+                                            <div class="cart-price d-flex justify-content-between mb-2">
+                                                <h6 class="">Grand Total</h6>
+                                                <span class="cart_text">NPR 200</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-12 my-3">
+                                        <div class="checkout_btn_cart d-flex align-items-center h-100">
+                                            <button type="button" class="btn-custom rounded-0">Proceed Checkout</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Cart Ends -->
 
     <!-- Modal -->
-    <div class="modal fade" id="GuestCheckout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="GuestCheckout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-zoom" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLabel">{{__('Login')}}</h6>
+                    <h6 class="modal-title" id="exampleModalLabel">{{ __('Login') }}</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -320,7 +323,8 @@
                             @csrf
                             <div class="form-group">
                                 <div class="input-group input-group--style-1">
-                                    <input type="email" name="email" class="form-control" placeholder="{{__('Email')}}">
+                                    <input type="email" name="email" class="form-control"
+                                        placeholder="{{ __('Email') }}">
                                     <span class="input-group-addon">
                                         <i class="text-md la la-user"></i>
                                     </span>
@@ -329,7 +333,8 @@
 
                             <div class="form-group">
                                 <div class="input-group input-group--style-1">
-                                    <input type="password" name="password" class="form-control" placeholder="{{__('Password')}}">
+                                    <input type="password" name="password" class="form-control"
+                                        placeholder="{{ __('Password') }}">
                                     <span class="input-group-addon">
                                         <i class="text-md la la-lock"></i>
                                     </span>
@@ -338,10 +343,12 @@
 
                             <div class="row align-items-center">
                                 <div class="col-md-6">
-                                    <a href="{{ route('password.request') }}" class="link link-xs link--style-3">{{__('Forgot password?')}}</a>
+                                    <a href="{{ route('password.request') }}"
+                                        class="link link-xs link--style-3">{{ __('Forgot password?') }}</a>
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <button type="submit" class="btn btn-styled btn-base-1 px-4">{{__('Sign in')}}</button>
+                                    <button type="submit"
+                                        class="btn btn-styled btn-base-1 px-4">{{ __('Sign in') }}</button>
                                 </div>
                             </div>
                         </form>
@@ -349,28 +356,32 @@
                     </div>
                     <div class="text-center pt-3">
                         <p class="text-md">
-                            {{__('Need an account?')}} <a href="{{ route('user.registration') }}" class="strong-600">{{__('Register Now')}}</a>
+                            {{ __('Need an account?') }} <a href="{{ route('user.registration') }}"
+                                class="strong-600">{{ __('Register Now') }}</a>
                         </p>
                     </div>
-                    @if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'twitter_login')->first()->value == 1)
+                    @if (\App\BusinessSetting::where('type', 'google_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'twitter_login')->first()->value == 1)
                         <div class="or or--1 my-3 text-center">
                             <span>or</span>
                         </div>
                         <div class="p-3 pb-0">
                             @if (\App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1)
-                                <a href="{{ route('social.login', ['provider' => 'facebook']) }}" class="btn btn-styled btn-block btn-facebook btn-icon--2 btn-icon-left px-4 mb-3">
-                                    <i class="icon fa fa-facebook"></i> {{__('Login with Facebook')}}
+                                <a href="{{ route('social.login', ['provider' => 'facebook']) }}"
+                                    class="btn btn-styled btn-block btn-facebook btn-icon--2 btn-icon-left px-4 mb-3">
+                                    <i class="icon fa fa-facebook"></i> {{ __('Login with Facebook') }}
                                 </a>
                             @endif
-                            @if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1)
-                                <a href="{{ route('social.login', ['provider' => 'google']) }}" class="btn btn-styled btn-block btn-google btn-icon--2 btn-icon-left px-4 mb-3">
-                                    <i class="icon fa fa-google"></i> {{__('Login with Google')}}
+                            @if (\App\BusinessSetting::where('type', 'google_login')->first()->value == 1)
+                                <a href="{{ route('social.login', ['provider' => 'google']) }}"
+                                    class="btn btn-styled btn-block btn-google btn-icon--2 btn-icon-left px-4 mb-3">
+                                    <i class="icon fa fa-google"></i> {{ __('Login with Google') }}
                                 </a>
                             @endif
                             @if (\App\BusinessSetting::where('type', 'twitter_login')->first()->value == 1)
-                            <a href="{{ route('social.login', ['provider' => 'twitter']) }}" class="btn btn-styled btn-block btn-twitter btn-icon--2 btn-icon-left px-4 mb-3">
-                                <i class="icon fa fa-twitter"></i> {{__('Login with Twitter')}}
-                            </a>
+                                <a href="{{ route('social.login', ['provider' => 'twitter']) }}"
+                                    class="btn btn-styled btn-block btn-twitter btn-icon--2 btn-icon-left px-4 mb-3">
+                                    <i class="icon fa fa-twitter"></i> {{ __('Login with Twitter') }}
+                                </a>
                             @endif
                         </div>
                     @endif
@@ -379,7 +390,8 @@
                             <span>or</span>
                         </div>
                         <div class="text-center">
-                            <a href="{{ route('checkout.shipping_info') }}" class="btn btn-styled btn-base-1">{{__('Guest Checkout')}}</a>
+                            <a href="{{ route('checkout.shipping_info') }}"
+                                class="btn btn-styled btn-base-1">{{ __('Guest Checkout') }}</a>
                         </div>
                     @endif
                 </div>
@@ -391,20 +403,24 @@
 
 @section('script')
     <script type="text/javascript">
-    function removeFromCartView(e, key){
-        e.preventDefault();
-        removeFromCart(key);
-    }
+        function removeFromCartView(e, key) {
+            e.preventDefault();
+            removeFromCart(key);
+        }
 
-    function updateQuantity(key, element){
-        $.post('{{ route('cart.updateQuantity') }}', { _token:'{{ csrf_token() }}', key:key, quantity: element.value}, function(data){
-            updateNavCart();
-            $('#cart-summary').html(data);
-        });
-    }
+        function updateQuantity(key, element) {
+            $.post('{{ route('cart.updateQuantity') }}', {
+                _token: '{{ csrf_token() }}',
+                key: key,
+                quantity: element.value
+            }, function(data) {
+                updateNavCart();
+                $('#cart-summary').html(data);
+            });
+        }
 
-    function showCheckoutModal(){
-        $('#GuestCheckout').modal();
-    }
+        function showCheckoutModal() {
+            $('#GuestCheckout').modal();
+        }
     </script>
 @endsection
