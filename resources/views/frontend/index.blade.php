@@ -291,35 +291,6 @@
                                     <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
                                 @endif
                             @else
-
-                           <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
-                           @endif
-                            </a>
-                            @if (! $product->discount == 0)
-                            <span class="product-discount-label">-{{$product->discount}}%</span>
-                        @endif
-                         </div>
-                         <div class="price-cart text-center pt-2">
-                            <div class="price d-flex align-items-center">
-                               <h6 class="m-0 gray">{{ home_discounted_base_price($product->id) }}</h6>
-                               @if(home_base_price($product->id) != home_discounted_base_price($product->id))
-                                   <span>{{ home_base_price($product->id) }}</span>
-                                   @endif
-                            </div>
-                            <a class="all-deals ico effect" onclick="showAddToCartModal({{ $product->id }})" data-toggle="tooltip" data-placement="right"
-                               title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
-                         </div>
-                         <div class="cart-compare">
-                            <a class="all-deals effect gray" onclick="addToWishList({{ $product->id }})" tabindex="0"><i class="fa fa-heart icon mr-2"></i>Wishlist
-                            </a>
-                            <a class="all-deals effect gray" href=""> <i class="fa fa-exchange icon mr-2"></i>Compare
-                            </a>
-                         </div>
-                      </div>
-                   </div>
-                   @endforeach
-                </div>
-
                                 <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
                             @endif
                         </a>
@@ -350,7 +321,6 @@
                   </div>
                </div>
                @endforeach
-
              </div>
           </div>
        </div>
@@ -359,7 +329,6 @@
  @endif
 
     {{-- <div id="section_featured">
-
     </div> --}}
      <!--============================================= BANNER START ======-->
    <section id="banner_two" class="mb-5">
@@ -381,7 +350,6 @@
  
 
     {{-- <div id="section_best_selling">
-
     </div> --}}
 
     {{-- @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
@@ -410,7 +378,6 @@
                                                 <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($customer_product->photos)[0]) }}" alt="{{ __($customer_product->name) }}">
                                                </a>
                                            </div>
-
                                            <div class="p-sm-3 p-2">
                                                <div class="price-box">
                                                    <span class="product-price strong-600">{{ single_price($customer_product->unit_price) }}</span>
@@ -488,10 +455,10 @@
                                 @endphp
                                 
                                 @if(isset($filepath))
-                                @if (file_exists(public_path($filepath)))
-                                <img src="{{ asset($product->featured_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
-                                @else
-                                <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
+                                    @if (file_exists(public_path($filepath)))
+                                        <img src="{{ asset($product->featured_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
+                                    @else
+                                        <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
                                     @endif
                                 @else
                                     <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
@@ -516,8 +483,8 @@
                                    <span>{{ home_base_price($product->id) }}</span>
                                    @endif
                                 </div>
-                                <a class="all-deals ico effect" onclick="showAddToCartModal({{ $product->id }})" data-toggle="tooltip" data-placement="right"
-                                    title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
+                                <a class="all-deals ico effect" href="dashboard-cart.html" data-toggle="tooltip" data-placement="right"
+                                   title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
                              </div>
                              <div class="cart-compare">
                                 
@@ -638,28 +605,22 @@
             // flash counter
             var data=@json($time);
             var countDownDate = new Date(data).getTime();
-
             // Update the count down every 1 second
             var x = setInterval(function() {
-
             // Get today's date and time
             var now = new Date().getTime();
             //   alert(countDownDate);
-
             // Find the distance between now and the count down date
             var distance = countDownDate - now;
-
             // Time calculations for days, hours, minutes and seconds
             var days = Math.floor(distance / (1000 * 60 * 60 * 24));
             var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
             // console.log(document.getElementsByClassName("demo"));
-
             // Output the result in an element with id="demo"
             $('.demo').text(days + " days : " + hours + " hours : "+ minutes + " minutes : " + seconds + " seconds");
             //document.getElementsByClassName("demo").innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
-
             // If the count down is over, write some text
             if (distance < 0) {
             clearInterval(x);
@@ -668,23 +629,19 @@
             }
             }, 1000);
             // flash counter
-
             $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
                 // console.log(data);
                 $('#section_featured').html(data);
                 slickInit();
             });
-
             $.post('{{ route('home.section.best_selling') }}', {_token:'{{ csrf_token() }}'}, function(data){
                 $('#section_best_selling').html(data);
                 slickInit();
             });
-
             $.post('{{ route('home.section.home_categories') }}', {_token:'{{ csrf_token() }}'}, function(data){
                 $('#section_home_categories').html(data);
                 slickInit();
             });
-
             $.post('{{ route('home.section.best_sellers') }}', {_token:'{{ csrf_token() }}'}, function(data){
                 $('#section_best_sellers').html(data);
                 slickInit();
@@ -692,4 +649,3 @@
         });
     </script>
 @endsection
-
