@@ -27,8 +27,9 @@
             </div>
         </div>
     </div>
+
     <div class="text-center">
-        <button class="btn btn-styled btn-base-1 btn-outline mb-3 mb-sm-0" data-dismiss="modal">{{__('Back to shopping')}}</button>
-        <a href="{{ route('cart') }}" class="btn btn-styled btn-base-1 mb-3 mb-sm-0">{{__('Proceed to Checkout')}}</a>
+        <button class="btn-custom" data-dismiss="modal">{{__('Back to shopping')}}</button>
+        <a href="{{ route('cart') }}" class="btn-custom" >{{__('Proceed to Checkout')}}</a>
     </div>
 </div>

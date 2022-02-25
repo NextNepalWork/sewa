@@ -48,20 +48,20 @@
 
 <!-- Favicon -->
 <link type="image/x-icon" href="{{ asset(\App\GeneralSetting::first()->favicon) }}" rel="shortcut icon" />
-
+<link type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 <!-- Fonts -->
-{{-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+{{-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" type="text/css" media="all">
 
 <!-- Icons -->
-<link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}" type="text/css" media="none" onload="if(media!='all')media='all'">
-<link rel="stylesheet" href="{{ asset('frontend/css/line-awesome.min.css') }}" type="text/css" media="none" onload="if(media!='all')media='all'">
+{{-- <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}" type="text/css" media="none" onload="if(media!='all')media='all'"> --}}
+{{-- <link rel="stylesheet" href="{{ asset('frontend/css/line-awesome.min.css') }}" type="text/css" media="none" onload="if(media!='all')media='all'"> --}}
 
 <link type="text/css" href="{{ asset('frontend/css/bootstrap-tagsinput.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 <link type="text/css" href="{{ asset('frontend/css/jodit.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
-<link type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+
 <link type="text/css" href="{{ asset('frontend/css/slick.css') }}" rel="stylesheet" media="all">
 <link type="text/css" href="{{ asset('frontend/css/xzoom.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 <link type="text/css" href="{{ asset('frontend/css/jssocials.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
@@ -79,17 +79,16 @@
    <link rel="stylesheet" href="{{ asset('frontend/assets/countdown/css/flipclock.css') }}" />
    <!-- Countdown end -->
 </head>
-<!-- Global style (main) -->
-<link type="text/css" href="{{ asset('frontend/css/active-shop.css') }}" rel="stylesheet" media="all">
 
 {{-- martin edit css --}}
 {{-- <link type="text/css" href="{{ asset('frontend/css/martinedit.css') }}" rel="stylesheet" media="all"> --}}
 
 
+<!-- Global style (main) -->
+<link type="text/css" href="{{ asset('frontend/css/active-shop.css') }}" rel="stylesheet" media="all">
 
 
-{{-- 
-<link type="text/css" href="{{ asset('frontend/css/main.css') }}" rel="stylesheet" media="all"> --}}
+<link type="text/css" href="{{ asset('frontend/css/main.css') }}" rel="stylesheet" media="all">
 
 {{-- style-new css --}}
 {{-- <link type="text/css" href="{{ asset('frontend/css/style-new.css') }}" rel="stylesheet" media="all"> --}}
@@ -101,11 +100,11 @@
 @endif --}}
 
 <!-- color theme -->
-{{-- <link href="{{ asset('frontend/css/colors/'.\App\GeneralSetting::first()->frontend_color.'.css')}}" rel="stylesheet" media="all"> --}}
+<link href="{{ asset('frontend/css/colors/'.\App\GeneralSetting::first()->frontend_color.'.css')}}" rel="stylesheet" media="all">
 
 <!-- Custom style -->
-{{-- <link type="text/css" href="{{ asset('frontend/css/custom-style.css') }}" rel="stylesheet" media="all"> --}} 
-<link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css') }}" />
+{{-- <link type="text/css" href="{{ asset('frontend/css/custom-style.css') }}" rel="stylesheet" media="all">  --}}
+    <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css') }}" />
    <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css.map') }}" />
    <!-- Bootstrap link Ends -->
    <!-- Font Awesome Link Starts -->
@@ -127,20 +126,26 @@
    <link rel="stylesheet" href="https://k1ngzed.com/dist/EasyZoom/easyzoom.css" />
    <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}" />
 
+   <link type="text/css" href="{{ asset('frontend/css/xzoom.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+
    <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}" />
    <link rel="stylesheet" href="{{ asset('frontend/assets/css/style2.css') }}" />
+   {{-- <link rel="stylesheet" href="{{ asset('frontend/assets/css/dashboard.css') }}" /> --}}
+
    <!-- Custom Links Ends -->
    <!-- Countdown start -->
-   <link rel="stylesheet" href="{{ asset('frontend/assets/countdown/css/flipclock.css') }}" />
+   {{-- <link rel="stylesheet" href="{{ asset('frontend/assets/countdown/css/flipclock.css') }}" /> --}}
 
 
 <!-- jQuery -->
 <script src="{{ asset('frontend/js/vendor/jquery.min.js') }}"></script>
 
-
-@if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1)
+{{-- @php
+    dd(\App\Product::where('published', 1)->orderBy('num_of_sale', 'desc')->limit(20)->get()->toArray());
+@endphp --}}
+{{-- @if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1) --}}
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('TRACKING_ID') }}"></script>
+    {{-- <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('TRACKING_ID') }}"></script>
 
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -148,11 +153,11 @@
       gtag('js', new Date());
       gtag('config', '{{ env('TRACKING_ID') }}');
     </script>
-@endif
+@endif --}}
 
-@if (\App\BusinessSetting::where('type', 'facebook_pixel')->first()->value == 1)
+{{-- @if (\App\BusinessSetting::where('type', 'facebook_pixel')->first()->value == 1) --}}
 <!-- Facebook Pixel Code -->
-<script>
+{{-- <script>
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -163,14 +168,25 @@
   'https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', {{ env('FACEBOOK_PIXEL_ID') }});
   fbq('track', 'PageView');
-</script>
-<noscript>
+</script> --}}
+{{-- <noscript>
   <img height="1" width="1" style="display:none"
        src="https://www.facebook.com/tr?id={{ env('FACEBOOK_PIXEL_ID') }}/&ev=PageView&noscript=1"/>
-</noscript>
+</noscript> --}}
 <!-- End Facebook Pixel Code -->
-@endif
-
+{{-- @endif --}}
+<style>
+    .demo{
+        background: #258aff;
+        color: #ffff!important;
+        padding: 10px 10px 10px 9px;
+        font-weight: 800;
+        font-size: 13px;
+    }
+    .swal2-shown{
+        z-index: 9999;
+    }
+</style>
 </head>
 <body>
 
@@ -218,8 +234,8 @@
 <!-- <a href="#" class="back-to-top btn-back-to-top"></a> -->
 
 <!-- Core -->
-{{-- <script src="{{ asset('frontend/js/vendor/popper.min.js') }}"></script>
-<script src="{{ asset('frontend/js/vendor/bootstrap.min.js') }}"></script> --}}
+<script src="{{ asset('frontend/js/vendor/popper.min.js') }}"></script>
+<script src="{{ asset('frontend/js/vendor/bootstrap.min.js') }}"></script>
 
 <!-- Plugins: Sorted A-Z -->
 {{-- <script src="{{ asset('frontend/js/jquery.countdown.min.js') }}"></script>
@@ -233,11 +249,11 @@
 <script src="{{ asset('frontend/js/xzoom.min.js') }}"></script>
 <script src="{{ asset('frontend/js/fb-script.js') }}"></script>
 <script src="{{ asset('frontend/js/lazysizes.min.js') }}"></script>
-<script src="{{ asset('frontend/js/intlTelInput.min.js') }}"></script> --}}
+<script src="{{ asset('frontend/js/intlTelInput.min.js') }}"></script>  --}}
 
 <!-- App JS -->
-{{-- <script src="{{ asset('frontend/js/active-shop.js') }}"></script>
-<script src="{{ asset('frontend/js/main.js') }}"></script> --}}
+<script src="{{ asset('frontend/js/active-shop.js') }}"></script>
+{{-- <script src="{{ asset('frontend/js/main.js') }}"></script> --}}
 
 {{-- script-new js --}}
 {{-- <script src="{{ asset('frontend/js/script-new.js') }}"></script> --}}
@@ -293,7 +309,7 @@
             type: type,
             title: message,
             showConfirmButton: false,
-            timer: 3000
+            timer: 1000000
         });
     }
 </script>

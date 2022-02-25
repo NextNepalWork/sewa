@@ -204,7 +204,7 @@
                    <a href="{{ route('compare') }}" class="position-relative">
                       {{-- <sub class='sub_block'>1</sub> --}}
                       <img data-toggle="tooltip" data-placement="top" title="" data-original-title="Compare"
-                         src="./frontend/assets/images/logo/compare.svg" class="img-fluid" alt="" />
+                         src="{{asset('./frontend/assets/images/logo/compare.svg')}}" class="img-fluid" alt="" />
                          @if(Session::has('compare'))
                          <sup class="sub_block">{{ count(Session::get('compare'))}}</sup>
                         @else
@@ -217,7 +217,7 @@
                    <a href="{{ route('wishlists.index') }}" class="position-relative" id="wishlist" >
                       {{-- <sub class='sub_block'>0</sub> --}}
                       <img data-toggle="tooltip" data-placement="top" title=""
-                         data-original-title="Wishlist" src="./frontend/assets/images/logo/wishlist.svg"
+                         data-original-title="Wishlist" src="{{asset('./frontend/assets/images/logo/wishlist.svg')}}"
                          class="img-fluid" alt="" />
                          @if(Auth::check())
                          <sup class="sub_block" >{{ count(Auth::user()->wishlists)}}</sup>
@@ -232,7 +232,7 @@
                       aria-haspopup="true" aria-expanded="false">
                       {{-- <sub class='sub_block'>1</sub> --}}
                       <img data-toggle="tooltip" data-placement="top" title=""
-                         data-original-title="Cart" src="./frontend/assets/images/logo/cart.svg" class="img-fluid"
+                         data-original-title="Cart" src="{{asset('./frontend/assets/images/logo/cart.svg')}}" class="img-fluid"
                          alt="" />
                          @if(Session::has('cart'))
                          <sup id="cart_items_sidenav"  class="sub_block">{{ count(Session::get('cart'))}}</sup>
@@ -293,11 +293,11 @@
                              w-100 pt-2 
                            ">
                          <a href="{{ route('cart') }}" class="btn-custom rounded-0 py-2">
-                            <img src="./frontend/assets/images/logo/cart.svg" class="img-fluid" alt="">&nbsp; View
+                            <img src="{{asset('./frontend/assets/images/logo/cart.svg')}}" class="img-fluid" alt="">&nbsp; View
                             Cart</a>
                             @if (Auth::check())
                          <a href="{{ route('checkout.shipping_info') }}" class="btn-custom rounded-0 py-2"> <img
-                               src="./frontend/assets/images/logo/cart.svg" class="img-fluid" alt="">&nbsp; Proceed
+                               src="{{asset('./frontend/assets/images/logo/cart.svg')}}" class="img-fluid" alt="">&nbsp; Proceed
                             Checkout</a>
                             @endif
                       </div>

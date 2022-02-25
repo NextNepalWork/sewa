@@ -1,10 +1,13 @@
 <div class="d-user-avater text-center mb-4">
-    @if (Auth::user()->avatar_original != null)
-    <div class="image" style="background-image:url('{{ asset(Auth::user()->avatar_original) }}')"></div>
-@else
-    <img src="{{ asset('frontend/images/user.png') }}" class="image rounded-circle">
-@endif
-   <h5>{{ Auth::user()->name }}</h5>
+   @if (Auth::user())
+      @if (Auth::user()->avatar_original != null)
+         <div class="image" style="background-image:url('{{ asset(Auth::user()->avatar_original) }}')"></div>
+      @else
+         <img src="{{ asset('frontend/images/user.png') }}" class="image rounded-circle">
+      @endif
+      <h5>{{ Auth::user()->name }}</h5>       
+   @endif
+
   
 </div>
  <ul class="sidebar pl-md-0 pl-4 pb-md-0 pb-3">

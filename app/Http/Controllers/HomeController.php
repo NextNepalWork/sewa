@@ -626,7 +626,6 @@ class HomeController extends Controller
            $product = Product::find($request->id);
         $str = '';
         $quantity = 0;
-
         if ($request->has('color')) {
             $data['color'] = $request['color'];
             $str = Color::where('code', $request['color'])->first()->name;

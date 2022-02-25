@@ -100,9 +100,9 @@
 <script src="{{ asset('frontend/js/vendor/jquery.min.js') }}"></script>
 
 
-@if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1)
+<!-- @if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1) -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('TRACKING_ID') }}"></script>
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('TRACKING_ID') }}"></script>
 
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -110,11 +110,11 @@
       gtag('js', new Date());
       gtag('config', '{{ env('TRACKING_ID') }}');
     </script>
-@endif
+@endif -->
 
 @if (\App\BusinessSetting::where('type', 'facebook_pixel')->first()->value == 1)
 <!-- Facebook Pixel Code -->
-<script>
+<!-- <script>
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -125,11 +125,11 @@
   'https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', {{ env('FACEBOOK_PIXEL_ID') }});
   fbq('track', 'PageView');
-</script>
-<noscript>
+</script> -->
+<!-- <noscript>
   <img height="1" width="1" style="display:none"
        src="https://www.facebook.com/tr?id={{ env('FACEBOOK_PIXEL_ID') }}/&ev=PageView&noscript=1"/>
-</noscript>
+</noscript> -->
 <!-- End Facebook Pixel Code -->
 @endif
 
@@ -189,11 +189,11 @@
 <script src="{{ asset('frontend/js/nouislider.min.js') }}"></script>
 <script src="{{ asset('frontend/js/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('frontend/js/slick.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jssocials.min.js') }}"></script>
+<!-- <script src="{{ asset('frontend/js/jssocials.min.js') }}"></script> -->
 <script src="{{ asset('frontend/js/bootstrap-tagsinput.min.js') }}"></script>
 <script src="{{ asset('frontend/js/jodit.min.js') }}"></script>
 <script src="{{ asset('frontend/js/xzoom.min.js') }}"></script>
-<script src="{{ asset('frontend/js/fb-script.js') }}"></script>
+<!-- <script src="{{ asset('frontend/js/fb-script.js') }}"></script> -->
 <script src="{{ asset('frontend/js/lazysizes.min.js') }}"></script>
 <script src="{{ asset('frontend/js/intlTelInput.min.js') }}"></script>
 
