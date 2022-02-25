@@ -119,7 +119,7 @@
        </div>
     </div>
  </header>
- <div class="nav_bar header-sticky">
+ <div class="nav_bar header-sticky" style="background-color: white;">
     <div class="container pl-0 ">
        <div class="row">
           <div class="col-md-2">
