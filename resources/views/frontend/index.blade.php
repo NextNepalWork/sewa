@@ -400,7 +400,7 @@
                                title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
                          </div>
                          <div class="cart-compare">
-                            <a class="all-deals effect gray" href="wishlist.html"><i class="fa fa-heart icon mr-2"></i>Wishlist
+                            <a class="all-deals effect gray" onclick="addToWishList({{ $product->id }})" tabindex="0"><i class="fa fa-heart icon mr-2"></i>Wishlist
                             </a>
                             <a class="all-deals effect gray" href=""> <i class="fa fa-exchange icon mr-2"></i>Compare
                             </a>
