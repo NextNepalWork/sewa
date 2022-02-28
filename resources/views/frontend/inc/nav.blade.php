@@ -361,10 +361,21 @@
                      @else
                         <sup class="sub_block" id="cart_items_sidenav">0</sup>
                      @endif
-
-
                   </a>
                </li>
+
+               <li class="nav-item d-flex align-items-center">
+                  <a class="nav-link add-on" href="{{route('wishlists')}}" data-target="#nav-cart">
+                     <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>Wishlist
+                     <span class="mx-2"><i class="fa fa-heart" aria-hidden="true"></i></span>
+                     @if(Auth::check())
+                        <span class="sub_block">{{ count(Auth::user()->wishlists)}}</span>
+                     @else
+                        <span class="sub_block">0</span>
+                     @endif
+                  </a>
+              </li>
+
                <li class="nav-item d-flex align-items-center">
                   <a class="nav-link add-on" data-toggle="modal" data-target="#nav-cart">
                      <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>Track
