@@ -14,6 +14,26 @@
 Route::post('/get-states-by-country', 'HomeController@getStates')->name('getStates')->middleware(['auth']);
 Route::get('/admin', 'HomeController@admin_dashboard')->name('admin.dashboard')->middleware(['auth', 'admin']);
 Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function(){
+
+		// This is route for testimonials
+		Route::get('/testimonial/view', function (){
+			return view ('testimonial.index');
+		})->name('pages.testimonialindex');
+		Route::get('/testimonial/create', function (){
+			return view ('testimonial.create');
+			})->name('pages.testimonialcreate');
+		Route::get('/testimonial/edit/{id}', 'PageController@testimonialedit')->name('pages.testimonialedit');
+		Route::post('/testimonial/update/{id}', 'PageController@testimonialupdate')->name('pages.testimonialupdate');
+		Route::post('/testimonial/store', 'PageController@testimonialstore')->name('pages.testimonialstore');
+		Route::post('/testimonial/update_status', 'PageController@testimonialupdate_status')->name('pages.testimonialupdate_status');
+		Route::get('/testimonial/delete/{id}', 'PageController@testimonial_delete')->name('pages.testimonialdelete');
+		Route::get('/contact-us','PageController@contactUs')->name('pages.contact-us');
+
+	// Blog
+	Route::resource('/blog','BlogController');
+	Route::post('/blog/update_status','BlogController@updateStatus')->name('blog.status');
+
+
 	Route::resource('categories','CategoryController');
 	Route::get('/categories/destroy/{id}', 'CategoryController@destroy')->name('categories.destroy');
 	Route::post('/categories/featured', 'CategoryController@updateFeatured')->name('categories.featured');

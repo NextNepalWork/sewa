@@ -1,26 +1,21 @@
-<div class="dropdown-menu" id="cart_header_table" aria-labelledby="dropdownMenuButton">
-    @if(Session::has('cart'))
-    @if(count($cart = Session::get('cart')) > 0)
-    <h6 class="text-center font-weight-bold pt-1">Cart Items</h6>
- 
-     <div class="table-responsive cart-items">
-        <table class="table mb-0">
-           <tbody>
-             @php
-             $total = 0;
-         @endphp
-         @foreach($cart as $key => $cartItem)
-             @php
-                 $product = \App\Product::find($cartItem['id']);
-             
-                 $total = $total + $cartItem['price']*$cartItem['quantity'];
-             @endphp
-              <tr>
-                 <td class="img_header_cart">
-                    <div>
-                       <a href=""><img
-                             src="{{ asset(json_decode($product->photos)[0]) }}"
-                             alt="{{ __($product->name) }}"></a>
+<a href="" class="position-relative" id="dropdownMenuButton " data-toggle="dropdown"
+aria-haspopup="true" aria-expanded="false">
+<img data-toggle="tooltip" data-placement="top" title=""
+   data-original-title="Cart" src="{{asset('./frontend/assets/images/logo/cart.svg')}}" class="img-fluid"
+   alt="" />
+   @if(Session::has('cart'))
+   <sup class="sub_block">{{ count(Session::get('cart'))}}</sup>
+@else
+   <sup class="sub_block">0</sup>
+@endif
+</a>
+<ul class="dropdown-menu dropdown-menu-right px-0">
+    <li>
+        <div class="dropdown-cart px-0">
+            @if(Session::has('cart'))
+                @if(count($cart = Session::get('cart')) > 0)
+                    <div class="dc-header">
+                        <h3 class="heading heading-6 strong-700">{{__('Cart Items')}}</h3>
                     </div>
                  </td>
                  <td class="cart_header_title"> <a href="" class="text-dark">{{ __($product->name) }}</a> </td>

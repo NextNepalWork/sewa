@@ -237,7 +237,7 @@
                                         <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToWishList({{$product->id}})"
                                             ><i class="fa fa-heart icon mr-2"></i>Wishlist
                                         </a>
-                                        <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToCompare({{$product->id}})">
+                                        <a class="all-deals effect gray" onclick="addToCompare({{$product->id}})">
                                         <i class="fa fa-exchange icon mr-2"></i>Compare
                                         </a>
                                     </div>

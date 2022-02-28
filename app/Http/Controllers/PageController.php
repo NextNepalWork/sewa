@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Page;
+use App\Testimonial;
+use Illuminate\Support\Facades\DB;
+use Response;
 
 class PageController extends Controller
 {
@@ -66,6 +69,93 @@ class PageController extends Controller
         flash('Slug has been used already')->warning();
         return back();
     }
+
+    public function testimonialupdate_status(Request $request)
+    {
+    //    dd($request->id);
+            try {
+                DB::table('testimonial')
+                    ->where('id', $request->cid)
+                    ->update([
+                        'status' => $request->status,
+                    ]);
+                    return Response::json('Status Changed');
+            } catch (\Exception $e) {
+                        $bug = $e->getMessage();
+                        return Response::json(['error' => $bug],404);
+                    }
+    }
+
+    public function testimonialstore(Request $request)
+    {
+        if ($files = $request->file('image')) {
+            $destinationPath = public_path('/img/');
+            $image = date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $files->move($destinationPath, $image);
+            $insert['image'] = "$image";
+        }
+         DB::table('testimonial')->insert([
+             'name' => $request->name,
+             'title' => $request->title,
+             'about' => $request->about,
+             'image' => $image,
+             'status' => $request->status,
+         ]);
+         flash('Testional has been Added successfully')->success();
+         return redirect()->route('pages.testimonialindex');
+     }
+     public function testimonialedit($id)
+     {
+         $flash_deal = DB::table('testimonial')->where('id', $id)->first();
+         return view ('testimonial.edit',compact('flash_deal'));
+     }
+     public function testimonialupdate(Request $request, $id)
+     {
+        if ($files = $request->file('image')) {
+            // Define upload path
+                $destinationPath = public_path('/img/');
+            // Upload Orginal Image
+                $image = date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $fullpath = 'img/'.$image;
+                $files->move($destinationPath, $image);
+                $insert['image'] = "$image";
+
+                DB::table('testimonial')
+                ->where('id', $id)
+                ->update([
+                    'name' => $request->name,
+                    'title' =>$request->title,
+                    'about' =>$request->about,
+                    'image' => $fullpath,
+                    // 'image' => $image,
+                    'status' => $request->status,
+                ]);
+            }else{
+                DB::table('testimonial')
+                ->where('id', $id)
+                ->update([
+                    'name' => $request->name,
+                    'title' =>$request->title,
+                    'about' =>$request->about,
+                    'status' => $request->status,
+                ]);
+            }
+        
+
+
+                flash('Testional has been Updated successfully')->success();
+                return redirect()->route('pages.testimonialindex');
+     }
+
+
+     public function testimonial_delete($id)
+     {
+            DB::table('testimonial')
+                ->where('id', $id)
+                ->delete();
+                flash('Testimonial deleted successfully')->success();
+                return redirect()->back();
+     }
 
     /**
      * Display the specified resource.
