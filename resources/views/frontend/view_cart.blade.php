@@ -197,6 +197,7 @@
                    <div class="shopping-cart">
                       <div class="shopping-cart-table">
                          <div class="table-responsive-lg">
+                            @if(Session::has('cart'))
                             <table class="table">
                                <thead>
                                   <tr>
@@ -212,6 +213,7 @@
                                 @php
                                 $total = 0;
                                 @endphp
+
                                 @foreach (Session::get('cart') as $key => $cartItem)
                                     @php
                                     $product = \App\Product::find($cartItem['id']);
@@ -254,12 +256,16 @@
                                               class="fa fa-trash-o"></i></a>
                                      </td>
                                   </tr>
-                                  @endforeach
+                                @endforeach
+                                
                                </tbody>
                                
                                <!-- /tbody -->
                             </table>
-                            <div class="d-flex justify-content-around align-items-center w-100 my-3 flex-wrap">
+                            @else
+                                <div class="text-center"> Your cart is empty</div>
+                            @endif
+                            {{-- <div class="d-flex justify-content-around align-items-center w-100 my-3 flex-wrap">
                                <!-- <form class="coupon-field d-flex flex-wrap align-items-center justify-content-center">
                                      <input type="text" placeholder="Apply Coupon Code" class="mr-2">
                                      <button type="button" class="btn-custom mt-xl-0 mt-md-0 mt-2 rounded-0">Apply Coupon</button>
@@ -267,10 +273,10 @@
                                <div class="total-amount font-weight-bold mt-xl-0 mt-md-0 mt-2 text-dark">
                                   Total Amount : <span>$2000</span>
                                </div>
-                            </div>
+                            </div> --}}
                          </div>
                       </div>
-                      <div class="row  pl-2 mt-4">
+                      {{-- <div class="row  pl-2 mt-4">
                          <div class="col-xl-4 col-lg-7 col-md-6 col-12 my-3">
                             <div class="cart-summary sub_border_shadow p-xl-4 p-lg-4 p-md-3 p-3 text-left ">
                                <strong class="cart_text mb-3 d-block font-weight-bold">Cart Summary</strong>
@@ -294,7 +300,7 @@
                                <button type="button" class="btn-custom rounded-0">Proceed Checkout</button>
                             </div>
                          </div>
-                      </div>
+                      </div> --}}
                    </div>
                 </div>
              </div>

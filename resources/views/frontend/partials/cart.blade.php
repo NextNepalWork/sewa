@@ -1,11 +1,3 @@
-{{-- <a href="" class="nav-box-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <img data-toggle="tooltip" data-placement="top" title="Cart" src="{{asset('frontend/images/b15beedcaf38913a9969b50753dd2aa1.svg')}}" alt="cart-logo" class="img-fluid img_sag">
-    @if(Session::has('cart'))
-        <sup class="sub_block">{{ count(Session::get('cart'))}}</sup>
-    @else
-        <sup class="sub_block">0</sup>
-    @endif
-</a> --}}
 <a href="" class="position-relative" id="dropdownMenuButton " data-toggle="dropdown"
 aria-haspopup="true" aria-expanded="false">
 <img data-toggle="tooltip" data-placement="top" title=""
