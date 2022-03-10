@@ -130,7 +130,7 @@
         </div>
     </section> --}}
 
-    <section id="compare" class="py-3">
+    <section id="compare" class="py-3" style="background-color: white;">
         <div class="container">
            <div class="row py-xl-5 py-md-3 py-0">
   
@@ -145,9 +145,9 @@
                                         <table class="table">
                                         <thead>
                                             <tr class='lext-left'>
-                                                <th class="cart-description item text-left">Name</th>
+                                                <th class="cart-description item text-left font-weight-bold text-primary">Name</th>
                                                 @foreach (Session::get('compare') as $key => $item)
-                                                    <th class="cart-product-name item text-left">
+                                                    <th class="cart-product-name item text-left font-weight-bold">
                                                         <a href="{{ route('product', \App\Product::find($item)->slug) }}">{{ \App\Product::find($item)->name }}</a>
                                                     </th>
                                                 @endforeach
@@ -160,11 +160,11 @@
                                         <!-- /thead -->
                                         <tbody>
                                             <tr class='lext-left'>
-                                                <td class="cart-image text-left">
+                                                <td class="cart-image text-left text-dark">
                                                     <strong>Image</strong>
                                                 </td>
                                                 @foreach (Session::get('compare') as $key => $item)
-                                                    <td class="cart-image text-left">
+                                                    <td class="cart-image text-left text-dark">
                                                         <a class="entry-thumbnail text-left" href="{{ route('product', \App\Product::find($item)->slug) }}">
                                                         <img src="{{ asset(json_decode(\App\Product::find($item)->photos)[0]) }}" alt="{{ \App\Product::find($item)->name }}" class="img-fluid">
                                                     </td>
@@ -199,11 +199,11 @@
                                                 </td> --}}
                                             </tr>
                                             <tr class='lext-left'>
-                                                <td class="cart-image text-left">
+                                                <td class="cart-image text-left text-dark">
                                                     <strong> Price</strong>
                                                 </td>
                                                 @foreach (Session::get('compare') as $key => $item)
-                                                    <td class="cart-image text-left">{{ single_price(\App\Product::find($item)->unit_price) }}</td>
+                                                    <td class="cart-image text-left text-dark">{{ single_price(\App\Product::find($item)->unit_price) }}</td>
                                                 @endforeach
                                                 {{-- <td class="cart-image text-left">
                                                     Rs900.00
@@ -213,11 +213,11 @@
                                                 </td> --}}
                                             </tr>
                                             <tr class='lext-left'>
-                                                <td class="cart-image text-left">
+                                                <td class="cart-image text-left text-dark">
                                                     <strong> Brand</strong>
                                                 </td>
                                                 @foreach (Session::get('compare') as $key => $item)
-                                                <td class="cart-image text-left">
+                                                <td class="cart-image text-left text-dark" >
                                                     @if (\App\Product::find($item)->brand != null)
                                                         {{ \App\Product::find($item)->brand->name }}
                                                     @endif
@@ -231,11 +231,11 @@
                                                 </td> --}}
                                             </tr>
                                             <tr class='lext-left'>
-                                                <td class="cart-image text-left">
+                                                <td class="cart-image text-left text-dark">
                                                     <strong> Sub Sub Category </strong>
                                                 </td>
                                                 @foreach (Session::get('compare') as $key => $item)
-                                                    <td class="cart-image text-left">
+                                                    <td class="cart-image text-left text-dark">
                                                         @if (\App\Product::find($item)->subsubcategory != null)
                                                             {{ \App\Product::find($item)->subsubcategory->name }}
                                                         @endif
@@ -249,11 +249,11 @@
                                                 </td> --}}
                                             </tr>
                                             <tr class='lext-left'>
-                                                <td class="cart-image text-left">
+                                                <td class="cart-image text-left text-dark">
                                                     <strong> Description</strong>
                                                 </td>
                                                 @foreach (Session::get('compare') as $key => $item)
-                                                    <td class="cart-image text-left"><?php echo \App\Product::find($item)->description; ?></td>
+                                                    <td class="cart-image text-left text-dark"><?php echo \App\Product::find($item)->description; ?></td>
                                                 @endforeach
                                                 {{-- <td class="cart-image text-left">
                                                     In publishing and graphic design, Lorem ipsum is a placeholder text commonly
@@ -265,6 +265,7 @@
                                                 </td> --}}
                                             </tr>
                                             <tr class='lext-left'>
+                                                <td class="cart-image text-left"></td>
                                                 @foreach (Session::get('compare') as $key => $item)
                                                     <td class="cart-image text-left">
                                                         <button type="button" class="btn-custom" onclick="showAddToCartModal({{ $item }})">
