@@ -145,9 +145,9 @@
 {{-- @php
     dd(\App\Product::where('published', 1)->orderBy('num_of_sale', 'desc')->limit(20)->get()->toArray());
 @endphp --}}
-{{-- @if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1) --}}
+{{-- @if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1)
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    {{-- <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('TRACKING_ID') }}"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('TRACKING_ID') }}"></script>
 
     <script>
       window.dataLayer = window.dataLayer || [];

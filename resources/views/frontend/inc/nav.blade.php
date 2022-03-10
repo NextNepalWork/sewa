@@ -345,12 +345,19 @@
                <span aria-hidden="true">&times;</span>
             </button>
          </div>
+         <style>
+            .navbar-nav .nav-link{
+               border-bottom: 0px;
+            }
+         </style>
          <div class="modal-body d-flex justify-content-between h-100 px-4">
             <ul class="navbar-nav w-100">
-               <li class="nav-item">
+               <li class="nav-item d-flex align-items-center">
                   <a class="nav-link active" href="{{ route('home') }}">
                      <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>
-                     Home</a>
+                     Home
+                     <span class="mx-2"><i class="fa fa-home" aria-hidden="true"></i></span>
+                  </a>
                </li>
                <li class="nav-item d-flex align-items-center">
                   <a class="nav-link add-on" data-target="#nav-cart" href="{{ route('cart') }}">
@@ -365,7 +372,7 @@
                </li>
 
                <li class="nav-item d-flex align-items-center">
-                  <a class="nav-link add-on" href="{{route('wishlists')}}" data-target="#nav-cart">
+                  <a class="nav-link add-on" href="{{route('wishlists.index')}}" data-target="#nav-cart">
                      <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>Wishlist
                      <span class="mx-2"><i class="fa fa-heart" aria-hidden="true"></i></span>
                      @if(Auth::check())
@@ -375,8 +382,40 @@
                      @endif
                   </a>
               </li>
-
                <li class="nav-item d-flex align-items-center">
+                  <a href="{{ route('compare') }}" class="nav-link add-on" data-target="#nav-cart">
+                     <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>Compare
+                     <span class="mx-2"><i class="fa fa-refresh" aria-hidden="true"></i></span>
+                     @if(Session::has('compare'))
+                        <sup class="sub_block" id="compare_items_sidenav">{{ count(Session::get('compare'))}}</sup>
+                     @else
+                        <sup class="sub_block" id="compare_items_sidenav">0</sup>
+                     @endif
+                  </a>
+               </li>
+               <li class="nav-item d-flex align-items-center">
+                  <a href="{{ route('purchase_history.index') }}" class="nav-link add-on" data-target="#nav-cart">
+                     <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>Purchase History
+                     <span class="mx-2"><i class="fa fa-file-text" aria-hidden="true"></i></span>
+                 </a>
+               </li>
+               @auth
+               <li class="nav-item d-flex align-items-center">
+                  <a href="{{ route('profile') }}" class="nav-link add-on" data-target="#nav-cart">
+                     <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>Manage Profile
+                     <span class="mx-2"><i class="fa fa-user" aria-hidden="true"></i></span>
+                  </a>
+              </li>
+              @endauth
+              @if (\App\BusinessSetting::where('type', 'wallet_system')->first()->value == 1)
+              <li class="nav-item d-flex align-items-center">
+                  <a href="{{ route('wallet.index') }}" class="nav-link add-on" data-target="#nav-cart">
+                     <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>My Wallet
+                     <span class="mx-2"><i class="fa fa-dollar" aria-hidden="true"></i></span>
+                  </a>
+              </li>
+               @endif
+               {{-- <li class="nav-item d-flex align-items-center">
                   <a class="nav-link add-on" data-toggle="modal" data-target="#nav-cart">
                      <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>Track
                      Your Order
@@ -791,12 +830,12 @@
                      </div>
                      <!--  /.container  -->
                   </div>
-               </li>
+               </li> 
                <li class="nav-item">
                   <a class="nav-link" href="contact-us.html">
                      <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>
                      Contact Us</a>
-               </li>
+               </li> --}}
             </ul>
          </div>
          <div class="modal-footer py-3">

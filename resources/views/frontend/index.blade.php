@@ -13,7 +13,7 @@
                 </div>
              </div>
              <ul class="bg-white border_one d-lg-block d-none">
-                @foreach (\App\Category::all()->take(11) as $key => $category)
+                @foreach (\App\Category::all()->take(10) as $key => $category)
                     @php
                         $brands = array();
                     @endphp
