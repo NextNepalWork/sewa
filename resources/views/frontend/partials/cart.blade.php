@@ -17,69 +17,42 @@ aria-haspopup="true" aria-expanded="false">
                     <div class="dc-header">
                         <h3 class="heading heading-6 strong-700">{{__('Cart Items')}}</h3>
                     </div>
-                    <div class="dropdown-cart-items c-scrollbar">
-                        @php
-                            $total = 0;
-                        @endphp
-                        @foreach($cart as $key => $cartItem)
-                            @php
-                                $product = \App\Product::find($cartItem['id']);
-                                $total = $total + $cartItem['price']*$cartItem['quantity'];
-                            @endphp
-                            <div class="dc-item">
-                                <div class="d-flex align-items-center">
-                                    <div class="dc-image">
-                                        <a href="{{ route('product', $product->slug) }}">
-                                            <img loading="lazy"  src="{{ asset(json_decode($product->photos)[0]) }}" class="img-fluid" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="dc-content">
-                                        <span class="d-block dc-product-name text-capitalize strong-600 mb-1">
-                                            <a href="{{ route('product', $product->slug) }}">
-                                                {{ __($product->name) }}
-                                            </a>
-                                        </span>
+                 </td>
+                 <td class="cart_header_title"> <a href="" class="text-dark">{{ __($product->name) }}</a> </td>
+                 <td> <a onclick="removeFromCart({{ $key }})" class="header_cart_icon">
+                       <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </a> </td>
+              </tr>
+              @endforeach
+           </tbody>
+        </table>
+     </div>
 
-                                        <span class="dc-quantity">x{{ $cartItem['quantity'] }}</span>
-                                        <span class="dc-price">{{ single_price($cartItem['price']*$cartItem['quantity']) }}</span>
-                                    </div>
-                                    <div class="dc-actions">
-                                        <button onclick="removeFromCart({{ $key }})">
-                                            <i class="la la-close"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="dc-item py-3">
-                        <span class="subtotal-text">{{__('Subtotal')}}</span>
-                        <span class="subtotal-amount">{{ single_price($total) }}</span>
-                    </div>
-                    <div class="py-2 text-center dc-btn">
-                        <ul class="inline-links inline-links--style-3">
-                            <li class="pr-3">
-                                <a href="{{ route('cart') }}" class="link link--style-1 text-capitalize btn btn-base-1 px-3 py-1">
-                                    <i class="la la-shopping-cart"></i> {{__('View cart')}}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('checkout.shipping_info') }}" class="link link--style-1 text-capitalize btn btn-base-1 px-3 py-1 light-text">
-                                    <i class="la la-mail-forward"></i> {{__('Checkout')}}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                @else
-                    <div class="dc-header">
-                        <h3 class="heading heading-6 strong-700">{{__('Your Cart is empty')}}</h3>
-                    </div>
-                @endif
-            @else
-                <div class="dc-header">
-                    <h3 class="heading heading-6 strong-700">{{__('Your Cart is empty')}}</h3>
-                </div>
-            @endif
+     <div class="cart_header_price d-flex justify-content-between">
+        <div>
+           <h6>Subtotal</h6>
         </div>
-    </li>
-</ul>
+        <div>
+           <h6>{{ single_price($total) }}</h6>
+        </div>
+     </div>
+
+     <div class="
+            top_cartmodal_btn
+            d-flex
+            justify-content-around
+            align-items-center
+            w-100 pt-2 
+          ">
+        <a href="{{ route('cart') }}" class="btn-custom rounded-0 py-2">
+           <img src="./frontend/assets/images/logo/cart.svg" class="img-fluid" alt="">&nbsp; View
+           Cart</a>
+           @if (Auth::check())
+        <a href="{{ route('checkout.shipping_info') }}" class="btn-custom rounded-0 py-2"> <img
+              src="./frontend/assets/images/logo/cart.svg" class="img-fluid" alt="">&nbsp; Proceed
+           Checkout</a>
+           @endif
+     </div>
+
+
+  </div>

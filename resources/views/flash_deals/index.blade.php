@@ -83,6 +83,7 @@
 
 @section('script')
     <script type="text/javascript">
+  
         function update_flash_deal_status(el){
             if(el.checked){
                 var status = 1;

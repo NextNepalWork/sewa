@@ -7,6 +7,7 @@
                     <div class="">
                         <table class="table-cart border-bottom">
                             <thead>
+                                @dd('hERE')
                                 <tr>
                                     <th class="product-image"></th>
                                     <th class="product-name">{{__('Product')}}</th>

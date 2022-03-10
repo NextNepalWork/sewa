@@ -24,7 +24,7 @@
                 aria-hidden="true"></i></span>My Cart</a>
     </li>
     <li class="mb-3 p-2">
-       <a href="wishlist.html"><span class="mr-2"><i class="fa fa-shopping-bag"
+       <a href="{{ route('wishlists.index') }}"><span class="mr-2"><i class="fa fa-shopping-bag"
                 aria-hidden="true"></i></span>Wishlist</a>
     </li>
     <li class="mb-3 p-2 ">

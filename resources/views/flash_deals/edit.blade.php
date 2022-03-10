@@ -86,6 +86,9 @@
 
 @section('script')
     <script type="text/javascript">
+        $(function() {
+     $("#demo-dp-range .input-daterange").datepicker();
+         });
         $(document).ready(function(){
 
             get_flash_deal_discount();
@@ -93,7 +96,12 @@
             $('#products').on('change', function(){
                 get_flash_deal_discount();
             });
-
+            // $('#demo-dp-range .input-daterange').datepicker({
+            //     startDate: '-0d',
+            //     todayBtn: "linked",
+            //     autoclose: true,
+            //     todayHighlight: true
+        	// });
             function get_flash_deal_discount(){
                 var product_ids = $('#products').val();
                 if(product_ids.length > 0){
