@@ -170,7 +170,7 @@
 
 
 <!-- MAIN WRAPPER -->
-<div class="body-wrap shop-default shop-cards shop-tech gry-bg">
+<div class="body-wrap shop-default shop-cards shop-tech">
 
     <!-- Header -->
     @include('frontend.inc.nav')
