@@ -1,165 +1,84 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-
-    <div id="page-content">
-        <section class="slice-xs sct-color-2 border-bottom">
-            <div class="container container-sm">
-                <div class="row cols-delimited justify-content-center">
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center ">
-                            <div class="block-icon c-gray-light mb-0">
-                                <i class="la la-shopping-cart"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">1. {{__('My Cart')}}</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center ">
-                            <div class="block-icon mb-0 c-gray-light">
-                                <i class="la la-map-o"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">2. {{__('Shipping info')}}</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center ">
-                            <div class="block-icon mb-0 c-gray-light">
-                                <i class="la la-truck"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">3. {{__('Delivery info')}}</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center active">
-                            <div class="block-icon mb-0">
-                                <i class="la la-credit-card"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">4. {{__('Payment')}}</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center">
-                            <div class="block-icon c-gray-light mb-0">
-                                <i class="la la-check-circle"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">5. {{__('Confirmation')}}</h3>
-                            </div>
-                        </div>
-                    </div>
+<style>
+    .image_payment>input
+    {
+        display: none;
+    }
+</style>
+ {{-- <!--======================================================= ORDER TOP LIST START ==-->
+ <section id="order_list_top">
+    <div class="container">
+        <div class="row delivery_row_block">
+           
+            <div class="offset-md-1 offset-0 col-md-2 col-4  text-center ">
+                <div class="img_order_list ">
+                   <div class="img_block_icon">
+                    <img src="./frontend/assets/images/logo/cart.svg" class="img-fluid" alt="">
+                   </div>
+                   <div class="content_img ">
+                    <h6 class=""> 1.My Cart</h6>
+                   </div>
                 </div>
             </div>
-        </section>
-        <section class="py-3 gry-bg">
-            <div class="container">
-                <div class="row cols-xs-space cols-sm-space cols-md-space">
-                    <div class="col-lg-8">
-                        <form action="{{ route('payment.checkout') }}" class="form-default" data-toggle="validator" role="form" method="POST" id="checkout-form">
-                            @csrf
-                            <div class="card">
-                                <div class="card-title px-4 py-3">
-                                    <h3 class="heading heading-5 strong-500">
-                                        {{__('Select a payment option')}}
-                                    </h3>
-                                </div>
-                                <div class="card-body text-center">
-                                    <div class="row">
-                                        <div class="col-md-6 mx-auto">
-                                            <div class="row">
-                                                @if(\App\BusinessSetting::where('type', 'paypal_payment')->first()->value == 1)
-                                                    <div class="col-6">
-                                                        <label class="payment_option mb-4" data-toggle="tooltip" data-title="Paypal">
-                                                            <input type="radio" id="" name="payment_option" value="paypal" checked>
-                                                            <span>
-                                                                <img loading="lazy"  src="{{ asset('frontend/images/icons/cards/paypal.png')}}" class="img-fluid">
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                @endif
-                                                @if(\App\BusinessSetting::where('type', 'stripe_payment')->first()->value == 1)
-                                                    <div class="col-6">
-                                                        <label class="payment_option mb-4" data-toggle="tooltip" data-title="Stripe">
-                                                            <input type="radio" id="" name="payment_option" value="stripe" checked>
-                                                            <span>
-                                                                <img loading="lazy"  src="{{ asset('frontend/images/icons/cards/stripe.png')}}" class="img-fluid">
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                @endif
-                                                @if(\App\BusinessSetting::where('type', 'sslcommerz_payment')->first()->value == 1)
-                                                    <div class="col-6">
-                                                        <label class="payment_option mb-4" data-toggle="tooltip" data-title="sslcommerz">
-                                                            <input type="radio" id="" name="payment_option" value="sslcommerz" checked>
-                                                            <span>
-                                                                <img loading="lazy"  src="{{ asset('frontend/images/icons/cards/sslcommerz.png')}}" class="img-fluid">
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                @endif
-                                                @if(\App\BusinessSetting::where('type', 'instamojo_payment')->first()->value == 1)
-                                                    <div class="col-6">
-                                                        <label class="payment_option mb-4" data-toggle="tooltip" data-title="Instamojo">
-                                                            <input type="radio" id="" name="payment_option" value="instamojo" checked>
-                                                            <span>
-                                                                <img loading="lazy"  src="{{ asset('frontend/images/icons/cards/instamojo.png')}}" class="img-fluid">
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                @endif
-                                                @if(\App\BusinessSetting::where('type', 'razorpay')->first()->value == 1)
-                                                    <div class="col-6">
-                                                        <label class="payment_option mb-4" data-toggle="tooltip" data-title="Razorpay">
-                                                            <input type="radio" id="" name="payment_option" value="razorpay" checked>
-                                                            <span>
-                                                                <img loading="lazy"  src="{{ asset('frontend/images/icons/cards/rozarpay.png')}}" class="img-fluid">
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                @endif
-                                                @if(\App\BusinessSetting::where('type', 'paystack')->first()->value == 1)
-                                                    <div class="col-6">
-                                                        <label class="payment_option mb-4" data-toggle="tooltip" data-title="Paystack">
-                                                            <input type="radio" id="" name="payment_option" value="paystack" checked>
-                                                            <span>
-                                                                <img loading="lazy"  src="{{ asset('frontend/images/icons/cards/paystack.png')}}" class="img-fluid">
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                @endif
-                                                @if(\App\BusinessSetting::where('type', 'voguepay')->first()->value == 1)
-                                                    <div class="col-6">
-                                                        <label class="payment_option mb-4" data-toggle="tooltip" data-title="VoguePay">
-                                                            <input type="radio" id="" name="payment_option" value="voguepay" checked>
-                                                            <span>
-                                                                <img loading="lazy"  src="{{ asset('frontend/images/icons/cards/vogue.png')}}" class="img-fluid">
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                @endif
-                                                @if(\App\Addon::where('unique_identifier', 'paytm')->first() != null && \App\Addon::where('unique_identifier', 'paytm')->first()->activated)
-                                                    <div class="col-6">
-                                                        <label class="payment_option mb-4" data-toggle="tooltip" data-title="Paytm">
-                                                            <input type="radio" id="" name="payment_option" value="paytm" checked>
-                                                            <span>
-                                                                <img loading="lazy" src="{{ asset('frontend/images/icons/cards/paytm.jpg')}}" class="img-fluid">
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                @endif
-                                                @if(\App\BusinessSetting::where('type', 'cash_payment')->first()->value == 1)
+            <div class="col-md-2 col-4  text-center">
+                <div class="img_order_list">
+                   <div class="img_block_icon">
+                    <img src="./frontend/assets/images/map.svg" class="img-fluid" alt="">
+                   </div>
+                   <div class="content_img">
+                    <h6 class=""> 2.Shipping Info</h6>
+                   </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-4  text-center">
+                <div class="img_order_list">
+                   <div class="img_block_icon">
+                    <img src="./frontend/assets/images/delivery_new.svg" class="img-fluid" alt="">
+                   </div>
+                   <div class="content_img">
+                    <h6 class="active-item"> 3 Delivery Info</h6>
+                   </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-4  text-center">
+                <div class="img_order_list">
+                   <div class="img_block_icon">
+                    <img src="./frontend/assets/images/payment.svg" class="img-fluid" alt="">
+                   </div>
+                   <div class="content_img">
+                    <h6 class=""> 4. Payment</h6>
+                   </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-4  text-center  mr-xl-5 mr-0 pr-xl-5 pr-0">
+                <div class="img_order_list">
+                   <div class="img_block_icon">
+                    <img src="./frontend/assets/images/confirmation.svg" class="img-fluid" alt="">
+                   </div>
+                   <div class="content_img">
+                    <h6 class=""> 5.Confirmation</h6>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </section>
+ <!--======================================================= ORDER TOP LIST END ======-->
+ <!--======================================================= CART START ======-->
+ <section id="cart_user" class="py-5">
+    <div class="container">
+       <div class="row">
+        <form action="{{ route('payment.checkout') }}" class="form-default" data-toggle="validator" role="form" method="POST" id="checkout-form">
+            @csrf
+          <div class="col-xl-8 col-md-12 bg-white p-3">
+             <div class="title_delivery mb-2">
+                <h6>Select a payment option</h6>
+             </div>
+             <div class="col-md-12">
+                <div class="row">
+                    @if(\App\BusinessSetting::where('type', 'cash_payment')->first()->value == 1)
                                                     @php
                                                         $digital = 0;
                                                         foreach(Session::get('cart') as $cartItem){
@@ -169,79 +88,166 @@
                                                         }
                                                     @endphp
                                                     @if($digital != 1)
-                                                        <div class="col-6">
-                                                            <label class="payment_option mb-4" data-toggle="tooltip" data-title="Cash on Delivery">
-                                                                <input type="radio" id="" name="payment_option" value="cash_on_delivery" checked>
-                                                                <span>
-                                                                    <img loading="lazy"  src="{{ asset('frontend/images/icons/cards/cod.png')}}" class="img-fluid">
-                                                                </span>
-                                                            </label>
-                                                        </div>
-                                                    @endif
-                                                @endif
-                                                @if (Auth::check())
-                                                    @if (\App\Addon::where('unique_identifier', 'offline_payment')->first() != null && \App\Addon::where('unique_identifier', 'offline_payment')->first()->activated)
-                                                        @foreach(\App\ManualPaymentMethod::all() as $method)
-                                                          <div class="col-6">
-                                                              <label class="payment_option mb-4" data-toggle="tooltip" data-title="{{ $method->heading }}">
-                                                                  <input type="radio" id="" name="payment_option" value="{{ $method->heading }}">
-                                                                  <span>
-                                                                      <img loading="lazy"  src="{{ asset($method->photo)}}" class="img-fluid">
-                                                                  </span>
-                                                              </label>
-                                                          </div>
-                                                        @endforeach
-                                                    @endif
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @if (Auth::check() && \App\BusinessSetting::where('type', 'wallet_system')->first()->value == 1)
-                                        <div class="or or--1 mt-2">
-                                            <span>or</span>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xxl-6 col-lg-8 col-md-10 mx-auto">
-                                                <div class="text-center bg-gray py-4">
-                                                    <i class="fa"></i>
-                                                    <div class="h5 mb-4">Your wallet balance : <strong>{{ single_price(Auth::user()->balance) }}</strong></div>
-                                                    @if(Auth::user()->balance < $total)
-                                                        <button type="button" class="btn btn-base-2" disabled>Insufficient balance</button>
-                                                    @else
-                                                        <button  type="button" onclick="use_wallet()" class="btn btn-base-1">Pay with wallet</button>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
+                   <div class="col-xl-6 col-md-6 m-auto">
+                      <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="Cash on Delivery">
+                        <input type="radio" id="" name="payment_option" value="cash_on_delivery" checked>
+                         <a href="#"> <img class="img_select img-fluid" src="{{ asset('frontend/images/icons/cards/cod.png')}}" 
+                            ></a>
+                      </div>
+                   </div>
+                   @endif 
+                   @endif
+                   <div class="col-xl-6 col-md-6 m-auto">
+                      <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="E-sewa">
+                         <a href="#"> <img class="img_select img-fluid" src="https://img.favpng.com/7/14/6/esewa-fonepay-pvt-ltd-logo-portable-network-graphics-image-brand-png-favpng-aLLyxWtspEZQckmv19jDj2TWC.jpg" 
+                            ></a>
+                      </div>
+                   </div>
+                   
+                </div>
+             </div>
+             <div class="col-md-12">
+                <div class="button_block d-flex justify-content-between align-items-center">
+                   <a href=""> <span><i class="fa fa-reply-all"></i></span> Return to shop</a>
+                   <!-- <a href="" class="btn_custom">Continue to Shipping</a> -->
+                    <button type="submit" class="btn_custom"> Complet Order</button>
+                </div>
+             </div>
+            </form>
+          </div>
+       
+           @include('frontend.partials.cart_summary')
+         
+       </div>
+    </div>
+ </section>
+ <!--======================================================= CART END ======--> --}}
 
-                            <div class="row align-items-center pt-4">
-                                <div class="col-6">
-                                    <a href="{{ route('home') }}" class="link link--style-3">
-                                        <i class="ion-android-arrow-back"></i>
-                                        {{__('Return to shop')}}
-                                    </a>
-                                </div>
-                                <div class="col-6 text-right">
-                                    <button type="button" onclick="submitOrder(this)" class="btn btn-styled btn-base-1">{{__('Complete Order')}}</button>
-                                </div>
-                            </div>
-                        </form>
+       <!--======================================================= ORDER TOP LIST START ==-->
+       <section id="order_list_top">
+        <div class="container">
+            <div class="row delivery_row_block">
+               
+                <div class="offset-md-1 offset-0 col-md-2 col-4  text-center ">
+                    <div class="img_order_list ">
+                       <div class="img_block_icon">
+                        <img src="./frontend/assets/images/logo/cart.svg" class="img-fluid" alt="">
+                       </div>
+                       <div class="content_img ">
+                        <h6 class=""> 1.My Cart</h6>
+                       </div>
                     </div>
-
-                    <div class="col-lg-4 ml-lg-auto">
-                        @include('frontend.partials.cart_summary')
+                </div>
+                <div class="col-md-2 col-4  text-center">
+                    <div class="img_order_list">
+                       <div class="img_block_icon">
+                        <img src="./frontend/assets/images/map.svg" class="img-fluid" alt="">
+                       </div>
+                       <div class="content_img">
+                        <h6 class=""> 2.Shipping Info</h6>
+                       </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-4  text-center">
+                    <div class="img_order_list">
+                       <div class="img_block_icon">
+                        <img src="./frontend/assets/images/delivery_new.svg" class="img-fluid" alt="">
+                       </div>
+                       <div class="content_img">
+                        <h6 class="active-item"> 3 Delivery Info</h6>
+                       </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-4  text-center">
+                    <div class="img_order_list">
+                       <div class="img_block_icon">
+                        <img src="./frontend/assets/images/payment.svg" class="img-fluid" alt="">
+                       </div>
+                       <div class="content_img">
+                        <h6 class=""> 4. Payment</h6>
+                       </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-4  text-center  mr-xl-5 mr-0 pr-xl-5 pr-0">
+                    <div class="img_order_list">
+                       <div class="img_block_icon">
+                        <img src="./frontend/assets/images/confirmation.svg" class="img-fluid" alt="">
+                       </div>
+                       <div class="content_img">
+                        <h6 class=""> 5.Confirmation</h6>
+                       </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+     </section>
+     <!--======================================================= ORDER TOP LIST END ======-->
+     <!--======================================================= CART START ======-->
+     <section id="cart_user" class="py-5">
+        <div class="container">
+           <div class="row">
+              <div class="col-xl-8 col-md-12 bg-white p-3">
+                <form action="{{ route('payment.checkout') }}" class="form-default" data-toggle="validator" role="form" method="POST" id="checkout-form">
+                    @csrf
+                 <div class="title_delivery mb-2">
+                    <h6>Select a payment option</h6>
+                 </div>
+                 <div class="col-md-12">
+                    <div class="row">
+                        @if(\App\BusinessSetting::where('type', 'cash_payment')->first()->value == 1)
+                        @php
+                            $digital = 0;
+                            foreach(Session::get('cart') as $cartItem){
+                                if($cartItem['digital'] == 1){
+                                    $digital = 1;
+                                }
+                            }
+                        @endphp
+                        @if($digital != 1)
+                       <div class="col-xl-6 col-md-6 m-auto">
+                          <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="Cash on Delivery">
+                              <label id="file-input">
+                            <img class="img_select img-fluid" src="{{ asset('frontend/images/icons/cards/cod.png')}}" 
+                                >
+                            </label>
+                            <input type="radio" id="file-input" name="payment_option" value="cash_on_delivery" checked>
+
+                          </div>
+                       </div>
+                       @endif
+                       @endif
+                       @if(\App\BusinessSetting::where('type', 'esewa')->first()->value == 1)
+                       <div class="col-xl-6 col-md-6 m-auto">
+                          <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="E-sewa">
+                            <label for="file-input">
+                            <img class="img_select img-fluid" src="https://img.favpng.com/7/14/6/esewa-fonepay-pvt-ltd-logo-portable-network-graphics-image-brand-png-favpng-aLLyxWtspEZQckmv19jDj2TWC.jpg" 
+                                >
+                            </label>
+                            <input type="radio" id="file-input" name="payment_option" value="esewa" checked>
+                          </div>
+                       </div>
+                       @endif
+                    </div>
+                 </div>
+                 <div class="col-md-12">
+                    <div class="button_block d-flex justify-content-between align-items-center">
+                       <a href=""> <span><i class="fa fa-reply-all"></i></span> Return to shop</a>
+                       <!-- <a href="" class="btn_custom">Continue to Shipping</a> -->
+                     <button type="submit" class="btn_custom"> Complet Order</button>
+                    </div>
+                 </div>
+                </form>
+              </div>
+                @include('frontend.partials.cart_summary')
+           </div>
+        </div>
+     </section>
+     <!--======================================================= CART END ======-->
+
 @endsection
 
 @section('script')
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         function use_wallet(){
             $('input[name=payment_option]').val('wallet');
             $('#checkout-form').submit();
@@ -250,5 +256,5 @@
             $(el).prop('disabled', true);
             $('#checkout-form').submit();
         }
-    </script>
+    </script> --}}
 @endsection

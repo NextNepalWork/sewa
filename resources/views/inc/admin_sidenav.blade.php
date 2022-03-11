@@ -425,6 +425,12 @@
                                 <li class="{{ areActiveRoutes(['generalsettings.color'])}}">
                                     <a class="nav-link" href="{{route('generalsettings.color')}}">{{__('Color Settings')}}</a>
                                 </li>
+                                <li class="{{ areActiveRoutes(['generalsettings.color'])}}">
+                                    <a class="nav-link" href="{{route('blog.index')}}">{{__('Blogs')}}</a>
+                                </li>
+                                <li class="{{ areActiveRoutes(['pages.testimonialindex'])}}">
+                                    <a class="nav-link" href="{{route('pages.testimonialindex')}}">{{__('Testimonial')}}</a>
+                                </li>
                             </ul>
                         </li>
                         @endif

@@ -48,37 +48,59 @@
 
 <!-- Favicon -->
 <link type="image/x-icon" href="{{ asset(\App\GeneralSetting::first()->favicon) }}" rel="shortcut icon" />
-<link type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+
 <!-- Fonts -->
-{{-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+{{-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
 
 <!-- Bootstrap -->
-<link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" type="text/css" media="all">
+{{-- <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" type="text/css" media="all"> --}}
+
+<link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css') }}" />
+   
+<link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css.map') }}" />
+
+<!-- Font Awesome Link Starts -->
+<link rel="stylesheet" href="{{ asset('frontend/assets/font-awesome-4.7.0/css/font-awesome.min.css') }}" />
+<!-- Font Awesome Link Ends -->
+<!-- Slick Css -->
+<link rel="stylesheet" href="{{ asset('frontend/assets/slick/slick.css') }}" />
+<link rel="stylesheet" href="{{ asset('frontend/assets/slick/slick-theme.css') }}" />
+<!-- Slick Css Ends-->
+
+<!-- Custom Links -->
+<!-- Font Link -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- google font  -->
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Readex+Pro:wght@200&display=swap"
+    rel="stylesheet" />
+<!-- Font Link Ends -->
+
+<link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}" />
+<link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}" />
+<link rel="stylesheet" href="{{ asset('frontend/assets/css/style2.css') }}" />
+<!-- Countdown start -->
+<link rel="stylesheet" href="{{ asset('frontend/assets/countdown/css/flipclock.css') }}" />
+<!-- Countdown end -->
+
+<link rel="stylesheet" href="https://k1ngzed.com/dist/swiper/swiper.min.css" />
+<link rel="stylesheet" href="https://k1ngzed.com/dist/EasyZoom/easyzoom.css" />
+
 
 <!-- Icons -->
-<link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}" type="text/css" media="none" onload="if(media!='all')media='all'">
+{{-- <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}" type="text/css" media="none" onload="if(media!='all')media='all'"> --}}
 <link rel="stylesheet" href="{{ asset('frontend/css/line-awesome.min.css') }}" type="text/css" media="none" onload="if(media!='all')media='all'">
 
 <link type="text/css" href="{{ asset('frontend/css/bootstrap-tagsinput.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 <link type="text/css" href="{{ asset('frontend/css/jodit.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
-
-<link type="text/css" href="{{ asset('frontend/css/slick.css') }}" rel="stylesheet" media="all">
+<link type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+{{-- <link type="text/css" href="{{ asset('frontend/css/slick.css') }}" rel="stylesheet" media="all"> --}}
 <link type="text/css" href="{{ asset('frontend/css/xzoom.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 <link type="text/css" href="{{ asset('frontend/css/jssocials.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 <link type="text/css" href="{{ asset('frontend/css/jssocials-theme-flat.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 <link type="text/css" href="{{ asset('frontend/css/intlTelInput.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 <link type="text/css" href="{{ asset('css/spectrum.css')}}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 
-   <!-- Font Link Ends -->
-   <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}" />
-
-   <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}" />
-   <link rel="stylesheet" href="{{ asset('frontend/assets/css/style2.css') }}" />
-   <!-- Custom Links Ends -->
-   <!-- Countdown start -->
-   <link rel="stylesheet" href="{{ asset('frontend/assets/countdown/css/flipclock.css') }}" />
-   <!-- Countdown end -->
-</head>
 <!-- Global style (main) -->
 <link type="text/css" href="{{ asset('frontend/css/active-shop.css') }}" rel="stylesheet" media="all">
 
@@ -88,8 +110,8 @@
 
 
 
-{{-- 
-<link type="text/css" href="{{ asset('frontend/css/main.css') }}" rel="stylesheet" media="all"> --}}
+
+<link type="text/css" href="{{ asset('frontend/css/main.css') }}" rel="stylesheet" media="all">
 
 {{-- style-new css --}}
 {{-- <link type="text/css" href="{{ asset('frontend/css/style-new.css') }}" rel="stylesheet" media="all"> --}}
@@ -104,43 +126,13 @@
 {{-- <link href="{{ asset('frontend/css/colors/'.\App\GeneralSetting::first()->frontend_color.'.css')}}" rel="stylesheet" media="all"> --}}
 
 <!-- Custom style -->
-{{-- <link type="text/css" href="{{ asset('frontend/css/custom-style.css') }}" rel="stylesheet" media="all"> --}} 
-    <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css') }}" />
-   <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css.map') }}" />
-   <!-- Bootstrap link Ends -->
-   <!-- Font Awesome Link Starts -->
-   <link rel="stylesheet" href="{{ asset('frontend/assets/font-awesome-4.7.0/css/font-awesome.min.css') }}" />
-   <!-- Font Awesome Link Ends -->
-   <!-- Slick Css -->
-   <link rel="stylesheet" href="{{ asset('frontend/assets/slick/slick.css') }}" />
-   <link rel="stylesheet" href="{{ asset('frontend/assets/slick/slick-theme.css') }}" />
-   <!-- Slick Css Ends-->
-   <!-- Custom Links -->
-   <!-- Font Link -->
-   <link rel="preconnect" href="https://fonts.googleapis.com" />
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-   <!-- google font  -->
-   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Readex+Pro:wght@200&display=swap"
-      rel="stylesheet" />
-   <!-- Font Link Ends -->
-   <link rel="stylesheet" href="https://k1ngzed.com/dist/swiper/swiper.min.css" />
-   <link rel="stylesheet" href="https://k1ngzed.com/dist/EasyZoom/easyzoom.css" />
-   <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}" />
-
-   <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}" />
-   <link rel="stylesheet" href="{{ asset('frontend/assets/css/style2.css') }}" />
-   <!-- Custom Links Ends -->
-   <!-- Countdown start -->
-   {{-- <link rel="stylesheet" href="{{ asset('frontend/assets/countdown/css/flipclock.css') }}" /> --}}
-
+{{-- <link type="text/css" href="{{ asset('frontend/css/custom-style.css') }}" rel="stylesheet" media="all"> --}}
 
 <!-- jQuery -->
-<script src="{{ asset('frontend/js/vendor/jquery.min.js') }}"></script>
+{{-- <script src="{{ asset('frontend/js/vendor/jquery.min.js') }}"></script> --}}
 
-{{-- @php
-    dd(\App\Product::where('published', 1)->orderBy('num_of_sale', 'desc')->limit(20)->get()->toArray());
-@endphp --}}
-{{-- @if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1) --}}
+
+{{-- @if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1)  --}}
     <!-- Global site tag (gtag.js) - Google Analytics -->
     {{-- <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('TRACKING_ID') }}"></script>
 
@@ -149,11 +141,11 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', '{{ env('TRACKING_ID') }}');
-    </script>
-@endif --}}
+    </script> --}}
+{{-- @endif --}}
 
 {{-- @if (\App\BusinessSetting::where('type', 'facebook_pixel')->first()->value == 1) --}}
-<!-- Facebook Pixel Code -->
+{{-- Facebook Pixel Code  --}}
 {{-- <script>
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -166,24 +158,13 @@
   fbq('init', {{ env('FACEBOOK_PIXEL_ID') }});
   fbq('track', 'PageView');
 </script> --}}
-{{-- <noscript>
+ {{-- <noscript>
   <img height="1" width="1" style="display:none"
        src="https://www.facebook.com/tr?id={{ env('FACEBOOK_PIXEL_ID') }}/&ev=PageView&noscript=1"/>
 </noscript> --}}
 <!-- End Facebook Pixel Code -->
-{{-- @endif --}}
-<style>
-    .demo{
-        background: #258aff;
-        color: #ffff!important;
-        padding: 10px 10px 10px 9px;
-        font-weight: 800;
-        font-size: 13px;
-    }
-    .swal2-shown{
-        z-index: 9999;
-    }
-</style>
+ {{-- @endif  --}}
+
 </head>
 <body>
 
@@ -200,14 +181,14 @@
 
     @include('frontend.partials.modal')
 
-    @if (\App\BusinessSetting::where('type', 'facebook_chat')->first()->value == 1)
+    {{-- @if (\App\BusinessSetting::where('type', 'facebook_chat')->first()->value == 1)
         <div id="fb-root"></div>
         <!-- Your customer chat code -->
         <div class="fb-customerchat"
           attribution=setup_tool
           page_id="{{ env('FACEBOOK_PAGE_ID') }}">
         </div>
-    @endif
+    @endif --}}
 
     <div class="modal fade" id="addToCart">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">
@@ -229,71 +210,53 @@
 
 <!-- SCRIPTS -->
 <!-- <a href="#" class="back-to-top btn-back-to-top"></a> -->
+<!-- jQuery -->
+<script src="{{ asset('frontend/assets/jquery-3.5.1/jquery-3.5.1.js') }}"></script>
+<!-- Popper -->
+<script src="{{ asset('frontend/assets/popper/popper.min.js') }}"></script>
+<!-- Popper Ends-->
+<!-- 3rd Bootstrap Js Link Starts -->
+<script src="{{ asset('frontend/assets/bootstrap-4.3.1/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('frontend/assets/bootstrap-4.3.1/js/bootstrap.min.js.map') }}"></script>
+<!-- Bootstrap Js Link Ends -->
+<!-- Slick Js -->
+<script src="{{ asset('frontend/assets/slick/slick.min.js') }}"></script>
+<!-- Slick Js Ends-->
+<!-- Magnific Popup -->
+<script src="{{ asset('frontend/assets/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
+<!-- Magnific Popup Ends-->
+<!-- Countdown start -->
+<script src="{{ asset('frontend/assets/countdown/js/flipclock.js') }}"></script>
+<!-- Custom Js Starts -->
+<script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+<script src="https://k1ngzed.com/dist/swiper/swiper.min.js"></script>
+<script src="https://k1ngzed.com/dist/EasyZoom/easyzoom.js"></script>
 
 <!-- Core -->
-{{-- <script src="{{ asset('frontend/js/vendor/popper.min.js') }}"></script>
-<script src="{{ asset('frontend/js/vendor/bootstrap.min.js') }}"></script> --}}
+{{-- <script src="{{ asset('frontend/js/vendor/popper.min.js') }}"></script> --}}
+{{-- <script src="{{ asset('frontend/js/vendor/bootstrap.min.js') }}"></script> --}}
 
 <!-- Plugins: Sorted A-Z -->
-{{-- <script src="{{ asset('frontend/js/jquery.countdown.min.js') }}"></script>
+<script src="{{ asset('frontend/js/jquery.countdown.min.js') }}"></script>
 <script src="{{ asset('frontend/js/select2.min.js') }}"></script>
 <script src="{{ asset('frontend/js/nouislider.min.js') }}"></script>
 <script src="{{ asset('frontend/js/sweetalert2.min.js') }}"></script>
-<script src="{{ asset('frontend/js/slick.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jssocials.min.js') }}"></script>
+{{-- <script src="{{ asset('frontend/js/slick.min.js') }}"></script> --}}
+<script src="{{ asset('frontend/js/jssocials.min.js') }}"></script> 
 <script src="{{ asset('frontend/js/bootstrap-tagsinput.min.js') }}"></script>
 <script src="{{ asset('frontend/js/jodit.min.js') }}"></script>
 <script src="{{ asset('frontend/js/xzoom.min.js') }}"></script>
-<script src="{{ asset('frontend/js/fb-script.js') }}"></script>
+<!-- <script src="{{ asset('frontend/js/fb-script.js') }}"></script> -->
 <script src="{{ asset('frontend/js/lazysizes.min.js') }}"></script>
-<script src="{{ asset('frontend/js/intlTelInput.min.js') }}"></script> --}}
+<script src="{{ asset('frontend/js/intlTelInput.min.js') }}"></script>
 
 <!-- App JS -->
-{{-- <script src="{{ asset('frontend/js/active-shop.js') }}"></script>
-<script src="{{ asset('frontend/js/main.js') }}"></script> --}}
+<script src="{{ asset('frontend/js/active-shop.js') }}"></script>
+<script src="{{ asset('frontend/js/main.js') }}"></script>
 
 {{-- script-new js --}}
 {{-- <script src="{{ asset('frontend/js/script-new.js') }}"></script> --}}
 
-<!-- NEW SCRIPTS -->
- <!-- 1st Jquery Link Starts-->
- <script src="{{ asset('frontend/assets/jquery-3.5.1/jquery-3.5.1.js') }}"></script>
- <!-- Jquery Link Ends-->
- <!-- Popper -->
- <script src="{{ asset('frontend/assets/popper/popper.min.js') }}"></script>
- <!-- Popper Ends-->
- <!-- 3rd Bootstrap Js Link Starts -->
- <script src="{{ asset('frontend/assets/bootstrap-4.3.1/js/bootstrap.min.js') }}"></script>
- <script src="{{ asset('frontend/assets/bootstrap-4.3.1/js/bootstrap.min.js.map') }}"></script>
- <!-- Bootstrap Js Link Ends -->
- <!-- Slick Js -->
- <script src="{{ asset('frontend/assets/slick/slick.min.js') }}"></script>
- <!-- Slick Js Ends-->
- <!-- Magnific Popup -->
- <script src="{{ asset('frontend/assets/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
- <!-- Magnific Popup Ends-->
- <script src="https://k1ngzed.com/dist/swiper/swiper.min.js"></script>
- <script src="https://k1ngzed.com/dist/EasyZoom/easyzoom.js"></script>
- <!-- Countdown start -->
- <script src="{{ asset('frontend/assets/countdown/js/flipclock.js') }}"></script>
- <!-- <script src="frontend/assets/countdown/js/flipclock.min.js"></script> -->
- <!-- Countdown end -->
- <!-- Custom Js Starts -->
- <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
- <script src="{{asset('frontend/assets/js/secondary.js')}}"></script>
-
- <script src="{{ asset('frontend/js/main.js') }}"></script>
- <script src="{{ asset('frontend/js/select2.min.js') }}"></script>
-<script src="{{ asset('frontend/js/nouislider.min.js') }}"></script>
-<script src="{{ asset('frontend/js/sweetalert2.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jssocials.min.js') }}"></script>
-<script src="{{ asset('frontend/js/bootstrap-tagsinput.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jodit.min.js') }}"></script>
-<script src="{{ asset('frontend/js/xzoom.min.js') }}"></script>
-<script src="{{ asset('frontend/js/fb-script.js') }}"></script>
-<script src="{{ asset('frontend/js/lazysizes.min.js') }}"></script>
-<script src="{{ asset('frontend/js/intlTelInput.min.js') }}"></script>
- <!-- Custom Js Ends -->
 
 
 <script>
@@ -306,7 +269,7 @@
             type: type,
             title: message,
             showConfirmButton: false,
-            timer: 1000000
+            timer: 3000
         });
     }
 </script>

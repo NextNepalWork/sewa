@@ -190,6 +190,16 @@ class CheckoutController extends Controller
         return back();
     }
 
+    public function getShippingInfo(Request $request)
+    {
+        if(Session::has('cart') && count(Session::get('cart')) > 0){
+            $categories = Category::all();
+            return view('frontend.get_shipping_info', compact('categories'));
+        }
+        flash(__('Your cart is empty'))->success();
+        return back();
+    }
+
     public function store_shipping_info(Request $request)
     {
         if (Auth::check()) {

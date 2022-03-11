@@ -1,7 +1,6 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-
     {{-- <section class="slice-xs sct-color-2 border-bottom">
         <div class="container container-sm">
             <div class="row cols-delimited justify-content-center">
@@ -66,7 +65,7 @@
 
     {{-- <section class="py-4 gry-bg" id="cart-summary">
         <div class="container">
-            @if(Session::has('cart'))
+            @if (Session::has('cart'))
                 <div class="row cols-xs-space cols-sm-space cols-md-space">
                 <div class="col-xl-8">
                     <!-- <form class="form-default bg-white p-4" data-toggle="validator" role="form"> -->
@@ -120,7 +119,7 @@
                                                 </td>
 
                                                 <td class="product-quantity d-none d-md-table-cell">
-                                                    @if($cartItem['digital'] != 1)
+                                                    @if ($cartItem['digital'] != 1)
                                                         <div class="input-group input-group--style-2 pr-4" style="width: 130px;">
                                                             <span class="input-group-btn">
                                                                 <button class="btn btn-number" type="button" data-type="minus" data-field="quantity[{{ $key }}]">
@@ -159,7 +158,7 @@
                                 </a>
                             </div>
                             <div class="col-md-6 text-right">
-                                @if(Auth::check())
+                                @if (Auth::check())
                                     <a href="{{ route('checkout.shipping_info') }}" class="btn btn-styled btn-base-1">{{__('Continue to Shipping')}}</a>
                                 @else
                                     <button class="btn btn-styled btn-base-1" onclick="showCheckoutModal()">{{__('Continue to Shipping')}}</button>
@@ -197,6 +196,7 @@
                    <div class="shopping-cart">
                       <div class="shopping-cart-table">
                          <div class="table-responsive-lg">
+                            @if(Session::has('cart'))
                             <table class="table">
                                <thead>
                                   <tr>
@@ -212,6 +212,7 @@
                                 @php
                                 $total = 0;
                                 @endphp
+
                                 @foreach (Session::get('cart') as $key => $cartItem)
                                     @php
                                     $product = \App\Product::find($cartItem['id']);
@@ -254,11 +255,15 @@
                                               class="fa fa-trash-o"></i></a>
                                      </td>
                                   </tr>
-                                  @endforeach
+                                @endforeach
+                                
                                </tbody>
                                
                                <!-- /tbody -->
                             </table>
+                            @else
+                                <div class="text-center"> Your cart is empty</div>
+                            @endif
                             <div class="d-flex justify-content-around align-items-center w-100 my-3 flex-wrap">
                                <!-- <form class="coupon-field d-flex flex-wrap align-items-center justify-content-center">
                                      <input type="text" placeholder="Apply Coupon Code" class="mr-2">
@@ -293,23 +298,21 @@
                             <div class="checkout_btn_cart d-flex align-items-center h-100">
                                <button type="button" class="btn-custom rounded-0">Proceed Checkout</button>
                             </div>
-                         </div>
-                      </div>
-                   </div>
+                        </div>
+                    </div>
                 </div>
-             </div>
-          </div>
-       </div>
-    </div>
- </section>
- <!-- Cart Ends -->
+            </div>
+        </div>
+    </section>
+    <!-- Cart Ends -->
 
     <!-- Modal -->
-    <div class="modal fade" id="GuestCheckout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="GuestCheckout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-zoom" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLabel">{{__('Login')}}</h6>
+                    <h6 class="modal-title" id="exampleModalLabel">{{ __('Login') }}</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -320,7 +323,8 @@
                             @csrf
                             <div class="form-group">
                                 <div class="input-group input-group--style-1">
-                                    <input type="email" name="email" class="form-control" placeholder="{{__('Email')}}">
+                                    <input type="email" name="email" class="form-control"
+                                        placeholder="{{ __('Email') }}">
                                     <span class="input-group-addon">
                                         <i class="text-md la la-user"></i>
                                     </span>
@@ -329,7 +333,8 @@
 
                             <div class="form-group">
                                 <div class="input-group input-group--style-1">
-                                    <input type="password" name="password" class="form-control" placeholder="{{__('Password')}}">
+                                    <input type="password" name="password" class="form-control"
+                                        placeholder="{{ __('Password') }}">
                                     <span class="input-group-addon">
                                         <i class="text-md la la-lock"></i>
                                     </span>
@@ -338,10 +343,12 @@
 
                             <div class="row align-items-center">
                                 <div class="col-md-6">
-                                    <a href="{{ route('password.request') }}" class="link link-xs link--style-3">{{__('Forgot password?')}}</a>
+                                    <a href="{{ route('password.request') }}"
+                                        class="link link-xs link--style-3">{{ __('Forgot password?') }}</a>
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <button type="submit" class="btn btn-styled btn-base-1 px-4">{{__('Sign in')}}</button>
+                                    <button type="submit"
+                                        class="btn btn-styled btn-base-1 px-4">{{ __('Sign in') }}</button>
                                 </div>
                             </div>
                         </form>
@@ -349,28 +356,32 @@
                     </div>
                     <div class="text-center pt-3">
                         <p class="text-md">
-                            {{__('Need an account?')}} <a href="{{ route('user.registration') }}" class="strong-600">{{__('Register Now')}}</a>
+                            {{ __('Need an account?') }} <a href="{{ route('user.registration') }}"
+                                class="strong-600">{{ __('Register Now') }}</a>
                         </p>
                     </div>
-                    @if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'twitter_login')->first()->value == 1)
+                    @if (\App\BusinessSetting::where('type', 'google_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'twitter_login')->first()->value == 1)
                         <div class="or or--1 my-3 text-center">
                             <span>or</span>
                         </div>
                         <div class="p-3 pb-0">
                             @if (\App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1)
-                                <a href="{{ route('social.login', ['provider' => 'facebook']) }}" class="btn btn-styled btn-block btn-facebook btn-icon--2 btn-icon-left px-4 mb-3">
-                                    <i class="icon fa fa-facebook"></i> {{__('Login with Facebook')}}
+                                <a href="{{ route('social.login', ['provider' => 'facebook']) }}"
+                                    class="btn btn-styled btn-block btn-facebook btn-icon--2 btn-icon-left px-4 mb-3">
+                                    <i class="icon fa fa-facebook"></i> {{ __('Login with Facebook') }}
                                 </a>
                             @endif
-                            @if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1)
-                                <a href="{{ route('social.login', ['provider' => 'google']) }}" class="btn btn-styled btn-block btn-google btn-icon--2 btn-icon-left px-4 mb-3">
-                                    <i class="icon fa fa-google"></i> {{__('Login with Google')}}
+                            @if (\App\BusinessSetting::where('type', 'google_login')->first()->value == 1)
+                                <a href="{{ route('social.login', ['provider' => 'google']) }}"
+                                    class="btn btn-styled btn-block btn-google btn-icon--2 btn-icon-left px-4 mb-3">
+                                    <i class="icon fa fa-google"></i> {{ __('Login with Google') }}
                                 </a>
                             @endif
                             @if (\App\BusinessSetting::where('type', 'twitter_login')->first()->value == 1)
-                            <a href="{{ route('social.login', ['provider' => 'twitter']) }}" class="btn btn-styled btn-block btn-twitter btn-icon--2 btn-icon-left px-4 mb-3">
-                                <i class="icon fa fa-twitter"></i> {{__('Login with Twitter')}}
-                            </a>
+                                <a href="{{ route('social.login', ['provider' => 'twitter']) }}"
+                                    class="btn btn-styled btn-block btn-twitter btn-icon--2 btn-icon-left px-4 mb-3">
+                                    <i class="icon fa fa-twitter"></i> {{ __('Login with Twitter') }}
+                                </a>
                             @endif
                         </div>
                     @endif
@@ -379,7 +390,8 @@
                             <span>or</span>
                         </div>
                         <div class="text-center">
-                            <a href="{{ route('checkout.shipping_info') }}" class="btn btn-styled btn-base-1">{{__('Guest Checkout')}}</a>
+                            <a href="{{ route('checkout.shipping_info') }}"
+                                class="btn btn-styled btn-base-1">{{ __('Guest Checkout') }}</a>
                         </div>
                     @endif
                 </div>
@@ -391,20 +403,24 @@
 
 @section('script')
     <script type="text/javascript">
-    function removeFromCartView(e, key){
-        e.preventDefault();
-        removeFromCart(key);
-    }
+        function removeFromCartView(e, key) {
+            e.preventDefault();
+            removeFromCart(key);
+        }
 
-    function updateQuantity(key, element){
-        $.post('{{ route('cart.updateQuantity') }}', { _token:'{{ csrf_token() }}', key:key, quantity: element.value}, function(data){
-            updateNavCart();
-            $('#cart-summary').html(data);
-        });
-    }
+        function updateQuantity(key, element) {
+            $.post('{{ route('cart.updateQuantity') }}', {
+                _token: '{{ csrf_token() }}',
+                key: key,
+                quantity: element.value
+            }, function(data) {
+                updateNavCart();
+                $('#cart-summary').html(data);
+            });
+        }
 
-    function showCheckoutModal(){
-        $('#GuestCheckout').modal();
-    }
+        function showCheckoutModal() {
+            $('#GuestCheckout').modal();
+        }
     </script>
 @endsection

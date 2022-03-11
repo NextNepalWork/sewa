@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '192b02066113014185b4a3ae5dc60488a409b0de',
+    'reference' => '6ac5fe699b7efc742bbd04899cf30af8b73dec6e',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -511,7 +511,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '192b02066113014185b4a3ae5dc60488a409b0de',
+      'reference' => '6ac5fe699b7efc742bbd04899cf30af8b73dec6e',
     ),
     'laravel/passport' => 
     array (
@@ -706,12 +706,12 @@ private static $installed = array (
     ),
     'nesbot/carbon' => 
     array (
-      'pretty_version' => '2.56.0',
-      'version' => '2.56.0.0',
+      'pretty_version' => '2.57.0',
+      'version' => '2.57.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '626ec8cbb724cd3c3400c3ed8f730545b744e3f4',
+      'reference' => '4a54375c21eea4811dbd1149fe6b246517554e78',
     ),
     'netshell/paypal' => 
     array (
@@ -847,12 +847,12 @@ private static $installed = array (
     ),
     'php-http/httplug' => 
     array (
-      'pretty_version' => '2.2.0',
-      'version' => '2.2.0.0',
+      'pretty_version' => '2.3.0',
+      'version' => '2.3.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '191a0a1b41ed026b717421931f8d3bd2514ffbf9',
+      'reference' => 'f640739f80dfa1152533976e3c112477f69274eb',
     ),
     'php-http/promise' => 
     array (
@@ -892,12 +892,12 @@ private static $installed = array (
     ),
     'phpoffice/phpspreadsheet' => 
     array (
-      'pretty_version' => '1.21.0',
-      'version' => '1.21.0.0',
+      'pretty_version' => '1.22.0',
+      'version' => '1.22.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '1a359d2ccbb89c05f5dffb32711a95f4afc67964',
+      'reference' => '3a9e29b4f386a08a151a33578e80ef1747037a48',
     ),
     'phpoption/phpoption' => 
     array (

@@ -13,7 +13,7 @@
                 </div>
              </div>
              <ul class="bg-white border_one d-lg-block d-none">
-                @foreach (\App\Category::all()->take(11) as $key => $category)
+                @foreach (\App\Category::all()->take(10) as $key => $category)
                     @php
                         $brands = array();
                     @endphp
@@ -237,7 +237,7 @@
                                         <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToWishList({{$product->id}})"
                                             ><i class="fa fa-heart icon mr-2"></i>Wishlist
                                         </a>
-                                        <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToCompare({{$product->id}})">
+                                        <a class="all-deals effect gray" onclick="addToCompare({{$product->id}})">
                                         <i class="fa fa-exchange icon mr-2"></i>Compare
                                         </a>
                                     </div>
@@ -329,7 +329,6 @@
  @endif
 
     {{-- <div id="section_featured">
-
     </div> --}}
      <!--============================================= BANNER START ======-->
    <section id="banner_two" class="mb-5">
@@ -351,7 +350,6 @@
  
 
     {{-- <div id="section_best_selling">
-
     </div> --}}
 
     {{-- @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
@@ -380,7 +378,6 @@
                                                 <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($customer_product->photos)[0]) }}" alt="{{ __($customer_product->name) }}">
                                                </a>
                                            </div>
-
                                            <div class="p-sm-3 p-2">
                                                <div class="price-box">
                                                    <span class="product-price strong-600">{{ single_price($customer_product->unit_price) }}</span>
@@ -608,28 +605,22 @@
             // flash counter
             var data=@json($time);
             var countDownDate = new Date(data).getTime();
-
             // Update the count down every 1 second
             var x = setInterval(function() {
-
             // Get today's date and time
             var now = new Date().getTime();
             //   alert(countDownDate);
-
             // Find the distance between now and the count down date
             var distance = countDownDate - now;
-
             // Time calculations for days, hours, minutes and seconds
             var days = Math.floor(distance / (1000 * 60 * 60 * 24));
             var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
             // console.log(document.getElementsByClassName("demo"));
-
             // Output the result in an element with id="demo"
             $('.demo').text(days + " days : " + hours + " hours : "+ minutes + " minutes : " + seconds + " seconds");
             //document.getElementsByClassName("demo").innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
-
             // If the count down is over, write some text
             if (distance < 0) {
             clearInterval(x);
@@ -638,23 +629,19 @@
             }
             }, 1000);
             // flash counter
-
             $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
                 // console.log(data);
                 $('#section_featured').html(data);
                 slickInit();
             });
-
             $.post('{{ route('home.section.best_selling') }}', {_token:'{{ csrf_token() }}'}, function(data){
                 $('#section_best_selling').html(data);
                 slickInit();
             });
-
             $.post('{{ route('home.section.home_categories') }}', {_token:'{{ csrf_token() }}'}, function(data){
                 $('#section_home_categories').html(data);
                 slickInit();
             });
-
             $.post('{{ route('home.section.best_sellers') }}', {_token:'{{ csrf_token() }}'}, function(data){
                 $('#section_best_sellers').html(data);
                 slickInit();
@@ -662,4 +649,3 @@
         });
     </script>
 @endsection
-

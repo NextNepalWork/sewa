@@ -5,78 +5,92 @@
         $status = $order->orderDetails->first()->delivery_status;
     @endphp
     <div id="page-content">
-        <section class="slice-xs sct-color-2 border-bottom">
-            <div class="container container-sm">
-                <div class="row cols-delimited justify-content-center">
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center ">
-                            <div class="block-icon c-gray-light mb-0">
-                                <i class="la la-shopping-cart"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">1. {{__('My Cart')}}</h3>
-                            </div>
-                        </div>
-                    </div>
+           <!--======================================================= ORDER TOP LIST START ==-->
 
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center ">
-                            <div class="block-icon mb-0 c-gray-light">
-                                <i class="la la-map-o"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">2. {{__('Shipping info')}}</h3>
-                            </div>
-                        </div>
-                    </div>
+   <section id="order_list_top">
+    <div class="container">
+       <div class="row delivery_row_block">
 
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center ">
-                            <div class="block-icon mb-0 c-gray-light">
-                                <i class="la la-truck"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">3. {{__('Delivery info')}}</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center ">
-                            <div class="block-icon mb-0 c-gray-light">
-                                <i class="la la-credit-card"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">4. {{__('Payment')}}</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center active">
-                            <div class="block-icon mb-0">
-                                <i class="la la-check-circle"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">5. {{__('Confirmation')}}</h3>
-                            </div>
-                        </div>
-                    </div>
+          <div class="offset-md-1 offset-0 col-md-2 col-4  text-center ">
+             <div class="img_order_list ">
+                <div class="img_block_icon">
+                   <img src="./frontend/assets/images/logo/cart.svg" class="img-fluid" alt="">
                 </div>
-            </div>
-        </section>
+                <div class="content_img ">
+                   <h6 class=""> 1.My Cart</h6>
+                </div>
+             </div>
+          </div>
+          <div class="col-md-2 col-4  text-center">
+             <div class="img_order_list">
+                <div class="img_block_icon">
+                   <img src="./frontend/assets/images/map.svg" class="img-fluid" alt="">
+                </div>
+                <div class="content_img">
+                   <h6 class=""> 2.Shipping Info</h6>
+                </div>
+             </div>
+          </div>
+          <div class="col-md-2 col-4  text-center">
+             <div class="img_order_list">
+                <div class="img_block_icon">
+                   <img src="./frontend/assets/images/delivery_new.svg" class="img-fluid" alt="">
+                </div>
+                <div class="content_img">
+                   <h6 class=""> 3 Delivery Info</h6>
+                </div>
+             </div>
+          </div>
+          <div class="col-md-2 col-4  text-center">
+             <div class="img_order_list">
+                <div class="img_block_icon">
+                   <img src="./frontend/assets/images/payment.svg" class="img-fluid" alt="">
+                </div>
+                <div class="content_img">
+                   <h6 class=""> 4. Payment</h6>
+                </div>
+             </div>
+          </div>
+          <div class="col-md-2 col-4  text-center  mr-xl-5 mr-0 pr-xl-5 pr-0">
+             <div class="img_order_list">
+                <div class="img_block_icon">
+                   <img src="./frontend/assets/images/confirmation.svg" class="img-fluid" alt="">
+                </div>
+                <div class="content_img">
+                   <h6 class="active-item"> 5.Confirmation</h6>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </section>
+ <!--======================================================= ORDER TOP LIST END ======-->
         <section class="py-4">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-8 mx-auto">
+                    <div class="col-xl-8 mx-auto">          
                         <div class="card">
                             <div class="card-body">
-                                <div class="text-center py-4 border-bottom mb-4">
+                                <div class="checkout-man box_shado text-center padding">
+                                    <div class="round-checkout px-5">
+                                       <div class="round-block-checkout">
+                                          <span><i class="fa fa-check text-white" aria-hidden="true"></i></span>
+                                       </div>
+                                       <h4 class="font-weight-bold text-dark mt-3">Congratulation! You order has been processed</h4>
+                                       <h6 class="font-weight-bold mb-4"> 
+                                        {{__('Order Code:')}} {{ $order->code }}
+                                          </h6>
+                                          <p class="text-muted text-italic mb-4"> <small>
+                                            {{ __('A copy or your order summary has been sent to') }} {{ json_decode($order->shipping_address)->email }}
+                                              </small> </p>
+                                    </div>
+                                 </div>
+                                {{-- <div class="text-center py-4 border-bottom mb-4">
                                     <i class="la la-check-circle la-3x text-success mb-3"></i>
                                     <h1 class="h3 mb-3">{{__('Thank You for Your Order!')}}</h1>
                                     <h2 class="h5 strong-700">{{__('Order Code:')}} {{ $order->code }}</h2>
                                     <p class="text-muted text-italic">{{ __('A copy or your order summary has been sent to') }} {{ json_decode($order->shipping_address)->email }}</p>
-                                </div>
+                                </div> --}}
                                 <div class="mb-4">
                                     <h5 class="strong-600 mb-3 border-bottom pb-2">{{__('Order Summary')}}</h5>
                                     <div class="row">

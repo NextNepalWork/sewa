@@ -1,10 +1,13 @@
 <div class="d-user-avater text-center mb-4">
-    @if (Auth::user()->avatar_original != null)
-    <div class="image" style="background-image:url('{{ asset(Auth::user()->avatar_original) }}')"></div>
-@else
-    <img src="{{ asset('frontend/images/user.png') }}" class="image rounded-circle">
-@endif
-   <h5>{{ Auth::user()->name }}</h5>
+   @if (Auth::user())
+      @if (Auth::user()->avatar_original != null)
+         <div class="image" style="background-image:url('{{ asset(Auth::user()->avatar_original) }}')"></div>
+      @else
+         <img src="{{ asset('frontend/images/user.png') }}" class="image rounded-circle">
+      @endif
+      <h5>{{ Auth::user()->name }}</h5>       
+   @endif
+
   
 </div>
  <ul class="sidebar pl-md-0 pl-4 pb-md-0 pb-3">
@@ -21,7 +24,7 @@
                 aria-hidden="true"></i></span>My Cart</a>
     </li>
     <li class="mb-3 p-2">
-       <a href="wishlist.html"><span class="mr-2"><i class="fa fa-shopping-bag"
+       <a href="{{ route('wishlists.index') }}"><span class="mr-2"><i class="fa fa-shopping-bag"
                 aria-hidden="true"></i></span>Wishlist</a>
     </li>
     <li class="mb-3 p-2 ">
