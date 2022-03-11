@@ -1878,3 +1878,10 @@ input[type="number"] {
     box-shadow: unset !important;
     border: 1px solid;
 }
+
+.slider_feature .slick-track {
+    width: 100%;
+}
+.slider_feature .product-grid-item {
+    margin: 10px;
+}
