@@ -157,7 +157,15 @@
 
                                                 <div class="card-image">
                                                     <a href="{{ route('product', $product->slug) }}" class="d-block">
-                                                        <img  class="mx-auto img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
+                                                        @if ($product->featured_img != '')
+                                                            @if (file_exists($product->featured_img))
+                                                                <img  class="mx-auto img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
+                                                            @else
+                                                                <img  class="mx-auto img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
+                                                            @endif
+                                                        @else
+                                                            <img  class="mx-auto img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
+                                                        @endif
                                                     </a>
                                                 </div>
 
@@ -220,7 +228,17 @@
                         <div class="card product-box-1 mb-3">
                             <div class="card-image">
                                 <a href="{{ route('product', $product->slug) }}" class="d-block text-center">
-                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->thumbnail_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                    @if ($product->thumbnail_img != '')
+                                        @if (file_exists($product->thumbnail_img))
+                                        <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" 
+                                        data-src="{{ asset($product->thumbnail_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                        @else
+                                            <img  class="mx-auto img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
+                                        @endif
+                                    @else
+                                        <img  class="mx-auto img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
+                                    @endif
+                                    
                                 </a>
                             </div>
                             <div class="card-body p-0">

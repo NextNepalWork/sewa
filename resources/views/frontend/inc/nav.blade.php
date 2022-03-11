@@ -122,7 +122,7 @@
 <div class="nav_bar header-sticky" style="background-color: white;">
    <div class="container pl-0 ">
       <div class="row">
-         <div class="col-md-2">
+         <div class="col-md-3">
             <a class="navbar-brand text-dark font-weight-bold" href="{{ route('home') }}">
                @php
                $generalsetting = \App\GeneralSetting::first();
@@ -135,7 +135,7 @@
             </a>
          </div>
 
-         <div class="col-md-8">
+         <div class="col-md-7">
             <div class="search_men d-none d-md-block">
                <form class="form-inline search_top" action="{{ route('search') }}" method="GET">
                   <input class="form-control border-0 search_input" type="search" aria-label="Search" id="search" name="q" placeholder="Search..." autocomplete="off"/>
