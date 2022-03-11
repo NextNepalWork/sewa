@@ -78,6 +78,9 @@
 
 <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}" />
 <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}" />
+<link rel="stylesheet" href="{{ asset('frontend/css/dashboard.css') }}" />
+<link rel="stylesheet" href="{{ asset('frontend/css/dashboard-responsive.css') }}" />
+<link rel="stylesheet" href="{{ asset('frontend/css/dashboard-two.css') }}" />
 <link rel="stylesheet" href="{{ asset('frontend/assets/css/style2.css') }}" />
 <!-- Countdown start -->
 <link rel="stylesheet" href="{{ asset('frontend/assets/countdown/css/flipclock.css') }}" />

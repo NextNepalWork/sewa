@@ -461,7 +461,7 @@ a.search_icon.text-dark i.fa {
 }
 
 a.navbar-brand img {
-    height: 65px;
+    height: 55px;
 }
 
 .search_select_content option {
@@ -1553,7 +1553,7 @@ input[value] {
 .dashboard-content {
     width: 100%;
     padding: 2em;
-    box-shadow: 0 0 20px 0 rgb(62 28 131 / 10%);
+    /* box-shadow: 0 0 20px 0 rgb(62 28 131 / 10%); */
     /* border-radius: 10px; */
 }
 
