@@ -380,7 +380,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="button-wrapper mx-auto mb-3">
-                                                                    <button type="submit" class="btn-custom px-4">Send</button>
+                                                                    <button type="submit" class="btn-custom px-4 color-white">Send</button>
                                                                 </div>
                                                             </div>
                                                         </form>
