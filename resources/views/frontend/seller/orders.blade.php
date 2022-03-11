@@ -92,7 +92,7 @@
                                                     </td>
                                                     <td>
                                                         @if ($order->user_id != null)
-                                                            {{ $order->user->name }}
+                                                            {{ ($order->user)?$order->user->name:'empty' }}
                                                         @else
                                                             Guest ({{ $order->guest_id }})
                                                         @endif
