@@ -126,7 +126,7 @@
     </section>
 
      <!-- Breadcrumbs -->
-   <section id="breadcrumb-wrapper" class="position-relative">
+   {{-- <section id="breadcrumb-wrapper" class="position-relative">
     <div class="image">
        <img src="frontend/assets/images/banner/1.jpg" alt="breadcrumb-image" class="img-fluid">
     </div>
@@ -144,7 +144,7 @@
           </ol>
        </div>
     </div>
- </section>
+ </section> --}}
  <!-- Breadcrumbs Ends -->
  {{-- <section id="cart-wrapper" class="py-3">
     <div class="container">

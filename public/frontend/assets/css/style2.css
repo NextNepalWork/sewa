@@ -39,7 +39,8 @@ ul {
     --section_bg: #f6f9fc;
     --black_light_one: #7d879c;
     --gray: #878787;
-    --secondary-color: #333e48;
+    /* --secondary-color: #333e48; */
+    --secondary-color: #258aff !important;
 }
 
 .btn-custom {
@@ -1874,7 +1875,7 @@ input[type="number"] {
 }
 .btn-styled:hover {
     background: 0 0 !important;
-    color: #dc3545 !important;
+    color: #dc3545;
     box-shadow: unset !important;
     border: 1px solid;
 }
