@@ -1,3 +1,4 @@
+
 <div class="modal-body p-4 added-to-cart">
     <div class="text-center text-success">
         <i class="fa fa-check"></i>
