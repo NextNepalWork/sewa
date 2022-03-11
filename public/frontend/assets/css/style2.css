@@ -867,7 +867,7 @@ table th {
     width: 30px;
     border: 2px solid var(--theme_color);
     border-radius: 8px;
-    color: var(--secondary-color);
+    /* color: var(--secondary-color); */
     display: flex;
     justify-content: center;
     align-items: center;
