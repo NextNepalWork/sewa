@@ -175,6 +175,9 @@
     .d-table-cell .btn-styled::hover{
         color: #ffffff!important;
     }
+    .total-amount-seller{
+        background: #f78035;
+    }
 </style>
 </head>
 <body>
