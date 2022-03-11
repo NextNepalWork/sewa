@@ -17,7 +17,7 @@
                                 <div class="col-md-6">
                                     <h2 class="heading heading-6 text-capitalize strong-600 mb-0">
                                         {{__('Shop Settings')}}
-                                        <a href="{{ route('shop.visit', $shop->slug) }}" class="btn btn-link btn-sm" target="_blank">({{__('Visit Shop')}})<i class="la la-external-link"></i>)</a>
+                                        <a style="background: transparent!important" href="{{ route('shop.visit', $shop->slug) }}" class="btn btn-link btn-sm" target="_blank">({{__('Visit Shop')}})<i class="la la-external-link"></i>)</a>
                                     </h2>
                                 </div>
                                 <div class="col-md-6">

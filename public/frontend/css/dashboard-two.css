@@ -26,6 +26,9 @@ body {
   --black_light_one: #7d879c;
   --gray: #878787;
 }
+.total-amount-seller{
+  background: var(--theme_color_sub);
+}
 input[type="number"] {
   -moz-appearance: textfield;
 }

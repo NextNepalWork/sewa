@@ -39,14 +39,14 @@
                         </span>
                     </a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="{{ route('digital_purchase_history.index') }}" class="{{ areActiveRoutesHome(['digital_purchase_history.index'])}}">
                         <i class="la la-download"></i>
                         <span class="category-name">
                             {{__('Downloads')}}
                         </span>
                     </a>
-                </li>
+                </li> --}}
                 <li>
                     <a href="{{ route('wishlists.index') }}" class="{{ areActiveRoutesHome(['wishlists.index'])}}">
                         <i class="la la-heart-o"></i>
@@ -63,15 +63,15 @@
                         </span>
                     </a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="{{ route('seller.digitalproducts') }}" class="{{ areActiveRoutesHome(['seller.digitalproducts', 'seller.digitalproducts.upload', 'seller.digitalproducts.edit'])}}">
                         <i class="la la-diamond"></i>
                         <span class="category-name">
                             {{__('Digital Products')}}
                         </span>
                     </a>
-                </li>
-                @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
+                </li> --}}
+                {{-- @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
                 <li>
                     <a href="{{ route('customer_products.index') }}" class="{{ areActiveRoutesHome(['customer_products.index', 'customer_products.create', 'customer_products.edit'])}}">
                         <i class="la la-diamond"></i>
@@ -80,7 +80,7 @@
                         </span>
                     </a>
                 </li>
-                @endif
+                @endif --}}
                 @if (\App\Addon::where('unique_identifier', 'pos_system')->first() != null && \App\Addon::where('unique_identifier', 'pos_system')->first()->activated)
                     @if (\App\BusinessSetting::where('type', 'pos_activation_for_seller')->first() != null && \App\BusinessSetting::where('type', 'pos_activation_for_seller')->first()->value != 0)
                         <li>
@@ -93,22 +93,22 @@
                         </li>
                     @endif
                 @endif
-                <li>
+                {{-- <li>
                     <a href="{{route('product_bulk_upload.index')}}" class="{{ areActiveRoutesHome(['product_bulk_upload.index'])}}">
                         <i class="la la-upload"></i>
                         <span class="category-name">
                             {{__('Product Bulk Upload')}}
                         </span>
                     </a>
-                </li>
-                <li>
+                </li> --}}
+                {{-- <li>
                     <a href="{{ route('seller.coupons') }}" class="{{ areActiveRoutesHome(['seller.coupons', 'seller.coupon.upload', 'seller.coupon.edit'])}}">
                         <i class="la la-diamond"></i>
                         <span class="category-name">
                             {{__('Coupons')}}
                         </span>
                     </a>
-                </li>
+                </li> --}}
                 @php
                     $orders = DB::table('orders')
                                 ->orderBy('code', 'desc')
@@ -278,7 +278,7 @@
                         }
                     @endphp
                     <small class="d-block text-sm alpha-5 mb-2">{{__('Your sold amount (current month)')}}</small>
-                    <span class="p-2 bg-base-1 rounded">{{ single_price($total) }}</span>
+                    <span class="p-2 bg-base-1 rounded total-amount-seller">{{ single_price($total) }}</span>
                 </div>
                 <table class="text-left mb-0 table w-75 m-auto">
                     <tr>

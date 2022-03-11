@@ -137,7 +137,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-base-1">{{__('Send')}}</button>
+                            <button type="submit" class="btn btn-base-1 color-white">{{__('Send')}}</button>
                         </div>
                     </form>
                 @else
