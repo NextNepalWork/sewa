@@ -118,6 +118,8 @@
                                     </table>
                                 </div>
                             </div>
+                        @else
+                            <p>No Purchase History</p>
                         @endif
 
                         <div class="pagination-wrapper py-4">
