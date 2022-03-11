@@ -12,7 +12,13 @@
         <div class="panel-body">
             @foreach($conversation->messages as $message)
                 <div class="form-group">
-                    <a class="media-left" href="#"><img class="img-circle img-sm" alt="Profile Picture" @if($message->user != null)src="{{ asset($message->user->avatar_original) }}" @endif>
+                    <a class="media-left" href="#">
+                        
+                        @if (file_exists($message->user->avatar_original))
+                            <img class="img-circle img-sm" alt="Profile Picture" @if($message->user != null)src="{{ asset($message->user->avatar_original) }}" @endif>
+                        @else
+                            <img src="{{ asset('frontend/images/user.png') }}" class="image rounded-circle">
+                        @endif
                     </a>
                     <div class="media-body">
                         <div class="comment-header">

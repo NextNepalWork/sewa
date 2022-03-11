@@ -1426,7 +1426,9 @@ section.home-banner-area {
 }
 
 .widget-profile-menu a.active {
-    background: #f3f3f3;
+    /* background: #f3f3f3; */
+    color:#fff!important;
+    background: var(--theme_color_sub);
     border-left: 3px solid transparent;
 }
 .widget-profile-menu a:hover,

@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $code
  * @property string $details
  * @property float $discount
+ * @property int $new_customer
  * @property string $discount_type
  * @property int $start_date
  * @property int $end_date
@@ -34,5 +35,5 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Coupon extends Model
 {
-    //
+    protected $table = 'coupons';
 }

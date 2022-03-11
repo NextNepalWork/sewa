@@ -1,8 +1,28 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-
-    {{-- <section class="gry-bg py-4 profile">
+<section id="breadcrumb_item" class="pb-0 breadcrumb mb-0">
+    <div class="container">
+       <div class="row">
+          <div class="col-md-12 m-auto">
+             <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                   <li class="breadcrumb-item font-weight-bold">
+                      <a href="/"><span><i class="fa fa-home" aria-hidden="true"></i></span>
+                      HOME</a>
+                   </li>
+                   <li class="breadcrumb-item font-weight-bold" aria-current="page">
+                      <a href="" class="text-dark">
+                      Wishlist</a>
+                   </li>
+                  
+                </ol>
+             </nav>
+          </div>
+       </div>
+    </div>
+ </section>
+    <section class="gry-bg py-4 profile">
         <section class="gry-bg py-4 profile">
         <div class="container">
             <div class="row cols-xs-space cols-sm-space cols-md-space">
@@ -46,13 +66,13 @@
                                             <div class="card-body p-3">
                                                 <div class="card-image">
                                                     <a href="{{ route('product', $wishlist->product->slug) }}" class="d-block">
-                                                        <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($wishlist->product->photos)[0]) }}" alt="{{ __($wishlist->product->name) }}" class="img-fluid img lazyload">
+                                                        <img style="width: 100%;object-fit: contain;" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($wishlist->product->photos)[0]) }}" alt="{{ __($wishlist->product->name) }}" class="img-fluid img lazyload">
                                                     </a>
                                                 </div>
 
                                                 <h2 class="heading heading-6 strong-600 mt-2 text-truncate-2 d-flex justify-content-between">
                                                     <a href="{{ route('product', $wishlist->product->slug) }}">{{ $wishlist->product->name }}</a> <span>       <a href="#" class="link link--style-3" data-toggle="tooltip" data-placement="top" title="Remove from wishlist" onclick="removeFromWishlist({{ $wishlist->id }})">
-                                                                <i class="la la-close"></i>
+                                                                <i class="la la-trash dashboard-wishlist-trash"></i>
                                                             </a></span>
                                                 </h2>
                                                 <div class="star-rating star-rating-sm mb-1">
@@ -71,7 +91,7 @@
                                                 <div class="product-buttons">
                                                     <div class="row align-items-center">
                                                         <div class="col-8 mx-auto">
-                                                                <button type="button" class="btn btn-block btn-base-1 btn-circle btn-icon-left" onclick="showAddToCartModal({{ $wishlist->product->id }})">
+                                                                <button type="button" class="btn btn-block btn-base-1 btn-circle btn-icon-left dashboard-wishlist-cart-btn" onclick="showAddToCartModal({{ $wishlist->product->id }})">
                                                                     <i class="la la-shopping-cart mr-2"></i>{{__('Add to cart')}}
                                                                 </button>
                                                         </div>
@@ -95,7 +115,7 @@
                 </div>
             </div>
         </div>
-    </section> --}}
+    </section>
 
      <!-- Breadcrumbs -->
    <section id="breadcrumb-wrapper" class="position-relative">
@@ -118,7 +138,7 @@
     </div>
  </section>
  <!-- Breadcrumbs Ends -->
- <section id="cart-wrapper" class="py-3">
+ {{-- <section id="cart-wrapper" class="py-3">
     <div class="container">
        <div class="row py-xl-5 py-md-3 py-0">
           <div class="col-xl-3 col-lg-4 col-12 mb-xl-0 mb-lg-0 mb-3">
@@ -128,7 +148,7 @@
             @include('frontend.inc.customer_side_nav')
         @endif
           </div>
-          <div class="col-xl-9 col-lg-8 col-md-12 col-12 ">
+          <div class="col-xl-9 col-lg-8 col-md-12 col-12 " style="background: white;">
              <div class="profile-side-detail-edit">
                 <div class="dashboard-content d-flex align-items-center h-100">
                    <div class="shopping-cart">
@@ -220,7 +240,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 @endsection
 
