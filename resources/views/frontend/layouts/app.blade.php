@@ -167,7 +167,15 @@
 </noscript> --}}
 <!-- End Facebook Pixel Code -->
  {{-- @endif  --}}
+<style>
+    .d-table-cell .btn-styled::before{
+        background: #258aff !important;
 
+    }
+    .d-table-cell .btn-styled::hover{
+        color: #ffffff!important;
+    }
+</style>
 </head>
 <body>
 
