@@ -4313,6 +4313,7 @@ ul.inline-links > li {
   transform: translateY(-3px);
   -webkit-transform: translateY(-3px);
   -ms-webkit-transform: translateY(-3px);
+  color:white!important;
 }
 .icon-anim:hover i {
   transform: translateX(4px);
@@ -7985,7 +7986,7 @@ button.btn.btn-base-1 {
   transition: .5s;
 }
 button.btn.btn-base-1:hover {
-  background: transparent;
+  /* background: transparent; */
   /* color: black; */
   border: 1px solid;
   color: var(--theme_color_sub);
