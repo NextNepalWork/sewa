@@ -1,6 +1,10 @@
 @extends('frontend.layouts.app')
 
-@section('meta_title'){{ $detailedProduct->meta_title }}@stop
+{{-- @section('meta_title')
+{{ $detailedProduct->meta_title }}
+@endsection --}}
+
+@section('meta_title'){{ $detailedProduct->name }}@endsection
 
 @section('meta_description'){{ $detailedProduct->meta_description }}@stop
 
@@ -159,6 +163,24 @@
                                 </div>
                             </div>
                         </div>
+                        <hr>
+
+                        <div class="row align-items-center">
+                            <div class="sold-by col-auto">
+                                <small class="mr-2">Vendor: </small><br>
+                                @if ($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
+                                    <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}">{{ $detailedProduct->user->shop->name }}</a>
+                                @else
+                                    {{ __('Inhouse product') }}
+                                @endif
+                            </div>
+                            @if (\App\BusinessSetting::where('type', 'conversation_system')->first()->value == 1)
+                                <div class="col-auto">
+                                    <button class="btn btn-primary" onclick="show_chat_modal()">{{__('Message Seller')}}</button>
+                                </div>
+                            @endif
+                        </div>
+                        <hr>
                         <div class="descrip mb-2">
                             <h5>Description</h5>
                             {{-- <p> --}}
