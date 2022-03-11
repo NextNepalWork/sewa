@@ -1019,6 +1019,7 @@ section.home-banner-area {
     font-size: 16px;
     line-height: 18px;
     background-color: #fafafa;
+    color: var(--theme_color);
 }
 
 .sidebar-box .box-content {
@@ -4444,14 +4445,14 @@ input[type="radio"]:checked + .radio-box:after {
     border: 1px solid #d1d7e2;
 }
 .aiz-rounded-check:after {
-    content: '';
+    content: "";
     position: absolute;
     visibility: hidden;
     opacity: 0;
     top: 50%;
     left: 50%;
-    -webkit-transition: all .3s ease;
-    transition: all .3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
     margin-left: -3px;
     margin-top: -3px;
     width: 6px;
@@ -4469,19 +4470,19 @@ input[type="radio"]:checked + .radio-box:after {
     z-index: -1;
     opacity: 0;
 }
-.aiz-megabox .aiz-megabox-elem{
+.aiz-megabox .aiz-megabox-elem {
     border: 1px solid #e2e5ec;
     border-radius: 0.25rem;
-    -webkit-transition: all .3s ease;
-    transition: all .3s ease;
-    border-radius: 0.25rem
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    border-radius: 0.25rem;
 }
-.aiz-megabox>input:checked~span .aiz-rounded-check:after {
+.aiz-megabox > input:checked ~ span .aiz-rounded-check:after {
     visibility: visible;
     opacity: 1;
 }
 
-.aiz-megabox>input:checked~.aiz-megabox-elem,
-.aiz-megabox>input:checked~.aiz-megabox-elem {
+.aiz-megabox > input:checked ~ .aiz-megabox-elem,
+.aiz-megabox > input:checked ~ .aiz-megabox-elem {
     border-color: var(--primary);
 }

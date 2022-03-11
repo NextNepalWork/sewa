@@ -211,7 +211,6 @@ class HomeController extends Controller
         // $user = User::where('email', 'munirajrajbanshi5@gmail.com')->first();
         // FacadesAuth::login($user);
         // return view('frontend.seller.dashboard');
-
         return view('frontend.index');
     }
 
