@@ -1,10 +1,5 @@
-@foreach (\App\HomeCategory::where(['status', 1],['featured', 1])->get() as $key => $homeCategory)
+{{-- @foreach (\App\HomeCategory::where('status', 1)->get() as $key => $homeCategory)
     @if ($homeCategory->category != null)
-    {{-- @php
-    echo '<pre>';
-        print_r($homeCategory->category);
-        echo '</pre>';
-    @endphp --}}
     <section class="mb-4">
         <div class="container">
             <div class="px-2 py-4 p-md-4 bg-white shadow-sm">
@@ -16,14 +11,14 @@
                       </header>
                    </div>
                 </div>
-                {{-- <div class="section-title-1 clearfix">
+                <div class="section-title-1 clearfix">
                     <h3 class="heading-5 strong-700 mb-0 float-lg-left">
                         <span class="mr-4">{{ __($homeCategory->category->name) }}</span>
                     </h3>
                     <ul class="inline-links float-lg-right nav mt-3 mb-2 m-lg-0">
                         <li><a href="{{ route('products.category', $homeCategory->category->slug) }}" class="active">View More</a></li>
                     </ul>
-                </div> --}}
+                </div>
                 <div class="caorusel-box arrow-round gutters-5">
                     <div class="slick-carousel" data-slick-items="6" data-slick-xl-items="5" data-slick-lg-items="4"  data-slick-md-items="3" data-slick-sm-items="2" data-slick-xs-items="2">
                     @foreach (filter_products(\App\Product::where('published', 1)->where('category_id', $homeCategory->category->id))->latest()->limit(12)->get() as $key => $product)
@@ -64,7 +59,6 @@
                                             <span class="cut-price">{{ home_base_price($product->id) }}</span>
                                         @endif
                                             <h6 class="m-0 gray">{{ home_discounted_base_price($product->id) }}</h6>
-                                        {{-- <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span> --}}
                                     </div>
                                     <div class="star-rating star-rating-sm mt-1">
                                         {{ renderStarRating($product->rating) }}
@@ -87,5 +81,6 @@
             </div>
         </div>
     </section>
+
     @endif
-@endforeach
+@endforeach --}}
