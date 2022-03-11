@@ -59,7 +59,7 @@ ul {
 }
 
 .btn-custom:hover {
-    color: white;
+    color: white!important;
 }
 
 .btn-custom:hover::before {
