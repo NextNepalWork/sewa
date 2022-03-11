@@ -128,7 +128,7 @@
                </li>
            @endif
 
-           @if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null && \App\Addon::where('unique_identifier', 'affiliate_system')->first()->activated && Auth::user()->affiliate_user != null && Auth::user()->affiliate_user->status)
+           {{-- @if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null && \App\Addon::where('unique_identifier', 'affiliate_system')->first()->activated && Auth::user()->affiliate_user != null && Auth::user()->affiliate_user->status)
                <li>
                    <a href="{{ route('affiliate.user.index') }}" class="{{ areActiveRoutesHome(['affiliate.user.index', 'affiliate.payment_settings'])}}">
                        <i class="la la-dollar"></i>
@@ -137,7 +137,7 @@
                        </span>
                    </a>
                </li>
-           @endif
+           @endif --}}
            @php
                $support_ticket = DB::table('tickets')
                            ->where('client_viewed', 0)

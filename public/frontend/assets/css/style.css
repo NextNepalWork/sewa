@@ -441,7 +441,7 @@ header.section-header ul.my_account li:nth-child(2) {
     width: 100%;
     -webkit-box-shadow: 0 10px 15px rgb(25 25 25 / 10%);
     box-shadow: 0 10px 15px rgb(25 25 25 / 10%);
-    z-index: 9999;
+    z-index: 99;
     -webkit-animation: 300ms ease-in-out 0s normal none 1 running fadeInDown;
     animation: 300ms ease-in-out 0s normal none 1 running fadeInDown;
     -webkit-box-shadow: 0 10px 15px rgb(25 25 25 / 10%);

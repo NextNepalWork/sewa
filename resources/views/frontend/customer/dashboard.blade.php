@@ -8,14 +8,14 @@
           <div class="col-md-12 m-auto">
              <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                   <li class="breadcrumb-item font-weight-bold">
-                      <a href="index.html"><span><i class="fa fa-home" aria-hidden="true"></i></span>
-                      HOME</a>
-                   </li>
-                   <li class="breadcrumb-item font-weight-bold" aria-current="page">
-                      <a href="" class="text-dark">
-                      Dashboard</a>
-                   </li>
+                    <li class="breadcrumb-item font-weight-bold">
+                        <a href="/"><span><i class="fa fa-home" aria-hidden="true"></i></span>
+                        HOME</a>
+                    </li>
+                    <li class="breadcrumb-item font-weight-bold" aria-current="page">
+                        <a href="" class="text-dark">
+                        Dashboard</a>
+                    </li>
                   
                 </ol>
              </nav>

@@ -5,7 +5,12 @@
                 <div class="pl-3">
                     <div class="block-image">
                         @if ($message->user->avatar_original != null)
-                            <img src="{{ asset($message->user->avatar_original) }}" class="rounded-circle">
+                            @if (file_exists($message->user->avatar_original))
+                                <img src="{{ asset($message->user->avatar_original) }}" class="rounded-circle">
+                            @else
+                                <img src="{{ asset('frontend/images/user.png') }}" class="image rounded-circle">
+                            @endif
+                            {{-- <img src="{{ asset($message->user->avatar_original) }}" class="rounded-circle"> --}}
                         @else
                             <img src="{{ asset('frontend/images/user.png') }}" class="rounded-circle">
                         @endif
