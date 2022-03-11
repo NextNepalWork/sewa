@@ -1886,3 +1886,7 @@ input[type="number"] {
 .slider_feature .product-grid-item {
     margin: 10px;
 }
+
+#product-listing-wrapper .product-lists .col-12 .card-wrapper {
+    border-bottom: 2px solid var(--theme_color);
+}
