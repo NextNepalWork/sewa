@@ -566,7 +566,7 @@
                                 <div class="modal-category-list has-right-arrow">
                                     <ul id="categories">
                                         @foreach ($categories as $key => $category)
-                                            <li onclick="get_subcategories_by_category(this, {{ $category->id }})">{{ __($category->name) }}</li>
+                                            <li onclick="get_subcategories_by_category(this, {{ $category->id }})">{{ __($category->name) }} <i class="fa fa-arropw"></i> </li>
                                         @endforeach
                                     </ul>
                                 </div>
