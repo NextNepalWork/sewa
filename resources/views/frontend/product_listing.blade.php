@@ -120,71 +120,7 @@
                                                             <li><div class="item"><a href="{{ route('products.subcategory', \App\SubsubCategory::find($subsubcategory_id)->subcategory->slug) }}" class="active">{{ __(\App\SubsubCategory::find($subsubcategory_id)->subcategory->name) }}</a></div></li>
                                                             <li><div class="item"><a href="{{ route('products.subsubcategory', \App\SubsubCategory::find($subsubcategory_id)->slug) }}" class="current">{{ __(\App\SubsubCategory::find($subsubcategory_id)->name) }}</a></div></li>
                                                         @endif
-                                                        {{-- <li>
-                                                            <div class="item">
-                                                                <a href="" class="category-item py-1 active">Nepal
-                                                                    Origin</a>
-                                                            </div>
-                                                        </li> --}}
                                                     </ul>
-                                                    <div class="collapse" id="expand1">
-                                                        <ul>
-                                                            <li>
-                                                                <div class="item">
-                                                                    <a href="" class="category-item py-1">Cheese
-                                                                        Category 1</a>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="item">
-                                                                    <a href="" class="category-item py-1 ">Cheese
-                                                                        Category 1</a>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="item">
-                                                                    <a href="" class="category-item py-1 ">Cheese
-                                                                        Category 1</a>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="item">
-                                                                    <a href="" class="category-item py-1">Cheese
-                                                                        Category 1</a>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="item">
-                                                                    <a href="" class="category-item py-1 ">Cheese
-                                                                        Category 1</a>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="item">
-                                                                    <a href="" class="category-item py-1 ">Cheese
-                                                                        Category 1</a>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="item">
-                                                                    <a href="" class="category-item py-1">Cheese
-                                                                        Category 1</a>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="item">
-                                                                    <a href="" class="category-item py-1 ">Cheese
-                                                                        Category 1</a>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="item">
-                                                                    <a href="" class="category-item py-1 ">Cheese
-                                                                        Category 1</a>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
                                                 </div>
                                                 <!-- card-body.// -->
                                             </div>
@@ -465,10 +401,12 @@
                                                 </a>
                                             </div>
                                             <div class="cart-compare">
-                                                <a class="all-deals effect gray" onclick="addToWishList({{ $product->id }})><i
-                                                        class="fa fa-heart icon mr-2"></i>Wishlist </a>
-                                                <a class="all-deals effect gray" onclick="addToCompare({{ $product->id }})> <i
-                                                        class="fa fa-exchange icon mr-2"></i>Compare </a>
+                                                <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToWishList({{$product->id}})"
+                                                    ><i class="fa fa-heart icon mr-2"></i>Wishlist
+                                                </a>
+                                                <a class="all-deals effect gray" onclick="addToCompare({{$product->id}})">
+                                                <i class="fa fa-exchange icon mr-2"></i>Compare
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
