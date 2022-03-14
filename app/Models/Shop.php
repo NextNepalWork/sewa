@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $user_id
  * @property string|null $name
+ * @property string|null $location
  * @property string|null $logo
  * @property string|null $sliders
  * @property string|null $address

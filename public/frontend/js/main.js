@@ -13,7 +13,10 @@ var searchOpen = (function () {
         },
     };
 })();
-
+var preloader = document.getElementById("loading");
+function myFunction() {
+    preloader.style.display = 'none';
+};
 $(function () {
     $("#category-menu-icon, #category-sidebar")
         .on("mouseover", function (event) {
