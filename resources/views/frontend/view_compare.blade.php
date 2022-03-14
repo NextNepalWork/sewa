@@ -26,8 +26,6 @@
         </div>
         <div class="overlay position-absolute">
             <div class="title p-4">
-                <!-- <a class="mr-3" href="index.html">Home</a>
-                                                                            <a class="mr-3" href="product-details.html">Product Detail</a> -->
                 <ol class="breadcrumb p-0 bg-transparent p-0 m-0">
                     <li class="breadcrumb-item">
                         <a href="{{ route('home') }}">Home</a>
@@ -40,98 +38,12 @@
         </div>
     </section>
     <!-- Breadcrumbs Ends -->
-    {{-- <section class="gry-bg py-4" id="compare_page">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="card mb-4">
-                        <div class="card-header text-center p-2">
-                            <div class="heading-5">{{__('Comparison')}}</div>
-                        </div>
-                        @if(Session::has('compare'))
-                            @if(count(Session::get('compare')) > 0)
-                                <div class="card-body table-responsive">
-                                    <table class="table table-bordered compare-table mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col" style="width:20%" class="font-weight-bold">
-                                                    {{__('Name')}}
-                                                </th>
-                                                @foreach (Session::get('compare') as $key => $item)
-                                                    <th scope="col" style="width:36%" class="font-weight-bold">
-                                                        <a href="{{ route('product', \App\Product::find($item)->slug) }}">{{ \App\Product::find($item)->name }}</a>
-                                                    </th>
-                                                @endforeach
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">{{__('Image')}}</th>
-                                                @foreach (Session::get('compare') as $key => $item)
-                                                    <td>
-                                                        <img loading="lazy"  src="{{ asset(json_decode(\App\Product::find($item)->photos)[0]) }}" alt="Product Image" class="img-fluid py-4">
-                                                    </td>
-                                                @endforeach
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">{{__('Price')}}</th>
-                                                @foreach (Session::get('compare') as $key => $item)
-                                                    <td>{{ single_price(\App\Product::find($item)->unit_price) }}</td>
-                                                @endforeach
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">{{__('Brand')}}</th>
-                                                @foreach (Session::get('compare') as $key => $item)
-                                                    <td>
-                                                        @if (\App\Product::find($item)->brand != null)
-                                                            {{ \App\Product::find($item)->brand->name }}
-                                                        @endif
-                                                    </td>
-                                                @endforeach
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">{{__('Sub Sub Category')}}</th>
-                                                @foreach (Session::get('compare') as $key => $item)
-                                                    <td>
-                                                        @if (\App\Product::find($item)->subsubcategory != null)
-                                                            {{ \App\Product::find($item)->subsubcategory->name }}
-                                                        @endif
-                                                    </td>
-                                                @endforeach
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">{{__('Description')}}</th>
-                                                @foreach (Session::get('compare') as $key => $item)
-                                                    <td>@php echo \App\Product::find($item)->description; @endphp</td>
-                                                @endforeach
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"></th>
-                                                @foreach (Session::get('compare') as $key => $item)
-                                                    <td class="text-center py-4">
-                                                        <button type="button" class="btn btn-base-1 btn-circle btn-icon-left px-3" onclick="showAddToCartModal({{ $item }})">
-                                                            <i class="icon ion-android-cart"></i>{{__('Add to cart')}}
-                                                        </button>
-                                                    </td>
-                                                @endforeach
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            @endif
-                        @else
-                            <div class="card-body">
-                                <p>{{__('Your comparison list is empty')}}</p>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
-
+    
     <section id="compare" class="py-3" style="background-color: white;">
         <div class="container">
+            <div class="text-right">
+                <a href="{{ route('compare.reset') }}" style="text-decoration: none;" class="btn btn-link btn-base-5 btn-sm font-weight-bold">{{__('Reset Compare List')}}</a>
+            </div>
            <div class="row py-xl-5 py-md-3 py-0">
   
               <div class="col-md-10 m-auto">
