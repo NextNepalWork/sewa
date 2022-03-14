@@ -2,14 +2,14 @@
 
 @section('content')
 
-    @if ($type != 'Seller')
+    {{-- @if ($type != 'Seller') --}}
         <div class="row">
             <div class="col-lg-12 pull-right">
                 <a href="{{ route('products.create') }}"
                     class="btn btn-rounded btn-info pull-right">{{ __('Add New Product') }}</a>
             </div>
         </div>
-    @endif
+    {{-- @endif --}}
 
 <br>
 <div class="panel">
