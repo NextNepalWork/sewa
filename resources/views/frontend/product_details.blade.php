@@ -174,11 +174,11 @@
                                     {{ __('Inhouse product') }}
                                 @endif
                             </div>
-                            @if (\App\BusinessSetting::where('type', 'conversation_system')->first()->value == 1)
+                            {{-- @if (\App\BusinessSetting::where('type', 'conversation_system')->first()->value == 1)
                                 <div class="col-auto">
                                     <button class="btn btn-primary" onclick="show_chat_modal()">{{__('Message Seller')}}</button>
                                 </div>
-                            @endif
+                            @endif --}}
                         </div>
                         <hr>
                         <div class="descrip mb-2">

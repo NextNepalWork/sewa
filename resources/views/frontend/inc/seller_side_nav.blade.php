@@ -166,7 +166,7 @@
                         </span>
                     </a>
                 </li>
-                @if (\App\BusinessSetting::where('type', 'conversation_system')->first()->value == 1)
+                {{-- @if (\App\BusinessSetting::where('type', 'conversation_system')->first()->value == 1)
                     @php
                         $conversation_sent = \App\Conversation::where('sender_id', Auth::user()->id)->where('sender_viewed', 0)->get();
                         $conversation_recieved = \App\Conversation::where('receiver_id', Auth::user()->id)->where('receiver_viewed', 0)->get();
@@ -182,7 +182,7 @@
                             </span>
                         </a>
                     </li>
-                @endif
+                @endif --}}
                 <li>
                     <a href="{{ route('shops.index') }}" class="{{ areActiveRoutesHome(['shops.index'])}}">
                         <i class="la la-cog"></i>

@@ -297,6 +297,7 @@ class HomeController extends Controller
 
     public function listing(Request $request)
     {
+        // dd($request->all());
         // $products = filter_products(Product::orderBy('created_at', 'desc'))->paginate(12);
         // return view('frontend.product_listing', compact('products'));
         return $this->search($request);
@@ -409,7 +410,7 @@ class HomeController extends Controller
         $sort_by = $request->sort_by;
 
         $location_id = (Location::where('id', $request->location)->first() != null) ? Location::where('id', $request->location)->first()->id : null;
-
+        
         $shops=\App\Shop::all();
         $user_id=array();
         foreach ($shops as $key => $shop) {
@@ -419,7 +420,6 @@ class HomeController extends Controller
                 if(in_array($location_id,$array)){
                     array_push($user_id,$shop->user_id);  
                 }
-    
             }
         }
 

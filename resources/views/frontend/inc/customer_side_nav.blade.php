@@ -86,24 +86,24 @@
                    </span>
                </a>
            </li>
-           @if(Auth::user())
-           @if (\App\BusinessSetting::where('type', 'conversation_system')->first()->value == 1)
-               @php
-                   $conversation = \App\Conversation::where('sender_id', Auth::user()->id)->where('sender_viewed', 0)->get();
-               @endphp
-               <li>
-                   <a href="{{ route('conversations.index') }}" class="{{ areActiveRoutesHome(['conversations.index', 'conversations.show'])}}">
-                       <i class="la la-comment"></i>
-                       <span class="category-name">
-                           {{__('Conversations')}}
-                           @if (count($conversation) > 0)
-                               <span class="ml-2" style="color:green"><strong>({{ count($conversation) }})</strong></span>
-                           @endif
-                       </span>
-                   </a>
-               </li>
-           @endif
-           @endif
+           {{-- @if(Auth::user())
+            @if (\App\BusinessSetting::where('type', 'conversation_system')->first()->value == 1)
+                @php
+                    $conversation = \App\Conversation::where('sender_id', Auth::user()->id)->where('sender_viewed', 0)->get();
+                @endphp
+                <li>
+                    <a href="{{ route('conversations.index') }}" class="{{ areActiveRoutesHome(['conversations.index', 'conversations.show'])}}">
+                        <i class="la la-comment"></i>
+                        <span class="category-name">
+                            {{__('Conversations')}}
+                            @if (count($conversation) > 0)
+                                <span class="ml-2" style="color:green"><strong>({{ count($conversation) }})</strong></span>
+                            @endif
+                        </span>
+                    </a>
+                </li>
+            @endif
+           @endif --}}
            <li>
                <a href="{{ route('profile') }}" class="{{ areActiveRoutesHome(['profile'])}}">
                    <i class="la la-user"></i>
