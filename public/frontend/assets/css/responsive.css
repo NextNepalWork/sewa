@@ -252,13 +252,13 @@
         font-weight: bold;
     }
 
-    li.nav-item {
+    /* li.nav-item {
         height: 50px;
-        /* line-height: 50px; */
+
         text-align: center;
         width: 100%;
         text-align: left;
-    }
+    } */
 
     i.fa.fa-bars.fa-2x.text-light {
         z-index: 99;
