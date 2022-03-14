@@ -1,7 +1,8 @@
 <div id="sidebar_men_block" class="sidebar sidebar--style-3 no-border stickyfill p-0">
    <div class="widget mb-0">
       <div class="widget-profile-box text-center p-3">
-          
+          @if(Auth::user())
+          {{-- {{dd('hi')}} --}}
            @if (Auth::user()->avatar_original != null)
                @if (file_exists(Auth::user()->avatar_original))
                   <div class="image" style="background-image:url('{{ asset(Auth::user()->avatar_original) }}')"></div>
@@ -12,6 +13,7 @@
                <img src="{{ asset('frontend/images/user.png') }}" class="image rounded-circle">
            @endif
            <div class="name">{{ Auth::user()->name }}</div>
+           @endif
          {{-- <div class="image" style="background-image:url('http://durbarmart.nextnepal.org/public/uploads/ucQhvfz4EQXNeTbN8Eif0Cpq5LnOwvg8t7qKNKVs.jpeg')">
          </div>
          <div class="name mb-0">Mr. Seller <span class="ml-2"><i class="fa fa-check-circle" style="color:green"></i></span></div> --}}
@@ -40,6 +42,7 @@
                </a>
            </li>
            @endif --}}
+           @if(Auth::user())
            @php
                $delivery_viewed = App\Order::where('user_id', Auth::user()->id)->where('delivery_viewed', 0)->get()->count();
                $payment_status_viewed = App\Order::where('user_id', Auth::user()->id)->where('payment_status_viewed', 0)->get()->count();
@@ -54,6 +57,7 @@
                    </span>
                </a>
            </li>
+           @endif
            {{-- <li>
                <a href="{{ route('digital_purchase_history.index') }}" class="{{ areActiveRoutesHome(['digital_purchase_history.index'])}}">
                    <i class="la la-download"></i>
@@ -82,6 +86,7 @@
                    </span>
                </a>
            </li>
+           @if(Auth::user())
            @if (\App\BusinessSetting::where('type', 'conversation_system')->first()->value == 1)
                @php
                    $conversation = \App\Conversation::where('sender_id', Auth::user()->id)->where('sender_viewed', 0)->get();
@@ -97,6 +102,7 @@
                        </span>
                    </a>
                </li>
+           @endif
            @endif
            <li>
                <a href="{{ route('profile') }}" class="{{ areActiveRoutesHome(['profile'])}}">
@@ -116,7 +122,7 @@
                    </a>
                </li>
            @endif
-
+            @if(Auth::user())
            @if ($club_point_addon != null && $club_point_addon->activated == 1)
                <li>
                    <a href="{{ route('earnng_point_for_user') }}" class="{{ areActiveRoutesHome(['earnng_point_for_user'])}}">
@@ -126,6 +132,7 @@
                        </span>
                    </a>
                </li>
+           @endif
            @endif
 
            {{-- @if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null && \App\Addon::where('unique_identifier', 'affiliate_system')->first()->activated && Auth::user()->affiliate_user != null && Auth::user()->affiliate_user->status)
@@ -138,6 +145,7 @@
                    </a>
                </li>
            @endif --}}
+           @if(Auth::user())
            @php
                $support_ticket = DB::table('tickets')
                            ->where('client_viewed', 0)
@@ -152,6 +160,7 @@
                    </span>
                </a>
            </li>
+           @endif
        </ul>
       </div>
    </div>

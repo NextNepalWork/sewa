@@ -59,7 +59,7 @@ ul {
 }
 
 .btn-custom:hover {
-    color: white!important;
+    color: white !important;
 }
 
 .btn-custom:hover::before {
@@ -274,8 +274,8 @@ small.round {
 
 a.btn {
     color: var(--white);
-    background: var(--black_light);
-    padding: 0;
+    background: var(--theme_color);
+    padding: 0px 5px;
     /* height: 1.5rem; */
     line-height: 2rem;
     /* width: 47%; */
@@ -1885,4 +1885,13 @@ input[type="number"] {
 }
 .slider_feature .product-grid-item {
     margin: 10px;
+}
+
+#product-listing-wrapper .product-lists .col-12 .card-wrapper {
+    border-bottom: 2px solid var(--theme_color);
+}
+
+section#cart-summary .cart-price h6 {
+    font-size: 14px !important;
+    font-weight: 600 !important;
 }
