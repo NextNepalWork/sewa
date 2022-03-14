@@ -105,6 +105,17 @@
 							</label>
 						</div>
 					</div>
+					<div class="form-group" id="brand">
+						<label class="col-lg-2 control-label">Vendor</label>
+						<div class="col-lg-7">
+							<select class="form-control demo-select2-placeholder" name="vendor_id" id="vendor_id">
+								<option value="in-house" selected>InHouse Product</option>
+								@foreach (\App\Seller::with('user')->whereHas('user')->get() as $seller)
+									<option value="{{ $seller->user_id }}">{{ $seller->user->name }}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="panel">
