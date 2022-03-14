@@ -180,7 +180,8 @@
     }
 </style>
 </head>
-<body>
+<body  onload="myFunction()">
+    <div id="loading"></div>
 
 
 <!-- MAIN WRAPPER -->
