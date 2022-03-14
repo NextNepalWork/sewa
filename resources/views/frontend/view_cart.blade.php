@@ -61,6 +61,7 @@
 
 <section id="cart-summary" class="py-5" style="background-color: whitesmoke">
     <div class="container">
+        @if(Session::has('cart'))
         <div class="row cols-xs-space cols-sm-space cols-md-space">
             <div class="col-xl-8 col-md-12 bg-white p-3">
                 <!-- <form class="form-default bg-white p-4" data-toggle="validator" role="form"> -->
@@ -164,6 +165,9 @@
                 @include('frontend.partials.cart_summary')
             </div>
         </div>
+        @else
+            <div class="text-center font-weight-bold"> Your cart is empty.</div>
+        @endif
     </div>
 </section>
 
