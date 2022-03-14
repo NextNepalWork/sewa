@@ -44,34 +44,34 @@ class CheckoutController extends Controller
                     $paypal = new PaypalController;
                     return $paypal->getCheckout();
                 }
-                elseif ($request->payment_option == 'stripe') {
-                    $stripe = new StripePaymentController;
-                    return $stripe->stripe();
-                }
-                elseif ($request->payment_option == 'sslcommerz') {
-                    $sslcommerz = new PublicSslCommerzPaymentController;
-                    return $sslcommerz->index($request);
-                }
-                elseif ($request->payment_option == 'instamojo') {
-                    $instamojo = new InstamojoController;
-                    return $instamojo->pay($request);
-                }
-                elseif ($request->payment_option == 'razorpay') {
-                    $razorpay = new RazorpayController;
-                    return $razorpay->payWithRazorpay($request);
-                }
-                elseif ($request->payment_option == 'paystack') {
-                    $paystack = new PaystackController;
-                    return $paystack->redirectToGateway($request);
-                }
-                elseif ($request->payment_option == 'voguepay') {
-                    $voguePay = new VoguePayController;
-                    return $voguePay->customer_showForm();
-                }
-                elseif ($request->payment_option == 'paytm') {
-                    $paytm = new PaytmController;
-                    return $paytm->index();
-                }
+                // elseif ($request->payment_option == 'stripe') {
+                //     $stripe = new StripePaymentController;
+                //     return $stripe->stripe();
+                // }
+                // elseif ($request->payment_option == 'sslcommerz') {
+                //     $sslcommerz = new PublicSslCommerzPaymentController;
+                //     return $sslcommerz->index($request);
+                // }
+                // elseif ($request->payment_option == 'instamojo') {
+                //     $instamojo = new InstamojoController;
+                //     return $instamojo->pay($request);
+                // }
+                // elseif ($request->payment_option == 'razorpay') {
+                //     $razorpay = new RazorpayController;
+                //     return $razorpay->payWithRazorpay($request);
+                // }
+                // elseif ($request->payment_option == 'paystack') {
+                //     $paystack = new PaystackController;
+                //     return $paystack->redirectToGateway($request);
+                // }
+                // elseif ($request->payment_option == 'voguepay') {
+                //     $voguePay = new VoguePayController;
+                //     return $voguePay->customer_showForm();
+                // }
+                // elseif ($request->payment_option == 'paytm') {
+                //     $paytm = new PaytmController;
+                //     return $paytm->index();
+                // }
                 elseif ($request->payment_option == 'cash_on_delivery') {
                     $request->session()->put('cart', collect([]));
                     // $request->session()->forget('order_id');

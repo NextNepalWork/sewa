@@ -33,7 +33,7 @@
                                     <tr class="cart-item">
                                         <td class="product-image">
                                             <a href="#" class="mr-3">
-                                                <img loading="lazy"  src="{{ asset($product->thumbnail_img) }}">
+                                                <img loading="lazy"  src="{{ asset($product->thumbnail_img) }}" class="img-fluid">
                                             </a>
                                         </td>
 

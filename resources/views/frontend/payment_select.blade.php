@@ -15,7 +15,7 @@
             <div class="offset-md-1 offset-0 col-md-2 col-4  text-center ">
                 <div class="img_order_list ">
                    <div class="img_block_icon">
-                    <img src="./frontend/assets/images/logo/cart.svg" class="img-fluid" alt="">
+                    <img src="{{asset('frontend/assets/images/logo/cart.svg" class="img-fluid" alt="">
                    </div>
                    <div class="content_img ">
                     <h6 class=""> 1.My Cart</h6>
@@ -122,7 +122,7 @@
     </div>
  </section>
  <!--======================================================= CART END ======--> --}}
-
+<div id="page-content">
        <!--======================================================= ORDER TOP LIST START ==-->
        <section id="order_list_top">
         <div class="container">
@@ -131,7 +131,7 @@
                 <div class="offset-md-1 offset-0 col-md-2 col-4  text-center ">
                     <div class="img_order_list ">
                        <div class="img_block_icon">
-                        <img src="./frontend/assets/images/logo/cart.svg" class="img-fluid" alt="">
+                        <img src="{{asset('frontend/assets/images/logo/cart.svg')}}" class="img-fluid" alt="">
                        </div>
                        <div class="content_img ">
                         <h6 class=""> 1.My Cart</h6>
@@ -141,7 +141,7 @@
                 <div class="col-md-2 col-4  text-center">
                     <div class="img_order_list">
                        <div class="img_block_icon">
-                        <img src="./frontend/assets/images/map.svg" class="img-fluid" alt="">
+                        <img src="{{asset('frontend/assets/images/map.svg')}}" class="img-fluid" alt="">
                        </div>
                        <div class="content_img">
                         <h6 class=""> 2.Shipping Info</h6>
@@ -151,27 +151,27 @@
                 <div class="col-md-2 col-4  text-center">
                     <div class="img_order_list">
                        <div class="img_block_icon">
-                        <img src="./frontend/assets/images/delivery_new.svg" class="img-fluid" alt="">
+                        <img src="{{asset('frontend/assets/images/delivery_new.svg')}}" class="img-fluid" alt="">
                        </div>
                        <div class="content_img">
-                        <h6 class="active-item"> 3 Delivery Info</h6>
+                        <h6 class=""> 3 Delivery Info</h6>
                        </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-4  text-center">
                     <div class="img_order_list">
                        <div class="img_block_icon">
-                        <img src="./frontend/assets/images/payment.svg" class="img-fluid" alt="">
+                        <img src="{{asset('frontend/assets/images/payment.svg')}}" class="img-fluid" alt="">
                        </div>
                        <div class="content_img">
-                        <h6 class=""> 4. Payment</h6>
+                        <h6 class="active-item"> 4. Payment</h6>
                        </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-4  text-center  mr-xl-5 mr-0 pr-xl-5 pr-0">
                     <div class="img_order_list">
                        <div class="img_block_icon">
-                        <img src="./frontend/assets/images/confirmation.svg" class="img-fluid" alt="">
+                        <img src="{{asset('frontend/assets/images/confirmation.svg')}}" class="img-fluid" alt="">
                        </div>
                        <div class="content_img">
                         <h6 class=""> 5.Confirmation</h6>
@@ -216,7 +216,7 @@
                        </div>
                        @endif
                        @endif
-                       @if(\App\BusinessSetting::where('type', 'esewa')->first()->value == 1)
+                       {{-- @if(\App\BusinessSetting::where('type', 'esewa')->first()->value == 1)
                        <div class="col-xl-6 col-md-6 m-auto">
                           <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="E-sewa">
                             <label for="file-input">
@@ -226,24 +226,26 @@
                             <input type="radio" id="file-input" name="payment_option" value="esewa" checked>
                           </div>
                        </div>
-                       @endif
+                       @endif --}}
                     </div>
                  </div>
                  <div class="col-md-12">
                     <div class="button_block d-flex justify-content-between align-items-center">
                        <a href=""> <span><i class="fa fa-reply-all"></i></span> Return to shop</a>
                        <!-- <a href="" class="btn_custom">Continue to Shipping</a> -->
-                     <button type="submit" class="btn_custom"> Complet Order</button>
+                     <button type="submit" class="btn_custom"> Complete Order</button>
                     </div>
                  </div>
                 </form>
               </div>
+              <div class="col-xl-4 col-md-7 m-auto m-xl-0 ">
                 @include('frontend.partials.cart_summary')
+             </div>
            </div>
         </div>
      </section>
      <!--======================================================= CART END ======-->
-
+</div>
 @endsection
 
 @section('script')
