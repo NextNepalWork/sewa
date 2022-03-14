@@ -1,67 +1,171 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-    {{-- <section class="slice-xs sct-color-2 border-bottom">
-        <div class="container container-sm">
-            <div class="row cols-delimited justify-content-center">
-                <div class="col">
-                    <div class="icon-block icon-block--style-1-v5 text-center active">
-                        <div class="block-icon mb-0">
-                            <i class="la la-shopping-cart"></i>
-                        </div>
-                        <div class="block-content d-none d-md-block">
-                            <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">1. {{__('My Cart')}}</h3>
-                        </div>
-                    </div>
-                </div>
+<section id="order_list_top">
+    <div class="container">
+       <div class="row delivery_row_block">
 
-                <div class="col">
-                    <div class="icon-block icon-block--style-1-v5 text-center">
-                        <div class="block-icon c-gray-light mb-0">
-                            <i class="la la-map-o"></i>
-                        </div>
-                        <div class="block-content d-none d-md-block">
-                            <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">2. {{__('Shipping info')}}</h3>
-                        </div>
-                    </div>
+          <div class="offset-md-1 offset-0 col-md-2 col-4  text-center ">
+             <div class="img_order_list ">
+                <div class="img_block_icon">
+                   <img src="{{asset('frontend/assets/images/logo/cart.svg')}}" class="img-fluid" alt="">
                 </div>
+                <div class="content_img ">
+                   <h6 class="active-item"> 1.My Cart</h6>
+                </div>
+             </div>
+          </div>
+          <div class="col-md-2 col-4  text-center">
+             <div class="img_order_list">
+                <div class="img_block_icon">
+                   <img src="{{asset('frontend/assets/images/map.svg')}}" class="img-fluid" alt="">
+                </div>
+                <div class="content_img">
+                   <h6 class=""> 2.Shipping Info</h6>
+                </div>
+             </div>
+          </div>
+          <div class="col-md-2 col-4  text-center">
+             <div class="img_order_list">
+                <div class="img_block_icon">
+                   <img src="{{asset('frontend/assets/images/delivery_new.svg')}}" class="img-fluid" alt="">
+                </div>
+                <div class="content_img">
+                   <h6 class=""> 3 Delivery Info</h6>
+                </div>
+             </div>
+          </div>
+          <div class="col-md-2 col-4  text-center">
+             <div class="img_order_list">
+                <div class="img_block_icon">
+                   <img src="{{asset('frontend/assets/images/payment.svg')}}" class="img-fluid" alt="">
+                </div>
+                <div class="content_img">
+                   <h6 class=""> 4. Payment</h6>
+                </div>
+             </div>
+          </div>
+          <div class="col-md-2 col-4  text-center  mr-xl-5 mr-0 pr-xl-5 pr-0">
+             <div class="img_order_list">
+                <div class="img_block_icon">
+                   <img src="{{asset('frontend/assets/images/confirmation.svg')}}" class="img-fluid" alt="">
+                </div>
+                <div class="content_img">
+                   <h6 class=""> 5.Confirmation</h6>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+</section>
 
-                <div class="col">
-                    <div class="icon-block icon-block--style-1-v5 text-center">
-                        <div class="block-icon mb-0 c-gray-light">
-                            <i class="la la-truck"></i>
+<section id="cart-summary" class="py-5" style="background-color: whitesmoke">
+    <div class="container">
+        <div class="row cols-xs-space cols-sm-space cols-md-space">
+            <div class="col-xl-8 col-md-12 bg-white p-3">
+                <!-- <form class="form-default bg-white p-4" data-toggle="validator" role="form"> -->
+                <div class="form-default bg-white p-4">
+                    <div class="">
+                        <div class="">
+                            <table class="table-cart border-bottom">
+                                <thead>
+                                    {{-- {{dd('hERE')}} --}}
+                                    <tr>
+                                        <th class="product-image"></th>
+                                        <th class="product-name">{{__('Product')}}</th>
+                                        <th class="product-price d-none d-lg-table-cell">{{__('Price')}}</th>
+                                        <th class="product-quanity d-none d-md-table-cell">{{__('Quantity')}}</th>
+                                        <th class="product-total">{{__('Total')}}</th>
+                                        <th class="product-remove"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                    $total = 0;
+                                    @endphp
+                                    @foreach (Session::get('cart') as $key => $cartItem)
+                                        @php
+                                        $product = \App\Product::find($cartItem['id']);
+                                        $total = $total + $cartItem['price']*$cartItem['quantity'];
+                                        $product_name_with_choice = $product->name;
+                                        if ($cartItem['variant'] != null) {
+                                            $product_name_with_choice = $product->name.' - '.$cartItem['variant'];
+                                        }
+                                        @endphp
+                                        <tr class="cart-item">
+                                            <td class="product-image">
+                                                <a href="#" class="mr-3">
+                                                    @if(file_exists($product->thumbnail_img))
+                                                    <img loading="lazy" src="{{ asset($product->thumbnail_img) }}" class="img-fluid">
+                                                    @else
+                                                    <img loading="lazy" src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid">
+                                                    @endif
+                                                </a>
+                                            </td>
+    
+                                            <td class="product-name">
+                                                <span class="pr-4 d-block">{{ $product_name_with_choice }}</span>
+                                            </td>
+    
+                                            <td class="product-price d-none d-lg-table-cell">
+                                                <span class="pr-3 d-block">{{ single_price($cartItem['price']) }}</span>
+                                            </td>
+    
+                                            <td class="product-quantity d-none d-md-table-cell">
+                                                <div class="input-group input-group--style-2 pr-4" style="width: 130px;">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-number" type="button" data-type="minus" data-field="quantity[{{ $key }}]">
+                                                            <i class="la la-minus"></i>
+                                                        </button>
+                                                    </span>
+                                                    <input type="text" name="quantity[{{ $key }}]" class="form-control input-number" placeholder="1" value="{{ $cartItem['quantity'] }}" min="1" max="10" onchange="updateQuantity({{ $key }}, this)">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-number" type="button" data-type="plus" data-field="quantity[{{ $key }}]">
+                                                            <i class="la la-plus"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td class="product-total">
+                                                <span>{{ single_price($cartItem['price']*$cartItem['quantity']) }}</span>
+                                            </td>
+                                            <td class="product-remove">
+                                                <a href="#" onclick="removeFromCartView(event, {{ $key }})" class="text-right pl-4">
+                                                    <i class="la la-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="block-content d-none d-md-block">
-                            <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">3. {{__('Delivery info')}}</h3>
+                    </div>
+    
+                    <div class="row align-items-center pt-4">
+                        <div class="col-6">
+                            <a href="{{ route('home') }}">
+                                <i class="fa fa-reply-all"></i>
+                                {{__('Return to shop')}}
+                            </a>
+                        </div>
+                        <div class="col-6 text-right">
+                            @if(Auth::check())
+                                <a href="{{ route('checkout.shipping_info') }}" class="btn btn-styled btn-base-1">{{__('Continue to Shipping')}}</a>
+                            @else
+                                <button class="btn btn-styled btn-base-1" onclick="showCheckoutModal()" style="background: var(--theme_color)">{{__('Continue to Shipping')}}</button>
+                            @endif
                         </div>
                     </div>
                 </div>
-
-                <div class="col">
-                    <div class="icon-block icon-block--style-1-v5 text-center">
-                        <div class="block-icon c-gray-light mb-0">
-                            <i class="la la-credit-card"></i>
-                        </div>
-                        <div class="block-content d-none d-md-block">
-                            <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">4. {{__('Payment')}}</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="icon-block icon-block--style-1-v5 text-center">
-                        <div class="block-icon c-gray-light mb-0">
-                            <i class="la la-check-circle"></i>
-                        </div>
-                        <div class="block-content d-none d-md-block">
-                            <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">5. {{__('Confirmation')}}</h3>
-                        </div>
-                    </div>
-                </div>
+                <!-- </form> -->
+            </div>
+    
+            <div class="col-xl-4 col-md-7 m-auto m-xl-0">
+                @include('frontend.partials.cart_summary')
             </div>
         </div>
-    </section> --}}
-
+    </div>
+</section>
 
     {{-- <section class="py-4 gry-bg" id="cart-summary">
         <div class="container">
@@ -180,9 +284,9 @@
             @endif
         </div>
     </section> --}}
-
+    
  <!-- Cart -->
- <section id="cart-wrapper" class="py-3">
+ {{-- <section id="cart-wrapper" class="py-3">
     <div class="container">
        <div class="row py-xl-5 py-md-3 py-0">
           <div class="col-xl-3 col-lg-4 col-12 mb-xl-0 mb-lg-0 mb-3">
@@ -303,7 +407,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- Cart Ends -->
 
     <!-- Modal -->

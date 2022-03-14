@@ -120,71 +120,7 @@
                                                             <li><div class="item"><a href="{{ route('products.subcategory', \App\SubsubCategory::find($subsubcategory_id)->subcategory->slug) }}" class="active">{{ __(\App\SubsubCategory::find($subsubcategory_id)->subcategory->name) }}</a></div></li>
                                                             <li><div class="item"><a href="{{ route('products.subsubcategory', \App\SubsubCategory::find($subsubcategory_id)->slug) }}" class="current">{{ __(\App\SubsubCategory::find($subsubcategory_id)->name) }}</a></div></li>
                                                         @endif
-                                                        {{-- <li>
-                                                            <div class="item">
-                                                                <a href="" class="category-item py-1 active">Nepal
-                                                                    Origin</a>
-                                                            </div>
-                                                        </li> --}}
                                                     </ul>
-                                                    <div class="collapse" id="expand1">
-                                                        <ul>
-                                                            <li>
-                                                                <div class="item">
-                                                                    <a href="" class="category-item py-1">Cheese
-                                                                        Category 1</a>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="item">
-                                                                    <a href="" class="category-item py-1 ">Cheese
-                                                                        Category 1</a>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="item">
-                                                                    <a href="" class="category-item py-1 ">Cheese
-                                                                        Category 1</a>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="item">
-                                                                    <a href="" class="category-item py-1">Cheese
-                                                                        Category 1</a>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="item">
-                                                                    <a href="" class="category-item py-1 ">Cheese
-                                                                        Category 1</a>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="item">
-                                                                    <a href="" class="category-item py-1 ">Cheese
-                                                                        Category 1</a>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="item">
-                                                                    <a href="" class="category-item py-1">Cheese
-                                                                        Category 1</a>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="item">
-                                                                    <a href="" class="category-item py-1 ">Cheese
-                                                                        Category 1</a>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="item">
-                                                                    <a href="" class="category-item py-1 ">Cheese
-                                                                        Category 1</a>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
                                                 </div>
                                                 <!-- card-body.// -->
                                             </div>
@@ -347,11 +283,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="d-xl-none ml-3 form-group">
+                                    {{-- <div class="d-xl-none ml-3 form-group">
                                         <button type="button" class="btn p-1 btn-sm" id="side-filter">
                                             <i class="la la-filter la-2x"></i>
                                         </button>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="col-xl-7 offset-xl-1">
                                     <div class="row no-gutters">
@@ -465,10 +401,12 @@
                                                 </a>
                                             </div>
                                             <div class="cart-compare">
-                                                <a class="all-deals effect gray" onclick="addToWishList({{ $product->id }})><i
-                                                        class="fa fa-heart icon mr-2"></i>Wishlist </a>
-                                                <a class="all-deals effect gray" onclick="addToCompare({{ $product->id }})> <i
-                                                        class="fa fa-exchange icon mr-2"></i>Compare </a>
+                                                <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToWishList({{$product->id}})"
+                                                    ><i class="fa fa-heart icon mr-2"></i>Wishlist
+                                                </a>
+                                                <a class="all-deals effect gray" onclick="addToCompare({{$product->id}})">
+                                                <i class="fa fa-exchange icon mr-2"></i>Compare
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -490,6 +428,196 @@
             </form>
         </div>
     </section>
+
+               <!-- Mobile Filter Pop Up -->
+   <!-- Modal -->
+    <div class="modal fade" id="leftsidebarfilter" tabindex="-1" role="dialog" aria-labelledby="leftsidebarfilterlabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="leftsidebarfilterlabel">
+                    Filter Products 
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="left-side-wrapper px-4 py-4">
+                        <!-- Content -->
+                        <div class="card-wrapper mb-2">
+                            <div class="card-group-item">
+                                <div class="card-head">
+                                    <div class="heading d-flex align-items-center text-center flex-wrap">
+                                    <div class="head">
+                                        <h5 class="text-uppercase pl-5 m-0">Categories</h5>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="filter-content1">
+                                    <div class="card-body p-3">
+                                    <ul class="mb-0">
+                                        @if(!isset($category_id) && !isset($category_id) && !isset($subcategory_id) && !isset($subsubcategory_id))
+                                            @foreach(\App\Category::all() as $category)
+                                                <li><div class="item"><a href="{{ route('products.category', $category->slug) }}" class="category-item py-1">{{ __($category->name) }}</a></div></li>
+                                            @endforeach
+                                        @endif
+                                        @if(isset($category_id))
+                                            <li><div class="item"><a href="{{ route('products') }}" class="active">{{__('All Categories')}}</a></div></li>
+                                            <li><div class="item"><a href="{{ route('products.category', \App\Category::find($category_id)->slug) }}" class="active">{{ __(\App\Category::find($category_id)->name) }}</a></div></li>
+                                            @foreach (\App\Category::find($category_id)->subcategories as $key2 => $subcategory)
+                                                <li class="child"><div class="item"><a href="{{ route('products.subcategory', $subcategory->slug) }}">{{ __($subcategory->name) }}</a></div></li>
+                                            @endforeach
+                                        @endif
+                                        @if(isset($subcategory_id))
+                                            <li><div class="item"><a href="{{ route('products') }}" class="active">{{__('All Categories')}}</a></div></li>
+                                            <li><div class="item"><a href="{{ route('products.category', \App\SubCategory::find($subcategory_id)->category->slug) }}" class="active">{{ __(\App\SubCategory::find($subcategory_id)->category->name) }}</a></div></li>
+                                            <li><div class="item"><a href="{{ route('products.subcategory', \App\SubCategory::find($subcategory_id)->slug) }}" class="active">{{ __(\App\SubCategory::find($subcategory_id)->name) }}</a></div></li>
+                                            @foreach (\App\SubCategory::find($subcategory_id)->subsubcategories as $key3 => $subsubcategory)
+                                                <li class="child"><div class="item"><a href="{{ route('products.subsubcategory', $subsubcategory->slug) }}">{{ __($subsubcategory->name) }}</a></div></li>
+                                            @endforeach
+                                        @endif
+                                        @if(isset($subsubcategory_id))
+                                            <li><div class="item"><a href="{{ route('products') }}" class="active">{{__('All Categories')}}</a></div></li>
+                                            <li><div class="item"><a href="{{ route('products.category', \App\SubsubCategory::find($subsubcategory_id)->subcategory->category->slug) }}" class="active">{{ __(\App\SubSubCategory::find($subsubcategory_id)->subcategory->category->name) }}</a></div></li>
+                                            <li><div class="item"><a href="{{ route('products.subcategory', \App\SubsubCategory::find($subsubcategory_id)->subcategory->slug) }}" class="active">{{ __(\App\SubsubCategory::find($subsubcategory_id)->subcategory->name) }}</a></div></li>
+                                            <li><div class="item"><a href="{{ route('products.subsubcategory', \App\SubsubCategory::find($subsubcategory_id)->slug) }}" class="current">{{ __(\App\SubsubCategory::find($subsubcategory_id)->name) }}</a></div></li>
+                                        @endif
+
+                                    </ul>
+                                    </div>
+                                    <!-- card-body.// -->
+                                </div>
+                            </div>
+                            <!-- card-group-item.// -->
+                        </div>
+                        <!-- Content -->
+                        <div class="card-wrapper mt-4 mb-2">
+                            <div class="card-group-item">
+                                <div class="card-head">
+                                    <div class="heading d-flex align-items-center text-center flex-wrap">
+                                    <div class="head">
+                                        <h5 class="text-uppercase pl-5 m-0">Price Range</h5>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="filter-content2">
+                                    <div class="card-body">
+                                        <div class="range-slider-wrapper mt-3">
+                                            <!-- Range slider container -->
+                                            <div id="input-slider-range" data-range-value-min="{{ filter_products(\App\Product::query())->get()->min('unit_price') }}" data-range-value-max="{{ filter_products(\App\Product::query())->get()->max('unit_price') }}"></div>
+
+                                            <!-- Range slider values -->
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <span class="range-slider-value value-low"
+                                                        @if (isset($min_price))
+                                                            data-range-value-low="{{ $min_price }}"
+                                                        @elseif($products->min('unit_price') > 0)
+                                                            data-range-value-low="{{ $products->min('unit_price') }}"
+                                                        @else
+                                                            data-range-value-low="0"
+                                                        @endif
+                                                        id="input-slider-range-value-low">
+                                                </div>
+
+                                                <div class="col-6 text-right">
+                                                    <span class="range-slider-value value-high"
+                                                        @if (isset($max_price))
+                                                            data-range-value-high="{{ $max_price }}"
+                                                        @elseif($products->max('unit_price') > 0)
+                                                            data-range-value-high="{{ $products->max('unit_price') }}"
+                                                        @else
+                                                            data-range-value-high="0"
+                                                        @endif
+                                                        id="input-slider-range-value-high">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                            
+                                            
+                                    </div>
+                                    <!-- card-body.// -->
+                                </div>
+                            </div>
+                            <!-- card-group-item.// -->
+                        </div>
+                        <!-- Content -->
+                        @if (!empty($all_colors))
+                            <div class="card-wrapper mb-2">
+                                <div class="card-group-item">
+                                    <div class="card-head">
+                                        <div class="heading d-flex align-items-center text-center flex-wrap">
+                                        <div class="head">
+                                            <h5 class="text-uppercase pl-5 m-0">Choose Color</h5>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="colors_block px-3 py-2">
+                                        <ul class="list-inline checkbox-color checkbox-color-circle mb-0">
+                                            @foreach ($all_colors as $key => $color)
+                                                <li>
+                                                    <input type="radio" id="color-{{ $key }}" name="color" value="{{ $color }}" @if(isset($selected_color) && $selected_color == $color) checked @endif onchange="filter()">
+                                                    <label style="background: {{ $color }};" for="color-{{ $key }}" data-toggle="tooltip" data-original-title="{{ \App\Color::where('code', $color)->first()->name }}"></label>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- card-group-item.// -->
+                            </div>
+                        @endif
+                        <!-- Content -->
+                        {{-- @foreach ($attributes as $key => $attribute)
+                        {{dd('hi')}}
+                            @if (\App\Attribute::find($attribute['id']) != null)
+                                <div class="card-wrapper mt-4 mb-2">
+                                    <div class="card-group-item">
+                                        <div class="card-head">
+                                            <div
+                                                class="heading d-flex align-items-center text-center flex-wrap">
+                                                <div class="head">
+                                                    <h6 class="text-capitalize m-0">Choose {{ \App\Attribute::find($attribute['id'])->name }}</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="colors_block px-3 py-2">
+                                            @if(array_key_exists('values', $attribute))
+                                                @foreach ($attribute['values'] as $key => $value)
+                                                    @php
+                                                        $flag = false;
+                                                        if(isset($selected_attributes)){
+                                                            foreach ($selected_attributes as $key => $selected_attribute) {
+                                                                if($selected_attribute['id'] == $attribute['id']){
+                                                                    if(in_array($value, $selected_attribute['values'])){
+                                                                        $flag = true;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    @endphp
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" id="attribute_{{ $attribute['id'] }}_value_{{ $value }}" name="attribute_{{ $attribute['id'] }}[]" value="{{ $value }}" @if ($flag) checked @endif onchange="filter()">
+                                                        <label for="attribute_{{ $attribute['id'] }}_value_{{ $value }}">{{ $value }}</label>
+                                                    </div>
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <!-- card-group-item.// -->
+                                </div>
+                            @endif
+                        @foreach --}}
+                    </div>
+                </div>
+                <!-- <div class="modal-footer">
+                    </div> -->
+            </div>
+        </div>
+    </div>
+<!-- Mobile Filter Pop Up Ends -->
 
 @endsection
 

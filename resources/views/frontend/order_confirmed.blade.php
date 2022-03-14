@@ -7,14 +7,14 @@
     <div id="page-content">
            <!--======================================================= ORDER TOP LIST START ==-->
 
-   <section id="order_list_top">
+    <section id="order_list_top">
     <div class="container">
        <div class="row delivery_row_block">
 
           <div class="offset-md-1 offset-0 col-md-2 col-4  text-center ">
              <div class="img_order_list ">
                 <div class="img_block_icon">
-                   <img src="./frontend/assets/images/logo/cart.svg" class="img-fluid" alt="">
+                   <img src="{{asset('frontend/assets/images/logo/cart.svg')}}" class="img-fluid" alt="">
                 </div>
                 <div class="content_img ">
                    <h6 class=""> 1.My Cart</h6>
@@ -24,7 +24,7 @@
           <div class="col-md-2 col-4  text-center">
              <div class="img_order_list">
                 <div class="img_block_icon">
-                   <img src="./frontend/assets/images/map.svg" class="img-fluid" alt="">
+                   <img src="{{asset('frontend/assets/images/map.svg')}}" class="img-fluid" alt="">
                 </div>
                 <div class="content_img">
                    <h6 class=""> 2.Shipping Info</h6>
@@ -34,7 +34,7 @@
           <div class="col-md-2 col-4  text-center">
              <div class="img_order_list">
                 <div class="img_block_icon">
-                   <img src="./frontend/assets/images/delivery_new.svg" class="img-fluid" alt="">
+                   <img src="{{asset('frontend/assets/images/delivery_new.svg')}}" class="img-fluid" alt="">
                 </div>
                 <div class="content_img">
                    <h6 class=""> 3 Delivery Info</h6>
@@ -44,7 +44,7 @@
           <div class="col-md-2 col-4  text-center">
              <div class="img_order_list">
                 <div class="img_block_icon">
-                   <img src="./frontend/assets/images/payment.svg" class="img-fluid" alt="">
+                   <img src="{{asset('frontend/assets/images/payment.svg')}}" class="img-fluid" alt="">
                 </div>
                 <div class="content_img">
                    <h6 class=""> 4. Payment</h6>
@@ -54,7 +54,7 @@
           <div class="col-md-2 col-4  text-center  mr-xl-5 mr-0 pr-xl-5 pr-0">
              <div class="img_order_list">
                 <div class="img_block_icon">
-                   <img src="./frontend/assets/images/confirmation.svg" class="img-fluid" alt="">
+                   <img src="{{asset('frontend/assets/images/confirmation.svg')}}" class="img-fluid" alt="">
                 </div>
                 <div class="content_img">
                    <h6 class="active-item"> 5.Confirmation</h6>
@@ -63,9 +63,9 @@
           </div>
        </div>
     </div>
- </section>
+    </section>
  <!--======================================================= ORDER TOP LIST END ======-->
-        <section class="py-4">
+        <section id="cart_user" class="py-4">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-8 mx-auto">          
@@ -76,7 +76,7 @@
                                        <div class="round-block-checkout">
                                           <span><i class="fa fa-check text-white" aria-hidden="true"></i></span>
                                        </div>
-                                       <h4 class="font-weight-bold text-dark mt-3">Congratulation! You order has been processed</h4>
+                                       <h4 class="font-weight-bold text-dark mt-3">Congratulation! Your order has been processed</h4>
                                        <h6 class="font-weight-bold mb-4"> 
                                         {{__('Order Code:')}} {{ $order->code }}
                                           </h6>
@@ -94,8 +94,8 @@
                                 <div class="mb-4">
                                     <h5 class="strong-600 mb-3 border-bottom pb-2">{{__('Order Summary')}}</h5>
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <table class="details-table table">
+                                        <div class="col-md-6 col-12">
+                                            <table class="details-table table table-responsive">
                                                 <tr>
                                                     <td class="w-50 strong-600">{{__('Order Code')}}:</td>
                                                     <td>{{ $order->code }}</td>
@@ -114,8 +114,8 @@
                                                 </tr>
                                             </table>
                                         </div>
-                                        <div class="col-md-6">
-                                            <table class="details-table table">
+                                        <div class="col-md-6 col-12">
+                                            <table class="details-table table table-responsive">
                                                 <tr>
                                                     <td class="w-50 strong-600">{{__('Order date')}}:</td>
                                                     <td>{{ date('d-m-Y H:m A', $order->date) }}</td>
@@ -143,7 +143,7 @@
                                 <div>
                                     <h5 class="strong-600 mb-3 border-bottom pb-2">{{__('Order Details')}}</h5>
                                     <div>
-                                        <table class="details-table table">
+                                        <table class="table details-table table-responsive">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
@@ -190,7 +190,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-xl-5 col-md-6 ml-auto">
-                                            <table class="table details-table">
+                                            <table class="table table-responsive details-table">
                                                 <tbody>
                                                     <tr>
                                                         <th>{{__('Subtotal')}}</th>
