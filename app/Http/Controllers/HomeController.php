@@ -406,6 +406,20 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $query = $request->q;
+<<<<<<< HEAD
+        // // Session::forget('key');
+        // if(Session::has('key')){
+        //     // array_push()
+        //     $items = json_decode(Session::get('key'));
+        //     array_push($items,$query);
+        //     dd($items);
+        //     session(['key' => json_encode(array_unique($items))]);
+        //     dd(Session::get('key'));
+        //     // session()->push('key', $query);
+        // }else{
+        //     session(['key' => $query]);
+        // }
+=======
         // Session::forget('key');
         // Session::put('key',$query);
         // session([ 'data' => $query]);
@@ -423,6 +437,7 @@ class HomeController extends Controller
         }
         // echo '4<br>';
         // dd(array_slice(explode(',',Session::get('key')), -3),Session::get('key'));
+>>>>>>> e5e8060e3bb4019d8ba0a1db226cdb34642a7976
         $brand_id = (Brand::where('slug', $request->brand)->first() != null) ? Brand::where('slug', $request->brand)->first()->id : null;
         $sort_by = $request->sort_by;
 
