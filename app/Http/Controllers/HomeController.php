@@ -406,18 +406,18 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $query = $request->q;
-        // Session::forget('key');
-        if(Session::has('key')){
-            // array_push()
-            $items = json_decode(Session::get('key'));
-            array_push($items,$query);
-            dd($items);
-            session(['key' => json_encode(array_unique($items))]);
-            dd(Session::get('key'));
-            // session()->push('key', $query);
-        }else{
-            session(['key' => $query]);
-        }
+        // // Session::forget('key');
+        // if(Session::has('key')){
+        //     // array_push()
+        //     $items = json_decode(Session::get('key'));
+        //     array_push($items,$query);
+        //     dd($items);
+        //     session(['key' => json_encode(array_unique($items))]);
+        //     dd(Session::get('key'));
+        //     // session()->push('key', $query);
+        // }else{
+        //     session(['key' => $query]);
+        // }
         $brand_id = (Brand::where('slug', $request->brand)->first() != null) ? Brand::where('slug', $request->brand)->first()->id : null;
         $sort_by = $request->sort_by;
 

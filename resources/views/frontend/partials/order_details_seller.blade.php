@@ -175,7 +175,7 @@
         </div>
         <div class="col-lg-3">
             <div class="card mt-4">
-                <div class="card-header py-2 px-3 heading-6 strong-600">{{__('Order Ammount')}}</div>
+                <div class="card-header py-2 px-3 heading-6 strong-600">{{__('Order Amount')}}</div>
                 <div class="card-body pb-0">
                     <table class="table details-table">
                         <tbody>
@@ -198,10 +198,17 @@
                                 </td>
                             </tr>
                             <tr>
+                                <th>{{__('Coupon Discount')}}</th>
+                                <td class="text-right">
+                                    <span class="text-italic">{{ $order->coupon_discount }}</span>
+                                </td>
+                            </tr>
+                            <tr>
                                 <th><span class="strong-600">{{__('Total')}}</span></th>
                                 <td class="text-right">
                                     <strong>
-                                        <span>{{ single_price($order->orderDetails->where('seller_id', Auth::user()->id)->sum('price') + $order->orderDetails->where('seller_id', Auth::user()->id)->sum('tax') + $order->orderDetails->where('seller_id', Auth::user()->id)->sum('shipping_cost')) }}
+                                        <span>
+                                            {{ single_price($order->orderDetails->where('seller_id', Auth::user()->id)->sum('price') + $order->orderDetails->where('seller_id', Auth::user()->id)->sum('tax') + $order->orderDetails->where('seller_id', Auth::user()->id)->sum('shipping_cost')-$order->coupon_discount) }}
                                         </span>
                                     </strong>
                                 </td>
