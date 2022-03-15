@@ -169,7 +169,7 @@
          <div class="col-md-6">
             <div class="search_men d-none d-md-block">
                <form class="form-inline search_top justify-content-between" action="{{ route('search') }}" method="GET">
-                  <input class="form-control border-0 search_input" type="search" aria-label="Search" id="search" name="q" placeholder="Search..." autocomplete="off"/>
+                  <input class="form-control border-0 search_input" type="search" aria-label="Search" id="search" name="q" placeholder="{{Session::get('key')}}" autocomplete="off"/>
                   {{-- <div class="search_select border-0">
                      <select name="category" class="border-0 search_select_content px-2">
                         <option value="">
