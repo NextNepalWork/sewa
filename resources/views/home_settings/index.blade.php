@@ -248,7 +248,7 @@
                         @csrf
                         <div class="panel-body">
                             <div class="form-group">
-                                <label class="col-sm-3" for="url">{{__('Top Categories (Max 10)')}}</label>
+                                <label class="col-sm-3" for="url">{{__('Top Categories (Max 5)')}}</label>
                                 <div class="col-sm-9">
                                     <select class="form-control demo-select2-max-10" name="top_categories[]" multiple required>
                                         @foreach (\App\Category::all() as $key => $category)
