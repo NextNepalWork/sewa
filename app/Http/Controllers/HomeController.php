@@ -407,17 +407,22 @@ class HomeController extends Controller
     {
         $query = $request->q;
         // Session::forget('key');
+        // Session::put('key',$query);
+        // session([ 'data' => $query]);
+        // Session::save();
+        // echo '1<br>';  
         if(Session::has('key')){
-            // array_push()
-            $items = json_decode(Session::get('key'));
-            array_push($items,$query);
-            dd($items);
-            session(['key' => json_encode(array_unique($items))]);
-            dd(Session::get('key'));
-            // session()->push('key', $query);
+            // echo '2<br>';
+            $old = explode(',',Session::get('key'));
+            array_push($old,$query);
+            session(['key' => implode(',',array_unique($old))]);
+            Session::save();
         }else{
-            session(['key' => $query]);
+            session([ 'key' => array($query)]);
+            Session::save();
         }
+        // echo '4<br>';
+        // dd(array_slice(explode(',',Session::get('key')), -3),Session::get('key'));
         $brand_id = (Brand::where('slug', $request->brand)->first() != null) ? Brand::where('slug', $request->brand)->first()->id : null;
         $sort_by = $request->sort_by;
 
