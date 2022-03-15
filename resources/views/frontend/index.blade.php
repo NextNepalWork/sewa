@@ -1,9 +1,229 @@
 @extends('frontend.layouts.app')
 @section('content')
-<section id="slider" class="body_bg">
+<style>
+    .category-list {
+  z-index: 100;
+}
+
+.sub_menu_list2 {
+  position: absolute;
+  background: white;
+  top: 0;
+  width: 57.5rem;
+  right: -109%;
+  height: 100%;
+  padding: 0.5rem 0;
+}
+
+.sub_menu_list2 {
+  display: none;
+  transform: translate(14px, -1px);
+  transition: 0.5s;
+}
+
+.product_icon:hover .sub_menu_list2 {
+  display: flex;
+  transform: translate(14px, -1px);
+  left: 100%;
+  border-left: 1px solid;
+  border-color: #00000026;
+  background-color: white;
+}
+
+.sub_menu_list2 .c-list {
+  color: #000;
+}
+
+.sub_menu_list2 li {
+  padding-bottom: 0.5rem;
+}
+
+.sub_menu_list2 li.title {
+  color: var(--theme_color_sub);
+}
+.categories-nav .category_title_top {
+  color: var(--theme_color_sub);
+}
+
+.categories-nav {
+  background-color: #f8f8f861;
+
+}
+
+.categories-nav li {
+  display: flex;
+  height: 100%;
+}
+
+.categories-nav li:hover a {
+  background-color: #258aff;
+  color: white;
+}
+</style>
+
+<!-- Categories -->
+<section id="categories-list" class="d-lg-block d-none">
     <div class="container p-0">
        <div class="row no-gutters">
-          <div class="col-lg-3 col-12 d-md-block d-none">
+          <div class="col-3 d-md-block d-none">
+             <div class="category_title_top d-flex justify-content-between theme_bg" data-toggle="collapse"
+                href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <div class="category_title">
+                   <h5 class="mb-0">All Categories</h5>
+                </div>
+                <div class="category_btn">
+                   <a href="">View All</a>
+                </div>
+             </div>
+             <ul class="category-list bg-white border_one position-absolute w-100 collapse" id="collapseExample">
+                @foreach (\App\Category::all()->take(10) as $key => $category)
+                    @php
+                        $brands = array();
+                    @endphp
+                    <li class="px-3 product_icon position-relative d-block" data-id="{{ $category->id }}">
+                        <div style="
+                                display: flex;
+                                justify-content: space-between;
+                                ">
+                            <div>
+                                <a href="{{ route('products.category', $category->slug) }}" class="sub_icon"><span class="pr-2 category_icon_img">
+                                    <img
+                                        src="{{ $category->icon }}"
+                                        class="img-fluid" alt=""></span>
+                                        {{ __($category->name) }}
+                                    </a>
+                            </div>
+                            <div class="icon_show_category">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="row sub_menu_list2">
+                            @if(count($category->subcategories)>0)
+                            @foreach ($category->subcategories as $sub)
+
+                            <div class="col-xl-4 col-lg-3 col-md-6 col-12 text-center">
+                                <ul class="p-0">
+                                    <li class="title font-weight-bold">
+                                        <a href="{{ route('products.subcategory', $category->slug) }}">
+                                            {{$sub->name}}
+                                        </a>
+                                    </li>
+                                    @if(count($sub->subsubcategories)>0)
+                                    @foreach($sub->subsubcategories as $subsub)
+                                        <li><a href="{{ route('products.subsubcategory', $subsub->slug) }}" class="c-list">{{$subsub->name}}</a></li>
+                                    @endforeach
+                                    @endif
+                                  {{-- <li><a href="" class="c-list">A</a></li>
+                                  <li><a href="" class="c-list">A</a></li>
+                                  <li><a href="" class="c-list">A</a></li> --}}
+                               </ul>
+                            </div>
+                            @endforeach
+                            @endif
+                            {{-- <div class="col-xl-4 col-lg-3 col-md-6 col-12 text-center">
+                               <ul class="p-0">
+                                  <li class="title font-weight-bold">Womens Clothing</li>
+                                  <li><a href="" class="c-list">A</a></li>
+                                  <li><a href="" class="c-list">A</a></li>
+                               </ul>
+                            </div>
+                            <div class="col-xl-4 col-lg-3 col-md-6 col-12 text-center">
+                               <ul class="p-0">
+                                  <li class="title font-weight-bold">Accessories</li>
+                                  <li><a href="" class="c-list">A</a></li>
+                                  <li><a href="" class="c-list">A</a></li>
+                               </ul>
+                            </div> --}}
+                         </div>
+                        {{-- <ul class="sub_menu_list">
+                            @if(count($category->subcategories)>0)
+                            @foreach ($category->subcategories as $sub)
+                            <li>
+                                <a href="{{ route('products.subcategory', $category->slug) }}">
+                                    <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    {{$sub->name}}
+                                </a>
+                            </li>
+                            @endforeach                                        
+                            @endif
+                        </ul> --}}
+                    </li>
+                @endforeach
+                {{-- <li class="pl-3 pr-4 product_icon d-block">
+                   <div style="display: flex;justify-content: space-between;">
+                      <div>
+                         <a href="" class="sub_icon"><span class="pr-2 category_icon_img"><img
+                                  src="https://electro.madrasthemes.com/wp-content/uploads/2016/03/Ultrabooks-300x300.png"
+                                  class="img-fluid" alt=""></span>
+                            Baby Product</a>
+                      </div>
+                      <div class="icon_show_category">
+                         <i class="fa fa-angle-right" aria-hidden="true"></i>
+                      </div>
+                   </div>
+                   <div class="row sub_menu_list2">
+                      <div class="col-xl-4 col-lg-3 col-md-6 col-12 text-center">
+                         <ul class="p-0">
+                            <li class="title font-weight-bold">Mens Clothing</li>
+                            <li><a href="" class="c-list">A</a></li>
+                            <li><a href="" class="c-list">A</a></li>
+                            <li><a href="" class="c-list">A</a></li>
+                         </ul>
+                      </div>
+                      <div class="col-xl-4 col-lg-3 col-md-6 col-12 text-center">
+                         <ul class="p-0">
+                            <li class="title font-weight-bold">Womens Clothing</li>
+                            <li><a href="" class="c-list">A</a></li>
+                            <li><a href="" class="c-list">A</a></li>
+                         </ul>
+                      </div>
+                      <div class="col-xl-4 col-lg-3 col-md-6 col-12 text-center">
+                         <ul class="p-0">
+                            <li class="title font-weight-bold">Accessories</li>
+                            <li><a href="" class="c-list">A</a></li>
+                            <li><a href="" class="c-list">A</a></li>
+                         </ul>
+                      </div>
+                   </div>
+                </li> --}}
+
+             </ul>
+          </div>
+          <div class="col-9">
+             <ul class="categories-nav d-flex justify-content-around align-items-center h-100">
+                @foreach(\App\Category::where('top',1)->limit(5)->get() as $top)
+                <li>
+                   <a href="{{ route('products.category', $top->slug) }}" class="category_title_top">{{$top->name}}</a>
+
+                </li>
+                @endforeach
+                {{-- <li>
+                   <a href="" class="category_title_top">Categories 1</a>
+
+                </li>
+                <li>
+                   <a href="" class="category_title_top">Categories 1</a>
+
+                </li>
+                <li>
+                   <a href="" class="category_title_top">Categories 1</a>
+
+                </li>
+                <li>
+                   <a href="" class="category_title_top">Categories 1</a>
+
+                </li> --}}
+             </ul>
+          </div>
+
+       </div>
+    </div>
+</section>
+ <!-- Categories Ends -->
+ <section id="slider" class="body_bg">
+    <div class="container p-0">
+       <div class="row no-gutters">
+          {{-- <div class="col-lg-3 col-12 d-md-block d-none">
              <div class="category_title_top d-flex justify-content-between theme_bg">
                 <div class="category_title">
                    <h5 class="mb-0">All Categories</h5>
@@ -49,8 +269,8 @@
                     </li>
                 @endforeach
              </ul>
-          </div>
-          <div class="col-lg-9 col-12">
+          </div> --}}
+          <div class="col-12">
              <div class="slider_banner">
                 @foreach (\App\Slider::where('published', 1)->get() as $key => $slider)
                     <div class="slider_item position-relative">
@@ -63,7 +283,7 @@
           </div>
        </div>
     </div>
- </section>
+</section>
 
     <!--============================================================ CATEGORY START=-->
     <section id="category_section" class="">
@@ -477,7 +697,7 @@
                         <div class="col-xl-12">
         
                             <div class="slider_feature">
-                                @foreach (filter_products(\App\Product::where('published', 1)->where('category_id', $homeCategory->category->id)->where('current_stock','>',0)->with('stocks'))->latest()->limit(12)->get() as $key => $product)
+                                @foreach (filter_products(\App\Product::where('published', 1)->where('category_id', $homeCategory->category->id))->latest()->get() as $key => $product)
                         
                                 <div class="product-grid-item mb-3">
                                     <div class="category-title">
