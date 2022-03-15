@@ -28,7 +28,10 @@
 
 <header class="section-header top-header-bg d-md-block d-none">
     <div class="container px-0">
-       <div class="top-header d-flex justify-content-end align-items-center">
+       <div class="top-header d-flex justify-content-between align-items-center">
+          <div class="marque">
+             <marquee behavior="" direction="Left" class="text-white">Connecting your Daily Life</marquee>
+          </div>
           <div class="top-social-icon">
              <ul class="mb-0">
                 <li class="d-flex align-items-center top_head_right">
@@ -163,11 +166,11 @@
             </a>
          </div>
 
-         <div class="col-md-7">
+         <div class="col-md-6">
             <div class="search_men d-none d-md-block">
-               <form class="form-inline search_top" action="{{ route('search') }}" method="GET">
+               <form class="form-inline search_top justify-content-between" action="{{ route('search') }}" method="GET">
                   <input class="form-control border-0 search_input" type="search" aria-label="Search" id="search" name="q" placeholder="Search..." autocomplete="off"/>
-                  <div class="search_select border-0">
+                  {{-- <div class="search_select border-0">
                      <select name="category" class="border-0 search_select_content px-2">
                         <option value="">
                            All Categories
@@ -183,7 +186,7 @@
                         </option>
                         @endforeach
                      </select>
-                  </div>
+                  </div> --}}
                   <div class="search_icon_top text-center">
                     <button type="submit" class="search_icon text-dark" style="display:contents"><i class="fa fa-search"></i></button>
                   </div>
@@ -201,7 +204,7 @@
                </form>
             </div>
          </div>
-         <div class="col-md-2">
+         <div class="col-md-2 ml-auto">
             <ul class="cart_top_list d-flex justify-content-around mb-0 h-100 align-items-center ">
 
                <li>
