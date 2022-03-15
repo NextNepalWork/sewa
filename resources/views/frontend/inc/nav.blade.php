@@ -1,3 +1,31 @@
+<style>
+   .dropdown-custom-category .dropdown-menu {
+       position: relative !important;
+       transform: unset !important;
+       max-height: 300px;
+       overflow-y: scroll;
+       border: 0;
+       box-shadow: rgb(237 237 237) 0px 8px 24px;
+       width: 100%;
+       margin-bottom: 10px;
+
+   }
+
+   .dropdown-custom-category .dropdown-menu .nav .nav-item {
+       text-align: left;
+   }
+
+   .dropdown-custom-category .dropdown-menu .nav .nav-link {
+       font-size: 0.7rem;
+       color: #767676 !important;
+       padding:0px;
+   }
+
+   .dropdown-custom-category .dropdown-menu .nav {
+       padding: 5px 0px;
+   }
+</style>
+
 <header class="section-header top-header-bg d-md-block d-none">
     <div class="container px-0">
        <div class="top-header d-flex justify-content-between align-items-center">
@@ -339,9 +367,11 @@
                <div class="image">
                   <a class="navbar-brand" href="{{ route('home') }}">
                      <!-- <img src="frontend/assets/images/logo/logo.png" alt="navigation-logo" class="img-fluid"> -->
-                     <h2 class="m-0 font-weight-bold">
-                        <span>Sewa</span>
-                     </h2>
+                     @if($generalsetting->logo != null)
+                        <img src="{{ asset($generalsetting->logo) }}" class="img-fluid" alt="{{ env('APP_NAME') }}">
+                     @else
+                        <img src="{{ asset('frontend/images/logo/logo.png') }}"  class="img-fluid" alt="{{ env('APP_NAME') }}">
+                     @endif
                   </a>
                </div>
             </div>
@@ -397,20 +427,62 @@
                      @endif
                   </a>
                </li>
+               <li class="dropdown-custom-category">
+                  <a class="nav-link dropdown-toggle" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>Category
+                     <span class="mx-2"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+                  </a>
+                  <div class="dropdown-menu">
+                      <div class="container d-block">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <ul class="nav flex-column p-0">
+                                      @foreach (\App\Category::all() as $key => $category)
+                                      <li class=" p-0">
+                                          <a class="nav-link head font-weight-bold" data-toggle="collapse" href=".collapse{{$category->id}}" role="button" aria-expanded="false" aria-controls="collapseExample"> 
+                                             <span><i class="fa fa-minus"></i></span> {{$category->name}}
+                                          </a>
+                                          <div class="collapse collapse{{$category->id}}">
+                                              @foreach($category->subcategories as $subcategory)
+                                              <a class=" p-0">
+                                                  <a class="nav-link head" data-toggle="collapse1" href="{{ url('/') }}/search?subcategory={{ $subcategory->slug }}" role="button" aria-expanded="false" aria-controls="collapseExample" style="color: rgb(72, 77, 103); padding-left: 15px;"> <span><i class="fa fa-minus"></i></span> {{$subcategory->name}}</a>
+                                                  <div class="collapse collapse1 collapse{{$subcategory->id}}">
+                                                      @foreach($subcategory->subsubcategories as $subsubcategory)
+                                                      <a class=" p-0">
+                                                          <a class="nav-link" href="{{ url('/') }}/search?subsubcategory={{ $subsubcategory->slug }}" style="color: rgb(72, 77, 103); padding-left: 45px;">{{$subsubcategory->name}}</a>
+                                                      </a>
+                                                      @endforeach
+                                                  </div>
+                                              </a>
+                                              @endforeach
+                                          </div>
+                                      </li>
+                                      @endforeach
+
+                                  </ul>
+                              </div>
+
+                              <!-- /.col-md-12  -->
+                          </div>
+                      </div>
+                      <!--  /.container  -->
+                  </div>
+              </li>
+               @auth
                <li class="nav-item d-flex align-items-center">
                   <a href="{{ route('purchase_history.index') }}" class="nav-link add-on" data-target="#nav-cart">
                      <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>Purchase History
                      <span class="mx-2"><i class="fa fa-file-text" aria-hidden="true"></i></span>
                  </a>
                </li>
-               @auth
+
                <li class="nav-item d-flex align-items-center">
                   <a href="{{ route('profile') }}" class="nav-link add-on" data-target="#nav-cart">
                      <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>Manage Profile
                      <span class="mx-2"><i class="fa fa-user" aria-hidden="true"></i></span>
                   </a>
               </li>
-              @endauth
+              
               @if (\App\BusinessSetting::where('type', 'wallet_system')->first()->value == 1)
               <li class="nav-item d-flex align-items-center">
                   <a href="{{ route('wallet.index') }}" class="nav-link add-on" data-target="#nav-cart">
@@ -419,6 +491,25 @@
                   </a>
               </li>
                @endif
+               @endauth
+               @auth
+               @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
+               <li class="nav-item d-flex align-items-center">
+                   <a class="nav-link add-on" data-target="#nav-cart" href="{{ route('customer_products.index') }}">
+                     <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>{{__('Classified Products')}}
+                     <span class="mx-2"><i class="la la-diamond" aria-hidden="true"></i></span>
+                   </a>
+               </li>
+               @endif
+               @endauth
+               @auth
+               <li class="nav-item d-flex align-items-center">
+                   <a data-target="#nav-cart" href="{{ route('support_ticket.index') }}" class="nav-link add-on {{ areActiveRoutesHome(['support_ticket.index', 'support_ticket.show'])}}">
+                     <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>{{__('Support Ticket')}}
+                     <span class="mx-2"><i class="la la-support" aria-hidden="true"></i></span>
+                   </a>
+               </li>
+               @endauth
                {{-- <li class="nav-item d-flex align-items-center">
                   <a class="nav-link add-on" data-toggle="modal" data-target="#nav-cart">
                      <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>Track
@@ -843,10 +934,17 @@
             </ul>
          </div>
          <div class="modal-footer py-3">
-            <a class="w-50 text-center" href="under-construction.html">
-               <span class="mr-2"><i class="fa fa-sign-in" aria-hidden="true"></i></span>Login</a>
-            <a class="w-50 text-center" href="under-construction.html">
-               <span class="mr-2"><i class="fa fa-paper-plane" aria-hidden="true"></i></span>Register</a>
+            @auth
+               <a class="w-50 text-center" href="{{route('dashboard')}}">
+                  <span class="mr-2"><i class="fa fa-sign-in" aria-hidden="true"></i></span>Dashboard</a>
+               <a class="w-50 text-center" href="{{route('logout')}}">
+                  <span class="mr-2"><i class="fa fa-paper-plane" aria-hidden="true"></i></span>Logout</a>
+            @else
+               <a class="w-50 text-center" href="{{route('user.login')}}">
+                  <span class="mr-2"><i class="fa fa-sign-in" aria-hidden="true"></i></span>Login</a>
+               <a class="w-50 text-center" href="{{route('user.registration')}}">
+                  <span class="mr-2"><i class="fa fa-paper-plane" aria-hidden="true"></i></span>Register</a>
+            @endauth
          </div>
       </div>
    </div>
