@@ -217,6 +217,22 @@
                                                 <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
                                             @endif
                                         </a>
+                                        @php
+                                        $qty = 0;
+                                        if($product->variant_product){
+                                            foreach ($product->stocks as $key => $stock) {
+                                                $qty += $stock->qty;
+                                            }
+                                        }
+                                        else{
+                                            $qty = $product->current_stock ;
+                                        }
+                                        @endphp
+                                    @if($qty == 0)
+                                    <span class="stock">
+                                        Out of Stock
+                                    </span>
+                                    @endif
                                         <span class="product-discount-label">
                                             {{ ($product->discount_type == 'amount')?'Rs.':'' }}
                                             {{ $product->discount }}
@@ -294,11 +310,27 @@
                                 <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
                             @endif
                         </a>
+                        @php
+                            $qty = 0;
+                            if($product->variant_product){
+                                foreach ($product->stocks as $key => $stock) {
+                                    $qty += $stock->qty;
+                                }
+                            }
+                            else{
+                                $qty = $product->current_stock ;
+                            }
+                            @endphp
+                        @if($qty == 0)
+                        <span class="stock">
+                            Out of Stock
+                        </span>
+                        @endif
                         @if (! $product->discount == 0)
                         <span class="product-discount-label">
                             {{ ($product->discount_type == 'amount')?'Rs.':'' }} {{ $product->discount }}{{ !($product->discount_type == 'amount')?' %':'' }}
                         </span>
-                    @endif
+                        @endif
                      </div>
                      <div class="price-cart text-center pt-2">
                         <div class="price d-flex align-items-center">
@@ -470,7 +502,22 @@
                                         @endif
 
                                         </a>
-                                        
+                                        @php
+                                        $qty = 0;
+                                        if($product->variant_product){
+                                            foreach ($product->stocks as $key => $stock) {
+                                                $qty += $stock->qty;
+                                            }
+                                        }
+                                        else{
+                                            $qty = $product->current_stock ;
+                                        }
+                                        @endphp
+                                    @if($qty == 0)
+                                    <span class="stock">
+                                        Out of Stock
+                                    </span>
+                                    @endif
                                         @if (! $product->discount == 0)                                
                                             <span class="product-discount-label">
                                                 {{ ($product->discount_type == 'amount')?'Rs.':'' }} {{ $product->discount }}{{ !($product->discount_type == 'amount')?' %':'' }}
@@ -554,7 +601,22 @@
                                 @endif
 
                                 </a>
-                                
+                                @php
+                                $qty = 0;
+                                if($product->variant_product){
+                                    foreach ($product->stocks as $key => $stock) {
+                                        $qty += $stock->qty;
+                                    }
+                                }
+                                else{
+                                    $qty = $product->current_stock ;
+                                }
+                                @endphp
+                            @if($qty == 0)
+                            <span class="stock">
+                                Out of Stock
+                            </span>
+                            @endif
                                 @if (! $product->discount == 0)                                
                                     <span class="product-discount-label">
                                         {{ ($product->discount_type == 'amount')?'Rs.':'' }} {{ $product->discount }}{{ !($product->discount_type == 'amount')?' %':'' }}
