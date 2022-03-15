@@ -406,7 +406,7 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $query = $request->q;
-        // Session::forget('key');
+        Session::forget('key');
         // Session::put('key',$query);
         // session([ 'data' => $query]);
         // Session::save();
@@ -418,10 +418,11 @@ class HomeController extends Controller
             session(['key' => implode(',',array_unique($old))]);
             Session::save();
         }else{
-            session([ 'key' => array($query)]);
+            session([ 'key' => ($query)]);
             Session::save();
         }
         // echo '4<br>';
+        // dd(Session::get('key'));
         // dd(array_slice(explode(',',Session::get('key')), -3),Session::get('key'));
         $brand_id = (Brand::where('slug', $request->brand)->first() != null) ? Brand::where('slug', $request->brand)->first()->id : null;
         $sort_by = $request->sort_by;
