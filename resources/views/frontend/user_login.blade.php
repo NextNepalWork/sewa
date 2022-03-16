@@ -52,20 +52,34 @@
                                 <a href="{{ route('user.registration') }}">Register</a>
                             </span>
                         </p>
+                        @if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'twitter_login')->first()->value == 1)
                         <div class="row mb-4 px-3 justify-content-center align-items-center">
                             <h6 class="mb-xl-0 mb-md-2 mb-2 mr-2 custom-font-size">Sign in with</h6>
                             <div class="social-media d-flex justify-content-center h-100">
+                                @if (\App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1)
                                 <div class="facebook text-center mr-3">
-                                    <a class="fa fa-facebook" aria-hidden="true"></a>
+                                    <a href="{{ route('social.login', ['provider' => 'facebook']) }}" class="fa fa-facebook" aria-hidden="true"></a>
+
+                                    {{-- <a class="fa fa-facebook" aria-hidden="true"></a> --}}
                                 </div>
+                                @endif
+                                @if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1)
                                 <div class="twitter text-center mr-3">
-                                    <a class="fa fa-twitter" aria-hidden="true"></a>
+                                    <a href="{{ route('social.login', ['provider' => 'google']) }}" class="fa fa-google" aria-hidden="true"></a>
+
+                                    {{-- <a class="fa fa-google" aria-hidden="true"></a> --}}
                                 </div>
+                                @endif
+                                @if (\App\BusinessSetting::where('type', 'twitter_login')->first()->value == 1)
                                 <div class="linkedin text-center mr-3">
-                                    <a class="fa fa-linkedin" aria-hidden="true"></a>
+                                    <a href="{{ route('social.login', ['provider' => 'twitter']) }}" class="fa fa-twitter" aria-hidden="true"></a>
+
+                                    {{-- <a class="fa fa-twitter" aria-hidden="true"></a> --}}
                                 </div>
+                                @endif
                             </div>
                         </div>
+                        @endif
                     </div>
                 </form>
             </div>
