@@ -65,6 +65,9 @@ $(document).on("nifty.ready", function () {
     $(".demo-select2-max-10").select2({
         maximumSelectionLength: 10,
     });
+    $(".demo-select2-max-5").select2({
+        maximumSelectionLength: 5,
+    });
 
     // SELECT2 PLACEHOLDER
     // =================================================================
@@ -157,7 +160,7 @@ $(document).on("nifty.ready", function () {
             }
         });
     });
-    $(document).on('click', '.dropdown-menu', function (e) {
+    $(document).on("click", ".dropdown-menu", function (e) {
         e.stopPropagation();
     });
 });

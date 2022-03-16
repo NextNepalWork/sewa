@@ -19,7 +19,7 @@
                 <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false">{{ __('Home banner 2') }}</a>
             </li>
             <li class="">
-                <a data-toggle="tab" href="#demo-lft-tab-5" aria-expanded="false">{{ __('Top 10') }}</a>
+                <a data-toggle="tab" href="#demo-lft-tab-5" aria-expanded="false">{{ __('Top Categories & Brands') }}</a>
             </li>
         </ul>
 
@@ -239,7 +239,7 @@
             <div id="demo-lft-tab-5" class="tab-pane fade">
                 <div class="panel">
                     <div class="panel-heading">
-                        <h3 class="panel-title">{{__('Top 10 Information')}}</h3>
+                        <h3 class="panel-title">{{__('Top Information')}}</h3>
                     </div>
 
                     <!--Horizontal Form-->
@@ -250,7 +250,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3" for="url">{{__('Top Categories (Max 5)')}}</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control demo-select2-max-10" name="top_categories[]" multiple required>
+                                    <select class="form-control demo-select2-max-5" name="top_categories[]" multiple required>
                                         @foreach (\App\Category::all() as $key => $category)
                                             <option value="{{ $category->id }}" @if($category->top == 1) selected @endif>{{ $category->name }}</option>
                                         @endforeach

@@ -7,7 +7,6 @@
 
 .sub_menu_list2 {
   position: absolute;
-  background: white;
   top: 0;
   width: 57.5rem;
   right: -109%;
@@ -56,7 +55,7 @@
 }
 
 .categories-nav li:hover a {
-  background-color: #258aff;
+  background-color: #258aff !important;
   color: white;
 }
 </style>
@@ -72,15 +71,15 @@
                    <h5 class="mb-0">All Categories</h5>
                 </div>
                 <div class="category_btn">
-                   <a href="">View All</a>
+                   <a href="{{ route('categories.all') }}">View All</a>
                 </div>
              </div>
              <ul class="category-list bg-white border_one position-absolute w-100 collapse" id="collapseExample">
-                @foreach (\App\Category::all()->take(10) as $key => $category)
+                @foreach (\App\Category::all()->take(11) as $key => $category)
                     @php
                         $brands = array();
                     @endphp
-                    <li class="px-3 product_icon position-relative d-block" data-id="{{ $category->id }}">
+                    <li class="px-3 product_icon d-block" data-id="{{ $category->id }}">
                         <div style="
                                 display: flex;
                                 justify-content: space-between;
@@ -113,27 +112,10 @@
                                         <li><a href="{{ route('products.subsubcategory', $subsub->slug) }}" class="c-list">{{$subsub->name}}</a></li>
                                     @endforeach
                                     @endif
-                                  {{-- <li><a href="" class="c-list">A</a></li>
-                                  <li><a href="" class="c-list">A</a></li>
-                                  <li><a href="" class="c-list">A</a></li> --}}
                                </ul>
                             </div>
                             @endforeach
                             @endif
-                            {{-- <div class="col-xl-4 col-lg-3 col-md-6 col-12 text-center">
-                               <ul class="p-0">
-                                  <li class="title font-weight-bold">Womens Clothing</li>
-                                  <li><a href="" class="c-list">A</a></li>
-                                  <li><a href="" class="c-list">A</a></li>
-                               </ul>
-                            </div>
-                            <div class="col-xl-4 col-lg-3 col-md-6 col-12 text-center">
-                               <ul class="p-0">
-                                  <li class="title font-weight-bold">Accessories</li>
-                                  <li><a href="" class="c-list">A</a></li>
-                                  <li><a href="" class="c-list">A</a></li>
-                               </ul>
-                            </div> --}}
                          </div>
                         {{-- <ul class="sub_menu_list">
                             @if(count($category->subcategories)>0)
@@ -149,44 +131,6 @@
                         </ul> --}}
                     </li>
                 @endforeach
-                {{-- <li class="pl-3 pr-4 product_icon d-block">
-                   <div style="display: flex;justify-content: space-between;">
-                      <div>
-                         <a href="" class="sub_icon"><span class="pr-2 category_icon_img"><img
-                                  src="https://electro.madrasthemes.com/wp-content/uploads/2016/03/Ultrabooks-300x300.png"
-                                  class="img-fluid" alt=""></span>
-                            Baby Product</a>
-                      </div>
-                      <div class="icon_show_category">
-                         <i class="fa fa-angle-right" aria-hidden="true"></i>
-                      </div>
-                   </div>
-                   <div class="row sub_menu_list2">
-                      <div class="col-xl-4 col-lg-3 col-md-6 col-12 text-center">
-                         <ul class="p-0">
-                            <li class="title font-weight-bold">Mens Clothing</li>
-                            <li><a href="" class="c-list">A</a></li>
-                            <li><a href="" class="c-list">A</a></li>
-                            <li><a href="" class="c-list">A</a></li>
-                         </ul>
-                      </div>
-                      <div class="col-xl-4 col-lg-3 col-md-6 col-12 text-center">
-                         <ul class="p-0">
-                            <li class="title font-weight-bold">Womens Clothing</li>
-                            <li><a href="" class="c-list">A</a></li>
-                            <li><a href="" class="c-list">A</a></li>
-                         </ul>
-                      </div>
-                      <div class="col-xl-4 col-lg-3 col-md-6 col-12 text-center">
-                         <ul class="p-0">
-                            <li class="title font-weight-bold">Accessories</li>
-                            <li><a href="" class="c-list">A</a></li>
-                            <li><a href="" class="c-list">A</a></li>
-                         </ul>
-                      </div>
-                   </div>
-                </li> --}}
-
              </ul>
           </div>
           <div class="col-9">
@@ -197,22 +141,7 @@
 
                 </li>
                 @endforeach
-                {{-- <li>
-                   <a href="" class="category_title_top">Categories 1</a>
 
-                </li>
-                <li>
-                   <a href="" class="category_title_top">Categories 1</a>
-
-                </li>
-                <li>
-                   <a href="" class="category_title_top">Categories 1</a>
-
-                </li>
-                <li>
-                   <a href="" class="category_title_top">Categories 1</a>
-
-                </li> --}}
              </ul>
           </div>
 
@@ -220,7 +149,7 @@
     </div>
 </section>
  <!-- Categories Ends -->
- <section id="slider" class="body_bg">
+ <section id="slider" >
     <div class="container p-0">
        <div class="row no-gutters">
           {{-- <div class="col-lg-3 col-12 d-md-block d-none">
