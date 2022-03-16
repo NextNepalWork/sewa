@@ -704,6 +704,23 @@
     @endif
 @endforeach
 <!--=========================================== Home category section END ======-->
+    <!--============================================= BANNER START ======-->
+    <section id="banner_two" class="mb-5">
+        <div class="container">
+            <div class="row">
+            @foreach (\App\Banner::where('position', 2)->where('published', 1)->take(2)->get() as $key => $banner)
+                <div class="col-md-6 mb-3">
+                    <a href="{{ $banner->url }}">
+                    <div class="two_banner_img">
+                        <img src="{{ asset($banner->photo) }}" class="img-fluid" alt="{{ env('APP_NAME') }} promo">
+                    </div>
+                    </a>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    <!--=========================================== BANNER END ======-->
 
     <!--============================================= JUST FOR YOU START ======-->
     <section id="product-listing-wrapper" class=" product_listing">
