@@ -10,11 +10,13 @@ class CartCollection extends ResourceCollection
     {
         return [
             'data' => $this->collection->map(function($data) {
+                $placeholder_img='frontend/images/placeholder.jpg';
+
                 return [
                     'id' => $data->id,
                     'product' => [
                         'name' => $data->product->name,
-                        'image' => $data->product->thumbnail_img,
+                        'image' =>file_exists($data->product->thumbnail_img) ? $data->product->thumbnail_img : $placeholder_img,
                         'available_stock' => $data->product->current_stock,
                     ],
                     'variation' => $data->variation,

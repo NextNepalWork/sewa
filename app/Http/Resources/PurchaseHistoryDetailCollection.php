@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Product;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class PurchaseHistoryDetailCollection extends ResourceCollection
@@ -10,8 +11,9 @@ class PurchaseHistoryDetailCollection extends ResourceCollection
     {
         return [
             'data' => $this->collection->map(function($data) {
+                $product = Product::where('id',$data->product_id)->first();
                 return [
-                    'product' => $data->product->name,
+                    'product' => (isset($product))?$product->name:'Empty',
                     'variation' => $data->variation,
                     'price' => $data->price,
                     'tax' => $data->tax,
