@@ -41,11 +41,11 @@
   color: var(--theme_color_sub);
 }
 .categories-nav .category_title_top {
-  color: var(--theme_color_sub);
+  color: #ffffff;
 }
 
 .categories-nav {
-  background-color: #f8f8f861;
+  background-color: var(--theme_color);
 
 }
 
@@ -56,7 +56,7 @@
 
 .categories-nav li:hover a {
   background-color: #258aff !important;
-  color: white;
+  color: var(--theme_color_sub);
 }
 </style>
 
@@ -68,7 +68,7 @@
              <div class="category_title_top d-flex justify-content-between theme_bg" data-toggle="collapse"
                 href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                 <div class="category_title">
-                   <h5 class="mb-0">All Categories</h5>
+                   <h5 class="mb-0">All Categories <i class="fa fa-angle-down" aria-hidden="true"></i></h5>
                 </div>
                 <div class="category_btn">
                    <a href="{{ route('categories.all') }}">View All</a>

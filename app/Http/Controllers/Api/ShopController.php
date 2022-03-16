@@ -44,6 +44,7 @@ class ShopController extends Controller
 
     public function newProducts($id)
     {
+        // return 'hello';
         $shop = Shop::findOrFail($id);
         return new ProductCollection(Product::where('user_id', $shop->user_id)->orderBy('created_at', 'desc')->limit(10)->get());
     }

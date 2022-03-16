@@ -11,13 +11,15 @@ class PurchaseHistoryCollection extends ResourceCollection
     {
         return [
             'data' => $this->collection->map(function($data) {
+                $placeholder_img='frontend/images/placeholder.jpg';
                 return [
+                    'order_id' => $data->id,
                     'code' => $data->code,
                     'user' => [
                         'name' => $data->user->name,
                         'email' => $data->user->email,
-                        'avatar' => $data->user->avatar,
-                        'avatar_original' => $data->user->avatar_original
+                        'avatar' =>file_exists($data->user->avatar) ? $data->user->avatar : $placeholder_img,
+                        'avatar_original' => file_exists($data->user->avatar_original) ? $data->user->avatar_original : $placeholder_img
                     ],
                     'shipping_address' => json_decode($data->shipping_address),
                     'payment_type' => str_replace('_', ' ', $data->payment_type),
