@@ -48,7 +48,7 @@
                             <label><small class="font-weight-bold">Track Your Order</small></label>
                             <div class="track_input_btn d-flex">
                                <input type="text" class="form-control" placeholder="Enter order id" />
-                               <button class="btn_custom_go">Go</button>
+                               <button class="btn_custom_go"> <a href="#">Go </a></button>
                             </div>
                          </div>
                       </ul>
