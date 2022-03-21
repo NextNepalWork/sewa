@@ -2,7 +2,7 @@
 @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
 <html dir="rtl" lang="en">
 @else
-<html lang="np">
+<html lang="en">
 @endif
 <head>
 
