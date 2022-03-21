@@ -691,6 +691,15 @@
     $('.currency-list').select2();
 });
 
+$("#categories-list").hover(
+  function () {
+    $('.category-list').collapse('show');
+  },
+  function () {
+    $('.category-list').collapse('hide');
+  }
+);
+
 </script>
 
 @yield('script')

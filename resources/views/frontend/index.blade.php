@@ -61,13 +61,13 @@
 </style>
 
 <!-- Categories -->
-<section id="categories-list" class="d-lg-block d-none">
+<section class="d-lg-block d-none">
     <div class="container p-0">
        <div class="row no-gutters">
-          <div class="col-3 d-md-block d-none">
+          <div class="col-3 d-md-block d-none" >
              <div class="category_title_top d-flex justify-content-between theme_bg" data-toggle="collapse"
                 href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                <div class="category_title">
+                <div class="category_title" id="categories-list">
                    <h5 class="mb-0" style="cursor: pointer">All Categories <i class="fa fa-angle-down" aria-hidden="true"></i></h5>
                 </div>
                 <div class="category_btn">
