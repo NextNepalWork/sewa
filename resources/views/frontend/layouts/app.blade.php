@@ -666,6 +666,7 @@
 
  
  //Calculate and output the new amount
+ 
  function exchangeCurrency() {
    var amount = $(".amount").val();
    var rateFrom = $(".currency-list")[0].value;
@@ -686,10 +687,6 @@
      }
    }
  }
-
- $(document).ready(function() {
-    $('.currency-list').select2();
-});
 
 $("#categories-list").hover(
   function () {

@@ -964,16 +964,28 @@
  <!--======================================================= HEADER END ======-->
 
  @php
-   // $currency="http://data.fixer.io/api/latest?access_key=b827f7a4e95157b4afeff45161b129f1";
+   $currency="https://api.exchangerate.host/latest";
    
 
-   // $json_data = file_get_contents($currency);
-   // $response_data = json_decode($json_data);
+   $json_data = file_get_contents($currency);
+   $response_data = json_decode($json_data);
    // dd($response_data);
+//    $req_url = 'https://api.exchangerate.host/latest';
+// $response_json = file_get_contents($req_url);
+// if(false !== $response_json) {
+//     try {
+//         $response = json_decode($response_json);
+//         if($response->success === true) {
+//             var_dump($response);
+//         }
+//     } catch(Exception $e) {
+//         // Handle JSON parse error...
+//     }
+// }  
 
 @endphp
   <!-- Modal -->
-{{-- <div class="modal fade" id="currency" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="currency" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog" role="document">
      <div class="modal-content">
        <div class="modal-header">
@@ -1039,4 +1051,6 @@
 
      </div>
    </div>
-</div> --}}
+</div>
+
+
