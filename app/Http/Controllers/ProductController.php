@@ -303,7 +303,9 @@ class ProductController extends Controller
 
         foreach (Language::all() as $key => $language) {
             $data = openJSONFile($language->code);
-            $data[$product->name] = $product->name;
+            // $data[$product->name] = $product->name;
+            $string = str_replace( '"', '&quot;', $product->name );
+            $data[$string]=$string;
             saveJSONFile($language->code, $data);
         }
 
@@ -510,8 +512,11 @@ class ProductController extends Controller
 
         foreach (Language::all() as $key => $language) {
             $data = openJSONFile($language->code);
+            // dd($data);
             unset($data[$product->name]);
-            $data[$request->name] = "";
+            $string = str_replace( '"', '&quot;', $request->name );
+            $data[$string]="";
+            // $data[$request->name] = "";
             saveJSONFile($language->code, $data);
         }
 

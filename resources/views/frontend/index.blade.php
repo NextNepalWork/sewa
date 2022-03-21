@@ -71,7 +71,7 @@
                    <h5 class="mb-0" style="cursor: pointer">All Categories <i class="fa fa-angle-down" aria-hidden="true"></i></h5>
                 </div>
                 <div class="category_btn">
-                   <a href="{{ route('categories.all') }}">View All</a>
+                   <a href="{{ route('categories.all') }}">View all</a>
                 </div>
              </div>
              <ul class="category-list bg-white border_one position-absolute w-100 collapse" id="collapseExample">
@@ -158,7 +158,7 @@
                    <h5 class="mb-0">All Categories</h5>
                 </div>
                 <div class="category_btn">
-                   <a href="{{ route('categories.all') }}">View All</a>
+                   <a href="{{ route('categories.all') }}">सबै हेर्नुहोस्</a>
                 </div>
              </div>
              <ul class="bg-white border_one d-lg-block d-none">
@@ -262,7 +262,11 @@
                         <div class="special_offer_men p-4 text-center">
                             <div class="special_header d-flex justify-content-between align-items-center">
                                 <div class="special_title">
+                                @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->name == "Nepali")
+                                <h4>फ्ल्याश सेल</h4>
+                                @else
                                 <h4>Special Offer</h4>
+                                @endif
                                 </div>
                                 <div class="savings">
                                     <span class="savings-text">
@@ -326,8 +330,14 @@
               <div class="row mb-4">
                  <div class="col-md-12">
                     <div class="section_title_block d-flex justify-content-between align-item-center h-100">
-                       <h2 class="position-relative mb-0">Featured Products</h2>
-                       <a class="btn_view" href=""> View All featured products<span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                    @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->name == "Nepali")
+                    <h2 class="position-relative mb-0">विशेष उत्पादनहरू</h2>
+                    <a class="btn_view" href="{{route('products')}}"> सबै विशेष उत्पादनहरू हेर्नुहोस्<span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                    @else
+                    <h2 class="position-relative mb-0">Featured Products</h2>
+                    <a class="btn_view" href="{{route('products')}}"> View all featured products<span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                    @endif
+                        
                        </header>
                     </div>
                  </div>
@@ -416,7 +426,7 @@
               </div>
            </div>
         </div>
-     </section>
+    </section>
     {{-- @endif --}}
  <!--============================================= BEST SELLING END ======-->
  @if (\App\BusinessSetting::where('type', 'best_selling')->first()->value == 1)
@@ -425,8 +435,12 @@
     <div class="row">
        <div class="col-md-12">
           <div class="section_title_block d-flex justify-content-between align-item-center h-100">
+            @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->name == "Nepali")
+            <h2 class="position-relative mb-0">सबै भन्दा राम्रो बिक्री</h2>
+            @else
              <h2 class="position-relative mb-0">Best Selling</h2>
-             {{-- <a class="btn_view" href=""> View All Best Selling  <span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a> --}}
+            @endif
+             {{-- <a class="btn_view" href=""> सबै हेर्न Best Selling  <span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a> --}}
              </header>
           </div>
        </div>
@@ -617,7 +631,7 @@
                         <div class="col-md-12">
                             <div class="section_title_block d-flex justify-content-between align-item-center h-100">
                             <h2 class="position-relative mb-0">{{ __($homeCategory->category->name) }}</h2>
-                            <a class="btn_view" href="{{ route('products.category', $homeCategory->category->slug) }}"> View All <span class="pl-2 "><i class="fa fa-angle-right"
+                            <a class="btn_view" href="{{ route('products.category', $homeCategory->category->slug) }}"> View all <span class="pl-2 "><i class="fa fa-angle-right"
                                         aria-hidden="true"></i></span></a>
                             </header>
                             </div>
@@ -728,9 +742,14 @@
               <div class="row">
                  <div class="col-md-12">
                     <div class="section_title_block d-flex justify-content-between align-item-center h-100">
-                       <h2 class="position-relative mb-0">Latest Products</h2>
-                       <a class="btn_view" href=""> View All <span class="pl-2 "><i class="fa fa-angle-right"
-                                aria-hidden="true"></i></span></a>
+                        @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->name == "Nepali")
+                        <h2 class="position-relative mb-0">नयाँ सामानहरू</h2>
+                        <a class="btn_view" href=""> सबै हेर्नुहोस् <span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+
+                        @else
+                        <h2 class="position-relative mb-0">Latest Products</h2>
+                        <a class="btn_view" href=""> View all <span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                        @endif
                        </header>
                     </div>
                  </div>
@@ -832,7 +851,7 @@
                         </h3>
                         <ul class="float-right inline-links">
                             <li>
-                                <a href="{{ route('categories.all') }}" class="active">{{__('View All Catogories')}}</a>
+                                <a href="{{ route('categories.all') }}" class="active">{{__('सबै हेर्न Catogories')}}</a>
                             </li>
                         </ul>
                     </div>
@@ -878,7 +897,7 @@
                         </h3>
                         <ul class="float-right inline-links">
                             <li>
-                                <a href="{{ route('brands.all') }}" class="active">{{__('View All Brands')}}</a>
+                                <a href="{{ route('brands.all') }}" class="active">{{__('सबै हेर्न Brands')}}</a>
                             </li>
                         </ul>
                     </div>
