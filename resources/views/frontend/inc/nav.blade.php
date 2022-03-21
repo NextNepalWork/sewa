@@ -45,6 +45,26 @@
                   <button type="button" data-toggle="modal" data-target="#currency" style="background: transparent; border:none; color:white;">
                      Currency Converter
                   </button>
+                  {{-- <li class="dropdown" id="lang-change">
+                     @php
+                         if(Session::has('locale')){
+                             $locale = Session::get('locale', Config::get('app.locale'));
+                         }
+                         else{
+                             $locale = 'en';
+                         }
+                     @endphp
+                     <a href="" class="dropdown-toggle top-bar-item" data-toggle="dropdown">
+                         <img src="{{ asset('frontend/images/placeholder.jpg') }}" height="11" data-src="{{ asset('frontend/images/icons/flags/'.$locale.'.png') }}" class="flag lazyload" alt="{{ \App\Language::where('code', $locale)->first()->name }}" height="11"><span class="language">{{ \App\Language::where('code', $locale)->first()->name }}</span>
+                     </a>
+                     <ul class="dropdown-menu">
+                         @foreach (\App\Language::all() as $key => $language)
+                             <li class="dropdown-item @if($locale == $language) active @endif">
+                                 <a href="#" data-flag="{{ $language->code }}"><img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/flags/'.$language->code.'.png') }}" class="flag lazyload" alt="{{ $language->name }}" height="11"><span class="language">{{ $language->name }}</span></a>
+                             </li>
+                         @endforeach
+                     </ul>
+                 </li> --}}
                    <div class="dropdown user_login_mobile">
                       <button
                          class="text-light btn_account pb-0 btn bg-transparent dropdown-toggle pt-0 font-weight-normal "
@@ -964,16 +984,28 @@
  <!--======================================================= HEADER END ======-->
 
  @php
-   // $currency="http://data.fixer.io/api/latest?access_key=b827f7a4e95157b4afeff45161b129f1";
+   $currency="https://api.exchangerate.host/latest";
    
 
-   // $json_data = file_get_contents($currency);
-   // $response_data = json_decode($json_data);
+   $json_data = file_get_contents($currency);
+   $response_data = json_decode($json_data);
    // dd($response_data);
+//    $req_url = 'https://api.exchangerate.host/latest';
+// $response_json = file_get_contents($req_url);
+// if(false !== $response_json) {
+//     try {
+//         $response = json_decode($response_json);
+//         if($response->success === true) {
+//             var_dump($response);
+//         }
+//     } catch(Exception $e) {
+//         // Handle JSON parse error...
+//     }
+// }  
 
 @endphp
   <!-- Modal -->
-{{-- <div class="modal fade" id="currency" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="currency" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog" role="document">
      <div class="modal-content">
        <div class="modal-header">
@@ -1039,4 +1071,6 @@
 
      </div>
    </div>
-</div> --}}
+</div>
+
+

@@ -2,7 +2,7 @@
 @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
 <html dir="rtl" lang="en">
 @else
-<html lang="en">
+<html lang="np">
 @endif
 <head>
 
@@ -120,10 +120,10 @@
 {{-- <link type="text/css" href="{{ asset('frontend/css/style-new.css') }}" rel="stylesheet" media="all"> --}}
 
 
-{{-- @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
+@if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
      <!-- RTL -->
     <link type="text/css" href="{{ asset('frontend/css/active.rtl.css') }}" rel="stylesheet" media="all">
-@endif --}}
+@endif
 
 <!-- color theme -->
 {{-- <link href="{{ asset('frontend/css/colors/'.\App\GeneralSetting::first()->frontend_color.'.css')}}" rel="stylesheet" media="all"> --}}
@@ -666,6 +666,7 @@
 
  
  //Calculate and output the new amount
+ 
  function exchangeCurrency() {
    var amount = $(".amount").val();
    var rateFrom = $(".currency-list")[0].value;
@@ -686,10 +687,6 @@
      }
    }
  }
-
- $(document).ready(function() {
-    $('.currency-list').select2();
-});
 
 $("#categories-list").hover(
   function () {
