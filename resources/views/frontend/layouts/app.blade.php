@@ -687,6 +687,9 @@
    }
  }
 
+ $(document).ready(function() {
+    $('.currency-list').select2();
+});
 
 </script>
 

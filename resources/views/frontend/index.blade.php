@@ -68,7 +68,7 @@
              <div class="category_title_top d-flex justify-content-between theme_bg" data-toggle="collapse"
                 href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                 <div class="category_title">
-                   <h5 class="mb-0">All Categories <i class="fa fa-angle-down" aria-hidden="true"></i></h5>
+                   <h5 class="mb-0" style="cursor: pointer">All Categories <i class="fa fa-angle-down" aria-hidden="true"></i></h5>
                 </div>
                 <div class="category_btn">
                    <a href="{{ route('categories.all') }}">View All</a>
