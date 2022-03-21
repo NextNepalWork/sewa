@@ -492,7 +492,7 @@
                             <!-- card-group-item.// -->
                         </div>
                         <!-- Content -->
-                        <div class="card-wrapper mt-4 mb-2">
+                        {{-- <div class="card-wrapper mt-4 mb-2">
                             <div class="card-group-item">
                                 <div class="card-head">
                                     <div class="heading d-flex align-items-center text-center flex-wrap">
@@ -542,7 +542,7 @@
                                 </div>
                             </div>
                             <!-- card-group-item.// -->
-                        </div>
+                        </div> --}}
                         <!-- Content -->
                         @if (!empty($all_colors))
                             <div class="card-wrapper mb-2">

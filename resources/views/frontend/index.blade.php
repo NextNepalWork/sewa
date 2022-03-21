@@ -639,7 +639,6 @@
                                             @php
                                         $filepath = $product->thumbnail_img;
                                         @endphp
-                                        
                                         @if(isset($filepath))
                                             @if (file_exists(public_path($filepath)))
                                                 <img src="{{ asset($product->thumbnail_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">

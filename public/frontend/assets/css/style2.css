@@ -1906,3 +1906,6 @@ section#cart-summary .cart-price h6 {
     right: -5px;
     font-size: 12px;
 }
+.input-number {
+    height: auto;
+}

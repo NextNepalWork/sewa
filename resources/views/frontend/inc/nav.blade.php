@@ -24,6 +24,12 @@
    .dropdown-custom-category .dropdown-menu .nav {
        padding: 5px 0px;
    }
+   .error {
+  background: red;
+  padding: 10px 15px;
+  color: white;
+  display: none;
+}
 </style>
 
 <header class="section-header top-header-bg d-md-block d-none">
@@ -34,7 +40,11 @@
           </div>
           <div class="top-social-icon">
              <ul class="mb-0">
+                <!-- Button trigger modal -->
                 <li class="d-flex align-items-center top_head_right">
+                  <button type="button" data-toggle="modal" data-target="#currency" style="background: transparent; border:none; color:white;">
+                     Currency Converter
+                  </button>
                    <div class="dropdown user_login_mobile">
                       <button
                          class="text-light btn_account pb-0 btn bg-transparent dropdown-toggle pt-0 font-weight-normal "
@@ -48,7 +58,7 @@
                             <label><small class="font-weight-bold">Track Your Order</small></label>
                             <div class="track_input_btn d-flex">
                                <input type="text" class="form-control" placeholder="Enter order id" />
-                               <button class="btn_custom_go">Go</button>
+                               <button class="btn_custom_go"> <a href="#">Go </a></button>
                             </div>
                          </div>
                       </ul>
@@ -953,4 +963,79 @@
 <!-- Mobile Nav -->
  <!--======================================================= HEADER END ======-->
 
- 
+ @php
+   $currency="http://data.fixer.io/api/latest?access_key=b827f7a4e95157b4afeff45161b129f1";
+   
+
+   $json_data = file_get_contents($currency);
+   $response_data = json_decode($json_data);
+
+@endphp
+  <!-- Modal -->
+<div class="modal fade" id="currency" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Currency Converter</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         <div class="container">
+            <div class="row">
+              <div class="col-md-12 col-md-offset-3">
+                <div class="panel panel-primary text-center">
+                  <div class="error">
+                    Please enter numeric value
+                  </div>
+                  <div class="row">
+                  <div class="panel-body col-md-12">
+                    <form class="form-vertical">
+          
+                      <div class="form-group center">
+                        <label for="">Enter Value:</label>
+                        <input type="number" class="amount form-control" placeholder="Enter value" min="1">
+                      </div>
+                      <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group inline-block">
+                           <label for="">From currency:</label>
+                           <select class="currency-list form-control" onclick="exchangeCurrency()">
+                              <option>--Select--</option>
+                           @foreach ($response_data->rates as $key => $value) {
+                             <option value="{{$value}}">{{$key}}</option>
+                           @endforeach
+                           </select>
+                         </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group inline-block">
+                           <label>To currency:</label>
+                           <select class="currency-list form-control" onclick="exchangeCurrency()">
+                             <option>--Select--</option>
+                             @foreach ($response_data->rates as $key => $value) {
+                              <option value="{{$value}}">{{$key}}</option>
+                            @endforeach
+                             {{-- <option value="112">USD</option> --}}
+
+                           </select>
+                         </div>
+                      </div>
+                     </div>
+                    </form>
+                    <div class="form-group center">
+                     <label for="">Result:</label>
+                     
+                     <p class="results">0</p>
+                   </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+       </div>
+     </div>
+   </div>
+</div>

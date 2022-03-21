@@ -662,6 +662,32 @@
          });
      }
 
+
+
+ 
+ //Calculate and output the new amount
+ function exchangeCurrency() {
+   var amount = $(".amount").val();
+   var rateFrom = $(".currency-list")[0].value;
+//    console.log(rateFrom);
+   var rateTo = $(".currency-list")[1].value;
+   if ((amount - 0) != amount || (''+amount).trim().length == 0) {
+    //    console.log('hi');
+     $(".results").html("0");
+     $(".error").show()
+   } else {
+
+     $(".error").hide()
+     if (amount == undefined || rateFrom == "--Select--" || rateTo == "--Select--") {
+       $(".results").html("0");
+ 
+     } else {
+       $(".results").html((amount * (rateTo * (1 / rateFrom))).toFixed(5));
+     }
+   }
+ }
+
+
 </script>
 
 @yield('script')
