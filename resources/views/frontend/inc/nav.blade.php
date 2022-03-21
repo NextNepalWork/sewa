@@ -45,26 +45,7 @@
                   <button type="button" data-toggle="modal" data-target="#currency" style="background: transparent; border:none; color:white;">
                      Currency Converter
                   </button>
-                  <div class="dropdown" id="lang-change">
-                     @php
-                         if(Session::has('locale')){
-                             $locale = Session::get('locale', Config::get('app.locale'));
-                         }
-                         else{
-                             $locale = 'en';
-                         }
-                     @endphp
-                     <a href="" class="dropdown-toggle top-bar-item" data-toggle="dropdown">
-                         <img src="{{ asset('frontend/images/placeholder.jpg') }}" height="11" data-src="{{ asset('frontend/images/icons/flags/'.$locale.'.png') }}" class="flag lazyload" alt="{{ \App\Language::where('code', $locale)->first()->name }}" height="11"><span class="language">{{ \App\Language::where('code', $locale)->first()->name }}</span>
-                     </a>
-                     <ul class="dropdown-menu">
-                         @foreach (\App\Language::all() as $key => $language)
-                             <li class="dropdown-item @if($locale == $language) active @endif">
-                                 <a href="#" data-flag="{{ $language->code }}"><img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/flags/'.$language->code.'.png') }}" class="flag lazyload" alt="{{ $language->name }}" height="11"><span class="language">{{ $language->name }}</span></a>
-                             </li>
-                         @endforeach
-                     </ul>
-                  </div>
+                  
                    <div class="dropdown user_login_mobile">
                       <button
                          class="text-light btn_account pb-0 btn bg-transparent dropdown-toggle pt-0 font-weight-normal "
@@ -116,6 +97,28 @@
                          @endif
                       </ul>
                    </div>
+                   <div class="dropdown ml-2" id="lang-change">
+                     @php
+                         if(Session::has('locale')){
+                             $locale = Session::get('locale', Config::get('app.locale'));
+                         }
+                         else{
+                             $locale = 'en';
+                         }
+                     @endphp
+                     <a href="" class="dropdown-toggle top-bar-item" data-toggle="dropdown" style="color:white">
+                         <img src="{{ asset('frontend/images/placeholder.jpg') }}" height="11" data-src="{{ asset('frontend/images/icons/flags/'.$locale.'.png') }}" class="flag lazyload text-light" alt="{{ \App\Language::where('code', $locale)->first()->name }}" height="11">
+                         {{-- <span class="language">{{ \App\Language::where('code', $locale)->first()->name }}</span> --}}
+                     </a>
+                     <ul class="dropdown-menu">
+                         @foreach (\App\Language::all() as $key => $language)
+                             <li class="dropdown-item text-light @if($locale == $language) active @endif">
+                                 <a href="#" data-flag="{{ $language->code }}"><img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/flags/'.$language->code.'.png') }}" class="flag lazyload" alt="{{ $language->name }}" height="11">
+                                    <span class="language ml-1">{{ $language->name }}</span></a>
+                             </li>
+                         @endforeach
+                     </ul>
+                  </div>
                    <!-- cart modal start  -->
                    <!-- Modal -->
                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
