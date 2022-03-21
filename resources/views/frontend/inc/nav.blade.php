@@ -45,7 +45,7 @@
                   <button type="button" data-toggle="modal" data-target="#currency" style="background: transparent; border:none; color:white;">
                      Currency Converter
                   </button>
-                  {{-- <li class="dropdown" id="lang-change">
+                  <div class="dropdown" id="lang-change">
                      @php
                          if(Session::has('locale')){
                              $locale = Session::get('locale', Config::get('app.locale'));
@@ -64,7 +64,7 @@
                              </li>
                          @endforeach
                      </ul>
-                 </li> --}}
+                  </div>
                    <div class="dropdown user_login_mobile">
                       <button
                          class="text-light btn_account pb-0 btn bg-transparent dropdown-toggle pt-0 font-weight-normal "
