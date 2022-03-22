@@ -12,6 +12,11 @@ class ShopCollection extends ResourceCollection
             'data' => $this->collection->map(function($data) {
                 $placeholder_img='frontend/images/placeholder.jpg';
                 $a = \App\User::where('id',$data->user_id)->first();
+                // $a = $data->user;
+                // dd($data->user->name);
+                // echo '<pre>';
+                // print_r($data->user);
+                // echo '</pre>';
                 return [
                     'id'=>$data->id,
                     'name' => $data->name,

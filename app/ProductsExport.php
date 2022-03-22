@@ -30,6 +30,7 @@ class ProductsExport implements FromCollection, WithMapping, WithHeadings
             'unit_price',
             'purchase_price',
             'unit',
+            'slug',
             'current_stock',
             'meta_title',
             'meta_description',

@@ -13,6 +13,7 @@ class ProductsImport implements ToModel, WithHeadingRow, WithValidation
 {
     public function model(array $row)
     {
+        // dd('hi');
         return new Product([
            'name'     => $row['name'],
            'added_by'    => Auth::user()->user_type == 'seller' ? 'seller' : 'admin',
