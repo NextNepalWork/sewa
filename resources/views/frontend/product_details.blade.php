@@ -181,7 +181,7 @@
                             @endif --}}
                         </div>
                         <hr>
-                        <div class="descrip mb-2">
+                        <div class="descrip mb-2" style="max-height: fit-content">
                             <h5>Description</h5>
                             {{-- <p> --}}
                                 {!! $detailedProduct->description !!}

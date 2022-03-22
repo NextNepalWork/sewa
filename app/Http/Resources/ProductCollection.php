@@ -3,12 +3,12 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use SebastianBergmann\Environment\Console;
 
 class ProductCollection extends ResourceCollection
 {
     public function toArray($request)
     {
-        
         return [
             'data' => $this->collection->map(function($data) {
                 $photo=[];

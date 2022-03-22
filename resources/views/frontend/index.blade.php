@@ -448,6 +448,11 @@
           <div class="right-side-wrapper">
              <div class="grid-container2 slider_feature">
                 @foreach (filter_products(\App\Product::where('published', 1)->orderBy('num_of_sale', 'desc'))->limit(20)->get() as $key => $product)
+                {{-- @php
+                    echo '<pre>';
+                        print_r($product);
+                    echo '</pre>';
+                @endphp --}}
                 <div class="grid-item mb-4 ">
                   <div class="product-grid-item ">
                      <div class="category-title">
