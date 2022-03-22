@@ -448,11 +448,6 @@
           <div class="right-side-wrapper">
              <div class="grid-container2 slider_feature">
                 @foreach (filter_products(\App\Product::where('published', 1)->orderBy('num_of_sale', 'desc'))->limit(20)->get() as $key => $product)
-                {{-- @php
-                    echo '<pre>';
-                        print_r($product);
-                    echo '</pre>';
-                @endphp --}}
                 <div class="grid-item mb-4 ">
                   <div class="product-grid-item ">
                      <div class="category-title">
@@ -749,11 +744,11 @@
                     <div class="section_title_block d-flex justify-content-between align-item-center h-100">
                         @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->name == "Nepali")
                         <h2 class="position-relative mb-0">नयाँ सामानहरू</h2>
-                        <a class="btn_view" href=""> सबै हेर्नुहोस् <span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                        <a class="btn_view" href="{{route('products')}}"> सबै हेर्नुहोस् <span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
 
                         @else
                         <h2 class="position-relative mb-0">Latest Products</h2>
-                        <a class="btn_view" href=""> View all <span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                        <a class="btn_view" href="{{route('products')}}"> View all <span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
                         @endif
                        </header>
                     </div>
