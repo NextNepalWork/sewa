@@ -42,7 +42,7 @@ class AddressController extends Controller
     public function store(Request $request)
     {
         $address = new Address;
-        $address->user_id = Auth::user()->id;
+        $address->user_id = strval(Auth::user()->id);
         $address->address = $request->address;
         $address->country = $request->country;
         $address->city = $request->city;
