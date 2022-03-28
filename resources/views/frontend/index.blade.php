@@ -70,7 +70,7 @@
                 <div class="category_title" id="categories-list">
                    <h5 class="mb-0" style="cursor: pointer">All Categories <i class="fa fa-angle-down" aria-hidden="true"></i></h5>
                 </div>
-                <div class="category_btn">
+                <div class="category_btn m-auto">
                    <a href="{{ route('categories.all') }}">View all</a>
                 </div>
              </div>
