@@ -672,18 +672,3 @@
     </div>
 </nav>
 
-@extends('layouts.master')
-
-@section('content')
-
-    @if(isset($page->page_detail))        
-        <div class="container">
-            <h2>{{ $page->page_detail[0]->title }}</h2>
-        <br />
-            {!! $page->page_detail[0]->description !!}
-        </div>
-        
-    @else
-        <h2>coming soon</h2>
-    @endif
-@endsection
