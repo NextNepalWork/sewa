@@ -329,6 +329,31 @@ $(document).ready(function () {
             });
     }
 
+    // if ($("#input-slider-range1")[0]) {
+    //     var c = document.getElementById("input-slider-range1"),
+    //         d = document.getElementById("input-slider-range1-value-low"),
+    //         e = document.getElementById("input-slider-range1-value-high"),
+    //         f = [d, e];
+
+    //     noUiSlider.create(c, {
+    //         start: [
+    //             parseInt(d.getAttribute("data-range-value-low")),
+    //             parseInt(e.getAttribute("data-range-value-high")),
+    //         ],
+    //         connect: !0,
+    //         range: {
+    //             min: parseInt(c.getAttribute("data-range-value-min")),
+    //             max: parseInt(c.getAttribute("data-range-value-max")),
+    //         },
+    //     }),
+    //         c.noUiSlider.on("update", function (a, b) {
+    //             f[b].textContent = a[b];
+    //         }),
+    //         c.noUiSlider.on("change", function (a, b) {
+    //             rangefilter(a);
+    //         });
+    // }
+
     // Flip cards
     if ($(".card-flip")[0]) {
         $(".card-flip-container").imagesLoaded(function () {

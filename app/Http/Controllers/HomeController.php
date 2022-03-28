@@ -448,6 +448,7 @@ class HomeController extends Controller
         $max_price = $request->max_price;
         $seller_id = $request->seller_id;
 
+
         $conditions = ['published' => 1];
 
         if($brand_id != null){

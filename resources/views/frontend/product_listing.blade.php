@@ -175,7 +175,55 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                {{-- product rating --}}
+                                {{-- <div class="col-12">
+                                    <div class="card-wrapper my-2">
+                                        <div class="card-group-item">
+                                            <div class="card-head">
+                                                <div class="heading d-flex align-items-center text-center flex-wrap">
+                                                    <div class="head">
+                                                        <h6 class="text-capitalize m-0">{{__('Product Rating')}}</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="filter-content1">
+                                                <div class="card-body px-3 py-2">
+                                                    <div class="range-slider-wrapper mt-3">
+                                                        <!-- Range slider container -->
+                                                        <div id="input-slider-range1" data-range-value-min="{{ filter_products(\App\Product::query())->get()->min('rating') }}" data-range-value-max="{{ filter_products(\App\Product::query())->get()->max('rating') }}"></div>
+            
+                                                        <!-- Range slider values -->
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <span class="range-slider-value value-low"
+                                                                    @if (isset($min_price))
+                                                                        data-range-value-low="{{ $min_price }}"
+                                                                    @elseif($products->min('rating') > 0)
+                                                                        data-range-value-low="{{ $products->min('rating') }}"
+                                                                    @else
+                                                                        data-range-value-low="0"
+                                                                    @endif
+                                                                    id="input-slider-range1-value-low">
+                                                            </div>
+            
+                                                            <div class="col-6 text-right">
+                                                                <span class="range-slider-value value-high"
+                                                                    @if (isset($max_price))
+                                                                        data-range-value-high="{{ $max_price }}"
+                                                                    @elseif($products->max('rating') > 0)
+                                                                        data-range-value-high="{{ $products->max('rating') }}"
+                                                                    @else
+                                                                        data-range-value-high="0"
+                                                                    @endif
+                                                                    id="input-slider-range1-value-high">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> --}}
 
                                 @if (!empty($all_colors))
                                     <div class="col-12">

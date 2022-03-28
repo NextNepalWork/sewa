@@ -13,6 +13,7 @@ class BrandCollection extends ResourceCollection
                 $placeholder_img='frontend/images/placeholder.jpg';
 
                 return [
+                    'id'=>$data->id,
                     'name' => $data->name,
                     'logo' => file_exists($data->logo) ? $data->logo : $placeholder_img,
                     'links' => [
