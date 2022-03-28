@@ -589,6 +589,8 @@ class HomeController extends Controller
             $selected_color = $request->color;
         }
 
+
+
         $products = filter_products($products)->paginate(12)->appends(request()->query());
 
         

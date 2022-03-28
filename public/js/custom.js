@@ -65,8 +65,8 @@ $(document).on("nifty.ready", function () {
     $(".demo-select2-max-10").select2({
         maximumSelectionLength: 10,
     });
-    $(".demo-select2-max-5").select2({
-        maximumSelectionLength: 5,
+    $(".demo-select2-max-10").select2({
+        maximumSelectionLength: 10,
     });
 
     // SELECT2 PLACEHOLDER
