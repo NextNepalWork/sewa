@@ -65,7 +65,7 @@
                                                     {{__('Actions')}} <i class="dropdown-caret"></i>
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a onclick="edit_slider()">{{__('Edit')}}</a></li>
+                                                    <li><a onclick="edit_slider({{$slider->id}})">{{__('Edit')}}</a></li>
                                                     <li><a onclick="confirm_modal('{{route('sliders.destroy', $slider->id)}}');">{{__('Delete')}}</a></li>
                                                 </ul>
                                             </div>
@@ -310,11 +310,15 @@
         });
     }
 
-    function edit_slider(){
-        $.get('{{ route('sliders.edit')}}', {}, function(data){
+    function edit_slider(id){
+        console.log('hi');
+        var url = '{{ route("sliders.edit", "slider_id") }}';
+        url = url.replace('slider_id', id);
+        $.get(url, {}, function(data){
             $('#demo-lft-tab-1').html(data);
         });
     }
+    
 
     function add_banner_1(){
         $.get('{{ route('home_banners.create', 1)}}', {}, function(data){
@@ -397,18 +401,28 @@
     }
 
     function update_slider_published(el){
+        // console.log('hi');
         if(el.checked){
             var status = 1;
         }
         else{
             var status = 0;
         }
-        var url = '{{ route('sliders.update', 'slider_id') }}';
-        url = url.replace('slider_id', el.value);
+        // var url = '{{ route('sliders.update_status', 'slider_id') }}';
+        // console.log(url);
+        // url = url.replace('slider_id', el.value);
 
-        $.post(url, {_token:'{{ csrf_token() }}', status:status, _method:'PATCH'}, function(data){
+        // $.post(url, {_token:'{{ csrf_token() }}', status:status, _method:'PATCH'}, function(data){
+        //     if(data == 1){
+        //         showAlert('success', 'Published sliders updated successfully');
+        //     }
+        //     else{
+        //         showAlert('danger', 'Something went wrong');
+        //     }
+        // });
+        $.post('{{ route('sliders.update_status') }}', {_token:'{{ csrf_token() }}', id:el.value, status:status}, function(data){
             if(data == 1){
-                showAlert('success', 'Published sliders updated successfully');
+                showAlert('success', 'Published slider status updated successfully');
             }
             else{
                 showAlert('danger', 'Something went wrong');
