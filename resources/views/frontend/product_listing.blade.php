@@ -175,6 +175,8 @@
                                         </div>
                                     </div>
                                 </div>
+
+
                                 @if (!empty($all_colors))
                                     <div class="col-12">
                                         <div class="card-wrapper my-2">
@@ -203,32 +205,6 @@
                                     </div>
                                 @endif
 
-
-                                <div class="col-12">
-                                    <div class="card-wrapper my-2">
-                                        <div class="card-group-item">
-                                            <div class="card-head">
-                                                <div
-                                                    class="heading d-flex align-items-center text-center flex-wrap">
-                                                    <div class="head">
-                                                        <h6 class="text-capitalize m-0">Product Rating</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="colors_block px-3 py-2">
-                                                <ul class="list-inline checkbox-color checkbox-color-circle mb-0">
-                                                    @foreach ($all_colors as $key => $color)
-                                                        <li>
-                                                            <input type="radio" id="color-{{ $key }}" name="color" value="{{ $color }}" @if(isset($selected_color) && $selected_color == $color) checked @endif onchange="filter()">
-                                                            <label style="background: {{ $color }};" for="color-{{ $key }}" data-toggle="tooltip" data-original-title="{{ \App\Color::where('code', $color)->first()->name }}"></label>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <!-- card-group-item.// -->
-                                    </div>
-                                </div>
 
                                 @foreach ($attributes as $key => $attribute)
                                     @if (\App\Attribute::find($attribute['id']) != null)

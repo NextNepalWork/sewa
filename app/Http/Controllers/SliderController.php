@@ -67,7 +67,8 @@ class SliderController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('sliders.edit');
+        
     }
 
     /**

@@ -65,6 +65,7 @@
                                                     {{__('Actions')}} <i class="dropdown-caret"></i>
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li><a onclick="edit_slider()">{{__('Edit')}}</a></li>
                                                     <li><a onclick="confirm_modal('{{route('sliders.destroy', $slider->id)}}');">{{__('Delete')}}</a></li>
                                                 </ul>
                                             </div>
@@ -248,9 +249,9 @@
                         @csrf
                         <div class="panel-body">
                             <div class="form-group">
-                                <label class="col-sm-3" for="url">{{__('Top Categories (Max 5)')}}</label>
+                                <label class="col-sm-3" for="url">{{__('Top Categories (Max 10)')}}</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control demo-select2-max-5" name="top_categories[]" multiple required>
+                                    <select class="form-control demo-select2-max-10" name="top_categories[]" multiple required>
                                         @foreach (\App\Category::all() as $key => $category)
                                             <option value="{{ $category->id }}" @if($category->top == 1) selected @endif>{{ $category->name }}</option>
                                         @endforeach
@@ -305,6 +306,12 @@
 
     function add_slider(){
         $.get('{{ route('sliders.create')}}', {}, function(data){
+            $('#demo-lft-tab-1').html(data);
+        });
+    }
+
+    function edit_slider(){
+        $.get('{{ route('sliders.edit')}}', {}, function(data){
             $('#demo-lft-tab-1').html(data);
         });
     }
