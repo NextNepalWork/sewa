@@ -38,6 +38,7 @@ class PasswordResetController extends Controller
 
         return response()->json([
             'success' => true,
+            'status'=>200,
             'message' => 'Please check your email. We have e-mailed your password reset link'
         ], 200);
     }
