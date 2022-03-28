@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
     public function signup(Request $request)
     {
-        $request->validate([
+        $validator= $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:6'
@@ -29,12 +29,18 @@ class AuthController extends Controller
         $customer->user_id = $user->id;
         $customer->save();
         // $tokenResult = $user->createToken('Personal Access Token');
-        return response()->json([
-            // 'user'=>$user,
-            // 'token'=>$tokenResult,
-            'status'=>200,
-            'message' => 'Registration Successful. Please log in to your account'
-        ], 201);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+        else {
+            return response()->json([
+                // 'user'=>$user,
+                // 'token'=>$tokenResult,
+                'status'=>200,
+                'message' => 'Registration Successful. Please log in to your account'
+            ], 201);
+        }
+
     }
 
     public function login(Request $request)
