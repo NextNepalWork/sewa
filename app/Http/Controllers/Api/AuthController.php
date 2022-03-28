@@ -28,7 +28,10 @@ class AuthController extends Controller
         $customer = new Customer;
         $customer->user_id = $user->id;
         $customer->save();
+        $tokenResult = $user->createToken('Personal Access Token');
         return response()->json([
+            'user'=>$user,
+            'token'=>$tokenResult,
             'message' => 'Registration Successful. Please log in to your account'
         ], 201);
     }
