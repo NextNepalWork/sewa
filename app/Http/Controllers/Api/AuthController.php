@@ -32,6 +32,7 @@ class AuthController extends Controller
         return response()->json([
             // 'user'=>$user,
             // 'token'=>$tokenResult,
+            'status'=>200,
             'message' => 'Registration Successful. Please log in to your account'
         ], 201);
     }
@@ -60,6 +61,7 @@ class AuthController extends Controller
     {
         $request->user()->token()->revoke();
         return response()->json([
+            'status'=>200,
             'message' => 'Successfully logged out'
         ]);
     }
