@@ -182,7 +182,8 @@ $(".flash_men").slick({
 // Recommendation For You start
 
 $(".slider_feature").slick({
-    autoplay: false,
+    infinite:true,
+    autoplay: true,
     slidesToShow: 5,
     slidesToScroll: 1,
     arrows: true,
