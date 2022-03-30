@@ -688,7 +688,7 @@
    }
  }
 
-$("#categories-list").hover(
+$(".categories-list").hover(
   function () {
     $('.category-list').collapse('show');
   },

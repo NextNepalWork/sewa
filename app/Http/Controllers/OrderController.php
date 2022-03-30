@@ -330,7 +330,7 @@ class OrderController extends Controller
             file_put_contents(public_path('invoices/' . 'Order#' . $order->code . '.pdf'), $output);
             $data['view'] = 'emails.invoice';
             $data['subject'] = 'Order Placed - ' . $order->code;
-            $data['from'] = Config::get('mail.username');
+            $data['from'] = 'Sewa Digital';
             // $data['from'] = env('MAIL_USERNAME');
             $data['content'] = 'Hi. A new order has been placed. Please check the attached invoice.';
             $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
