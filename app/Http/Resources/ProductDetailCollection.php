@@ -62,6 +62,7 @@ class ProductDetailCollection extends ResourceCollection
                             'products' => route('api.products.brand', $data->brand_id ?? '/')
                         ]
                     ],
+                    'variant_product' => $data->variant_product,
                     'photos' => $photo,
                     'thumbnail_image' => file_exists($data->thumbnail_img) ? $data->thumbnail_img : $placeholder_img,
                     'featured_image' => file_exists($data->featured_img) ? $data->featured_img : $placeholder_img,
