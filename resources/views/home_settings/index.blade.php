@@ -311,7 +311,6 @@
     }
 
     function edit_slider(id){
-        console.log('hi');
         var url = '{{ route("sliders.edit", "slider_id") }}';
         url = url.replace('slider_id', id);
         $.get(url, {}, function(data){

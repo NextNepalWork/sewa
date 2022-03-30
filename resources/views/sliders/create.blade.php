@@ -14,6 +14,7 @@
                     <input type="text" id="url" name="url" placeholder="http://example.com/" class="form-control" required>
                 </div>
             </div>
+
             <div class="form-group">
                 <div class="col-sm-3">
                     <label class="control-label">{{__('Slider Images')}}</label>
