@@ -240,12 +240,14 @@
                                 @endif
 
                                 @if ($detailedProduct->choice_options != null)
+                                {{-- {{dd($detailedProduct->choice_options)}} --}}
                                 @foreach (json_decode($detailedProduct->choice_options) as $key => $choice)
                                 <div class="form-group col-lg-12 col-md-6">
                                     <div class="size-wrapper">
                                         <div class="size-select">
                                             <h5>{{ \App\Attribute::find($choice->attribute_id)->name }}</h5>
                                             <div class="select-size">
+                                                {{-- {{dd($choice->values)}} --}}
                                                 @foreach ($choice->values as $key => $value)
                                                 {{-- <div class="size">S</div> --}}
                                                 <input type="hidden" id="{{ $choice->attribute_id }}-{{ $value }}" name="attribute_id_{{ $choice->attribute_id }}" value="{{ $value }}" @if($key == 0) checked @endif>

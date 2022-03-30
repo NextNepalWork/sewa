@@ -276,6 +276,7 @@ $(document).ready(function () {
     // NoUI Slider
     if ($(".input-slider-container")[0]) {
         $(".input-slider-container").each(function () {
+            // console.log("hi");
             var slider = $(this).find(".input-slider");
             var sliderId = slider.attr("id");
             var minValue = slider.data("range-value-min");
@@ -284,6 +285,7 @@ $(document).ready(function () {
             var sliderValue = $(this).find(".range-slider-value");
             var sliderValueId = sliderValue.attr("id");
             var startValue = sliderValue.data("range-value-low");
+            // console.log(startValue);
 
             var c = document.getElementById(sliderId),
                 d = document.getElementById(sliderValueId);
@@ -329,28 +331,62 @@ $(document).ready(function () {
             });
     }
 
-    // if ($("#input-slider-range1")[0]) {
-    //     var c = document.getElementById("input-slider-range1"),
-    //         d = document.getElementById("input-slider-range1-value-low"),
-    //         e = document.getElementById("input-slider-range1-value-high"),
+    // product rating
+
+    // if ($(".input-slider-container")[0]) {
+    //     $(".input-slider-container").each(function () {
+    //         var slider = $(this).find(".input-slider");
+    //         console.log("hi");
+    //         var sliderId = slider.attr("id");
+    //         var minValue = slider.data("rate-value-min");
+    //         var maxValue = slider.data("rate-value-max");
+
+    //         var sliderValue = $(this).find(".rate-slider-value");
+    //         // console.log(sliderValue);
+    //         var sliderValueId = sliderValue.attr("id");
+    //         var startValue = sliderValue.data("rate-value-low");
+
+    //         var c = document.getElementById(sliderId),
+    //             d = document.getElementById(sliderValueId);
+
+    //         noUiSlider.create(c, {
+    //             start: [parseInt(startValue)],
+    //             //step: 1000,
+    //             range: {
+    //                 min: [parseInt(minValue)],
+    //                 max: [parseInt(maxValue)],
+    //             },
+    //         });
+
+    //         c.noUiSlider.on("update", function (a, b) {
+    //             //alert(b)
+    //             d.textContent = a[b];
+    //         });
+    //     });
+    // }
+
+    // if ($("#input-slider-rate")[0]) {
+    //     var c = document.getElementById("input-slider-rate"),
+    //         d = document.getElementById("input-slider-rate-value-low"),
+    //         e = document.getElementById("input-slider-rate-value-high"),
     //         f = [d, e];
 
     //     noUiSlider.create(c, {
     //         start: [
-    //             parseInt(d.getAttribute("data-range-value-low")),
-    //             parseInt(e.getAttribute("data-range-value-high")),
+    //             parseInt(d.getAttribute("data-rate-value-low")),
+    //             parseInt(e.getAttribute("data-rate-value-high")),
     //         ],
     //         connect: !0,
     //         range: {
-    //             min: parseInt(c.getAttribute("data-range-value-min")),
-    //             max: parseInt(c.getAttribute("data-range-value-max")),
+    //             min: parseInt(c.getAttribute("data-rate-value-min")),
+    //             max: parseInt(c.getAttribute("data-rate-value-max")),
     //         },
     //     }),
     //         c.noUiSlider.on("update", function (a, b) {
     //             f[b].textContent = a[b];
     //         }),
     //         c.noUiSlider.on("change", function (a, b) {
-    //             rangefilter(a);
+    //             ratefilter(a);
     //         });
     // }
 
