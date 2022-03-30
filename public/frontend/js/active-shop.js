@@ -331,65 +331,6 @@ $(document).ready(function () {
             });
     }
 
-    // product rating
-
-    // if ($(".input-slider-container")[0]) {
-    //     $(".input-slider-container").each(function () {
-    //         var slider = $(this).find(".input-slider");
-    //         console.log("hi");
-    //         var sliderId = slider.attr("id");
-    //         var minValue = slider.data("rate-value-min");
-    //         var maxValue = slider.data("rate-value-max");
-
-    //         var sliderValue = $(this).find(".rate-slider-value");
-    //         // console.log(sliderValue);
-    //         var sliderValueId = sliderValue.attr("id");
-    //         var startValue = sliderValue.data("rate-value-low");
-
-    //         var c = document.getElementById(sliderId),
-    //             d = document.getElementById(sliderValueId);
-
-    //         noUiSlider.create(c, {
-    //             start: [parseInt(startValue)],
-    //             //step: 1000,
-    //             range: {
-    //                 min: [parseInt(minValue)],
-    //                 max: [parseInt(maxValue)],
-    //             },
-    //         });
-
-    //         c.noUiSlider.on("update", function (a, b) {
-    //             //alert(b)
-    //             d.textContent = a[b];
-    //         });
-    //     });
-    // }
-
-    // if ($("#input-slider-rate")[0]) {
-    //     var c = document.getElementById("input-slider-rate"),
-    //         d = document.getElementById("input-slider-rate-value-low"),
-    //         e = document.getElementById("input-slider-rate-value-high"),
-    //         f = [d, e];
-
-    //     noUiSlider.create(c, {
-    //         start: [
-    //             parseInt(d.getAttribute("data-rate-value-low")),
-    //             parseInt(e.getAttribute("data-rate-value-high")),
-    //         ],
-    //         connect: !0,
-    //         range: {
-    //             min: parseInt(c.getAttribute("data-rate-value-min")),
-    //             max: parseInt(c.getAttribute("data-rate-value-max")),
-    //         },
-    //     }),
-    //         c.noUiSlider.on("update", function (a, b) {
-    //             f[b].textContent = a[b];
-    //         }),
-    //         c.noUiSlider.on("change", function (a, b) {
-    //             ratefilter(a);
-    //         });
-    // }
-
     // Flip cards
     if ($(".card-flip")[0]) {
         $(".card-flip-container").imagesLoaded(function () {

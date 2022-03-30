@@ -250,8 +250,11 @@
                                                 {{-- {{dd($choice->values)}} --}}
                                                 @foreach ($choice->values as $key => $value)
                                                 {{-- <div class="size">S</div> --}}
-                                                <input type="hidden" id="{{ $choice->attribute_id }}-{{ $value }}" name="attribute_id_{{ $choice->attribute_id }}" value="{{ $value }}" @if($key == 0) checked @endif>
-                                                <label class="size" for="{{ $choice->attribute_id }}-{{ $value }}">{{ $value }}</label>
+                                                {{-- <input type="hidden" id="{{ $choice->attribute_id }}-{{ $value }}" name="attribute_id_{{ $choice->attribute_id }}" value="{{ $value }}" @if($key == 0) checked @endif>
+                                                <label class="size" for="{{ $choice->attribute_id }}-{{ $value }}">{{ $value }}</label> --}}
+
+                                                <input type="radio" id="{{ $choice->attribute_id }}-{{ $value }}" name="attribute_id_{{ $choice->attribute_id }}" value="{{ $value }}" @if($key == 0) checked @endif>
+                                                    <label for="{{ $choice->attribute_id }}-{{ $value }}" class="size">{{ $value }}</label>
                                                 @endforeach
                                             </div>
                                         </div>
