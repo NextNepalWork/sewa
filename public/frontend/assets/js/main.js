@@ -24,6 +24,8 @@ $("body").on("click", function (e) {
 // Banner Slick Slider Starts
 $(".slider_banner").slick({
     infinite: true,
+    autoplay: true,
+    autoplay_speed: 5000,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,

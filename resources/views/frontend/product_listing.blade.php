@@ -176,55 +176,36 @@
                                     </div>
                                 </div>
                                 {{-- product rating --}}
-
-                                {{-- <div class="col-12">
+                                <div class="col-12">
                                     <div class="card-wrapper my-2">
                                         <div class="card-group-item">
                                             <div class="card-head">
-                                                <div class="heading d-flex align-items-center text-center flex-wrap">
+                                                <div
+                                                    class="heading d-flex align-items-center text-center flex-wrap">
                                                     <div class="head">
-                                                        <h6 class="text-capitalize m-0">{{__('Product rating')}}</h6>
+                                                        <h6 class="text-capitalize m-0">Product Rating</h6>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="filter-content1">
-                                                <div class="card-body px-3 py-2">
-                                                    <div class="range-slider-wrapper mt-3">
-                                                        <!-- Range slider container -->
-                                                        <div id="input-slider-rate" data-rate-value-min="{{ filter_products(\App\Product::query())->get()->min('rating') }}" data-rate-value-max="{{ filter_products(\App\Product::query())->get()->max('rating') }}"></div>
-            
-                                                        <!-- Range slider values -->
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                <span class="rate-slider-value value-low"
-                                                                    @if (isset($min_rating))
-                                                                        data-rate-value-low="{{ $min_rating }}"
-                                                                    @elseif($products->min('rating') > 0)
-                                                                        data-rate-value-low="{{ $products->min('rating') }}"
-                                                                    @else
-                                                                        data-rate-value-low="0"
-                                                                    @endif
-                                                                    id="input-slider-rate-value-low">
-                                                            </div>
-            
-                                                            <div class="col-6 text-right">
-                                                                <span class="rate-slider-value value-high"
-                                                                    @if (isset($max_rating))
-                                                                        data-rate-value-high="{{ $max_rating }}"
-                                                                    @elseif($products->max('rating') > 0)
-                                                                        data-rate-value-high="{{ $products->max('rating') }}"
-                                                                    @else
-                                                                        data-rate-value-high="0"
-                                                                    @endif
-                                                                    id="input-slider-rate-value-high">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <div class="px-3 py-2">
+                                                <ul class="mb-0">
+                                                    @for ($i = 1; $i <= 5; $i++)     
+                                                    <li>
+                                                        <input type="radio" name="rating" value="{{$i}}" onchange="filter()" title="{{$i}} star" />
+                                                        
+                                                        @for ($j = 1; $j <= $i; $j++)   
+                                                            <label class="fa fa-star fa-2x" for="star{{$i}}" title="{{$i}} star" aria-hidden="true"></label>
+                                                        @endfor
+
+                                                    </li>
+                                                    @endfor
+
+                                                </ul>
                                             </div>
                                         </div>
+                                        <!-- card-group-item.// -->
                                     </div>
-                                </div> --}}
+                                </div>
 
                                 @if (!empty($all_colors))
                                     <div class="col-12">
