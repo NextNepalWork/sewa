@@ -356,12 +356,12 @@
     				</div>
     				<div class="panel-body">
     					<div class="row bord-btm">
-    						<div class="col-md-2">
+    						<div class="col-md-4">
     							<div class="panel-heading">
     								<h3 class="panel-title">{{__('Free Shipping')}}</h3>
     							</div>
     						</div>
-    						<div class="col-md-10">
+    						<div class="col-md-8">
     							<div class="form-group">
     								<label class="col-lg-2 control-label">{{__('Status')}}</label>
     								<div class="col-lg-7">
@@ -375,12 +375,12 @@
     					</div>
 
     					<div class="row bord-btm">
-    						<div class="col-md-2">
+    						<div class="col-md-4">
     							<div class="panel-heading">
     								<h3 class="panel-title">{{__('Flat Rate')}}</h3>
     							</div>
     						</div>
-    						<div class="col-md-10">
+    						<div class="col-md-8">
     							<div class="form-group">
     								<label class="col-lg-2 control-label">{{__('Status')}}</label>
     								<div class="col-lg-7">

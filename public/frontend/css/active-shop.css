@@ -17595,13 +17595,13 @@ span.flatpickr-weekday {
 }
 
 .swiper-button-prev:after {
-    content: "\f3d2";
-    font-family: "Ionicons";
+    content: "\f104";
+    font-family: "FontAwesome";
 }
 
 .swiper-button-next:after {
-    content: "\f3d3";
-    font-family: "Ionicons";
+    content: "\f105";
+    font-family: "FontAwesome";
 }
 
 .background-image-holder .swiper-button-next,

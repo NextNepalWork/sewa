@@ -28,7 +28,8 @@ class ShopController extends Controller
     {
         $locations=Location::all();
         $shop = Auth::user()->shop;
-        return view('frontend.seller.shop', compact('shop','locations'));
+        $seller = Auth::user()->seller;
+        return view('frontend.seller.shop', compact('shop','locations','seller'));
     }
 
     /**
@@ -148,7 +149,7 @@ class ShopController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+      {
         $shop = Shop::find($id);
 
         if($request->has('name') && $request->has('address')){
@@ -157,24 +158,12 @@ class ShopController extends Controller
                 $shop->shipping_cost = $request->shipping_cost;
             }
             $shop->address = $request->address;
-
-            $shop->location=implode('!!', $request['location']);
-
             $shop->slug = preg_replace('/\s+/', '-', $request->name).'-'.$shop->id;
 
             $shop->meta_title = $request->meta_title;
-            $shop->meta_description = $request->meta_description;
+            $shop->meta_description = $request->meta_description;          
 
-            if($request->hasFile('logo')){
-                $shop->logo = $request->logo->store('uploads/shop/logo');
-            }
-
-            if ($request->has('pick_up_point_id')) {
-                $shop->pick_up_point_id = json_encode($request->pick_up_point_id);
-            }
-            else {
-                $shop->pick_up_point_id = json_encode(array());
-            }
+            
         }
 
         elseif($request->has('facebook') || $request->has('google') || $request->has('twitter') || $request->has('youtube') || $request->has('instagram')){
@@ -201,7 +190,41 @@ class ShopController extends Controller
             $shop->sliders = json_encode($sliders);
         }
 
+        if($request->hasFile('logo')){
+            $shop->logo = $request->logo->store('uploads/shop/logo');
+        }
+
+        if ($request->has('pick_up_point_id')) {
+            $shop->pick_up_point_id = json_encode($request->pick_up_point_id);
+        }
+        if($request->has('phone')){
+            $user = User::where('id',$shop->user_id)->first();
+            $user->phone = $request->phone;
+            $user->save();
+        }
+
         if($shop->save()){
+            $seller = Seller::where('user_id',$shop->user_id)->count();
+            if($seller > 0){
+                $seller = Seller::where('user_id',$shop->user_id)->first();
+                if($request->has('bank_name')){
+                    $seller->bank_name = $request->bank_name;
+                }
+                if($request->has('bank_acc_name')){
+                    $seller->bank_acc_name = $request->bank_acc_name;
+                }
+                if($request->has('bank_acc_no')){
+                    $seller->bank_acc_no = $request->bank_acc_no;
+                }
+                if($request->has('bank_routing_no')){
+                    $seller->bank_routing_no = $request->bank_routing_no;
+                }
+                if($request->has('pan_no')){
+                    $seller->pan_no = $request->pan_no;
+                }
+                $seller->save();
+            }
+
             flash(__('Your Shop has been updated successfully!'))->success();
             return back();
         }

@@ -1,7 +1,11 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-
+<style>
+    button.btn.btn-base-1{
+        color: #ffffff;
+    }
+</style>
     <section class="gry-bg py-4 profile">
         <div class="container">
             <div class="row cols-xs-space cols-sm-space cols-md-space">
@@ -141,6 +145,48 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="form-box bg-white mt-4">
+                                <div class="form-box-title px-3 py-2">
+                                    {{__('Bank Details')}}
+                                </div>
+                                
+                                <div class="form-box-content p-3">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>{{__('Bank Name')}} <span class="required-star">*</span></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control mb-3" placeholder="{{__('Bank Name')}}" name="bank_name" value="{{ $seller->bank_name }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>{{__('Bank Acc Name')}} <span class="required-star">*</span></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control mb-3" placeholder="{{__('Bank Acc Name')}}" name="bank_acc_name" value="{{ $seller->bank_acc_name }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>{{__('Bank Acc Number')}} <span class="required-star">*</span></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="number" class="form-control mb-3" placeholder="{{__('Bank Acc Number')}}" name="bank_acc_no" value="{{ $seller->bank_acc_no }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>{{__('Bank Routing Number')}} <span class="required-star">*</span></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="number" class="form-control mb-3" placeholder="{{__('Bank Routing Number')}}" name="bank_routing_no" value="{{ $seller->bank_routing_no }}" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+
                             </div>
                             <div class="text-right mt-4">
                                 <button type="submit" class="btn btn-styled btn-base-1 color-white">{{__('Save')}}</button>
