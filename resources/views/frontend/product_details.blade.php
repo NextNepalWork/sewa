@@ -68,7 +68,16 @@
                         <div class="swiper-container gallery-top" style="height: 400px">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide easyzoom easyzoom--overlay ">
-                                    <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($detailedProduct->photos)[0]) }}" xoriginal="{{ asset(json_decode($detailedProduct->photos)[0]) }}" />
+                                    @if (!empty(json_decode($detailedProduct->photos)[0]))
+                                        @if (file_exists(json_decode($detailedProduct->photos)[0]))
+                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($detailedProduct->photos)[0]) }}" xoriginal="{{ asset(json_decode($detailedProduct->photos)[0]) }}" />
+                                        @else
+                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload" />
+                                        @endif
+                                    @else
+                                        <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload"/>
+                                    @endif
+                                    
                                 </div>
                             </div>
                             <!-- Add Arrows -->
@@ -80,7 +89,16 @@
                             <div class="swiper-wrapper">
                                 @foreach (json_decode($detailedProduct->photos) as $key => $photo)
                                     <a href="{{ asset($photo) }}">
-                                        <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" width="80" data-src="{{ asset($photo) }}"  @if($key == 0) xpreview="{{ asset($photo) }}" @endif>
+                                        @if (!empty($photo))
+                                            @if (file_exists($photo))
+                                                <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" width="80" data-src="{{ asset($photo) }}"  @if($key == 0) xpreview="{{ asset($photo) }}" @endif>
+                                            @else
+                                                <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" width="80" @if($key == 0) xpreview="{{ asset('frontend/images/placeholder.jpg') }}" @endif>
+                                            @endif
+                                        @else
+                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" width="80" @if($key == 0) xpreview="{{ asset('frontend/images/placeholder.jpg') }}" @endif>
+                                        @endif
+                                        
                                     </a>
                                 @endforeach
 
@@ -339,7 +357,7 @@
                                                     @endphp
                                                 @endif
                                             @endforeach
-                                            @if ($commentable)
+                                            {{-- @if ($commentable) --}}
                                             <div class="col-lg-4 col-12 mx-auto">
                                                 <!-- User Comment -->
                                                 <div class="user-comment py-4 px-3">
@@ -394,7 +412,7 @@
                                                 <!-- User Comment Ends-->
                                             </div>
                                             @endif
-                                        @endif
+                                        {{-- @endif --}}
 
                                 @foreach ($detailedProduct->reviews as $key => $review)
 
