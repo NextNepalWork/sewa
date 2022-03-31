@@ -423,6 +423,8 @@
 
                                         
                                         <!-- people Comments -->
+                                @if(count($detailedProduct->reviews) > 0)
+                                
                                 <div class="col-xl-8 col-lg-8 col-12 mb-4">
                                     <div class="d-flex people-comment">
                                         <ul class="comment-wrapper">
@@ -498,6 +500,7 @@
                                         </ul>
                                     </div>
                                 </div>
+                                @endif
                                 <!-- people Comments Ends -->
 
                                 @if(count($detailedProduct->reviews) <= 0)

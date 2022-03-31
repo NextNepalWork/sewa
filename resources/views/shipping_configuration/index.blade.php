@@ -23,10 +23,6 @@
                         <input id="flat-shipping" class="magic-radio" type="radio" name="shipping_type" value="flat_rate" <?php if(\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'flat_rate') echo "checked";?>>
                         <label for="flat-shipping">{{__('Flat Rate Shipping Cost')}}</label>
                     </div>
-                    <div class="radio mar-btm">
-                        <input id="seller-shipping" class="magic-radio" type="radio" name="shipping_type" value="seller_wise_shipping" <?php if(\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'seller_wise_shipping') echo "checked";?>>
-                        <label for="seller-shipping">{{__('Seller Wise Flat Shipping Cost')}}</label>
-                    </div>
                     <div class="">
                         <button class="btn btn-primary" type="submit">Update</button>
                     </div>
@@ -47,9 +43,9 @@
                     <li class="list-group-item">
                         2. Flat Rate Shipping Cost calulation: How many products a customer purchase, doesn't matter. Shipping cost is fixed.
                     </li>
-                    <li class="list-group-item">
+                    {{-- <li class="list-group-item">
                         3. Seller Wise Flat Shipping Cost calulation: Fixed rate for each seller. If a customer purchase 2 product from two seller shipping cost is calculate by addition of each seller flat shipping cost.
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>
@@ -94,7 +90,7 @@
     </div>
 </div>
 
-<div class="row">
+{{-- <div class="row">
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading bord-btm">
@@ -130,6 +126,6 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 @endsection

@@ -201,7 +201,7 @@ class PageController extends Controller
             $page->content = $request->content;
             $page->category_id = $request->category_id;
             // $page->product_id = $request->product_id;
-            $page->product_id=implode('!!', $request['product_id']);
+            $page->product_id = isset($request['product_id'])?implode('!!', $request['product_id']):'';
 
             $page->brand_id = $request->brand_id;
             $page->seller_id = $request->seller_id;
