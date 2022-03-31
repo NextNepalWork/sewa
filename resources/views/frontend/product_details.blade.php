@@ -126,7 +126,13 @@
                                     <span class="piece">/{{ $detailedProduct->unit }}</span></div>
                                 </div>
                                 @endif
+
                             </div>
+                            @if (! $detailedProduct->discount == 0)
+                            <div class="font-weight-bold h5">
+                                ({{ ($detailedProduct->discount_type == 'amount')?'Rs.':'' }} {{ $detailedProduct->discount }}{{ !($detailedProduct->discount_type == 'amount')?' %':'' }} off)
+                            </div>
+                            @endif
 
                             <div class="d-flex flex-wrap align-items-center">
                                 <!-- Rating -->
@@ -284,11 +290,11 @@
                             
                             <div class="row no-gutters py-2 d-none" id="chosen_price_div">
                                 <div class="col-2 m-auto">
-                                    <div class="product-description-label">{{__('Total Price')}}:</div>
+                                    <div class="product-description-label h5">{{__('Total Price')}}:</div>
                                 </div>
                                 <div class="col-10">
                                     <div class="product-price" style="background: none;">
-                                        <strong id="chosen_price">
+                                        <strong id="chosen_price" class="font-weight-bold h5">
                                             
                                         </strong>
                                     </div>
@@ -357,7 +363,7 @@
                                                     @endphp
                                                 @endif
                                             @endforeach
-                                            {{-- @if ($commentable) --}}
+                                            @if ($commentable)
                                             <div class="col-lg-4 col-12 mx-auto">
                                                 <!-- User Comment -->
                                                 <div class="user-comment py-4 px-3">
@@ -388,20 +394,21 @@
                                                                 </div>
                                                                 <div class="col-12">
                                                                     <div class="d-flex justify-content-center mb-4">
-                                                                        <div class="p-ratings">
-                                                                            <input type="radio" id="star5" name="rating" value="5" required/>
-                                                                    <label class="star" for="star5" title="Awesome" aria-hidden="true"></label>
-                                                                    <input type="radio" id="star4" name="rating" value="4" required/>
-                                                                    <label class="star" for="star4" title="Great" aria-hidden="true"></label>
-                                                                    <input type="radio" id="star3" name="rating" value="3" required/>
-                                                                    <label class="star" for="star3" title="Very good" aria-hidden="true"></label>
-                                                                    <input type="radio" id="star2" name="rating" value="2" required/>
-                                                                    <label class="star" for="star2" title="Good" aria-hidden="true"></label>
-                                                                    <input type="radio" id="star1" name="rating" value="1" required/>
-                                                                    <label class="star" for="star1" title="Bad" aria-hidden="true"></label>
+                                                                        <div class="c-rating mt-1 mb-1 clearfix d-inline-block">
+                                                                            <input type="radio" id="star1" name="rating" value="5" required/>
+                                                                            <label class="tf-ion-android-star" for="star1" title="Awesome" aria-hidden="true"></label>
+                                                                            <input type="radio" id="star2" name="rating" value="4" required/>
+                                                                            <label class="tf-ion-android-star" for="star2" title="Great" aria-hidden="true"></label>
+                                                                            <input type="radio" id="star3" name="rating" value="3" required/>
+                                                                            <label class="tf-ion-android-star" for="star3" title="Very good" aria-hidden="true"></label>
+                                                                            <input type="radio" id="star4" name="rating" value="2" required/>
+                                                                            <label class="tf-ion-android-star" for="star4" title="Good" aria-hidden="true"></label>
+                                                                            <input type="radio" id="star5" name="rating" value="1" required/>
+                                                                            <label class="tf-ion-android-star" for="star5" title="Bad" aria-hidden="true"></label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                
                                                                 <div class="button-wrapper mx-auto mb-3">
                                                                     <button type="submit" class="btn-custom px-4 color-white">Send</button>
                                                                 </div>
@@ -412,14 +419,14 @@
                                                 <!-- User Comment Ends-->
                                             </div>
                                             @endif
-                                        {{-- @endif --}}
+                                        @endif
 
-                                @foreach ($detailedProduct->reviews as $key => $review)
-
-                                <!-- people Comments -->
+                                        
+                                        <!-- people Comments -->
                                 <div class="col-xl-8 col-lg-8 col-12 mb-4">
                                     <div class="d-flex people-comment">
                                         <ul class="comment-wrapper">
+                                            @foreach ($detailedProduct->reviews as $key => $review)
                                             <li class="d-flex mb-2 p-4">
                                                 <div class="image mr-3">
                                                     <a href="#">
@@ -487,63 +494,11 @@
                                                     </div> --}}
                                                 </div>
                                             </li>
-                                            {{-- <li class="d-flex mb-2 p-4">
-                                                <div class="image mr-3">
-                                                    <a href="#">
-                                                        <img class="img-responsive user-photo"
-                                                            src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                                                    </a>
-                                                </div>
-                                                <div class="media-body">
-                                                    <h5>Azar Hank</h5>
-                                                    <div class="comment-date mb-2">
-                                                        <p class="m-0 text-uppercase"> 12 March, 2021 AT 10:51 </p>
-                                                    </div>
-                                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed
-                                                        consequuntur repudiandae, ducimus error animi neque
-                                                        recusandae optio tempora non sequi cupiditate ipsum
-                                                        perspiciatis porro maxime praesentium
-                                                        doloribus amet delectus velit.</p>
-                                                    <!-- Comment Reply -->
-                                                    <ul>
-                                                        <li>
-                                                            <div class="comment-reply">
-                                                                <div class="d-flex">
-                                                                    <div class="image mr-3">
-                                                                        <a href="#">
-                                                                            <img class="img-responsive user-photo"
-                                                                                src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="media-body">
-                                                                        <h5>Azar Hank</h5>
-                                                                        <div class="comment-date mb-2">
-                                                                            <p class="m-0 text-uppercase"> 12 March,
-                                                                                2021 AT 10:50 </p>
-                                                                        </div>
-                                                                        <p>Lorem ipsum, dolor sit amet consectetur
-                                                                            adipisicing elit. Sed consequuntur
-                                                                            repudiandae, ducimus error animi neque
-                                                                            recusandae optio tempora non sequi
-                                                                            cupiditate ipsum perspiciatis
-                                                                            porro maxime praesentium doloribus amet
-                                                                            delectus velit.</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                    <!-- Comment Reply Ends -->
-                                                    <div class="button">
-                                                        <a href="#"> Reply</a>
-                                                    </div>
-                                                </div>
-                                            </li> --}}
+                                            @endforeach
                                         </ul>
                                     </div>
                                 </div>
                                 <!-- people Comments Ends -->
-                                @endforeach
 
                                 @if(count($detailedProduct->reviews) <= 0)
                                     <div class="text-center">
