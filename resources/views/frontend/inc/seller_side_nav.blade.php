@@ -2,7 +2,11 @@
     <div class="widget mb-0">
         <div class="widget-profile-box text-center p-3">
             @if (Auth::user()->avatar_original != null)
-                <div class="image" style="background-image:url('{{ asset(Auth::user()->avatar_original) }}')"></div>
+                @if (file_exists(Auth::user()->avatar_original))
+                    <div class="image" style="background-image:url('{{ asset(Auth::user()->avatar_original) }}')"></div>
+                @else
+                    <img src="{{ asset('frontend/images/user.png') }}" class="image rounded-circle">
+                @endif
             @else
                 <img src="{{ asset('frontend/images/user.png') }}" class="image rounded-circle">
             @endif
