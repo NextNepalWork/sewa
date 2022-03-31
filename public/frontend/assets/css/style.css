@@ -2878,3 +2878,7 @@ section#category_section {
 .c-rating > input:checked ~ label:hover ~ label {
     color: #ffcc00;
 }
+
+.seller-shop-menu .inline-links .active {
+    border-bottom: 2px solid var(--theme_color);
+}

@@ -41,18 +41,21 @@
         }
     @endphp
 
-    <section class="gry-bg pt-4 ">
+    <section class="gry-bg py-4 ">
         <div class="container">
             <div class="row ">
                 <div class="col-md-6">
                     <div class="d-flex">
-                        <img
-                            height="70"
-                            class="lazyload"
-                            src="{{ asset('frontend/images/placeholder.jpg') }}"
-                            data-src="@if ($shop->logo !== null) {{ asset($shop->logo) }} @else {{ asset('frontend/images/placeholder.jpg') }} @endif"
-                            alt="{{ $shop->name }}"
-                        >
+                        @if (!empty($shop->logo))
+                            @if (file_exists($shop->logo))
+                                <img height="70" class="lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="@if ($shop->logo !== null) {{ asset($shop->logo) }} @else {{ asset('frontend/images/placeholder.jpg') }} @endif" alt="{{ $shop->name }}">
+                            @else
+                                <img height="70" class="lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ $shop->name }}"> 
+                            @endif
+                        @else
+                            <img height="70" class="lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ $shop->name }}">  
+                        @endif
+                        
                         <div class="pl-4">
                             <h3 class="strong-700 heading-4 mb-0">{{ $shop->name }}
                                 @if ($shop->user->seller->verification_status == 1)
@@ -124,21 +127,36 @@
     </section>
 
     @if (!isset($type))
-        <section class="py-4">
-            <div class="container">
-                <div class="home-slide">
-                    <div class="slick-carousel" data-slick-arrows="true" data-slick-dots="true">
+        <section id="slider" class="mt-2" >
+            <div class="container p-0">
+               <div class="row no-gutters">
+                  <div class="col-12">
+                     <div class="slider_banner">
                         @if ($shop->sliders != null)
-                            @foreach (json_decode($shop->sliders) as $key => $slide)
-                                <div class="">
-                                    <img class="d-block w-100 lazyload" src="{{ asset('frontend/images/placeholder-rect.jpg') }}" data-src="{{ asset($slide) }}" alt="{{ $key }} slide" style="max-height:300px;">
-                                </div>
-                            @endforeach
+                        @foreach (json_decode($shop->sliders) as $key => $slider)
+                            <div class="slider_item position-relative">
+                                @if (!empty($slider))
+                                    @if (file_exists($slider))
+                                        <img class="d-block w-100 lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($slider) }}" alt="{{ $key }} slide" style="max-height:300px;">
+                                    @else
+                                        <img class="d-block w-100 lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ $key }} slide" style="max-height:300px;">
+                                    @endif
+                                @else
+                                    <img class="d-block w-100 lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ $key }} slide" style="max-height:300px;">
+                                @endif
+                            </div>
+                        @endforeach
                         @endif
-                    </div>
-                </div>
+                     </div>
+                  </div>
+               </div>
             </div>
         </section>
+        @php
+            $featured_product=$shop->user->products->where('published', 1)->where('featured', 1)->all();
+        @endphp
+        @if (count($featured_product)>0)
+            
         <section class="sct-color-1 pt-5 pb-4">
             <div class="container">
                 <div class="section-title section-title--style-1 text-center mb-4">
@@ -148,55 +166,93 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <div class="caorusel-box arrow-round gutters-15">
-                            <div class="slick-carousel center-mode" data-slick-items="5" data-slick-lg-items="3"  data-slick-md-items="3" data-slick-sm-items="1" data-slick-xs-items="1">
-                                @foreach ($shop->user->products->where('published', 1)->where('featured', 1) as $key => $product)
-                                    <div class="caorusel-card my-5">
-                                        <div class="product-card-2 card card-product shop-cards shop-tech">
-                                            <div class="card-body p-0">
+                        <div class="slider_feature">
+                            
+                            @foreach ($featured_product as $key => $product)
+                                <div class="caorusel-card my-5">
+                                    <div class="product-card-2 card card-product shop-cards shop-tech">
+                                        <div class="card-body p-0">
 
-                                                <div class="card-image">
-                                                    <a href="{{ route('product', $product->slug) }}" class="d-block">
-                                                        @if ($product->featured_img != '')
-                                                            @if (file_exists($product->featured_img))
-                                                                <img  class="mx-auto img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
-                                                            @else
-                                                                <img  class="mx-auto img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
-                                                            @endif
+                                            <div class="card-image">
+                                                <a href="{{ route('product', $product->slug) }}" class="d-block">
+                                                    @if ($product->featured_img != '')
+                                                        @if (file_exists($product->featured_img))
+                                                            <img  class="mx-auto img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
                                                         @else
                                                             <img  class="mx-auto img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
                                                         @endif
-                                                    </a>
-                                                </div>
-
-                                                <div class="p-3">
-                                                    <div class="price-box">
-                                                        <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
-                                                        <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
-                                                    </div>
-                                                    <div class="star-rating star-rating-sm mt-1">
-                                                        {{ renderStarRating($product->rating) }}
-                                                    </div>
-                                                    <h2 class="product-title p-0 text-truncate-2">
-                                                        <a href="{{ route('product', $product->slug) }}">{{ __($product->name) }}</a>
-                                                    </h2>
-                                                    @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
-                                                        <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
-                                                            {{ __('Club Point') }}:
-                                                            <span class="strong-700 float-right">{{ $product->earn_point }}</span>
-                                                        </div>
+                                                    @else
+                                                        <img  class="mx-auto img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
                                                     @endif
+                                                </a>
+                                            </div>
+
+                                            <div class="p-3">
+                                                <div class="price-box">
+                                                    <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
+                                                    <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
                                                 </div>
+                                                <div class="star-rating star-rating-sm mt-1">
+                                                    {{ renderStarRating($product->rating) }}
+                                                </div>
+                                                <h2 class="product-title p-0 text-truncate-2">
+                                                    <a href="{{ route('product', $product->slug) }}">{{ __($product->name) }}</a>
+                                                </h2>
+                                                @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
+                                                    <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
+                                                        {{ __('Club Point') }}:
+                                                        <span class="strong-700 float-right">{{ $product->earn_point }}</span>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            <div class="d-flex w-100 mt-2">
+                            
+                                                @php
+                                                $qty = 0;
+                                                if($product->variant_product){
+                                                    foreach ($product->stocks as $key => $stock) {
+                                                        $qty += $stock->qty;
+                                                    }
+                                                }
+                                                else{
+                                                    $qty = $product->current_stock ;
+                                                }
+                                                @endphp
+                                                @if($qty == 0)
+                                                <div class="stock mr-1">
+                                                    Out of Stock
+                                                </div>
+                                                @endif
+                                                @if (! $product->discount == 0)
+                                                <div class="product-discount-label font-weight-bold d-flex align-items-center px-2" style="background-color: var(--theme_color_sub); ">
+                                                    {{ ($product->discount_type == 'amount')?'Rs.':'' }} {{ $product->discount }}{{ !($product->discount_type == 'amount')?' %':'' }}
+                                                </div>
+                                                @endif
+                                            
+                                            </div>
+                                            <div class="cart-add d-flex">
+                                                <button class="btn add-wishlist border-right" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})">
+                                                    <i class="la la-heart-o"></i>
+                                                </button>
+                                                <button class="btn add-compare border-right" title="Add to Compare" onclick="addToCompare({{ $product->id }})">
+                                                    <i class="la la-refresh"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-block btn-icon-left border-top" onclick="showAddToCartModal({{ $product->id }})">
+                                                    <span class="d-none d-sm-inline-block">{{__('Add to cart')}}</span><i class="la la-shopping-cart ml-2"></i>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
-                            </div>
+                                </div>
+                            @endforeach
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        @endif
+
     @endif
 
 
@@ -268,6 +324,31 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="d-flex w-100 mt-2">
+                            
+                                    @php
+                                    $qty = 0;
+                                    if($product->variant_product){
+                                        foreach ($product->stocks as $key => $stock) {
+                                            $qty += $stock->qty;
+                                        }
+                                    }
+                                    else{
+                                        $qty = $product->current_stock ;
+                                    }
+                                    @endphp
+                                    @if($qty == 0)
+                                    <div class="stock mr-1">
+                                        Out of Stock
+                                    </div>
+                                    @endif
+                                    @if (! $product->discount == 0)
+                                    <div class="product-discount-label font-weight-bold d-flex align-items-center px-2" style="background-color: var(--theme_color_sub); ">
+                                        {{ ($product->discount_type == 'amount')?'Rs.':'' }} {{ $product->discount }}{{ !($product->discount_type == 'amount')?' %':'' }}
+                                    </div>
+                                    @endif
+                                
+                                </div>
                                 <div class="cart-add d-flex">
                                     <button class="btn add-wishlist border-right" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})">
                                         <i class="la la-heart-o"></i>
@@ -275,7 +356,7 @@
                                     <button class="btn add-compare border-right" title="Add to Compare" onclick="addToCompare({{ $product->id }})">
                                         <i class="la la-refresh"></i>
                                     </button>
-                                    <button type="button" class="btn btn-block btn-icon-left" onclick="showAddToCartModal({{ $product->id }})">
+                                    <button type="button" class="btn btn-block btn-icon-left border-top" onclick="showAddToCartModal({{ $product->id }})">
                                         <span class="d-none d-sm-inline-block">{{__('Add to cart')}}</span><i class="la la-shopping-cart ml-2"></i>
                                     </button>
                                 </div>
