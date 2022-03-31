@@ -93,7 +93,7 @@ class OrderController extends Controller
                 }
             }
             else{
-                $order_detail_shipping_cost = \App\Product::find($cartItem['id'])->shipping_cost;
+                $order_detail_shipping_cost = \App\Product::find($cartItem['product_id'])->shipping_cost;
             }
 
 

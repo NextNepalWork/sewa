@@ -98,7 +98,7 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        {{ single_price($order->orderDetails->where('seller_id', Auth::user()->id)->sum('price')) }}
+                                                        {{ single_price($order->orderDetails->where('seller_id', Auth::user()->id)->sum('price')-$order->coupon_discount )}}
                                                     </td>
                                                     <td>
                                                         @php

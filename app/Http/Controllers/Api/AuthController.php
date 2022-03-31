@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
     public function signup(Request $request)
     {
-        $request->validate([
+        $validator= $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:6'
@@ -28,9 +28,19 @@ class AuthController extends Controller
         $customer = new Customer;
         $customer->user_id = $user->id;
         $customer->save();
-        return response()->json([
-            'message' => 'Registration Successful. Please log in to your account'
-        ], 201);
+        // $tokenResult = $user->createToken('Personal Access Token');
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+        else {
+            return response()->json([
+                // 'user'=>$user,
+                // 'token'=>$tokenResult,
+                'status'=>200,
+                'message' => 'Registration Successful. Please log in to your account'
+            ], 201);
+        }
+
     }
 
     public function login(Request $request)
@@ -57,6 +67,7 @@ class AuthController extends Controller
     {
         $request->user()->token()->revoke();
         return response()->json([
+            'status'=>200,
             'message' => 'Successfully logged out'
         ]);
     }
@@ -95,6 +106,8 @@ class AuthController extends Controller
             'expires_at' => Carbon::parse(
                 $tokenResult->token->expires_at
             )->toDateTimeString(),
+            'message'=>'Login Successful',
+            'status'=>200,
             'user' => [
                 'id' => $user->id,
                 'type' => $user->user_type,

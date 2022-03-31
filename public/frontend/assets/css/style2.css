@@ -382,9 +382,9 @@ a.btn:hover {
     padding: 5px;
     color: #fff;
     background-color: var(--theme_color);
-    position: absolute;
+    /* position: absolute;
     top: 30px;
-    right: 0px;
+    right: 0px; */
     font-size: 12px;
 }
 
@@ -1894,4 +1894,18 @@ input[type="number"] {
 section#cart-summary .cart-price h6 {
     font-size: 14px !important;
     font-weight: 600 !important;
+}
+
+.stock {
+    display: block;
+    padding: 5px;
+    color: #fff;
+    background-color: black;
+    /* position: absolute;
+    top: -1px;
+    right: -5px; */
+    font-size: 12px;
+}
+.input-number {
+    height: auto;
 }

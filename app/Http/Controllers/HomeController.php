@@ -405,6 +405,8 @@ class HomeController extends Controller
 
     public function search(Request $request)
     {
+        // dd($request);
+
         $query = $request->q;
         // Session::forget('key');
         // Session::put('key',$query);
@@ -447,6 +449,11 @@ class HomeController extends Controller
         $min_price = $request->min_price;
         $max_price = $request->max_price;
         $seller_id = $request->seller_id;
+        $rating = $request->rating;
+        // dd($rating);
+        
+        // dd($min_rating);
+
 
         $conditions = ['published' => 1];
 
@@ -481,6 +488,12 @@ class HomeController extends Controller
         if($min_price != null && $max_price != null){
             $products = $products->where('unit_price', '>=', $min_price)->where('unit_price', '<=', $max_price);
         }
+
+        if($rating != null){
+            $products = $products->where('rating', $rating);
+            // dd($products);
+        }
+         
         
         if($query != null){
             $searchController = new SearchController;
@@ -589,11 +602,13 @@ class HomeController extends Controller
             $selected_color = $request->color;
         }
 
+
+
         $products = filter_products($products)->paginate(12)->appends(request()->query());
 
         
 
-        return view('frontend.product_listing', compact('products', 'query', 'category_id', 'subcategory_id', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color','location_id'));
+        return view('frontend.product_listing', compact('products', 'query', 'category_id', 'subcategory_id', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color','location_id','rating'));
     }
 
     public function product_content(Request $request){

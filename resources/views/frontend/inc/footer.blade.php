@@ -13,58 +13,82 @@
                 @php
                      $generalsetting = \App\GeneralSetting::first();
               @endphp
-          <div class="col-lg-4 col-12">
+          <div class="col-lg-3 col-12">
              <div class="footer-logo-box text_white">
-                <div class="header-logo">
-                   <a class="footer-logo navbar-brand text-white font-weight-bold text-uppercase font-weight-bolder mb-4 p-0"
-                      href="{{ route('home') }}">
-                      @if($generalsetting->logo != null)
-                      <img loading="lazy"  src="{{ asset($generalsetting->logo) }}" alt="{{ env('APP_NAME') }}" height="44">
-                    @else
-                      <img loading="lazy"  src="{{ asset('frontend/images/logo/logo.png') }}" alt="{{ env('APP_NAME') }}" height="44">
-                  @endif
-                   </a>
-                </div>
-                <p class="text-white font-weight-normal">
-                    {{ $generalsetting->description }}
-                </p>
-                <ul class="d-flex">
-                    @if ($generalsetting->facebook != null)
-                   <li class="logo-bg">
-                      <a href="{{ $generalsetting->facebook }}" class="text-white"><i class="fa fa-facebook"
-                            aria-hidden="true"></i></a>
-                    @endif
-                   </li>
-                   @if ($generalsetting->instagram != null)
-                   <li class="feature_in_bg ml-3">
-                      <a href="{{ $generalsetting->instagram }}" class="text-white"=""=""><i class="fa fa-instagram"
-                            aria-hidden="true"></i></a>
-                   </li>
-                   @endif
-                   @if ($generalsetting->google_plus != null)
-                   <li class="logo-bg ml-3">
-                      <a href="{{ $generalsetting->google_plus }}" class="text-white"=""=""><i class="fa fa-google"
-                            aria-hidden="true"></i></a>
-                   </li>
-                   @endif
-                   @if ($generalsetting->twitter != null)
-                   <li class="logo-bg ml-3">
-                      <a href="{{ $generalsetting->twitter }}" class="text-white"=""=""><i class="fa fa-twitter"
-                            aria-hidden="true"></i></a>
-                   </li>
-                   @endif
-                </ul>
+               <div class="footer-title text_white footer_after">
+                  <h4 class="mb-2 mb-md-4 text-white">Follow us on</h4>
+                  <ul class="">
+                     @if ($generalsetting->facebook != null)
+                     <li class="mb-2">
+                        <a href="{{ $generalsetting->facebook }}" class="text-white"><i class="fa fa-facebook"
+                              aria-hidden="true"></i>&nbsp;Facebook</a>
+                     @endif
+                     </li>
+                     @if ($generalsetting->instagram != null)
+                     <li class="mb-2">
+                        <a href="{{ $generalsetting->instagram }}" class="text-white"=""=""><i class="fa fa-instagram"
+                              aria-hidden="true"></i>&nbsp;Instagram</a>
+                     </li>
+                     @endif
+                     @if ($generalsetting->google_plus != null)
+                     <li class="mb-2">
+                        <a href="{{ $generalsetting->google_plus }}" class="text-white"=""=""><i class="fa fa-google"
+                              aria-hidden="true"></i>&nbsp;Google</a>
+                     </li>
+                     @endif
+                     @if ($generalsetting->twitter != null)
+                     <li class="mb-2">
+                        <a href="{{ $generalsetting->twitter }}" class="text-white"=""=""><i class="fa fa-twitter"
+                              aria-hidden="true"></i>&nbsp;Twitter</a>
+                     </li>
+                     @endif
+                  </ul>
+               </div>
              </div>
           </div>
           <div class="col-lg-2 col-6">
+            <div class="footer-title text_white footer_after">
+               <h4 class="mb-2 mb-md-4 text-white">Pages</h4>
+               <ul class="text-white">
+                   @foreach (\App\Page::all() as $key => $link)
+                  <li class="mb-2">
+                     <a href="{{ route('custom-pages.show_custom_page',['slug' => $link->slug]) }}" class="text-white"> {{ $link->title }}</a>
+                  </li>
+                  @endforeach
+               </ul>
+            </div>
+         </div>
+          <div class="col-lg-2 col-6">
              <div class="footer-title text_white footer_after">
-                <h4 class="mb-2 mb-md-4 text-white">Quick Links</h4>
+                <h4 class="mb-2 mb-md-4 text-white">Information</h4>
                 <ul class="text-white">
-                    @foreach (\App\Link::all() as $key => $link)
+                    {{-- @foreach (\App\Link::all() as $key => $link)
                    <li class="mb-2">
                       <a href="{{ $link->url }}" class="text-white"> {{ $link->name }}</a>
                    </li>
-                   @endforeach
+                   @endforeach --}}
+                   {{-- @foreach (\App\Policy::all() as $key => $link) --}}
+                     <li class="mb-2">
+                        <a href="{{ route('sellerpolicy') }}" class="text-white">
+                           {{__('Seller Policy')}}
+                        </a>
+                     </li>
+                     <li class="mb-2">
+                        <a href="{{ route('returnpolicy') }}" class="text-white">
+                           {{__('Return Policy')}}
+                        </a>
+                     </li>
+                     <li class="mb-2">
+                        <a href="{{ route('terms') }}" class="text-white">
+                           {{__('Terms & Conditions')}}
+                        </a>
+                     </li>
+                     <li class="mb-2">
+                        <a href="{{ route('sellerpolicy') }}" class="text-white">
+                           {{__('Seller Policy')}}
+                        </a>
+                     </li>
+                   {{-- @endforeach --}}
                 </ul>
              </div>
           </div>
@@ -93,9 +117,9 @@
                 </ul>
              </div>
           </div>
-          <div class="col-lg-4 col-12 mt-4 mt-lg-0">
+          <div class="col-lg-3 col-12 mt-4 mt-lg-0">
              <div class="footer-title text_white footer_after">
-                <h4 class="text-white mb-2 mb-md-4">Find Us</h4>
+                <h4 class="text-white mb-2 mb-md-4">Customer Support</h4>
                 <ul>
                    <li class="text-white mb-2">
                       <span class="pr-3"><i class="fa fa-map-marker" aria-hidden="true"></i></span>{{ $generalsetting->address  }}
@@ -115,8 +139,13 @@
        </div>
        <hr />
        <div class="row">
-          <div class="col-md-12 text-center pb-3 pt-2">
-             <p class="mb-0 text-white text-center font-weight-normal">
+         <div class="col-md-6 text-center pb-3 pt-2">
+            <p class="mb-0 text-white text-left font-weight-normal">
+               We accept ConnectIps, Esewa, Khalti, Visa Card, Master Card
+            </p>
+         </div>
+          <div class="col-md-6 text-center pb-3 pt-2">
+             <p class="mb-0 text-white text-right font-weight-normal">
                 Copyright All Right Reserved <?php echo(date("Y")) ?>.
                 <span class="testimonial-title">Power by NEXT NEPAL </span>
              </p>

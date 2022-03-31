@@ -175,6 +175,38 @@
                                         </div>
                                     </div>
                                 </div>
+                                {{-- product rating --}}
+                                <div class="col-12">
+                                    <div class="card-wrapper my-2">
+                                        <div class="card-group-item">
+                                            <div class="card-head">
+                                                <div
+                                                    class="heading d-flex align-items-center text-center flex-wrap">
+                                                    <div class="head">
+                                                        <h6 class="text-capitalize m-0">Product Rating</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="px-3 py-2">
+                                                <ul class="mb-0">
+                                                    @for ($i = 1; $i <= 5; $i++)     
+                                                    <li>
+                                                        <input type="radio" name="rating" value="{{$i}}" onchange="filter()" title="{{$i}} star" />
+                                                        
+                                                        @for ($j = 1; $j <= $i; $j++)   
+                                                            <label class="fa fa-star fa-2x" for="star{{$i}}" title="{{$i}} star" aria-hidden="true"></label>
+                                                        @endfor
+
+                                                    </li>
+                                                    @endfor
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- card-group-item.// -->
+                                    </div>
+                                </div>
+
                                 @if (!empty($all_colors))
                                     <div class="col-12">
                                         <div class="card-wrapper my-2">
@@ -202,6 +234,7 @@
                                         </div>
                                     </div>
                                 @endif
+
 
                                 @foreach ($attributes as $key => $attribute)
                                     @if (\App\Attribute::find($attribute['id']) != null)
@@ -492,7 +525,7 @@
                             <!-- card-group-item.// -->
                         </div>
                         <!-- Content -->
-                        <div class="card-wrapper mt-4 mb-2">
+                        {{-- <div class="card-wrapper mt-4 mb-2">
                             <div class="card-group-item">
                                 <div class="card-head">
                                     <div class="heading d-flex align-items-center text-center flex-wrap">
@@ -542,7 +575,7 @@
                                 </div>
                             </div>
                             <!-- card-group-item.// -->
-                        </div>
+                        </div> --}}
                         <!-- Content -->
                         @if (!empty($all_colors))
                             <div class="card-wrapper mb-2">
@@ -627,9 +660,17 @@
             $('#search-form').submit();
         }
         function rangefilter(arg){
+            // console.log(arg[0]);
             $('input[name=min_price]').val(arg[0]);
             $('input[name=max_price]').val(arg[1]);
             filter();
         }
+        // function ratefilter(rate){
+        //     // console.log(rate[0],rate[1]);
+        //     $('input[name=min_rating]').val(rate[0]);
+        //     $('input[name=max_rating]').val(rate[1]);
+        //     // console.log($('input[name=min_rating]').val(rate[0]));
+        //     filter();
+        // }
     </script>
 @endsection

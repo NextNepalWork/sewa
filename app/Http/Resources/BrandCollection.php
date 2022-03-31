@@ -10,9 +10,12 @@ class BrandCollection extends ResourceCollection
     {
         return [
             'data' => $this->collection->map(function($data) {
+                $placeholder_img='frontend/images/placeholder.jpg';
+
                 return [
+                    'id'=>$data->id,
                     'name' => $data->name,
-                    'logo' => $data->logo,
+                    'logo' => file_exists($data->logo) ? $data->logo : $placeholder_img,
                     'links' => [
                         'products' => route('api.products.brand', $data->id)
                     ]

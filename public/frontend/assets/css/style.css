@@ -1032,9 +1032,9 @@ section#productlist .product-grid-item .product-discount-label {
     padding: 5px;
     color: #fff;
     background-color: var(--theme_color_sub);
-    position: absolute;
+    /* position: absolute;
     top: 30px;
-    right: -5px;
+    right: -5px; */
     font-size: 12px;
 }
 

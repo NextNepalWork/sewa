@@ -11,6 +11,7 @@ class WishlistController extends Controller
 
     public function index($id)
     {
+
         return new WishlistCollection(Wishlist::where('user_id', $id)->latest()->get());
     }
 

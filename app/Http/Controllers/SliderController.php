@@ -67,7 +67,10 @@ class SliderController extends Controller
      */
     public function edit($id)
     {
-        //
+        // dd('hi');
+        $slider = Slider::find($id);
+        return view('sliders.edit',compact('slider'));
+        
     }
 
     /**
@@ -78,9 +81,21 @@ class SliderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function update(Request $request, $id)
-    {
+     public function update(Request $request, $id){
         $slider = Slider::find($id);
+        $slider->photo = $request->previous_photo;
+        if($request->hasFile('photo')){
+            $slider->photo = $request->photo->store('uploads/sliders');
+        }
+        $slider->link = $request->url;
+        $slider->save();
+        flash(__('Slider has been updated successfully'))->success();
+        return redirect()->route('home_settings.index');
+    }
+     
+    public function update_status(Request $request)
+    {
+        $slider = Slider::find($request->id);
         $slider->published = $request->status;
         if($slider->save()){
             return '1';

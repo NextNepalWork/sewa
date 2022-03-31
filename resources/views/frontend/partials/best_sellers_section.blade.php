@@ -19,9 +19,14 @@
        <div class="row mb-4">
           <div class="col-md-12">
              <div class="section_title_block d-flex justify-content-between align-item-center h-100">
+                @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->name == "Nepali")
+                <h2 class="position-relative mb-0">हाम्रो शीर्ष विक्रेताहरू</h2>
+                <a class="btn_view" href="#"> सबै विक्रेताहरू हेर्नुहोस् <span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+
+                @else
                 <h2 class="position-relative mb-0">Our Top Vendors</h2>
-                <a class="btn_view" href=""> View All Best Vendors <span class="pl-2 "><i class="fa fa-angle-right"
-                         aria-hidden="true"></i></span></a>
+                <a class="btn_view" href="#"> View All Vendors <span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                @endif
 
              </div>
           </div>

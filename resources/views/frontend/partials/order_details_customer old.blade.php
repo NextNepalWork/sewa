@@ -6,8 +6,7 @@
 </div>
 
 @php
-    $status = $order->orderDetails->where('seller_id', Auth::user()->id)->first()->delivery_status;
-    $payment_status = $order->orderDetails->where('seller_id', Auth::user()->id)->first()->payment_status;
+    $status = $order->orderDetails->first()->delivery_status;
     $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
 @endphp
 
@@ -32,31 +31,9 @@
             </li>
         </ul>
     </div>
-    <div class="row mt-5">
-        <div class="offset-lg-2 col-lg-4 col-sm-6">
-            <div class="form-inline">
-                <select class="form-control selectpicker form-control-sm"  data-minimum-results-for-search="Infinity" id="update_payment_status">
-                    <option value="unpaid" @if ($payment_status == 'unpaid') selected @endif>{{__('Unpaid')}}</option>
-                    <option value="paid" @if ($payment_status == 'paid') selected @endif>{{__('Paid')}}</option>
-                </select>
-                <label class="my-2" >{{__('Payment Status')}}</label>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6">
-            <div class="form-inline">
-                <select class="form-control selectpicker form-control-sm"  data-minimum-results-for-search="Infinity" id="update_delivery_status">
-                    <option value="pending" @if ($status == 'pending') selected @endif>{{__('Pending')}}</option>
-                    <option value="on_review" @if ($status == 'on_review') selected @endif>{{__('On review')}}</option>
-                    <option value="on_delivery" @if ($status == 'on_delivery') selected @endif>{{__('On delivery')}}</option>
-                    <option value="delivered" @if ($status == 'delivered') selected @endif>{{__('Delivered')}}</option>
-                </select>
-                <label class="my-2" >{{__('Delivery Status')}}</label>
-            </div>
-        </div>
-    </div>
-    <div class="card mt-3">
-        <div class="card-header py-2 px-3 ">
-        <div class="heading-6 strong-600">{{__('Order Summary')}}</div>
+    <div class="card mt-4">
+        <div class="card-header py-2 px-3 heading-6 strong-600 clearfix">
+            <div class="float-left">{{__('Order Summary')}}</div>
         </div>
         <div class="card-body pb-0">
             <div class="row">
@@ -90,15 +67,15 @@
                         </tr>
                         <tr>
                             <td class="w-50 strong-600">{{__('Order status')}}:</td>
-                            <td>{{ $status }}</td>
+                            <td>{{ ucfirst(str_replace('_', ' ', $status)) }}</td>
                         </tr>
                         <tr>
                             <td class="w-50 strong-600">{{__('Total order amount')}}:</td>
-                            <td>{{ single_price($order->orderDetails->where('seller_id', Auth::user()->id)->sum('price') + $order->orderDetails->where('seller_id', Auth::user()->id)->sum('tax')) }}</td>
+                            <td>{{ single_price($order->orderDetails->sum('price') + $order->orderDetails->sum('tax')) }}</td>
                         </tr>
                         <tr>
-                            <td class="w-50 strong-600">{{__('Contact')}}:</td>
-                            <td>{{ json_decode($order->shipping_address)->phone }}</td>
+                            <td class="w-50 strong-600">{{__('Shipping method')}}:</td>
+                            <td>{{__('Flat shipping rate')}}</td>
                         </tr>
                         <tr>
                             <td class="w-50 strong-600">{{__('Payment method')}}:</td>
@@ -118,7 +95,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th width="40%">{{__('Product')}}</th>
+                                <th width="30%">{{__('Product')}}</th>
                                 <th>{{__('Variation')}}</th>
                                 <th>{{__('Quantity')}}</th>
                                 <th>{{__('Delivery Type')}}</th>
@@ -129,7 +106,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($order->orderDetails->where('seller_id', Auth::user()->id) as $key => $orderDetail)
+                            @foreach ($order->orderDetails as $key => $orderDetail)
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td>
@@ -154,15 +131,24 @@
                                             @endif
                                         @endif
                                     </td>
-                                    <td>{{ $orderDetail->price }}</td>
+                                    <td>{{ single_price($orderDetail->price) }}</td>
                                     @if ($refund_request_addon != null && $refund_request_addon->activated == 1)
+                                        @php
+                                            $no_of_max_day = \App\BusinessSetting::where('type', 'refund_request_time')->first()->value;
+                                            $last_refund_date = $orderDetail->created_at->addDays($no_of_max_day);
+                                            $today_date = Carbon\Carbon::now();
+                                        @endphp
                                         <td>
-                                            @if ($orderDetail->product != null && $orderDetail->product->refundable != 0 && $orderDetail->refund_request == null)
-                                                <button type="submit" class="btn btn-styled btn-sm btn-base-1" onclick="send_refund_request('{{ $orderDetail->id }}')">{{ __('Send') }}</button>
+                                            @if ($orderDetail->product != null && $orderDetail->product->refundable != 0 && $orderDetail->refund_request == null && $today_date <= $last_refund_date && $orderDetail->delivery_status == 'delivered')
+                                                <a href="{{route('refund_request_send_page', $orderDetail->id)}}" class="btn btn-styled btn-sm btn-base-1">{{ __('Send') }}</a>
                                             @elseif ($orderDetail->refund_request != null && $orderDetail->refund_request->refund_status == 0)
                                                 <span class="strong-600">{{ __('Pending') }}</span>
                                             @elseif ($orderDetail->refund_request != null && $orderDetail->refund_request->refund_status == 1)
-                                                <span class="strong-600">{{ __('Paid') }}</span>
+                                                <span class="strong-600">{{ __('Approved') }}</span>
+                                            @elseif ($orderDetail->product->refundable != 0)
+                                                <span class="strong-600">{{ __('N/A') }}</span>
+                                            @else
+                                                <span class="strong-600">{{ __('Non-refundable') }}</span>
                                             @endif
                                         </td>
                                     @endif
@@ -175,72 +161,57 @@
         </div>
         <div class="col-lg-3">
             <div class="card mt-4">
-                <div class="card-header py-2 px-3 heading-6 strong-600">{{__('Order Amount')}}</div>
+                <div class="card-header py-2 px-3 heading-6 strong-600">{{__('Order Ammount')}}</div>
                 <div class="card-body pb-0">
                     <table class="table details-table">
                         <tbody>
                             <tr>
                                 <th>{{__('Subtotal')}}</th>
                                 <td class="text-right">
-                                    <span class="strong-600">{{ single_price($order->orderDetails->where('seller_id', Auth::user()->id)->sum('price')) }}</span>
+                                    <span class="strong-600">{{ single_price($order->orderDetails->sum('price')) }}</span>
                                 </td>
                             </tr>
                             <tr>
                                 <th>{{__('Shipping')}}</th>
                                 <td class="text-right">
-                                    <span class="text-italic">{{ single_price($order->orderDetails->where('seller_id', Auth::user()->id)->sum('shipping_cost')) }}</span>
+                                    <span class="text-italic">{{ single_price($order->orderDetails->sum('shipping_cost')) }}</span>
                                 </td>
                             </tr>
                             <tr>
                                 <th>{{__('Tax')}}</th>
                                 <td class="text-right">
-                                    <span class="text-italic">{{ single_price($order->orderDetails->where('seller_id', Auth::user()->id)->sum('tax')) }}</span>
+                                    <span class="text-italic">{{ single_price($order->orderDetails->sum('tax')) }}</span>
                                 </td>
                             </tr>
                             <tr>
                                 <th>{{__('Coupon Discount')}}</th>
                                 <td class="text-right">
-                                    <span class="text-italic">{{ $order->coupon_discount }}</span>
+                                    <span class="text-italic">{{ single_price($order->coupon_discount) }}</span>
                                 </td>
                             </tr>
                             <tr>
                                 <th><span class="strong-600">{{__('Total')}}</span></th>
                                 <td class="text-right">
-                                    <strong>
-                                        <span>
-                                            {{ single_price($order->orderDetails->where('seller_id', Auth::user()->id)->sum('price') + $order->orderDetails->where('seller_id', Auth::user()->id)->sum('tax') + $order->orderDetails->where('seller_id', Auth::user()->id)->sum('shipping_cost')-$order->coupon_discount) }}
-                                        </span>
-                                    </strong>
+                                    <strong><span>{{ single_price($order->grand_total) }}</span></strong>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+            @if ($order->manual_payment && $order->manual_payment_data == null)
+                <button onclick="show_make_payment_modal({{ $order->id }})" class="btn btn-block btn-base-1">{{__('Make Payment')}}</button>
+            @endif
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-    $('#update_delivery_status').on('change', function(){
-        var order_id = {{ $order->id }};
-        var status = $('#update_delivery_status').val();
-        $.post('{{ route('orders.update_delivery_status') }}', {_token:'{{ @csrf_token() }}',order_id:order_id,status:status}, function(data){
-            // return true;
-            $('#order_details').modal('hide');
-            showFrontendAlert('success', 'Order status has been updated');
-            location.reload().setTimeOut(500);
+    function show_make_payment_modal(order_id){
+        $.post('{{ route('checkout.make_payment') }}', {_token:'{{ csrf_token() }}', order_id : order_id}, function(data){
+            $('#payment_modal_body').html(data);
+            $('#payment_modal').modal('show');
+            $('input[name=order_id]').val(order_id);
         });
-    });
-
-    $('#update_payment_status').on('change', function(){
-        var order_id = {{ $order->id }};
-        var status = $('#update_payment_status').val();
-        $.post('{{ route('orders.update_payment_status') }}', {_token:'{{ @csrf_token() }}',order_id:order_id,status:status}, function(data){
-            $('#order_details').modal('hide');
-            //console.log(data);
-            // showFrontendAlert('success', 'Payment status has been updated');
-            // location.reload().setTimeOut(500);
-        });
-    });
+    }
 </script>

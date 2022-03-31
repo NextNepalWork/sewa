@@ -1,15 +1,165 @@
 @extends('frontend.layouts.app')
 @section('content')
-<section id="slider" class="body_bg">
+<style>
+    .category-list {
+  z-index: 100;
+}
+
+.sub_menu_list2 {
+  position: absolute;
+  top: 0;
+  width: 57.5rem;
+  right: -109%;
+  height: 100%;
+  padding: 0.5rem 0;
+}
+
+.sub_menu_list2 {
+  display: none;
+  transform: translate(14px, -1px);
+  transition: 0.5s;
+}
+
+.product_icon:hover .sub_menu_list2 {
+  display: flex;
+  transform: translate(14px, -1px);
+  left: 100%;
+  border-left: 1px solid;
+  border-color: #00000026;
+  overflow-y:scroll;
+  background-color: white;
+}
+
+.sub_menu_list2 .c-list {
+  color: #000;
+}
+
+.sub_menu_list2 li {
+  padding-bottom: 0.5rem;
+}
+
+.sub_menu_list2 li.title {
+  color: var(--theme_color_sub);
+}
+.categories-nav .category_title_top {
+  color: #ffffff;
+}
+
+.categories-nav {
+  background-color: var(--theme_color);
+
+}
+
+.categories-nav li {
+  display: flex;
+  height: 100%;
+}
+
+.categories-nav li:hover a {
+  background-color: #258aff !important;
+  color: var(--theme_color_sub);
+}
+</style>
+
+<!-- Categories -->
+<section class="d-lg-block d-none" >
     <div class="container p-0">
        <div class="row no-gutters">
-          <div class="col-lg-3 col-12 d-md-block d-none">
+          <div class="col-3 d-md-block d-none categories-list" >
+             <div class="category_title_top d-flex justify-content-between theme_bg" data-toggle="collapse"
+                href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <div class="category_title" >
+                   <h5 class="mb-0" style="cursor: pointer">All Categories <i class="fa fa-angle-down" aria-hidden="true"></i></h5>
+                </div>
+                <div class="category_btn m-auto">
+                   <a href="{{ route('categories.all') }}">View all</a>
+                </div>
+             </div>
+             <ul class="category-list bg-white border_one position-absolute w-100 collapse" id="collapseExample">
+                @foreach (\App\Category::all()->take(11) as $key => $category)
+                    @php
+                        $brands = array();
+                    @endphp
+                    <li class="px-3 product_icon d-block" data-id="{{ $category->id }}">
+                        <div style="
+                                display: flex;
+                                justify-content: space-between;
+                                ">
+                            <div>
+                                <a href="{{ route('products.category', $category->slug) }}" class="sub_icon"><span class="pr-2 category_icon_img">
+                                    <img
+                                        src="{{ $category->icon }}"
+                                        class="img-fluid" alt=""></span>
+                                        {{ __($category->name) }}
+                                    </a>
+                            </div>
+                            <div class="icon_show_category">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="row sub_menu_list2">
+                            @if(count($category->subcategories)>0)
+                            @foreach ($category->subcategories as $sub)
+
+                            <div class="col-xl-4 col-lg-3 col-md-6 col-12 text-center">
+                                <ul class="p-0">
+                                    <li class="title font-weight-bold">
+                                        <a href="{{ route('products.subcategory', $category->slug) }}">
+                                            {{$sub->name}}
+                                        </a>
+                                    </li>
+                                    @if(count($sub->subsubcategories)>0)
+                                    @foreach($sub->subsubcategories as $subsub)
+                                        <li><a href="{{ route('products.subsubcategory', $subsub->slug) }}" class="c-list">{{$subsub->name}}</a></li>
+                                    @endforeach
+                                    @endif
+                               </ul>
+                            </div>
+                            @endforeach
+                            @endif
+                         </div>
+                        {{-- <ul class="sub_menu_list">
+                            @if(count($category->subcategories)>0)
+                            @foreach ($category->subcategories as $sub)
+                            <li>
+                                <a href="{{ route('products.subcategory', $category->slug) }}">
+                                    <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    {{$sub->name}}
+                                </a>
+                            </li>
+                            @endforeach                                        
+                            @endif
+                        </ul> --}}
+                    </li>
+                @endforeach
+             </ul>
+          </div>
+          <div class="col-9">
+             <ul class="categories-nav d-flex justify-content-around align-items-center h-100">
+                @foreach(\App\Category::where('top',1)->limit(5)->get() as $top)
+                <li>
+                   <a href="{{ route('products.category', $top->slug) }}" class="category_title_top">{{$top->name}}</a>
+
+                </li>
+                @endforeach
+
+             </ul>
+          </div>
+
+       </div>
+    </div>
+</section>
+ <!-- Categories Ends -->
+ <section id="slider" >
+    <div class="container p-0">
+       <div class="row no-gutters">
+          {{-- <div class="col-lg-3 col-12 d-md-block d-none">
              <div class="category_title_top d-flex justify-content-between theme_bg">
                 <div class="category_title">
                    <h5 class="mb-0">All Categories</h5>
                 </div>
                 <div class="category_btn">
-                   <a href="{{ route('categories.all') }}">View All</a>
+                   <a href="{{ route('categories.all') }}">सबै हेर्नुहोस्</a>
                 </div>
              </div>
              <ul class="bg-white border_one d-lg-block d-none">
@@ -49,8 +199,8 @@
                     </li>
                 @endforeach
              </ul>
-          </div>
-          <div class="col-lg-9 col-12">
+          </div> --}}
+          <div class="col-12">
              <div class="slider_banner">
                 @foreach (\App\Slider::where('published', 1)->get() as $key => $slider)
                     <div class="slider_item position-relative">
@@ -63,7 +213,7 @@
           </div>
        </div>
     </div>
- </section>
+</section>
 
     <!--============================================================ CATEGORY START=-->
     <section id="category_section" class="">
@@ -113,7 +263,11 @@
                         <div class="special_offer_men p-4 text-center">
                             <div class="special_header d-flex justify-content-between align-items-center">
                                 <div class="special_title">
+                                @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->name == "Nepali")
+                                <h4>फ्ल्याश सेल</h4>
+                                @else
                                 <h4>Special Offer</h4>
+                                @endif
                                 </div>
                                 <div class="savings">
                                     <span class="savings-text">
@@ -177,8 +331,14 @@
               <div class="row mb-4">
                  <div class="col-md-12">
                     <div class="section_title_block d-flex justify-content-between align-item-center h-100">
-                       <h2 class="position-relative mb-0">Featured Products</h2>
-                       <a class="btn_view" href=""> View All featured products<span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                    @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->name == "Nepali")
+                    <h2 class="position-relative mb-0">विशेष उत्पादनहरू</h2>
+                    <a class="btn_view" href="{{route('products')}}"> सबै विशेष उत्पादनहरू हेर्नुहोस्<span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                    @else
+                    <h2 class="position-relative mb-0">Featured Products</h2>
+                    <a class="btn_view" href="{{route('products')}}"> View all featured products<span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                    @endif
+                        
                        </header>
                     </div>
                  </div>
@@ -202,6 +362,32 @@
                                             <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
                                         </h6>
                                     </div>
+                                    <div class="d-flex justify-content-between">
+                        
+                                        @php
+                                        $qty = 0;
+                                        if($product->variant_product){
+                                            foreach ($product->stocks as $key => $stock) {
+                                                $qty += $stock->qty;
+                                            }
+                                        }
+                                        else{
+                                            $qty = $product->current_stock ;
+                                        }
+                                        @endphp
+                                        @if($qty == 0)
+                                        <div class="stock">
+                                            Out of Stock
+                                        </div>
+                                        @endif
+                                        @if (! $product->discount == 0)
+                                        <div class="product-discount-label ml-auto">
+                                            {{ ($product->discount_type == 'amount')?'Rs.':'' }} {{ $product->discount }}{{ !($product->discount_type == 'amount')?' %':'' }}
+                                        </div>
+                                        @endif
+                                    
+                                    </div>
+
                                     <div class="product-grid-image">
                                         <a href="{{ route('product', $product->slug) }}">
                                             @php
@@ -217,11 +403,6 @@
                                                 <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
                                             @endif
                                         </a>
-                                        <span class="product-discount-label">
-                                            {{ ($product->discount_type == 'amount')?'Rs.':'' }}
-                                            {{ $product->discount }}
-                                            {{ !($product->discount_type == 'amount')?'%':'' }}                                            
-                                        </span>
                                     </div>
                                     <div class="price-cart text-center pt-2">
                                         <div class="price d-flex align-items-center">
@@ -251,7 +432,7 @@
               </div>
            </div>
         </div>
-     </section>
+    </section>
     {{-- @endif --}}
  <!--============================================= BEST SELLING END ======-->
  @if (\App\BusinessSetting::where('type', 'best_selling')->first()->value == 1)
@@ -260,8 +441,12 @@
     <div class="row">
        <div class="col-md-12">
           <div class="section_title_block d-flex justify-content-between align-item-center h-100">
+            @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->name == "Nepali")
+            <h2 class="position-relative mb-0">सबै भन्दा राम्रो बिक्री</h2>
+            @else
              <h2 class="position-relative mb-0">Best Selling</h2>
-             {{-- <a class="btn_view" href=""> View All Best Selling  <span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a> --}}
+            @endif
+             {{-- <a class="btn_view" href=""> सबै हेर्न Best Selling  <span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a> --}}
              </header>
           </div>
        </div>
@@ -279,6 +464,31 @@
                            <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
                         </h6>
                      </div>
+                    <div class="d-flex justify-content-between">
+                        
+                        @php
+                        $qty = 0;
+                        if($product->variant_product){
+                            foreach ($product->stocks as $key => $stock) {
+                                $qty += $stock->qty;
+                            }
+                        }
+                        else{
+                            $qty = $product->current_stock ;
+                        }
+                        @endphp
+                        @if($qty == 0)
+                        <div class="stock">
+                            Out of Stock
+                        </div>
+                        @endif
+                        @if (! $product->discount == 0)
+                        <div class="product-discount-label ml-auto">
+                            {{ ($product->discount_type == 'amount')?'Rs.':'' }} {{ $product->discount }}{{ !($product->discount_type == 'amount')?' %':'' }}
+                        </div>
+                        @endif
+                    
+                    </div>
                      <div class="product-grid-image">
                         <a href="{{ route('product', $product->slug) }}">
                             @php
@@ -294,13 +504,9 @@
                                 <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
                             @endif
                         </a>
-                        @if (! $product->discount == 0)
-                        <span class="product-discount-label">
-                            {{ ($product->discount_type == 'amount')?'Rs.':'' }} {{ $product->discount }}{{ !($product->discount_type == 'amount')?' %':'' }}
-                        </span>
-                    @endif
+
                      </div>
-                     <div class="price-cart text-center pt-2">
+                     <div class="price-cart text-center pb-2">
                         <div class="price d-flex align-items-center">
                            <h6 class="m-0 gray">{{ home_discounted_base_price($product->id) }}</h6>
                            @if(home_base_price($product->id) != home_discounted_base_price($product->id))
@@ -436,7 +642,7 @@
                         <div class="col-md-12">
                             <div class="section_title_block d-flex justify-content-between align-item-center h-100">
                             <h2 class="position-relative mb-0">{{ __($homeCategory->category->name) }}</h2>
-                            <a class="btn_view" href="{{ route('products.category', $homeCategory->category->slug) }}"> View All <span class="pl-2 "><i class="fa fa-angle-right"
+                            <a class="btn_view" href="{{ route('products.category', $homeCategory->category->slug) }}"> View all <span class="pl-2 "><i class="fa fa-angle-right"
                                         aria-hidden="true"></i></span></a>
                             </header>
                             </div>
@@ -445,7 +651,7 @@
                         <div class="col-xl-12">
         
                             <div class="slider_feature">
-                                @foreach (filter_products(\App\Product::where('published', 1)->where('category_id', $homeCategory->category->id)->where('current_stock','>',0)->with('stocks'))->latest()->limit(12)->get() as $key => $product)
+                                @foreach (filter_products(\App\Product::where('published', 1)->where('category_id', $homeCategory->category->id))->latest()->get() as $key => $product)
                         
                                 <div class="product-grid-item mb-3">
                                     <div class="category-title">
@@ -453,12 +659,36 @@
                                         <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
                                         </h6>
                                     </div>
+                                    <div class="d-flex justify-content-between">
+                        
+                                        @php
+                                        $qty = 0;
+                                        if($product->variant_product){
+                                            foreach ($product->stocks as $key => $stock) {
+                                                $qty += $stock->qty;
+                                            }
+                                        }
+                                        else{
+                                            $qty = $product->current_stock ;
+                                        }
+                                        @endphp
+                                        @if($qty == 0)
+                                        <div class="stock">
+                                            Out of Stock
+                                        </div>
+                                        @endif
+                                        @if (! $product->discount == 0)
+                                        <div class="product-discount-label ml-auto">
+                                            {{ ($product->discount_type == 'amount')?'Rs.':'' }} {{ $product->discount }}{{ !($product->discount_type == 'amount')?' %':'' }}
+                                        </div>
+                                        @endif
+                                    
+                                    </div>
                                     <div class="product-grid-image">
                                         <a href="{{ route('product', $product->slug) }}">
                                             @php
                                         $filepath = $product->thumbnail_img;
                                         @endphp
-                                        
                                         @if(isset($filepath))
                                             @if (file_exists(public_path($filepath)))
                                                 <img src="{{ asset($product->thumbnail_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
@@ -470,12 +700,6 @@
                                         @endif
 
                                         </a>
-                                        
-                                        @if (! $product->discount == 0)                                
-                                            <span class="product-discount-label">
-                                                {{ ($product->discount_type == 'amount')?'Rs.':'' }} {{ $product->discount }}{{ !($product->discount_type == 'amount')?' %':'' }}
-                                            </span>
-                                        @endif
                                     </div>
                                     <div class="price-cart text-center pt-2">
                                         <div class="price d-flex align-items-center">
@@ -508,6 +732,23 @@
     @endif
 @endforeach
 <!--=========================================== Home category section END ======-->
+    <!--============================================= BANNER START ======-->
+    <section id="banner_two" class="mb-5">
+        <div class="container">
+            <div class="row">
+            @foreach (\App\Banner::where('position', 2)->where('published', 1)->take(2)->get() as $key => $banner)
+                <div class="col-md-6 mb-3">
+                    <a href="{{ $banner->url }}">
+                    <div class="two_banner_img">
+                        <img src="{{ asset($banner->photo) }}" class="img-fluid" alt="{{ env('APP_NAME') }} promo">
+                    </div>
+                    </a>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    <!--=========================================== BANNER END ======-->
 
     <!--============================================= JUST FOR YOU START ======-->
     <section id="product-listing-wrapper" class=" product_listing">
@@ -516,9 +757,14 @@
               <div class="row">
                  <div class="col-md-12">
                     <div class="section_title_block d-flex justify-content-between align-item-center h-100">
-                       <h2 class="position-relative mb-0">Latest Products</h2>
-                       <a class="btn_view" href=""> View All <span class="pl-2 "><i class="fa fa-angle-right"
-                                aria-hidden="true"></i></span></a>
+                        @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->name == "Nepali")
+                        <h2 class="position-relative mb-0">नयाँ सामानहरू</h2>
+                        <a class="btn_view" href="{{route('products')}}"> सबै हेर्नुहोस् <span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+
+                        @else
+                        <h2 class="position-relative mb-0">Latest Products</h2>
+                        <a class="btn_view" href="{{route('products')}}"> View all <span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                        @endif
                        </header>
                     </div>
                  </div>
@@ -537,6 +783,32 @@
                                    <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
                                 </h6>
                              </div>
+                             <div class="d-flex justify-content-between">
+                        
+                                @php
+                                $qty = 0;
+                                if($product->variant_product){
+                                    foreach ($product->stocks as $key => $stock) {
+                                        $qty += $stock->qty;
+                                    }
+                                }
+                                else{
+                                    $qty = $product->current_stock ;
+                                }
+                                @endphp
+                                @if($qty == 0)
+                                <div class="stock">
+                                    Out of Stock
+                                </div>
+                                @endif
+                                @if (! $product->discount == 0)
+                                <div class="product-discount-label ml-auto">
+                                    {{ ($product->discount_type == 'amount')?'Rs.':'' }} {{ $product->discount }}{{ !($product->discount_type == 'amount')?' %':'' }}
+                                </div>
+                                @endif
+                            
+                            </div>
+
                              <div class="product-grid-image">
                                 <a href="{{ route('product', $product->slug) }}">
                                     @php
@@ -554,12 +826,6 @@
                                 @endif
 
                                 </a>
-                                
-                                @if (! $product->discount == 0)                                
-                                    <span class="product-discount-label">
-                                        {{ ($product->discount_type == 'amount')?'Rs.':'' }} {{ $product->discount }}{{ !($product->discount_type == 'amount')?' %':'' }}
-                                    </span>
-                                @endif
                              </div>
                              <div class="price-cart text-center pt-2">
                                 <div class="price d-flex align-items-center">
@@ -605,7 +871,7 @@
                         </h3>
                         <ul class="float-right inline-links">
                             <li>
-                                <a href="{{ route('categories.all') }}" class="active">{{__('View All Catogories')}}</a>
+                                <a href="{{ route('categories.all') }}" class="active">{{__('सबै हेर्न Catogories')}}</a>
                             </li>
                         </ul>
                     </div>
@@ -651,7 +917,7 @@
                         </h3>
                         <ul class="float-right inline-links">
                             <li>
-                                <a href="{{ route('brands.all') }}" class="active">{{__('View All Brands')}}</a>
+                                <a href="{{ route('brands.all') }}" class="active">{{__('सबै हेर्न Brands')}}</a>
                             </li>
                         </ul>
                     </div>

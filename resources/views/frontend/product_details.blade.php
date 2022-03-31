@@ -52,6 +52,7 @@
                 </ul>
             </div>
         </div>
+<<<<<<< HEAD
         <section class="section--product-type">
             <div class="container">
                 <div class="product__detail">
@@ -68,6 +69,55 @@
                                                 @foreach (json_decode($detailedProduct->photos) as $key => $photo)
 
                                                     <div class="ps-gallery__item"><img src="{{ asset($photo) }}" data-src="{{ asset($photo) }}" @if($key==0) xpreview="{{ asset($photo) }}" @endif /></div>
+=======
+    </section>
+    <!-- Breadcrumbs Ends -->
+
+    <!-- Product Detail  -->
+    <section id="product-detail-wrapper" class="py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-12 col-12">
+                    <div class="product-carousel">
+                        @if(is_array(json_decode($detailedProduct->photos)) && count(json_decode($detailedProduct->photos)) > 0)
+                        <!-- Swiper and EasyZoom plugins start -->
+                        <div class="swiper-container gallery-top" style="height: 400px">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide easyzoom easyzoom--overlay ">
+                                    @if (!empty(json_decode($detailedProduct->photos)[0]))
+                                        @if (file_exists(json_decode($detailedProduct->photos)[0]))
+                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($detailedProduct->photos)[0]) }}" xoriginal="{{ asset(json_decode($detailedProduct->photos)[0]) }}" />
+                                        @else
+                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload" />
+                                        @endif
+                                    @else
+                                        <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload"/>
+                                    @endif
+                                    
+                                </div>
+                            </div>
+                            <!-- Add Arrows -->
+                            <div class="swiper-button-next swiper-button-white" style="background:none;"></div>
+                            <div class="swiper-button-prev swiper-button-white" style="background:none;"></div>
+                        </div>
+
+                        <div class="swiper-container gallery-thumbs">
+                            <div class="swiper-wrapper">
+                                @foreach (json_decode($detailedProduct->photos) as $key => $photo)
+                                    <a href="{{ asset($photo) }}">
+                                        @if (!empty($photo))
+                                            @if (file_exists($photo))
+                                                <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" width="80" data-src="{{ asset($photo) }}"  @if($key == 0) xpreview="{{ asset($photo) }}" @endif>
+                                            @else
+                                                <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" width="80" @if($key == 0) xpreview="{{ asset('frontend/images/placeholder.jpg') }}" @endif>
+                                            @endif
+                                        @else
+                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" width="80" @if($key == 0) xpreview="{{ asset('frontend/images/placeholder.jpg') }}" @endif>
+                                        @endif
+                                        
+                                    </a>
+                                @endforeach
+>>>>>>> 8d403621953df626a96a5dc787d7136a49da1a10
 
                                                 @endforeach
                                               @endif
@@ -139,6 +189,7 @@
                                             else{
                                             	 $qty = $detailedProduct->current_stock;
                                             }
+<<<<<<< HEAD
                                         @endphp
 
 
@@ -152,6 +203,55 @@
                                                 <span class="ps-product__off">{{ $detailedProduct->discount }} % Off</span>
                                             @endif
 
+=======
+                                        </style> --}}
+                                        <li class="mr-2">
+                                            <div id="share"></div>
+                                        </li>
+                                        {{-- <li class="mr-2">
+                                            <a href="#">
+                                                <i class="fa fa-youtube-play" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                        <li class="mr-2">
+                                            <a href="#">
+                                                <i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        </li>
+                                        <li class="mr-2">
+                                            <a href="#">
+                                                <i class="fa fa-instagram" aria-hidden="true"></i>
+                                            </a>
+                                        </li> --}}
+                                    </ul>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row align-items-center">
+                            <div class="sold-by col-auto">
+                                <small class="mr-2">Vendor: </small><br>
+                                @if ($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
+                                    <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}">{{ $detailedProduct->user->shop->name }}</a>
+                                @else
+                                    {{ __('Inhouse product') }}
+                                @endif
+                            </div>
+                            {{-- @if (\App\BusinessSetting::where('type', 'conversation_system')->first()->value == 1)
+                                <div class="col-auto">
+                                    <button class="btn btn-primary" onclick="show_chat_modal()">{{__('Message Seller')}}</button>
+                                </div>
+                            @endif --}}
+                        </div>
+                        <hr>
+                        <div class="descrip mb-2" style="max-height: fit-content">
+                            <h5>Description</h5>
+                            {{-- <p> --}}
+                                {!! $detailedProduct->description !!}
+                            {{-- </p> --}}
+                        </div>
+>>>>>>> 8d403621953df626a96a5dc787d7136a49da1a10
 
                                         </div>
 
@@ -249,6 +349,7 @@
                                 @endif
 
                                 @if ($detailedProduct->choice_options != null)
+<<<<<<< HEAD
                                   @foreach (json_decode($detailedProduct->choice_options) as $key => $choice)
                                   <div class="form-group col-lg-12 col-md-6">
                                       <div class="size-wrapper">
@@ -306,6 +407,24 @@
                                                 @else
                                                     <a class="ps-product__addcart ps-button"><i class="icon-cart"></i>Out Of Stock</a>
                                                 @endif
+=======
+                                {{-- {{dd($detailedProduct->choice_options)}} --}}
+                                @foreach (json_decode($detailedProduct->choice_options) as $key => $choice)
+                                <div class="form-group col-lg-12 col-md-6">
+                                    <div class="size-wrapper">
+                                        <div class="size-select">
+                                            <h5>{{ \App\Attribute::find($choice->attribute_id)->name }}</h5>
+                                            <div class="select-size">
+                                                {{-- {{dd($choice->values)}} --}}
+                                                @foreach ($choice->values as $key => $value)
+                                                {{-- <div class="size">S</div> --}}
+                                                {{-- <input type="hidden" id="{{ $choice->attribute_id }}-{{ $value }}" name="attribute_id_{{ $choice->attribute_id }}" value="{{ $value }}" @if($key == 0) checked @endif>
+                                                <label class="size" for="{{ $choice->attribute_id }}-{{ $value }}">{{ $value }}</label> --}}
+
+                                                <input type="radio" id="{{ $choice->attribute_id }}-{{ $value }}" name="attribute_id_{{ $choice->attribute_id }}" value="{{ $value }}" @if($key == 0) checked @endif>
+                                                    <label for="{{ $choice->attribute_id }}-{{ $value }}" class="size">{{ $value }}</label>
+                                                @endforeach
+>>>>>>> 8d403621953df626a96a5dc787d7136a49da1a10
                                             </div>
                                         </div>
 
@@ -387,6 +506,7 @@
                             <p class="block-content"> <?php echo $detailedProduct->description; ?></p>
 
                         </div>
+<<<<<<< HEAD
                         <div class="tab-pane fade" id="nutrition-content" role="tabpanel" aria-labelledby="nutrition-tab">
                             <div class="heading-2">Ingredients </div>
                             <p class="block-content">Allergy Advice: For allergens see highlighted ingredients</p>
@@ -485,10 +605,81 @@
                                                     <div class="progress">
                                                         <div class="progress-bar bg-warning" role="progressbar" style="width: {{($reviews_count > 0)?round((($percent[1]/$reviews_count)*100),0):0}}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div><span class="percent">{{($reviews_count > 0)?round((($percent[1]/$reviews_count)*100),0):0}}%</span>
+=======
+                        <div class="tab-pane fade p-3" id="second" role="tabpanel" aria-labelledby="second-tab">
+                            <div class="row align-items-center justify-content-center">
+                                @if(Auth::check())
+                                            @php
+                                                $commentable = false;
+                                            @endphp
+                                            @foreach ($detailedProduct->orderDetails as $key => $orderDetail)
+                                                @if($orderDetail->order != null && $orderDetail->order->user_id == Auth::user()->id && $orderDetail->delivery_status == 'delivered' && \App\Review::where('user_id', Auth::user()->id)->where('product_id', $detailedProduct->id)->first() == null)
+                                                    @php
+                                                        $commentable = true;
+                                                    @endphp
+                                                @endif
+                                            @endforeach
+                                            {{-- @if ($commentable) --}}
+                                            <div class="col-lg-4 col-12 mx-auto">
+                                                <!-- User Comment -->
+                                                <div class="user-comment py-4 px-3">
+                                                    <div class="title mb-3 text-center">
+                                                        <h2 class="font-weight-bold mb-2">Add a comment</h2>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <form class="form-default" role="form" action="{{ route('reviews.store') }}" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="product_id" value="{{ $detailedProduct->id }}">
+                                                            <div class="row">
+                                                                <div class="col-12 my-2">
+                                                                    <input type="text" class="form-control rounded-0" name="name" value="{{ Auth::user()->name }}" class="form-control" disabled required>
+                                                                    {{-- <input type="text" class="form-control rounded-0"
+                                                                        placeholder="Name"> --}}
+                                                                </div>
+                                                                <div class="col-12 my-2">
+                                                                    <input type="text" class="form-control rounded-0" name="email" value="{{ Auth::user()->email }}" class="form-control" required disabled>
+                                                                    {{-- <input type="email" class="form-control rounded-0"
+                                                                        placeholder="Email address"> --}}
+                                                                </div>
+                                                                <div class="col-12 my-2">
+                                                                    <div class="col-text-area d-flex justify-content-center">
+                                                                        <textarea class="w-100 p-3 rounded-0" rows="4" name="comment" placeholder="{{__('Your review')}}" required></textarea>
+                                                                        {{-- <textarea class="w-100 p-3 rounded-0"
+                                                                            placeholder="Add Comment"></textarea> --}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="d-flex justify-content-center mb-4">
+                                                                        <div class="p-ratings">
+                                                                            <input type="radio" id="star5" name="rating" value="5" required/>
+                                                                    <label class="star" for="star5" title="Awesome" aria-hidden="true"></label>
+                                                                    <input type="radio" id="star4" name="rating" value="4" required/>
+                                                                    <label class="star" for="star4" title="Great" aria-hidden="true"></label>
+                                                                    <input type="radio" id="star3" name="rating" value="3" required/>
+                                                                    <label class="star" for="star3" title="Very good" aria-hidden="true"></label>
+                                                                    <input type="radio" id="star2" name="rating" value="2" required/>
+                                                                    <label class="star" for="star2" title="Good" aria-hidden="true"></label>
+                                                                    <input type="radio" id="star1" name="rating" value="1" required/>
+                                                                    <label class="star" for="star1" title="Bad" aria-hidden="true"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="button-wrapper mx-auto mb-3">
+                                                                    <button type="submit" class="btn-custom px-4 color-white">Send</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+>>>>>>> 8d403621953df626a96a5dc787d7136a49da1a10
                                                 </div>
                                             </div>
+<<<<<<< HEAD
                                         </div>
                                     </div>
+=======
+                                            @endif
+                                        {{-- @endif --}}
+>>>>>>> 8d403621953df626a96a5dc787d7136a49da1a10
 
 
 

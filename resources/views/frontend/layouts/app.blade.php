@@ -120,10 +120,10 @@
 {{-- <link type="text/css" href="{{ asset('frontend/css/style-new.css') }}" rel="stylesheet" media="all"> --}}
 
 
-{{-- @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
+@if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
      <!-- RTL -->
     <link type="text/css" href="{{ asset('frontend/css/active.rtl.css') }}" rel="stylesheet" media="all">
-@endif --}}
+@endif
 
 <!-- color theme -->
 {{-- <link href="{{ asset('frontend/css/colors/'.\App\GeneralSetting::first()->frontend_color.'.css')}}" rel="stylesheet" media="all"> --}}
@@ -661,6 +661,41 @@
                  });
          });
      }
+
+
+
+ 
+ //Calculate and output the new amount
+ 
+ function exchangeCurrency() {
+   var amount = $(".amount").val();
+   var rateFrom = $(".currency-list")[0].value;
+//    console.log(rateFrom);
+   var rateTo = $(".currency-list")[1].value;
+   if ((amount - 0) != amount || (''+amount).trim().length == 0) {
+    //    console.log('hi');
+     $(".results").html("0");
+     $(".error").show()
+   } else {
+
+     $(".error").hide()
+     if (amount == undefined || rateFrom == "--Select--" || rateTo == "--Select--") {
+       $(".results").html("0");
+ 
+     } else {
+       $(".results").html((amount * (rateTo * (1 / rateFrom))).toFixed(5));
+     }
+   }
+ }
+
+$(".categories-list").hover(
+  function () {
+    $('.category-list').collapse('show');
+  },
+  function () {
+    $('.category-list').collapse('hide');
+  }
+);
 
 </script>
 

@@ -24,6 +24,12 @@
    .dropdown-custom-category .dropdown-menu .nav {
        padding: 5px 0px;
    }
+   .error {
+  background: red;
+  padding: 10px 15px;
+  color: white;
+  display: none;
+}
 </style>
 
 <header class="section-header top-header-bg d-md-block d-none">
@@ -34,7 +40,12 @@
           </div>
           <div class="top-social-icon">
              <ul class="mb-0">
+                <!-- Button trigger modal -->
                 <li class="d-flex align-items-center top_head_right">
+                  <button type="button" data-toggle="modal" data-target="#currency" style="background: transparent; border:none; color:white;">
+                     Currency Converter
+                  </button>
+                  
                    <div class="dropdown user_login_mobile">
                       <button
                          class="text-light btn_account pb-0 btn bg-transparent dropdown-toggle pt-0 font-weight-normal "
@@ -48,7 +59,7 @@
                             <label><small class="font-weight-bold">Track Your Order</small></label>
                             <div class="track_input_btn d-flex">
                                <input type="text" class="form-control" placeholder="Enter order id" />
-                               <button class="btn_custom_go">Go</button>
+                               <button class="btn_custom_go"> <a href="#">Go </a></button>
                             </div>
                          </div>
                       </ul>
@@ -86,6 +97,28 @@
                          @endif
                       </ul>
                    </div>
+                   <div class="dropdown ml-2" id="lang-change">
+                     @php
+                         if(Session::has('locale')){
+                             $locale = Session::get('locale', Config::get('app.locale'));
+                         }
+                         else{
+                             $locale = 'en';
+                         }
+                     @endphp
+                     <a href="" class="dropdown-toggle top-bar-item" data-toggle="dropdown" style="color:white">
+                         <img src="{{ asset('frontend/images/placeholder.jpg') }}" height="11" data-src="{{ asset('frontend/images/icons/flags/'.$locale.'.png') }}" class="flag lazyload text-light" alt="{{ \App\Language::where('code', $locale)->first()->name }}" height="11">
+                         {{-- <span class="language">{{ \App\Language::where('code', $locale)->first()->name }}</span> --}}
+                     </a>
+                     <ul class="dropdown-menu">
+                         @foreach (\App\Language::all() as $key => $language)
+                             <li class="dropdown-item text-light @if($locale == $language) active @endif">
+                                 <a href="#" data-flag="{{ $language->code }}"><img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/flags/'.$language->code.'.png') }}" class="flag lazyload" alt="{{ $language->name }}" height="11">
+                                    <span class="language ml-1">{{ $language->name }}</span></a>
+                             </li>
+                         @endforeach
+                     </ul>
+                  </div>
                    <!-- cart modal start  -->
                    <!-- Modal -->
                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -953,4 +986,94 @@
 <!-- Mobile Nav -->
  <!--======================================================= HEADER END ======-->
 
- 
+ @php
+   $currency="https://api.exchangerate.host/latest";
+   
+
+   $json_data = file_get_contents($currency);
+   $response_data = json_decode($json_data);
+   // dd($response_data);
+//    $req_url = 'https://api.exchangerate.host/latest';
+// $response_json = file_get_contents($req_url);
+// if(false !== $response_json) {
+//     try {
+//         $response = json_decode($response_json);
+//         if($response->success === true) {
+//             var_dump($response);
+//         }
+//     } catch(Exception $e) {
+//         // Handle JSON parse error...
+//     }
+// }  
+
+@endphp
+  <!-- Modal -->
+<div class="modal fade" id="currency" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Currency Converter</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         <div class="container">
+            <div class="row">
+              <div class="col-md-12 col-md-offset-3">
+                <div class="panel panel-primary text-center">
+                  <div class="error">
+                    Please enter numeric value
+                  </div>
+                  <div class="row">
+                  <div class="panel-body col-md-12">
+                    <form class="form-vertical">
+          
+                      <div class="form-group center">
+                        <label for="">Enter Value:</label>
+                        <input type="number" class="amount form-control" placeholder="Enter value" min="1">
+                      </div>
+                      <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group inline-block">
+                           <label for="">From currency:</label>
+                           <select class="currency-list form-control" onclick="exchangeCurrency()">
+                              <option>--Select--</option>
+                           @foreach ($response_data->rates as $key => $value) {
+                             <option value="{{$value}}">{{$key}}</option>
+                           @endforeach
+                           </select>
+                         </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group inline-block">
+                           <label>To currency:</label>
+                           <select class="currency-list form-control" onclick="exchangeCurrency()">
+                             <option>--Select--</option>
+                             @foreach ($response_data->rates as $key => $value) {
+                              <option value="{{$value}}">{{$key}}</option>
+                            @endforeach
+
+                           </select>
+                         </div>
+                      </div>
+                     </div>
+                    </form>
+                    <div class="form-group center">
+                     <label for="">Result:</label>
+                     
+                     <p class="results">0</p>
+                   </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+       </div>
+
+     </div>
+   </div>
+</div>
+
+

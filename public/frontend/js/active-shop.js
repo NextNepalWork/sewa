@@ -276,6 +276,7 @@ $(document).ready(function () {
     // NoUI Slider
     if ($(".input-slider-container")[0]) {
         $(".input-slider-container").each(function () {
+            // console.log("hi");
             var slider = $(this).find(".input-slider");
             var sliderId = slider.attr("id");
             var minValue = slider.data("range-value-min");
@@ -284,6 +285,7 @@ $(document).ready(function () {
             var sliderValue = $(this).find(".range-slider-value");
             var sliderValueId = sliderValue.attr("id");
             var startValue = sliderValue.data("range-value-low");
+            // console.log(startValue);
 
             var c = document.getElementById(sliderId),
                 d = document.getElementById(sliderValueId);
