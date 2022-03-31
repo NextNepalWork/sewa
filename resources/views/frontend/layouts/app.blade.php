@@ -178,9 +178,27 @@
     .total-amount-seller{
         background: #f78035;
     }
-    #loading{
+    /* preloader */
+#loading {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #fff;
+    background-size: 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 99999;
     background-image: url('{{asset("frontend/preloader/2.gif")}}');
-    }
+
+}
+
+#loading div img {
+    max-height: 90px;
+    min-height: 90px;
+    object-fit: contain;
+    object-position: center;
+}
+
 </style>
 </head>
 <body  onload="myFunction()">
