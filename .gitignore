@@ -14,3 +14,4 @@ yarn-error.log
 .idea/
 /resources/lang/en.json
 /resources/lang/np.json
+/resources/lang

@@ -2217,9 +2217,9 @@ section#cart_user .cart_summary {
 }
 
 button.btn.btn-base-1 {
-    background: var(--theme_color_sub);
+    background: var(--theme_color);
     border-radius: 0;
-    color: var(--theme_color_sub);
+    color: #fff;
 }
 
 /*=============================== CART PAGE END =======================*/
