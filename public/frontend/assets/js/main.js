@@ -182,7 +182,7 @@ $(".flash_men").slick({
 // Recommendation For You start
 
 $(".slider_feature").slick({
-    infinite:true,
+    infinite: true,
     autoplay: true,
     slidesToShow: 5,
     slidesToScroll: 1,
@@ -833,3 +833,11 @@ function decreaseValue() {
     document.getElementById("numbers").value = value;
 }
 // CART QUANTITY INCREAS AND DECREASE  END
+
+// preloader
+
+var preloader = document.getElementById("loading");
+
+function myFunction() {
+    preloader.style.display = "none";
+}
