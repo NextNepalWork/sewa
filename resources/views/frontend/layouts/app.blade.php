@@ -178,51 +178,57 @@
     .total-amount-seller{
         background: #f78035;
     }
+    #loading{
+    background-image: url('{{asset("frontend/preloader/2.gif")}}');
+    }
 </style>
 </head>
 <body  onload="myFunction()">
-    <div id="loading"></div>
-
-
-<!-- MAIN WRAPPER -->
-<div class="body-wrap shop-default shop-cards shop-tech">
-
-    <!-- Header -->
-    @include('frontend.inc.nav')
-
-    @yield('content')
-
-    @include('frontend.inc.footer')
-
-    @include('frontend.partials.modal')
-
-    {{-- @if (\App\BusinessSetting::where('type', 'facebook_chat')->first()->value == 1)
-        <div id="fb-root"></div>
-        <!-- Your customer chat code -->
-        <div class="fb-customerchat"
-          attribution=setup_tool
-          page_id="{{ env('FACEBOOK_PAGE_ID') }}">
-        </div>
-    @endif --}}
-
-    <div class="modal fade" id="addToCart">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">
-            <div class="modal-content position-relative">
-                <div class="c-preloader">
-                    <i class="fa fa-spin fa-spinner"></i>
-                </div>
-                <button type="button" class="close absolute-close-btn" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <div id="addToCart-modal-body">
-
-                </div>
-            </div>
-        </div>
+    <div id="loading">
+        <div class="d-flex justify-content-center align-items-center h-75"> <img src="{{asset('frontend/preloader/logo.jpeg')}}" alt=""></div>
     </div>
 
 
-</div><!-- END: body-wrap -->
+            <!-- MAIN WRAPPER -->
+            <div class="body-wrap shop-default shop-cards shop-tech">
+
+                <!-- Header -->
+                @include('frontend.inc.nav')
+
+                @yield('content')
+
+                @include('frontend.inc.footer')
+
+                @include('frontend.partials.modal')
+
+                {{-- @if (\App\BusinessSetting::where('type', 'facebook_chat')->first()->value == 1)
+                    <div id="fb-root"></div>
+                    <!-- Your customer chat code -->
+                    <div class="fb-customerchat"
+                    attribution=setup_tool
+                    page_id="{{ env('FACEBOOK_PAGE_ID') }}">
+                    </div>
+                @endif --}}
+
+                <div class="modal fade" id="addToCart">
+                    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">
+                        <div class="modal-content position-relative">
+                            <div class="c-preloader">
+                                <i class="fa fa-spin fa-spinner"></i>
+                            </div>
+                            <button type="button" class="close absolute-close-btn" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <div id="addToCart-modal-body">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div><!-- END: body-wrap -->
+        
 
 <!-- SCRIPTS -->
 <!-- <a href="#" class="back-to-top btn-back-to-top"></a> -->
