@@ -285,9 +285,13 @@
                             <div class="special_left">
                                 <a href="{{ route('product', $product->slug) }}">
                                     @if (!empty($product->thumbnail_img))
-                                        <img class="img-fit lazyload" src="{{ asset($product->thumbnail_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                        @if (file_exists($product->thumbnail_img))
+                                            <img class="img-fit lazyload" src="{{ asset($product->thumbnail_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}"> 
+                                        @else
+                                            <img src="{{asset('frontend/images/placeholder.jpg')}}" alt="{{ __($product->name . '-' . $product->unit_price ) }}" class="img-fit lazyload">
+                                        @endif
                                     @else
-                                        <img class="img-fit lazyload" src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                        <img src="{{asset('frontend/images/placeholder.jpg')}}" alt="{{ __($product->name . '-' . $product->unit_price ) }}" class="img-fit lazyload">
                                     @endif  
                                     <h6>{{ __($product->name) }}</h6>
                                 </a>
