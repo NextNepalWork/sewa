@@ -1428,7 +1428,7 @@ section.home-banner-area {
 
 .widget-profile-menu a.active {
     /* background: #f3f3f3; */
-    color:#fff!important;
+    color: #fff !important;
     background: var(--theme_color_sub);
     border-left: 3px solid transparent;
 }
@@ -3236,7 +3236,7 @@ ul.inline-links > li {
 .c-rating > label:before {
     margin: 0 2px;
     font-size: 16px;
-    font-family: FontAwesome;
+    font-family: FontAwesome !important;
     content: "\f005";
     display: inline-block;
 }

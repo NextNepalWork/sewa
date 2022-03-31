@@ -265,6 +265,12 @@
 <!-- <script src="{{ asset('frontend/js/fb-script.js') }}"></script> -->
 <script src="{{ asset('frontend/js/lazysizes.min.js') }}"></script>
 <script src="{{ asset('frontend/js/intlTelInput.min.js') }}"></script>
+<!-- rating star -->
+<script src="{{asset('plugins/rating/rating.js')}}"></script>
+
+{{-- <script src="https://use.fontawesome.com/f90dcc1da9.js"></script> --}}
+<script src="https://use.fontawesome.com/79d6e010ae.js"></script>
+
 
 <!-- App JS -->
 <script src="{{ asset('frontend/js/active-shop.js') }}"></script>

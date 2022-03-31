@@ -38,7 +38,7 @@ class ProductDetailCollection extends ResourceCollection
                         
                         'shop_name' => $data->added_by == 'admin' ? '' : $data->user->shop->name,
                         'shop_logo' => $data->added_by == 'admin' ? '' : $data->user->shop->logo,
-                        'shop_id' => $data->added_by == 'admin' ? '' :  (($data->user->shop)?$data->user->shop->id:'')
+                        'shop_id' => $data->added_by == 'admin' ? '' :  (($data->user->shop)? strval($data->user->shop->id):'')
                     ],
                     'category' => [
                         'name' => $data->category->name,
