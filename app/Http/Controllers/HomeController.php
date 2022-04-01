@@ -24,6 +24,7 @@ use App\BusinessSetting;
 use App\Coupon;
 use App\Http\Controllers\SearchController;
 use App\Location;
+use App\Recommend;
 use App\State;
 use ImageOptimizer;
 use Cookie;
@@ -211,7 +212,11 @@ class HomeController extends Controller
         // $user = User::where('email', 'munirajrajbanshi5@gmail.com')->first();
         // FacadesAuth::login($user);
         // return view('frontend.seller.dashboard');
-        return view('frontend.index');
+        $recommended = [];
+        if(Auth::check()){
+            $recommended = Recommend::where('user_id',Auth::user()->id)->orderBy('id','desc')->limit(7)->get();
+        }
+        return view('frontend.index',compact('recommended'));
     }
 
     public function flash_deal_details($slug)
@@ -256,6 +261,23 @@ class HomeController extends Controller
         $detailedProduct  = Product::where('slug', $slug)->first();
         if($detailedProduct!=null && $detailedProduct->published){
             updateCartSetup();
+            if(Auth::check()){
+                if(Recommend::where('product_id',$detailedProduct->id)->where('user_id',Auth::user()->id)->count() == 0)
+                Recommend::create([
+                    'product_id' => $detailedProduct->id,
+                    'user_id' => Auth::user()->id
+                ]);
+            }
+            if(Session::has('key')){
+                // echo '2<br>';
+                $old = explode(',',Session::get('key'));
+                array_push($old,$detailedProduct->name);
+                session(['key' => implode(',',array_unique($old))]);
+                Session::save();
+            }else{
+                session([ 'key' => ($detailedProduct->name)]);
+                Session::save();
+            }
             if($request->has('product_referral_code')){
                 Cookie::queue('product_referral_code', $request->product_referral_code, 43200);
                 Cookie::queue('referred_product_id', $detailedProduct->id, 43200);
@@ -442,7 +464,7 @@ class HomeController extends Controller
             }
         }
 
-
+        
         $category_id = (Category::where('slug', $request->category)->first() != null) ? Category::where('slug', $request->category)->first()->id : null;
         $subcategory_id = (SubCategory::where('slug', $request->subcategory)->first() != null) ? SubCategory::where('slug', $request->subcategory)->first()->id : null;
         $subsubcategory_id = (SubSubCategory::where('slug', $request->subsubcategory)->first() != null) ? SubSubCategory::where('slug', $request->subsubcategory)->first()->id : null;
@@ -579,7 +601,7 @@ class HomeController extends Controller
                 array_push($selected_attributes, $item);
             }
         }
-
+    
 
         //Color Filter
         $all_colors = array();
@@ -603,10 +625,10 @@ class HomeController extends Controller
         }
 
 
-
+    
         $products = filter_products($products)->paginate(12)->appends(request()->query());
 
-        
+       
 
         return view('frontend.product_listing', compact('products', 'query', 'category_id', 'subcategory_id', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color','location_id','rating'));
     }

@@ -399,15 +399,20 @@
                                             </div>
                                             <div class="product-grid-image">
                                                 <a href="{{ route('product', $product->slug) }}">
-                                                    @if (count(json_decode($product->photos))>0)
-                                                        @if (file_exists(json_decode($product->photos)[0]))
-                                                                
-                                                            <img class="pic-1 img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name) }}">
+                                                    @if(!empty($product->photos))
+                                                        @if (count(json_decode($product->photos))>0)
+                                                            @if (file_exists(json_decode($product->photos)[0]))
+                                                                    
+                                                                <img class="pic-1 img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name) }}">
+                                                            @else
+                                                                <img class="pic-1 img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}"  alt="{{ __($product->name) }}">
+                                                                    
+                                                            @endif
+                                                            
                                                         @else
-                                                            <img class="pic-1 img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}"  alt="{{ __($product->name) }}">
-                                                                
+                                                        <img class="pic-1 img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}"  alt="{{ __($product->name) }}">
+
                                                         @endif
-                                                        
                                                     @else
                                                     <img class="pic-1 img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}"  alt="{{ __($product->name) }}">
 

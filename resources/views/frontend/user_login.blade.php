@@ -1,6 +1,56 @@
 @extends('frontend.layouts.app')
 @section('content')
  <!-- Login Register -->
+
+ {{-- <section>
+     @php
+         $accessKey = '491f29a0f3e133e58457a9f001f995fa';
+         $profileId = '4594A290-DBAA-4083-A4EE-1CB11AA482D2';
+         $uuid = 'f46a56df-b14f-008e-366c48ca5b75e221';
+         $signedDateTime = '2022-01-04T08:09:31Z';
+         $refNumber = '12341234';
+         $signature = '12341234';
+     @endphp
+    <form id="frm-nicasia" action="https://testsecureacceptance.cybersource.com/pay"
+    method="post">
+    <div class="form-group">
+    <input type="hidden" name="access_key" value="{{ $accessKey }}">
+    <input type="hidden" name="profile_id" value="{{ $profileId }}">
+    <input type="hidden" name="transaction_uuid" value="{{ $uuid }}">
+    <input type="hidden" name="signed_field_names"
+    value="access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency,payment_method,bill_to_forename,bill_to_surname,bill_to_email,bill_to_phone,bill_to_address_line1,bill_to_address_city,bill_to_address_state,bill_to_address_country,bill_to_address_postal_code">
+    <input type="hidden" name="unsigned_field_names"
+    value="card_type,card_number,card_expiry_date">
+    <input type="hidden" name="signed_date_time" value="{{ $signedDateTime }}">
+    <input type="hidden" name="locale" value="en">
+    <input type="hidden" name="auth_trans_ref_no">
+    <input type="hidden" name="amount" value="2.00">
+    <input type="hidden" name="transaction_type" value="sale">
+    <input type="hidden" name="reference_number" value="{{ $refNumber }}">
+    <input type="hidden" name="currency" value="NPR">
+    <input type="hidden" name="payment_method" value="card">
+    <input type="hidden" name="signature" value="{{ $signature }}">
+
+    <input type="hidden" name="card_type" value="001">
+    <input type="hidden" name="card_number" value="">
+    <input type="hidden" name="card_expiry_date" value="">
+
+    <input type="hidden" name="bill_to_forename" value="Rajim">
+    <input type="hidden" name="bill_to_surname" value="Ali">
+    <input type="hidden" name="bill_to_email" value="ali.rajim12@gmail.com">
+    <input type="hidden" name="bill_to_phone" value="9849428177">
+    <input type="hidden" name="bill_to_address_line1" value="Kathmandu">
+    <input type="hidden" name="bill_to_address_city" value="Kathmandu">
+    <input type="hidden" name="bill_to_address_state" value="Kathmandu">
+    <input type="hidden" name="bill_to_address_country" value="NP">
+    <input type="hidden" name="bill_to_address_postal_code" value="Kathmandu">
+    <button type="submit">Submit Form</button>
+    </div>
+    </form>
+ </section> --}}
+
+
+
  <section id="login-register-wrapper" class="py-5">
     <div class="container">
         <div class="row justify-content-center align-items-center">
