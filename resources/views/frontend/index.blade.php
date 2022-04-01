@@ -642,6 +642,7 @@
     </div>
 </section>
  @endif
+ @if(Auth::check())
  @if(isset($recommended) && (($recommended)->count()) >0)
     <section id="product-listing-wrapper" class=" product_listing">
         <div class="container">
@@ -756,6 +757,7 @@
         </div>
         </div>
     </section>
+ @endif
  @endif
 
     {{-- <div id="section_featured">
