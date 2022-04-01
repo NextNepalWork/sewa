@@ -9,6 +9,7 @@ use App\Http\Controllers\ClubPointController;
 use App\Http\Controllers\OTPVerificationController;
 use App\Mail\CustomerEmail;
 use App\Mail\InvoiceEmailManager;
+use App\Models\Commission;
 use App\Order;
 use App\OrderDetail;
 use App\OtpConfiguration;
@@ -21,6 +22,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Mail;
+use MehediIitdu\CoreComponentRepository\CoreComponentRepository as CoreComponentRepositoryCoreComponentRepository;
+// use MehediIitdu\CoreComponentRepository\CoreComponentRepository as CoreComponentRepositoryCoreComponentRepository;
 use PDF;
 use Session;
 
@@ -75,6 +78,7 @@ class OrderController extends Controller
     public function admin_orders(Request $request)
     {
         // dd('hi');
+
         $payment_status = null;
         $delivery_status = null;
         $sort_search = null;
@@ -145,6 +149,44 @@ class OrderController extends Controller
 
             return view('pickup_point.orders.index', compact('orders'));
         }
+    }
+
+    public function seller_orders(Request $request)
+    {
+        // dd('hi');
+
+        $payment_status = null;
+        $delivery_status = null;
+        $sort_search = null;
+        $admin_user_id=array();
+        foreach(User::where('user_type', 'seller')->get() as $user){
+            array_push($admin_user_id,$user->id);
+
+        }
+
+        
+        $orders = DB::table('orders')
+            ->orderBy('code', 'desc')
+            ->join('order_details', 'orders.id', '=', 'order_details.order_id')
+            ->whereIn('order_details.seller_id', (array)$admin_user_id)
+            ->select('orders.id')
+            ->distinct();
+
+        if ($request->payment_type != null) {
+            $orders = $orders->where('order_details.payment_status', $request->payment_type);
+            $payment_status = $request->payment_type;
+        }
+        if ($request->delivery_status != null) {
+            $orders = $orders->where('order_details.delivery_status', $request->delivery_status);
+            $delivery_status = $request->delivery_status;
+        }
+        if ($request->has('search')) {
+            $sort_search = $request->search;
+            $orders = $orders->where('code', 'like', '%' . $sort_search . '%');
+        }
+        $orders = $orders->paginate(15);
+        
+        return view('orders.seller-orders', compact('orders', 'delivery_status', 'sort_search', 'admin_user_id'));
     }
 
     public function pickup_point_order_sales_show($id)
@@ -495,12 +537,19 @@ class OrderController extends Controller
         $order = Order::findOrFail($request->order_id);
         $order->delivery_viewed = '0';
         $order->save();
-        if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'seller') {
+        if (Auth::user()->user_type == 'admin') {
+            foreach ($order->orderDetails as $key => $orderDetail) {
+                $orderDetail->delivery_status = $request->status;
+                $orderDetail->save();
+            }
+        }
+        elseif(Auth::user()->user_type == 'seller'){
             foreach ($order->orderDetails->where('seller_id', Auth::user()->id) as $key => $orderDetail) {
                 $orderDetail->delivery_status = $request->status;
                 $orderDetail->save();
             }
-        } else {
+        }
+        else {
             foreach ($order->orderDetails->where('seller_id', \App\User::where('user_type', 'admin')->first()->id) as $key => $orderDetail) {
                 $orderDetail->delivery_status = $request->status;
                 $orderDetail->save();
@@ -556,12 +605,19 @@ class OrderController extends Controller
         $order->payment_status_viewed = '0';
         $order->save();
 
-        if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'seller') {
+        if (Auth::user()->user_type == 'admin') {
+            foreach ($order->orderDetails as $key => $orderDetail) {
+                $orderDetail->payment_status = $request->status;
+                $orderDetail->save();
+            }
+        }
+        elseif(Auth::user()->user_type == 'seller'){
             foreach ($order->orderDetails->where('seller_id', Auth::user()->id) as $key => $orderDetail) {
                 $orderDetail->payment_status = $request->status;
                 $orderDetail->save();
             }
-        } else {
+        }
+        else {
             foreach ($order->orderDetails->where('seller_id', \App\User::where('user_type', 'admin')->first()->id) as $key => $orderDetail) {
                 $orderDetail->payment_status = $request->status;
 
@@ -604,11 +660,20 @@ class OrderController extends Controller
                             $orderDetail->payment_status = 'paid';
                             $orderDetail->save();
                             if ($orderDetail->product->user->user_type == 'seller') {
+                                $seller_id=$orderDetail->product->user->seller->id;
+                                // dd($seller_id);
+                                $category_id = $orderDetail->product->category->id;
+                                // dd($category_id);
+                                $commission=Commission::where('seller_id',$seller_id)->where('category_id',$category_id)->first();
+                                // dd($commission);
                                 
-                                $commission_percentage = $orderDetail->product->category->commision_rate;
+                                $commission_percentage =$commission->commission_rate;
+
+                                // $commission_percentage =$orderDetail->product->category->commision_rate;
                                 $seller = $orderDetail->product->user->seller;
                                 // $seller->admin_to_pay = $seller->admin_to_pay - ($orderDetail->price * $commission_percentage) / 100;
                                 $afterCommissionPrice = $orderDetail->price - ($orderDetail->price * $commission_percentage) / 100;
+                                // dd($afterCommissionPrice);
                                 $seller->admin_to_pay = $seller->admin_to_pay + $afterCommissionPrice;
                                 $seller->save();
                             }
@@ -631,10 +696,26 @@ class OrderController extends Controller
                             $orderDetail->payment_status = 'paid';
                             $orderDetail->save();
                             if ($orderDetail->product->user->user_type == 'seller') {
-                                $commission_percentage = $orderDetail->product->category->commision_rate;
+                                $seller_id=$orderDetail->product->user->seller->id;
+                                // dd($seller_id);
+                                $category_id = $orderDetail->product->category->id;
+                                // dd($category_id);
+                                $commission=Commission::where('seller_id',$seller_id)->where('category_id',$category_id)->first();
+                                // dd($commission);
+                                
+                                $commission_percentage =$commission->commission_rate;
+
+                                // $commission_percentage =$orderDetail->product->category->commision_rate;
                                 $seller = $orderDetail->product->user->seller;
-                                $seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price * (100 - $commission_percentage)) / 100;
+                                // $seller->admin_to_pay = $seller->admin_to_pay - ($orderDetail->price * $commission_percentage) / 100;
+                                $afterCommissionPrice = $orderDetail->price - ($orderDetail->price * $commission_percentage) / 100;
+                                // dd($afterCommissionPrice);
+                                $seller->admin_to_pay = $seller->admin_to_pay + $afterCommissionPrice;
                                 $seller->save();
+                                // $commission_percentage = $orderDetail->product->category->commision_rate;
+                                // $seller = $orderDetail->product->user->seller;
+                                // $seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price * (100 - $commission_percentage)) / 100;
+                                // $seller->save();
                             }
                         }
                     }

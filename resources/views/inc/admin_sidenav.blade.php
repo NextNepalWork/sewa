@@ -170,6 +170,31 @@
                         </li>
                         @endif
 
+                        @if(Auth::user()->user_type == 'admin' || in_array('3', json_decode(Auth::user()->staff->role->permissions)))
+                            @php
+                            $admin_user_id=array();
+                            foreach(\App\User::where('user_type', 'seller')->get() as $user){
+                                array_push($admin_user_id,$user->id);
+                            }
+
+                                $orders = DB::table('orders')
+                                            ->orderBy('code', 'desc')
+                                            ->join('order_details', 'orders.id', '=', 'order_details.order_id')
+                                            ->whereIn('order_details.seller_id', (array)$admin_user_id)
+                                            ->where('orders.viewed', 0)
+                                            ->select('orders.id')
+                                            ->distinct()
+                                            ->count();
+
+                            @endphp
+                        <li class="{{ areActiveRoutes(['orders.seller'])}}">
+                            <a class="nav-link" href="{{ route('orders.seller') }}">
+                                <i class="fa fa-shopping-basket"></i>
+                                <span class="menu-title">{{__('Seller orders')}} @if($orders > 0)<span class="pull-right badge badge-info">{{ $orders }}</span>@endif</span>
+                            </a>
+                        </li>
+                        @endif
+
                         @if(Auth::user()->user_type == 'admin' || in_array('14', json_decode(Auth::user()->staff->role->permissions)))
                         <li class="{{ areActiveRoutes(['pick_up_point.order_index','pick_up_point.order_show'])}}">
                             <a class="nav-link" href="{{ route('pick_up_point.order_index') }}">
@@ -235,9 +260,9 @@
                                 <li class="{{ areActiveRoutes(['sellers.payment_histories'])}}">
                                     <a class="nav-link" href="{{ route('sellers.payment_histories') }}">{{__('Seller Payments')}}</a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['business_settings.vendor_commission'])}}">
+                                {{-- <li class="{{ areActiveRoutes(['business_settings.vendor_commission'])}}">
                                     <a class="nav-link" href="{{ route('business_settings.vendor_commission') }}">{{__('Seller Commission')}}</a>
-                                </li>
+                                </li> --}}
                                 <li class="{{ areActiveRoutes(['seller_verification_form.index'])}}">
                                     <a class="nav-link" href="{{route('seller_verification_form.index')}}">{{__('Seller Verification Form')}}</a>
                                 </li>
