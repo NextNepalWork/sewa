@@ -87,6 +87,7 @@
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li><a onclick="show_seller_profile('{{$seller->id}}');">{{__('Profile')}}</a></li>
+                                        <li><a onclick="commission('{{$seller->id}}');">{{__('Seller Commission')}}</a></li>
                                         <li><a onclick="show_seller_payment_modal('{{$seller->id}}');">{{__('Pay Now')}}</a></li>
                                         <li><a href="{{route('sellers.payment_history', encrypt($seller->id))}}">{{__('Payment History')}}</a></li>
                                         <li><a href="{{route('sellers.edit', encrypt($seller->id))}}">{{__('Edit')}}</a></li>
@@ -117,6 +118,14 @@
     </div>
 
     <div class="modal fade" id="profile_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="modal-content">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="commission_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content" id="modal-content">
 
@@ -163,6 +172,13 @@
 
         function sort_sellers(el){
             $('#sort_sellers').submit();
+        }
+
+        function commission(id){
+            $.post('{{ route('sellers.commission') }}',{_token:'{{ @csrf_token() }}', id:id}, function(data){
+                $('#commission_modal #modal-content').html(data);
+                $('#commission_modal').modal('show', {backdrop: 'static'});
+            });
         }
     </script>
 @endsection

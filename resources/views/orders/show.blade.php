@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="panel">
     	<div class="panel-body">
     		<div class="invoice-masthead">
@@ -9,6 +8,13 @@
     				<h3 class="h1 text-thin mar-no text-primary">{{ __('Order Details') }}</h3>
     			</div>
     		</div>
+
+			<?php 
+				$seller_id=\App\OrderDetail::where('order_id',$order->id)->pluck('seller_id');
+				$admin_id=\App\User::where('user_type','admin')->pluck('id');
+			?>
+			{{-- @if ($seller_id==$admin_id) --}}
+				
             <div class="row">
                 @php
                     $delivery_status = $order->orderDetails->first()->delivery_status;
@@ -32,6 +38,7 @@
                 </div>
             </div>
             <hr>
+			{{-- @endif --}}
 
     		<div class="invoice-bill row">
     			<div class="col-sm-6 text-xs-center">
@@ -133,14 +140,25 @@
         				</thead>
         				<tbody>
                             @php
-                                $admin_user_id = \App\User::where('user_type', 'admin')->first()->id;
+                                // $admin_user_id = \App\User::where('user_type', 'admin')->first()->id;
                             @endphp
-                            @foreach ($order->orderDetails->where('seller_id', $admin_user_id) as $key => $orderDetail)
+                            {{-- @foreach ($order->orderDetails->where('seller_id', $admin_user_id) as $key => $orderDetail) --}}
+							@foreach($order->orderDetails as $key => $orderDetail)
+							{{-- {{dd($orderDetail->product)}} --}}
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td>
                                         @if ($orderDetail->product != null)
-                    						<a href="{{ route('product', $orderDetail->product->slug) }}" target="_blank"><img height="50" src={{ asset($orderDetail->product->thumbnail_img) }}/></a>
+                    						<a href="{{ route('product', $orderDetail->product->slug) }}" target="_blank">
+												@if (!empty($orderDetail->product->thumbnail_img))
+													@if (file_exists($orderDetail->product->thumbnail_img))
+														<img height="50" src={{ asset($orderDetail->product->thumbnail_img) }}></a>	
+													@else
+														<img height="50" src={{ asset('frontend/images/placeholder.jpg') }}></a>	
+													@endif
+												@else
+													<img height="50" src={{ asset('frontend/images/placeholder.jpg') }}></a>	
+												@endif
                                         @else
                                             <strong>{{ __('N/A') }}</strong>
                                         @endif
@@ -187,7 +205,11 @@
     					<strong>{{__('Sub Total')}} :</strong>
     				</td>
     				<td>
-    					{{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('price')) }}
+						{{ single_price($order->orderDetails->sum('price')) }}
+
+    					{{-- {{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('price')) }} --}}
+
+
     				</td>
     			</tr>
     			<tr>
@@ -195,7 +217,9 @@
     					<strong>{{__('Tax')}} :</strong>
     				</td>
     				<td>
-    					{{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('tax')) }}
+    					{{ single_price($order->orderDetails->sum('tax')) }}
+
+    					{{-- {{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('tax')) }} --}}
     				</td>
     			</tr>
                 <tr>
@@ -203,26 +227,19 @@
     					<strong>{{__('Shipping')}} :</strong>
     				</td>
     				<td>
-    					{{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('shipping_cost')) }}
+    					{{ single_price($order->orderDetails->sum('shipping_cost')) }}
+
+    					{{-- {{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('shipping_cost')) }} --}}
     				</td>
     			</tr>
-				@if($order->coupon_discount)
-				<tr>
-    				<td>
-    					<strong>{{__('Coupon Discount')}} :</strong>
-    				</td>
-    				<td>
-    					{{ $order->coupon_discount }}
-    				</td>
-    			</tr>
-				@endif
     			<tr>
     				<td>
     					<strong>{{__('TOTAL')}} :</strong>
     				</td>
     				<td class="text-bold h4">
-    					{{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('price') + $order->orderDetails->where('seller_id', $admin_user_id)->sum('tax') + $order->orderDetails->where('seller_id', $admin_user_id)->sum('shipping_cost')-$order->coupon_discount) }}
+    					{{ single_price($order->orderDetails->sum('price') + $order->orderDetails->sum('tax') + $order->orderDetails->sum('shipping_cost')) }}
 
+    					{{-- {{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('price') + $order->orderDetails->where('seller_id', $admin_user_id)->sum('tax') + $order->orderDetails->where('seller_id', $admin_user_id)->sum('shipping_cost')) }} --}}
     				</td>
     			</tr>
     			</tbody>

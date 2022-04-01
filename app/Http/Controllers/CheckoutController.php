@@ -145,9 +145,21 @@ class CheckoutController extends Controller
                     $orderDetail->payment_status = 'paid';
                     $orderDetail->save();
                     if($orderDetail->product->user->user_type == 'seller'){
-                        $commission_percentage = $orderDetail->product->category->commision_rate;
+                        $seller_id=$orderDetail->product->user->seller->id;
+                        // dd($seller_id);
+                        $category_id = $orderDetail->product->category->id;
+                        // dd($category_id);
+                        $commission=Commission::where('seller_id',$seller_id)->where('category_id',$category_id)->first();
+                        // dd($commission);
+                        
+                        $commission_percentage =$commission->commission_rate;
+
+                        // $commission_percentage =$orderDetail->product->category->commision_rate;
                         $seller = $orderDetail->product->user->seller;
-                        $seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price*(100-$commission_percentage))/100  + $orderDetail->tax + $orderDetail->shipping_cost;
+                        // $seller->admin_to_pay = $seller->admin_to_pay - ($orderDetail->price * $commission_percentage) / 100;
+                        $afterCommissionPrice = $orderDetail->price - ($orderDetail->price * $commission_percentage) / 100;
+                        // dd($afterCommissionPrice);
+                        $seller->admin_to_pay = $seller->admin_to_pay + $afterCommissionPrice;
                         $seller->save();
                     }
                 }

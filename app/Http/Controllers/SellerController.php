@@ -197,6 +197,12 @@ class SellerController extends Controller
         return view('sellers.payment_modal', compact('seller'));
     }
 
+    public function commission_modal(Request $request)
+    {
+        $seller = Seller::findOrFail($request->id);
+        return view('sellers.commission_modal',compact('seller'));
+    }
+
     public function profile_modal(Request $request)
     {
         $seller = Seller::findOrFail($request->id);

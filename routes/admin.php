@@ -82,6 +82,10 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 	Route::post('/sellers/payment_modal', 'SellerController@payment_modal')->name('sellers.payment_modal');
 	Route::get('/seller/payments', 'PaymentController@payment_histories')->name('sellers.payment_histories');
 	Route::get('/seller/payments/show/{id}', 'PaymentController@show')->name('sellers.payment_history');
+	Route::post('/sellers/commission_modal', 'SellerController@commission_modal')->name('sellers.commission');
+	Route::post('/category_wise', 'CommissionController@categoryWiseCommission')->name('commissions.category');
+
+
 
 	Route::resource('customers','CustomerController');
 	Route::get('/customers/destroy/{id}', 'CustomerController@destroy')->name('customers.destroy');
