@@ -389,11 +389,14 @@
                             <div class="special_left">
                                 <a href="{{ route('product', $product->slug) }}">
                                     @if (!empty($product->thumbnail_img))
-                                        <img class="img-fit lazyload" src="{{ asset($product->thumbnail_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                        @if (file_exists($product->thumbnail_img))
+                                            <img class="img-fit lazyload" src="{{ asset($product->thumbnail_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}"> 
+                                        @else
+                                            <img src="{{asset('frontend/images/placeholder.jpg')}}" alt="{{ __($product->name . '-' . $product->unit_price ) }}" class="img-fit lazyload">
+                                        @endif
                                     @else
-                                        <img class="img-fit lazyload" src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                        <img src="{{asset('frontend/images/placeholder.jpg')}}" alt="{{ __($product->name . '-' . $product->unit_price ) }}" class="img-fit lazyload">
                                     @endif  
-                                    {{-- <img src="https://electro.madrasthemes.com/wp-content/uploads/2016/03/consal-300x300.png" class="img-fluid" alt=""> --}}
                                     <h6>{{ __($product->name) }}</h6>
                                 </a>
                             </div>
@@ -413,7 +416,8 @@
                             </div>
                             <div class="special_countdown">
                                 <div class="content_left">
-                                <h5 id="headline">Hurry Up! Offer ends in:</h5>
+                                <h5 id="headline">
+                                   <span class="text">Hurry Up! Offer ends in:</span></h5>
                                 <div id="countdown">
                                     <ul class="d-flex align-items-center justify-content-center">
                                         <!-- <li class="d-flex flex-column"><span id="days"></span>days</li> -->
@@ -1099,6 +1103,7 @@
             // If the count down is over, write some text
             if (distance < 0) {
             clearInterval(x);
+            $('.text').remove();
             $('.demo').text("EXPIRED");
             //document.getElementsByClassName("demo").innerHTML = "EXPIRED";
             }
