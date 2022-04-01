@@ -198,6 +198,12 @@
     object-fit: contain;
     object-position: center;
 }
+.fa-search{
+    color: white;
+}
+.category_title_top{
+    margin: auto;
+}
 
 </style>
 </head>
