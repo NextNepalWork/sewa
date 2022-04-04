@@ -8,6 +8,7 @@ use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\PublicSslCommerzPaymentController;
 use App\Http\Controllers\InstamojoController;
 use App\Http\Controllers\PaystackController;
+use App\Models\Commission;
 use App\SellerWithdrawRequest;
 use App\Seller;
 use App\Payment;
@@ -100,5 +101,26 @@ class CommissionController extends Controller
             flash(__('Payment completed'))->success();
             return redirect()->route('sellers.index');
         }
+    }
+
+    public function categoryWiseCommission(Request $request)
+    {
+        if (Commission::where('seller_id', $request->seller_id)->exists()) {
+            foreach($request->arr as $value){ 
+                Commission::where('seller_id', $request->seller_id)->where('category_id',$value['id'])->update(['commission_rate'=>$value['commission_rate']]);
+            }
+        } else {
+            foreach($request->arr as $value){
+                $commission=new Commission();
+                $commission->category_id=$value['id'];
+                $commission->seller_id=$request->seller_id;
+                $commission->commission_rate=($value['commission_rate']) ? $value['commission_rate'] : 0;
+                $commission->save(); 
+            }
+        }
+        
+        
+        flash(__('Commission updated successfully'))->success();
+        return back();
     }
 }

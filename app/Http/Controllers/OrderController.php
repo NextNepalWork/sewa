@@ -9,6 +9,7 @@ use App\Http\Controllers\ClubPointController;
 use App\Http\Controllers\OTPVerificationController;
 use App\Mail\CustomerEmail;
 use App\Mail\InvoiceEmailManager;
+use App\Models\Commission;
 use App\Order;
 use App\OrderDetail;
 use App\OtpConfiguration;
@@ -21,6 +22,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Mail;
+use MehediIitdu\CoreComponentRepository\CoreComponentRepository as CoreComponentRepositoryCoreComponentRepository;
+// use MehediIitdu\CoreComponentRepository\CoreComponentRepository as CoreComponentRepositoryCoreComponentRepository;
 use PDF;
 use Session;
 
@@ -75,6 +78,7 @@ class OrderController extends Controller
     public function admin_orders(Request $request)
     {
         // dd('hi');
+
         $payment_status = null;
         $delivery_status = null;
         $sort_search = null;
@@ -145,6 +149,44 @@ class OrderController extends Controller
 
             return view('pickup_point.orders.index', compact('orders'));
         }
+    }
+
+    public function seller_orders(Request $request)
+    {
+        // dd('hi');
+
+        $payment_status = null;
+        $delivery_status = null;
+        $sort_search = null;
+        $admin_user_id=array();
+        foreach(User::where('user_type', 'seller')->get() as $user){
+            array_push($admin_user_id,$user->id);
+
+        }
+
+        
+        $orders = DB::table('orders')
+            ->orderBy('code', 'desc')
+            ->join('order_details', 'orders.id', '=', 'order_details.order_id')
+            ->whereIn('order_details.seller_id', (array)$admin_user_id)
+            ->select('orders.id')
+            ->distinct();
+
+        if ($request->payment_type != null) {
+            $orders = $orders->where('order_details.payment_status', $request->payment_type);
+            $payment_status = $request->payment_type;
+        }
+        if ($request->delivery_status != null) {
+            $orders = $orders->where('order_details.delivery_status', $request->delivery_status);
+            $delivery_status = $request->delivery_status;
+        }
+        if ($request->has('search')) {
+            $sort_search = $request->search;
+            $orders = $orders->where('code', 'like', '%' . $sort_search . '%');
+        }
+        $orders = $orders->paginate(15);
+        
+        return view('orders.seller-orders', compact('orders', 'delivery_status', 'sort_search', 'admin_user_id'));
     }
 
     public function pickup_point_order_sales_show($id)
@@ -319,77 +361,77 @@ class OrderController extends Controller
 
             $order->save();
 
-            set_time_limit(1500);
+            // set_time_limit(1500);
             //stores the pdf for invoice
-            $pdf = PDF::setOptions([
-                'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
-                'logOutputFile' => storage_path('logs/log.htm'),
-                'tempDir' => storage_path('logs/'),
-            ])->loadView('invoices.customer_invoice', compact('order'));
-            $output = $pdf->output();
-            file_put_contents(public_path('invoices/' . 'Order#' . $order->code . '.pdf'), $output);
-            $data['view'] = 'emails.invoice';
-            $data['subject'] = 'Order Placed - ' . $order->code;
-            $data['from'] = 'Sewa Digital';
-            // $data['from'] = env('MAIL_USERNAME');
-            $data['content'] = 'Hi. A new order has been placed. Please check the attached invoice.';
-            $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
-            // $data['file'] = 'public/invoices/Order#'.$order->code.'.pdf';
-            $data['file_name'] = 'Order#' . $order->code . '.pdf';
+            // $pdf = PDF::setOptions([
+            //     'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
+            //     'logOutputFile' => storage_path('logs/log.htm'),
+            //     'tempDir' => storage_path('logs/'),
+            // ])->loadView('invoices.customer_invoice', compact('order'));
+            // $output = $pdf->output();
+            // file_put_contents(public_path('invoices/' . 'Order#' . $order->code . '.pdf'), $output);
+            // $data['view'] = 'emails.invoice';
+            // $data['subject'] = 'Order Placed - ' . $order->code;
+            // $data['from'] = 'Sewa Digital';
+            // // $data['from'] = env('MAIL_USERNAME');
+            // $data['content'] = 'Hi. A new order has been placed. Please check the attached invoice.';
+            // $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
+            // // $data['file'] = 'public/invoices/Order#'.$order->code.'.pdf';
+            // $data['file_name'] = 'Order#' . $order->code . '.pdf';
 
             // dd($seller_products);
-            foreach ($seller_products as $key => $seller_product) {
-                $user = User::where('id', $key)->first();
-                // dd(\App\User::find($key)->email);
-                try {
-                    $pdf = PDF::setOptions([
-                        'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
-                        'logOutputFile' => storage_path('logs/log.htm'),
-                        'tempDir' => storage_path('logs/'),
-                    ])->loadView('invoices.sellers_invoice', compact('order', 'user'));
-                    $output = $pdf->output();
-                    file_put_contents(public_path('invoices/seller/' . 'Order#' . $order->code . '.pdf'), $output);
-                    $array['view'] = 'emails.invoice';
-                    $array['subject'] = 'Order Placed - ' . $order->code;
-                    $array['from'] = Config::get('mail.username');
-                    $array['content'] = 'Hello. A new order has been placed. Please check the attached invoice.';
-                    $array['file'] = public_path('invoices/seller/' . 'Order#' . $order->code . '.pdf');
-                    $array['file_name'] = 'Order#' . $order->code . '.pdf';
+            // foreach ($seller_products as $key => $seller_product) {
+            //     $user = User::where('id', $key)->first();
+            //     // dd(\App\User::find($key)->email);
+            //     try {
+            //         $pdf = PDF::setOptions([
+            //             'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
+            //             'logOutputFile' => storage_path('logs/log.htm'),
+            //             'tempDir' => storage_path('logs/'),
+            //         ])->loadView('invoices.sellers_invoice', compact('order', 'user'));
+            //         $output = $pdf->output();
+            //         file_put_contents(public_path('invoices/seller/' . 'Order#' . $order->code . '.pdf'), $output);
+            //         $array['view'] = 'emails.invoice';
+            //         $array['subject'] = 'Order Placed - ' . $order->code;
+            //         $array['from'] = Config::get('mail.username');
+            //         $array['content'] = 'Hello. A new order has been placed. Please check the attached invoice.';
+            //         $array['file'] = public_path('invoices/seller/' . 'Order#' . $order->code . '.pdf');
+            //         $array['file_name'] = 'Order#' . $order->code . '.pdf';
 
-                    Mail::to($user->email)->send(new InvoiceEmailManager($array));
-                    unlink($array['file']);
-                } catch (\Exception $e) {
+            //         Mail::to($user->email)->send(new InvoiceEmailManager($array));
+            //         unlink($array['file']);
+            //     } catch (\Exception $e) {
 
-                }
-            }
+            //     }
+            // }
 
-            if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated && \App\OtpConfiguration::where('type', 'otp_for_order')->first()->value) {
-                try {
-                    $otpController = new OTPVerificationController;
-                    $otpController->send_order_code($order);
-                } catch (\Exception $e) {
+            // if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated && \App\OtpConfiguration::where('type', 'otp_for_order')->first()->value) {
+            //     try {
+            //         $otpController = new OTPVerificationController;
+            //         $otpController->send_order_code($order);
+            //     } catch (\Exception $e) {
 
-                }
-            }
+            //     }
+            // }
 
             //sends email to customer with the invoice pdf attached
             // dd(Config::get('mail.username') != null, $request->session()->get('shipping_info')['email']);
-            if (Config::get('mail.username') != null) {
-                // if(env('MAIL_USERNAME') != null){
-                try {
-                    Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
-                    Mail::to(User::where('user_type', 'admin')->first()->email)->send(new InvoiceEmailManager($data));
-                    // dd($request->session()->get('shipping_info')['email']);
-                    // dispatch(new SendInvoiceEmail($array));
-                    // dispatch(new SendInvoiceEmail(User::where('user_type', 'admin')->first()->email, $array));
-                    Log::info('I am in try');
-                    // Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($array));
-                    // Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new InvoiceEmailManager($array));
-                } catch (\Exception $e) {
-                    Log::info('Mail is here');
-                }
-            }
-            unlink($data['file']);
+            // if (Config::get('mail.username') != null) {
+            //     // if(env('MAIL_USERNAME') != null){
+            //     try {
+            //         Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
+            //         Mail::to(User::where('user_type', 'admin')->first()->email)->send(new InvoiceEmailManager($data));
+            //         // dd($request->session()->get('shipping_info')['email']);
+            //         // dispatch(new SendInvoiceEmail($array));
+            //         // dispatch(new SendInvoiceEmail(User::where('user_type', 'admin')->first()->email, $array));
+            //         Log::info('I am in try');
+            //         // Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($array));
+            //         // Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new InvoiceEmailManager($array));
+            //     } catch (\Exception $e) {
+            //         Log::info('Mail is here');
+            //     }
+            // }
+            // unlink($data['file']);
 
             $request->session()->put('order_id', $order->id);
         }
@@ -495,12 +537,19 @@ class OrderController extends Controller
         $order = Order::findOrFail($request->order_id);
         $order->delivery_viewed = '0';
         $order->save();
-        if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'seller') {
+        if (Auth::user()->user_type == 'admin') {
+            foreach ($order->orderDetails as $key => $orderDetail) {
+                $orderDetail->delivery_status = $request->status;
+                $orderDetail->save();
+            }
+        }
+        elseif(Auth::user()->user_type == 'seller'){
             foreach ($order->orderDetails->where('seller_id', Auth::user()->id) as $key => $orderDetail) {
                 $orderDetail->delivery_status = $request->status;
                 $orderDetail->save();
             }
-        } else {
+        }
+        else {
             foreach ($order->orderDetails->where('seller_id', \App\User::where('user_type', 'admin')->first()->id) as $key => $orderDetail) {
                 $orderDetail->delivery_status = $request->status;
                 $orderDetail->save();
@@ -556,14 +605,22 @@ class OrderController extends Controller
         $order->payment_status_viewed = '0';
         $order->save();
 
-        if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'seller') {
+        if (Auth::user()->user_type == 'admin') {
+            foreach ($order->orderDetails as $key => $orderDetail) {
+                $orderDetail->payment_status = $request->status;
+                $orderDetail->save();
+            }
+        }
+        elseif(Auth::user()->user_type == 'seller'){
             foreach ($order->orderDetails->where('seller_id', Auth::user()->id) as $key => $orderDetail) {
                 $orderDetail->payment_status = $request->status;
                 $orderDetail->save();
             }
-        } else {
+        }
+        else {
             foreach ($order->orderDetails->where('seller_id', \App\User::where('user_type', 'admin')->first()->id) as $key => $orderDetail) {
                 $orderDetail->payment_status = $request->status;
+
                 $orderDetail->save();
             }
         }
@@ -581,8 +638,12 @@ class OrderController extends Controller
             if (\App\Addon::where('unique_identifier', 'seller_subscription')->first() == null || !\App\Addon::where('unique_identifier', 'seller_subscription')->first()->activated) {
                 if ($order->payment_type == 'cash_on_delivery') {
                     if (BusinessSetting::where('type', 'category_wise_commission')->first()->value != 1) {
+                        // dd('hi');
                         $commission_percentage = BusinessSetting::where('type', 'vendor_commission')->first()->value;
+                        // dd($commission_percentage);
                         foreach ($order->orderDetails as $key => $orderDetail) {
+                            // return 'hi';
+                            // dd('hi');
                             $orderDetail->payment_status = 'paid';
                             $orderDetail->save();
                             if ($orderDetail->product->user->user_type == 'seller') {
@@ -594,14 +655,25 @@ class OrderController extends Controller
                             }
                         }
                     } else {
+                        // dd('hello');
                         foreach ($order->orderDetails as $key => $orderDetail) {
                             $orderDetail->payment_status = 'paid';
                             $orderDetail->save();
                             if ($orderDetail->product->user->user_type == 'seller') {
-                                $commission_percentage = $orderDetail->product->category->commision_rate;
+                                $seller_id=$orderDetail->product->user->seller->id;
+                                // dd($seller_id);
+                                $category_id = $orderDetail->product->category->id;
+                                // dd($category_id);
+                                $commission=Commission::where('seller_id',$seller_id)->where('category_id',$category_id)->first();
+                                // dd($commission);
+                                
+                                $commission_percentage =$commission->commission_rate;
+
+                                // $commission_percentage =$orderDetail->product->category->commision_rate;
                                 $seller = $orderDetail->product->user->seller;
                                 // $seller->admin_to_pay = $seller->admin_to_pay - ($orderDetail->price * $commission_percentage) / 100;
                                 $afterCommissionPrice = $orderDetail->price - ($orderDetail->price * $commission_percentage) / 100;
+                                // dd($afterCommissionPrice);
                                 $seller->admin_to_pay = $seller->admin_to_pay + $afterCommissionPrice;
                                 $seller->save();
                             }
@@ -624,10 +696,26 @@ class OrderController extends Controller
                             $orderDetail->payment_status = 'paid';
                             $orderDetail->save();
                             if ($orderDetail->product->user->user_type == 'seller') {
-                                $commission_percentage = $orderDetail->product->category->commision_rate;
+                                $seller_id=$orderDetail->product->user->seller->id;
+                                // dd($seller_id);
+                                $category_id = $orderDetail->product->category->id;
+                                // dd($category_id);
+                                $commission=Commission::where('seller_id',$seller_id)->where('category_id',$category_id)->first();
+                                // dd($commission);
+                                
+                                $commission_percentage =$commission->commission_rate;
+
+                                // $commission_percentage =$orderDetail->product->category->commision_rate;
                                 $seller = $orderDetail->product->user->seller;
-                                $seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price * (100 - $commission_percentage)) / 100;
+                                // $seller->admin_to_pay = $seller->admin_to_pay - ($orderDetail->price * $commission_percentage) / 100;
+                                $afterCommissionPrice = $orderDetail->price - ($orderDetail->price * $commission_percentage) / 100;
+                                // dd($afterCommissionPrice);
+                                $seller->admin_to_pay = $seller->admin_to_pay + $afterCommissionPrice;
                                 $seller->save();
+                                // $commission_percentage = $orderDetail->product->category->commision_rate;
+                                // $seller = $orderDetail->product->user->seller;
+                                // $seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price * (100 - $commission_percentage)) / 100;
+                                // $seller->save();
                             }
                         }
                     }

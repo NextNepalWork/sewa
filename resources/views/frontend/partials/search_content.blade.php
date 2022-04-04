@@ -26,7 +26,15 @@
                 <li>
                     <a href="{{ route('product', $product->slug) }}">
                         <div class="d-flex search-product align-items-center">
-                            <div class="image" style="background-image:url('{{ asset($product->thumbnail_img) }}');">
+                            @if (!empty($product->thumbnail_img))
+                                @if (file_exists($product->thumbnail_img))
+                                    <div class="image" style="background-image:url('{{ asset($product->thumbnail_img) }}');">  
+                                @else
+                                    <div class="image" style="background-image:url('{{ asset('frontend/images/placeholder.jpg') }}');">  
+                                @endif
+                            @else
+                                <div class="image" style="background-image:url('{{ asset('frontend/images/placeholder.jpg') }}');">  
+                            @endif
                             </div>
                             <div class="w-100 overflow--hidden">
                                 <div class="product-name text-truncate">
@@ -72,7 +80,15 @@
                     <li>
                         <a href="{{ route('shop.visit', $shop->slug) }}">
                             <div class="d-flex search-product align-items-center">
-                                <div class="image" style="background-image:url('{{ asset($shop->logo) }}');">
+                                @if (!empty($shop->logo))
+                                    @if (file_exists($shop->logo))
+                                        <div class="image" style="background-image:url('{{ asset($shop->logo) }}');">  
+                                    @else
+                                        <div class="image" style="background-image:url('{{ asset('frontend/images/placeholder.jpg') }}');">  
+                                    @endif
+                                @else
+                                    <div class="image" style="background-image:url('{{ asset('frontend/images/placeholder.jpg') }}');">  
+                                @endif
                                 </div>
                                 <div class="w-100 overflow--hidden ">
                                     <div class="product-name text-truncate heading-6 strong-600">
