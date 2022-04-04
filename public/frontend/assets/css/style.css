@@ -2882,3 +2882,12 @@ section#category_section {
 .seller-shop-menu .inline-links .active {
     border-bottom: 2px solid var(--theme_color);
 }
+
+/* Brands */
+#our-brands .item img {
+    max-height: 150px;
+    min-height: 150px;
+    object-fit: contain;
+    margin: auto;
+    width: 100%;
+}

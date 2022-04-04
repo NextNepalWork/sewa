@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Commission;
 use Illuminate\Http\Request;
 use App\Seller;
 use App\User;
@@ -75,6 +76,13 @@ class SellerController extends Controller
                 $shop->user_id = $user->id;
                 $shop->slug = 'demo-shop-'.$user->id;
                 $shop->save();
+                foreach($request->arr as $value){
+                    $commission=new Commission();
+                    $commission->category_id=$value['id'];
+                    $commission->seller_id=$seller->id;
+                    $commission->commission_rate=($value['commission_rate']) ? $value['commission_rate'] : 0;
+                    $commission->save(); 
+                }
                 flash(__('Seller has been inserted successfully'))->success();
                 return redirect()->route('sellers.index');
             }
