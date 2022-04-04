@@ -69,7 +69,12 @@
                       <button
                          class="text-light btn_account pb-0 btn bg-transparent dropdown-toggle pt-0 font-weight-normal "
                          type="button" data-toggle="dropdown">
-                         <i class="fa fa-user-o" aria-hidden="true"></i> My Account
+                         <i class="fa fa-user-o" aria-hidden="true"></i> 
+                         @auth
+                         {{Auth::user()->name}}
+                         @else
+                         My Account
+                         @endauth
                          <span class="caret"></span>
                       </button>
                       <ul class="my_account dropdown-menu pl-3">
