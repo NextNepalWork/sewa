@@ -8,7 +8,7 @@
     }
     .modal-content {
         min-height: 100%;
-        overflow-y: scroll;
+        /* overflow-y: scroll; */
     }
     button.suport_add.btn {
         width: 100%;
@@ -74,7 +74,7 @@
 
     /*=========================== COMMON CSS START  */
     .table {
-        width: 774px;
+        /* width: 774px; */
     }
     .padding_defauld {
         padding: 0px 0;
@@ -231,3 +231,8 @@
     }
     /* Mobile Menu Ends */
 }
+/* @media(max-width:570px){
+    .table {
+        width: unset;
+    }
+} */

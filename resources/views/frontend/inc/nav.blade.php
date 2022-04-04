@@ -470,10 +470,10 @@
                       <div class="container d-block">
                           <div class="row">
                               <div class="col-md-12">
-                                  <ul class="nav flex-column p-0">
+                                  <ul class="nav flex-column p-0" style="line-height: 2;">
                                       @foreach (\App\Category::all() as $key => $category)
                                       <li class=" p-0">
-                                          <a class="nav-link head font-weight-bold" data-toggle="collapse" href=".collapse{{$category->id}}" role="button" aria-expanded="false" aria-controls="collapseExample"> 
+                                          <a class="nav-link head" data-toggle="collapse" href=".collapse{{$category->id}}" role="button" aria-expanded="false" aria-controls="collapseExample"> 
                                              <span><i class="fa fa-minus"></i></span> {{$category->name}}
                                           </a>
                                           <div class="collapse collapse{{$category->id}}">
@@ -503,38 +503,90 @@
                   </div>
               </li>
                @auth
-               <li class="nav-item d-flex align-items-center">
-                  <a href="{{ route('purchase_history.index') }}" class="nav-link add-on" data-target="#nav-cart">
-                     <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>Purchase History
-                     <span class="mx-2"><i class="fa fa-file-text" aria-hidden="true"></i></span>
-                 </a>
-               </li>
+                  <li class="nav-item d-flex align-items-center">
+                     <a href="{{ route('purchase_history.index') }}" class="nav-link add-on" data-target="#nav-cart">
+                        <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>Purchase History
+                        <span class="mx-2"><i class="fa fa-file-text" aria-hidden="true"></i></span>
+                  </a>
+                  </li>
 
-               <li class="nav-item d-flex align-items-center">
-                  <a href="{{ route('profile') }}" class="nav-link add-on" data-target="#nav-cart">
-                     <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>Manage Profile
-                     <span class="mx-2"><i class="fa fa-user" aria-hidden="true"></i></span>
-                  </a>
-              </li>
+                  <li class="nav-item d-flex align-items-center">
+                     <a href="{{ route('profile') }}" class="nav-link add-on" data-target="#nav-cart">
+                        <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>Manage Profile
+                        <span class="mx-2"><i class="fa fa-user" aria-hidden="true"></i></span>
+                     </a>
+                  </li>
               
-              @if (\App\BusinessSetting::where('type', 'wallet_system')->first()->value == 1)
-              <li class="nav-item d-flex align-items-center">
-                  <a href="{{ route('wallet.index') }}" class="nav-link add-on" data-target="#nav-cart">
-                     <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>My Wallet
-                     <span class="mx-2"><i class="fa fa-dollar" aria-hidden="true"></i></span>
-                  </a>
-              </li>
-               @endif
+                  @if (\App\BusinessSetting::where('type', 'wallet_system')->first()->value == 1)
+                     <li class="nav-item d-flex align-items-center">
+                           <a href="{{ route('wallet.index') }}" class="nav-link add-on" data-target="#nav-cart">
+                              <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>My Wallet
+                              <span class="mx-2"><i class="fa fa-dollar" aria-hidden="true"></i></span>
+                           </a>
+                     </li>
+                  @endif
+
+                  @if (Auth::user()->seller)       
+                     <li class="nav-item d-flex align-items-center">
+                           <a href="{{ route('seller.products') }}" class="nav-link add-on" data-target="#nav-cart">
+                              <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>{{__('Products')}}
+                              <span class="mx-2"><i class="la la-diamond" aria-hidden="true"></i></span>
+                           </a>
+                     </li>  
+                     @php
+                        $orders = DB::table('orders')
+                                    ->orderBy('code', 'desc')
+                                    ->join('order_details', 'orders.id', '=', 'order_details.order_id')
+                                    ->where('order_details.seller_id', Auth::user()->id)
+                                    ->where('orders.viewed', 0)
+                                    ->select('orders.id')
+                                    ->distinct()
+                                    ->count();
+                     @endphp    
+                     <li class="nav-item d-flex align-items-center">
+                           <a href="{{ route('orders.index') }}" class="nav-link add-on" data-target="#nav-cart">
+                              <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>
+                              {{__('Orders')}} @if($orders > 0)<span class="ml-2" style="color:green"><strong>({{ $orders }} {{ __('New') }})</strong></span></span>@endif
+                              <span class="mx-2"><i class="la la-file-text" aria-hidden="true"></i></span>
+                           </a>
+                     </li>   
+                     @php
+                                 $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
+                     @endphp    
+                     @if ($refund_request_addon != null && $refund_request_addon->activated == 1)
+                        <li class="nav-item d-flex align-items-center">
+                              <a href="{{ route('vendor_refund_request') }}" class="nav-link add-on" data-target="#nav-cart">
+                                 <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>
+                                 {{__('Recieved Refund Request')}}
+                                 <span class="mx-2"><i class="la la-file-text" aria-hidden="true"></i></span>
+                              </a>
+                        </li>       
+                        <li class="nav-item d-flex align-items-center">
+                              <a href="{{ route('customer_refund_request') }}" class="nav-link add-on" data-target="#nav-cart">
+                                 <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>
+                                 {{__('Sent Refund Request')}}
+                                 <span class="mx-2"><i class="la la-file-text" aria-hidden="true"></i></span>
+                              </a>
+                        </li>
+                     @endif 
+                     <li class="nav-item d-flex align-items-center">
+                           <a href="{{ route('shops.index') }}" class="nav-link add-on" data-target="#nav-cart">
+                              <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>
+                              {{__('Shop Setting')}}
+                              <span class="mx-2"><i class="la la-file-text" aria-hidden="true"></i></span>
+                           </a>
+                     </li>                                            
+                  @endif
                @endauth
                @auth
-               @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
+               {{-- @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
                <li class="nav-item d-flex align-items-center">
                    <a class="nav-link add-on" data-target="#nav-cart" href="{{ route('customer_products.index') }}">
                      <span class="nav-indication mr-2"><i class="fa fa-eercast" aria-hidden="true"></i></span>{{__('Classified Products')}}
                      <span class="mx-2"><i class="la la-diamond" aria-hidden="true"></i></span>
                    </a>
                </li>
-               @endif
+               @endif --}}
                @endauth
                @auth
                <li class="nav-item d-flex align-items-center">
