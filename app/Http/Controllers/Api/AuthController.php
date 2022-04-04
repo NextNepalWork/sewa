@@ -20,7 +20,12 @@ class AuthController extends Controller
             'password' => 'required|string|min:6'
         ]);
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json([
+                // 'user'=>$user,
+                // 'token'=>$tokenResult,
+                'status'=> 422,
+                'message' =>  $validator->errors()
+            ], 201);
         }
        
         try{
