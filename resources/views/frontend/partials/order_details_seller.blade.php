@@ -60,7 +60,7 @@
         </div>
         <div class="card-body pb-0">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-6" style="overflow-x: scroll;">
                     <table class="details-table table">
                         <tr>
                             <td class="w-50 strong-600">{{__('Order Code')}}:</td>
@@ -68,12 +68,12 @@
                         </tr>
                         <tr>
                             <td class="w-50 strong-600">{{__('Customer')}}:</td>
-                            <td>{{ json_decode($order->shipping_address)->name }}</td>
+                            <td>{{ (isset(json_decode($order->shipping_address)->name)?json_decode($order->shipping_address)->name:'Empty') }}</td>
                         </tr>
                         <tr>
                             <td class="w-50 strong-600">{{__('Email')}}:</td>
                             @if ($order->user_id != null)
-                                <td>{{ $order->user->email }}</td>
+                                <td>{{ (isset($order->user->email))?$order->user->email:'Empty' }}</td>
                             @endif
                         </tr>
                         <tr>
@@ -82,7 +82,7 @@
                         </tr>
                     </table>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6" style="overflow-x: scroll;">
                     <table class="details-table table">
                         <tr>
                             <td class="w-50 strong-600">{{__('Order date')}}:</td>
@@ -113,7 +113,7 @@
         <div class="col-lg-9">
             <div class="card mt-4">
                 <div class="card-header py-2 px-3 heading-6 strong-600">{{__('Order Details')}}</div>
-                <div class="card-body pb-0">
+                <div class="card-body pb-0" style="overflow-x: scroll;">
                     <table class="details-table table">
                         <thead>
                             <tr>
@@ -176,7 +176,7 @@
         <div class="col-lg-3">
             <div class="card mt-4">
                 <div class="card-header py-2 px-3 heading-6 strong-600">{{__('Order Amount')}}</div>
-                <div class="card-body pb-0">
+                <div class="card-body pb-0" style="overflow-x: scroll;">
                     <table class="table details-table">
                         <tbody>
                             <tr>

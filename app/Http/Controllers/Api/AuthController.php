@@ -8,38 +8,55 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\User;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
     public function signup(Request $request)
     {
-        $validator= $request->validate([
+        $validator= Validator::make($request->all(), [ 
             'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:6'
         ]);
-        $user = new User([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'email_verified_at' => Carbon::now()
-        ]);
-        $user->save();
-        $customer = new Customer;
-        $customer->user_id = $user->id;
-        $customer->save();
-        // $tokenResult = $user->createToken('Personal Access Token');
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-        else {
+       
+        try{
+            $user = new User;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->email_verified_at = Carbon::now();
+            $user->save();
+            $customer = new Customer;
+            $customer->user_id = $user->id;
+             $customer->save();
+         }
+         catch(\Exception $e){
+            return response()->json([
+                // 'user'=>$user,
+                // 'token'=>$tokenResult,
+                'status'=> 422,
+                'message' =>  $e->getMessage()
+            ], 201);
+         }
+        
+       
+        
+        // $tokenResult = $user->createToken('Personal Access Token');
+        // if ($validator->fails()) {
+        //     return response()->json($validator->errors(), 422);
+        // }
+        // else {
             return response()->json([
                 // 'user'=>$user,
                 // 'token'=>$tokenResult,
                 'status'=>200,
                 'message' => 'Registration Successful. Please log in to your account'
             ], 201);
-        }
+        // }
 
     }
 
