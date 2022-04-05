@@ -41,7 +41,7 @@ class ProductDetailCollection extends ResourceCollection
                         'shop_id' => $data->added_by == 'admin' ? '' :  (($data->user->shop)? strval($data->user->shop->id):'')
                     ],
                     'category' => [
-                        'name' => $data->category->name,
+                        'name' => (isset($data->category) && !$data->category->isEmpty())?$data->category->name:'',
                         'banner' => file_exists($data->category->banner) ? $data->category->banner : $placeholder_img,
                         'icon' => file_exists($data->category->icon) ? $data->category->icon : $placeholder_img,
                         'links' => [
@@ -50,7 +50,7 @@ class ProductDetailCollection extends ResourceCollection
                         ]
                     ],
                     'sub_category' => [
-                        'name' => $data->subCategory->name,
+                        'name' => (isset($data->subCategory) && !$data->subCategory->isEmpty())?$data->subCategory->name:'',
                         'links' => [
                             'products' => route('products.subCategory', $data->subcategory_id)
                         ]

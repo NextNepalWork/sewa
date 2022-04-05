@@ -1,3 +1,8 @@
+<style>
+    .done.icon{
+        background: #63c530!important;
+    }
+</style>
 <div class="modal-header">
     <h5 class="modal-title strong-600 heading-5">{{__('Order id')}}: {{ $order->code }}</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

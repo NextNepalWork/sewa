@@ -1,6 +1,9 @@
 @extends('frontend.layouts.app')
 
 @section('content')
+
+
+
 <section id="breadcrumb_item" class="pb-0 breadcrumb mb-0">
     <div class="container">
        <div class="row">
