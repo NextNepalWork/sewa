@@ -42,6 +42,7 @@ class CartController extends Controller
 
         if ($variant == null && $str == null){
             $price = $product->unit_price;
+            $product_stock = $product->current_stock;
         }else{ 
             //$variations = json_decode($product->variations);
            
@@ -49,8 +50,12 @@ class CartController extends Controller
           
             $price = $product_stock->price;
         }
-
-          $flash_deals = \App\FlashDeal::where('status', 1)->get();
+        if($product_stock < $request->quantity){
+            return response()->json(['message' =>'Stock Available'.$product->current_stock], 400);
+       }elseif($request->quantity < 0){
+         return response()->json(['message' =>'Error, Minimum 1 quantity required'], 400);   
+       }
+        $flash_deals = \App\FlashDeal::where('status', 1)->get();
         $inFlashDeal = false;
         foreach ($flash_deals as $flash_deal) {
             if ($flash_deal != null && $flash_deal->status == 1  && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date && \App\FlashDealProduct::where('flash_deal_id', $flash_deal->id)->where('product_id', $product->id)->first() != null) {
@@ -90,7 +95,7 @@ class CartController extends Controller
             'price' => $price,
             'tax' => $tax,
             'shipping_cost' => $product->shipping_type == 'free' ? 0 : $product->shipping_cost,
-            'quantity' => DB::raw('quantity + 1')
+            'quantity' => DB::raw('quantity + '.$request->quantity)
         ]);
 
         return response()->json([
