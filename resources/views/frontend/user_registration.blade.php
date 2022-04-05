@@ -24,7 +24,7 @@
                                     </span>
                                 @endif
                             </div>
-                            @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated)
+                            {{-- @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated)
                                 <div class="form-group position-relative mb-xl-4 mb-md-3 mb-2">
                                     <input type="tel" id="phone-code" class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none bg-transparent{{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ old('phone') }}" placeholder="{{ __('Mobile Number') }}" name="phone">
                                     <span class="input-group-addon">
@@ -52,7 +52,7 @@
                                 <div class="form-group">
                                     <button class="btn btn-link p-0" type="button" onclick="toggleEmailPhone(this)">Use Email Instead</button>
                                 </div>
-                            @else
+                            @else --}}
                                 <div class="form-group position-relative mb-xl-4 mb-md-3 mb-2">
                                     <input type="email" class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none bg-transparent {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" id="email" placeholder="Email" name="email">
                                     <span class="input-group-addon">
@@ -64,7 +64,7 @@
                                     </span>
                                     @endif
                                 </div>
-                            @endif
+                            {{-- @endif --}}
                             <div class="form-group position-relative mb-xl-4 mb-md-3 mb-2">
                                 <input type="password" class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none bg-transparent {{ $errors->has('password') ? ' is-invalid' : '' }}" id="username" placeholder="Password" name="password">
                                 <span class="input-group-addon">

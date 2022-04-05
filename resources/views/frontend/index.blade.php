@@ -260,15 +260,6 @@
                         @foreach (filter_products(\App\Product::orderBy('id','DESC')->where('current_stock','>',0)->with('stocks'))->limit(12)->get() as $key => $product)
                        <div class="grid-item mb-4">
                           <div class="product-grid-item">
-                             <div class="category-title">
-                                <div class="category">
-                                   <a class="m-0">{{ $product->category->name }}</a>
-                                </div>
-                                <h6 class="title">
-                                   <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
-                                </h6>
-                             </div>
-
                              <div class="product-grid-image">
                                 <a href="{{ route('product', $product->slug) }}">
                                     @php
@@ -287,7 +278,7 @@
 
                                 </a>
                              </div>
-                             <div class="price-cart text-center pt-2">
+                             <div class="price-cart text-center py-2">
                                 <div class="price d-flex flex-column align-items-center">
                                     <div class="prices d-flex align-items-center">
                                         <h6 class="m-0 gray">{{ home_discounted_base_price($product->id) }}</h6>
@@ -324,6 +315,14 @@
                                 <a class="all-deals ico effect" onclick="showAddToCartModal({{ $product->id }})" data-toggle="tooltip" data-placement="right"
                                     title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
                             </div>
+                            <div class="category-title">
+                                <div class="category">
+                                   <a class="m-0">{{ $product->category->name }}</a>
+                                </div>
+                                <h6 class="title">
+                                   <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
+                                </h6>
+                             </div>
                              <div class="cart-compare">
                                 <a class="all-deals effect gray" onclick="addToWishList({{ $product->id }})">
                                     <i class="fa fa-heart icon mr-2"></i>Wishlist
@@ -463,15 +462,6 @@
                                 @endphp --}}
                                     <div class="grid-item">
                                         <div class="product-grid-item">
-                                        <div class="category-title">
-                                            <div class="category">
-                                                <a class="m-0" href="{{ route('products.category', $product->category->slug) }}">{{ $product->category->name }}</a>
-                                            </div>
-                                            <h6 class="title">
-                                                <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
-                                            </h6>
-                                        </div>
-    
                                         <div class="product-grid-image">
                                             <a href="{{ route('product', $product->slug) }}">
                                                 @php
@@ -488,7 +478,8 @@
                                                 @endif
                                             </a>
                                         </div>
-                                        <div class="price-cart text-center pt-2">
+
+                                        <div class="price-cart text-center py-2">
                                             <div class="price d-flex flex-column align-items-center">
                                                 <div class="prices d-flex align-items-center">
                                                     <h6 class="m-0 gray">{{ home_discounted_base_price($product->id) }}</h6>
@@ -524,6 +515,14 @@
                                             </div>
                                             <a class="all-deals ico effect" onclick="showAddToCartModal({{ $product->id }})" data-toggle="tooltip" data-placement="right"
                                                 title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
+                                        </div>
+                                        <div class="category-title">
+                                            <div class="category">
+                                                <a class="m-0" href="{{ route('products.category', $product->category->slug) }}">{{ $product->category->name }}</a>
+                                            </div>
+                                            <h6 class="title">
+                                                <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
+                                            </h6>
                                         </div>
                                         <div class="cart-compare">
                                             <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToWishList({{$product->id}})"
@@ -570,14 +569,7 @@
                                 @endphp --}}
                                     <div class="grid-item">
                                         <div class="product-grid-item">
-                                        <div class="category-title">
-                                            <div class="category">
-                                                <a class="m-0" href="{{ route('products.category', $product->category->slug) }}">{{ $product->category->name }}</a>
-                                            </div>
-                                            <h6 class="title">
-                                                <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
-                                            </h6>
-                                        </div>
+                                        
     
                                         <div class="product-grid-image">
                                             <a href="{{ route('product', $product->slug) }}">
@@ -595,7 +587,8 @@
                                                 @endif
                                             </a>
                                         </div>
-                                        <div class="price-cart text-center pt-2">
+
+                                        <div class="price-cart text-center py-2">
                                             <div class="price d-flex flex-column align-items-center">
                                                 <div class="prices d-flex align-items-center">
                                                     <h6 class="m-0 gray">{{ home_discounted_base_price($product->id) }}</h6>
@@ -632,6 +625,14 @@
                                             <a class="all-deals ico effect" onclick="showAddToCartModal({{ $product->id }})" data-toggle="tooltip" data-placement="right"
                                                 title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
                                         </div>
+                                        <div class="category-title">
+                                            <div class="category">
+                                                <a class="m-0" href="{{ route('products.category', $product->category->slug) }}">{{ $product->category->name }}</a>
+                                            </div>
+                                            <h6 class="title">
+                                                <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
+                                            </h6>
+                                        </div>
                                         <div class="cart-compare">
                                             <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToWishList({{$product->id}})"
                                                 ><i class="fa fa-heart icon mr-2"></i>Wishlist
@@ -654,6 +655,55 @@
         </div>
     </section>
     {{-- @endif --}}
+
+     <!-- Brands -->
+<section id="our-brands" class="padding_bottom">
+    <div class="container">
+       <div class="product-lists">
+          <div class="row">
+             <div class="col-xl-12">
+                <div class="section_title_block d-flex justify-content-between align-item-center h-100">
+                   @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->name == "Nepali")
+                   <h2 class="position-relative mb-0">ब्रान्डहरू</h2>
+                   <a class="btn_view" href="{{route('brands.all')}}"> सबै ब्रान्डहरू हेर्नुहोस्<span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                   @else
+                   <h2 class="position-relative mb-0">Brands</h2>
+                   <a class="btn_view" href="{{route('brands.all')}}"> View all Brands<span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                   @endif
+                </div>
+             </div>
+             <div class="col-xl-12 my-2">
+                <div class="slick_brand">
+                    @php
+                        $brands=\App\Models\Brand::all();
+                    @endphp
+                    @foreach ($brands as $brand)
+                        
+                   <div class="brand-list mx-1">
+                      <a href="{{route('products.brand',$brand->slug)}}">
+                         <div class="item">
+                             @if (!empty($brand->logo))
+                                 @if (file_exists($brand->logo))
+                                    <img src="{{asset($brand->logo)}}" alt="{{$brand->name}}" class="img-fluid img-fit lazyloaded">
+                                 @else
+                                    <img src="{{asset('frontend/images/placeholder.jpg')}}" alt="{{$brand->name}}" class="img-fluid img-fit lazyloaded"> 
+                                 @endif
+                             @else
+                                <img src="{{asset('frontend/images/placeholder.jpg')}}" alt="{{$brand->name}}" class="img-fluid img-fit lazyloaded"> 
+                             @endif
+
+                         </div>
+                      </a>
+                   </div>
+                    @endforeach
+
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+</section>
+ <!-- Brands Ends -->
  <!--============================================= BEST SELLING END ======-->
  @if (\App\BusinessSetting::where('type', 'best_selling')->first()->value == 1)
 <section id="productlist" class="padding_bottom">
@@ -676,14 +726,7 @@
                 @foreach (filter_products(\App\Product::where('published', 1)->orderBy('num_of_sale', 'desc'))->limit(20)->get() as $key => $product)
                 <div class="grid-item mb-4 ">
                   <div class="product-grid-item ">
-                     <div class="category-title">
-                        <div class="category">
-                           <a class="m-0">{{ $product->category->name }}</a>
-                        </div>
-                        <h6 class="title">
-                           <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
-                        </h6>
-                     </div>
+                     
 
                      <div class="product-grid-image">
                         <a href="{{ route('product', $product->slug) }}">
@@ -702,7 +745,7 @@
                         </a>
 
                      </div>
-                     <div class="price-cart text-center pt-2">
+                     <div class="price-cart text-center py-2">
                         <div class="price d-flex flex-column align-items-center">
                             <div class="prices d-flex align-items-center">
                                 <h6 class="m-0 gray">{{ home_discounted_base_price($product->id) }}</h6>
@@ -739,6 +782,14 @@
                         <a class="all-deals ico effect" onclick="showAddToCartModal({{ $product->id }})" data-toggle="tooltip" data-placement="right"
                             title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
                     </div>
+                    <div class="category-title">
+                        <div class="category">
+                           <a class="m-0">{{ $product->category->name }}</a>
+                        </div>
+                        <h6 class="title">
+                           <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
+                        </h6>
+                     </div>
                      <div class="cart-compare">
                         <a class="all-deals effect gray" onclick="addToWishList({{ $product->id }})">
                             <i class="fa fa-heart icon mr-2"></i>Wishlist
@@ -756,6 +807,9 @@
     </div>
 </section>
  @endif
+
+
+
  @if(Auth::check())
  @if(isset($recommended) && (($recommended)->count()) >0)
     <section id="product-listing-wrapper" class=" product_listing">
@@ -789,14 +843,7 @@
                         @if (($product))                            
                             <div class="grid-item mb-4">
                                 <div class="product-grid-item">
-                                    <div class="category-title">
-                                        <div class="category">
-                                        {{-- <a class="m-0">{{ $product->category->name }}</a> --}}
-                                        </div>
-                                        <h6 class="title">
-                                        <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
-                                        </h6>
-                                    </div>
+                                    
 
                                     <div class="product-grid-image">
                                         <a href="{{ route('product', $product->slug) }}">
@@ -816,7 +863,7 @@
 
                                         </a>
                                     </div>
-                                    <div class="price-cart text-center pt-2">
+                                    <div class="price-cart text-center py-2">
                                         <div class="price d-flex flex-column align-items-center">
                                             <div class="prices d-flex align-items-center">
                                                 <h6 class="m-0 gray">{{ home_discounted_base_price($product->id) }}</h6>
@@ -852,6 +899,14 @@
                                         </div>
                                         <a class="all-deals ico effect" onclick="showAddToCartModal({{ $product->id }})" data-toggle="tooltip" data-placement="right"
                                             title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
+                                    </div>
+                                    <div class="category-title">
+                                        <div class="category">
+                                        {{-- <a class="m-0">{{ $product->category->name }}</a> --}}
+                                        </div>
+                                        <h6 class="title">
+                                        <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
+                                        </h6>
                                     </div>
                                     <div class="cart-compare">
                                         <a class="all-deals effect gray" onclick="addToWishList({{ $product->id }})">
@@ -994,11 +1049,6 @@
                                 @foreach (filter_products(\App\Product::where('published', 1)->where('category_id', $homeCategory->category->id))->latest()->get() as $key => $product)
                         
                                 <div class="product-grid-item mb-3">
-                                    <div class="category-title">
-                                        <h6 class="title">
-                                        <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
-                                        </h6>
-                                    </div>
                                   
                                     <div class="product-grid-image">
                                         <a href="{{ route('product', $product->slug) }}">
@@ -1018,7 +1068,7 @@
                                         </a>
                                     </div>
                                   
-                                    <div class="price-cart text-center pt-2">
+                                    <div class="price-cart text-center py-2">
                                         <div class="price d-flex flex-column align-items-center">
                                             <div class="prices d-flex align-items-center">
                                                 <h6 class="m-0 gray">{{ home_discounted_base_price($product->id) }}</h6>
@@ -1055,7 +1105,12 @@
                                         <a class="all-deals ico effect" onclick="showAddToCartModal({{ $product->id }})" data-toggle="tooltip" data-placement="right"
                                             title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
                                     </div>
-                                 
+                                    <div class="category-title">
+                                        <h6 class="title">
+                                        <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
+                                        </h6>
+                                    </div>
+                                  
                                     <div class="cart-compare">
                                         <a class="all-deals effect gray" onclick="addToWishList({{ $product->id }})">
                                             <i class="fa fa-heart icon mr-2"></i>Wishlist
@@ -1077,6 +1132,8 @@
     @endif
 @endforeach
 <!--=========================================== Home category section END ======-->
+
+
     <!--============================================= BANNER START ======-->
     <section id="banner_two" class="mb-5">
         <div class="container">

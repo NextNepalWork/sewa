@@ -93,17 +93,17 @@
                     <div class="text-center">
                         <h2 class="font-weight-bold title my-xl-3 my-md-3 my-4">Login</h2>
                         <div class="form-group position-relative mb-xl-4 mb-md-3 mb-2">
-                            @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated)
+                            {{-- @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated)
                             <input type="email"
                                 class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none bg-transparent {{ $errors->has('email') ? ' is-invalid' : '' }}"
                                 id="username" value="{{ old('email') }}" placeholder="Email" name="email">
 
                             <i class="fa fa-user-o" aria-hidden="true"></i>
-                            @else
+                            @else --}}
                             <input type="email"
                                 class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none bg-transparent {{ $errors->has('email') ? ' is-invalid' : '' }}"
                                 id="username" value="{{ old('email') }}" placeholder="Email" name="email">
-                            @endif
+                            {{-- @endif --}}
                         </div>
                         <div class="form-group position-relative mb-xl-4 mb-md-3 mb-2">
                             <input type="password" class="form-control border-top-0 border-right-0 border-left-0 rounded-0

@@ -45,10 +45,31 @@
         <div class="overlay position-absolute">
             <div class="title p-4">
                 <ol class="breadcrumb p-0 bg-transparent p-0 m-0">
-                    <li class="breadcrumb-item">
+                    <li class="">
                         <a href="{{ route('home') }}">Home</a>
                     </li>
-                    <li class="breadcrumb-item">
+                    @php
+                        $category=\App\Models\Category::where('id',$detailedProduct->category_id)->first();
+                        $sub_category=\App\Models\SubCategory::where('id',$detailedProduct->subcategory_id)->first();
+                        $sub_sub=\App\Models\SubSubCategory::where('id',$detailedProduct->subsubcategory_id)->first();
+
+                    @endphp
+                    <li class="">
+                        <a href="{{ route('products.category',$category->slug) }}">{{$category->name}}</a>
+                    </li>
+                    @if ($sub_category!=null)
+                        <li class="">
+                            <a href="{{ route('products.subcategory',$sub_category->slug) }}">{{$sub_category->name}}</a>
+                        </li>
+                        @if ($sub_sub!=null)
+                            <li class="">
+                                <a href="{{ route('products.subsubcategory',$sub_sub->slug) }}">{{$sub_sub->name}}</a>
+                            </li>
+
+                        @endif
+                    @endif
+
+                    <li class="">
                         <a href="{{ route('product',$detailedProduct->slug) }}">{{$detailedProduct->name}}</a>
                     </li>
                 </ol>
@@ -111,28 +132,24 @@
                 <div class="col-lg-7 col-md-12 col-12 mx-auto">
                     <div class="d-flex justify-content-center h-100 product-detail flex-column">
                         <div class="about mb-1">
-                            <div class="d-flex flex-row align-items-center flex-wrap mb-2">
+                            <div class="d-inline-block flex-column flex-wrap mb-2">
                                 <h3 class="font-weight-bold m-0">{{ __($detailedProduct->name) }}</h3>
                                 @if(home_price($detailedProduct->id) != home_discounted_price($detailedProduct->id))
-                                <div class="product-price d-flex ml-3">
+                                <div class="product-price d-flex">
                                     <div class="first-price mr-2">{{ home_price($detailedProduct->id) }}
                                         <span>/{{ $detailedProduct->unit }}</span></div>
                                     <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
                                     <span class="piece">/{{ $detailedProduct->unit }}</span></div>
                                 </div>
                                 @else
-                                <div class="product-price d-flex ml-3">
+                                <div class="product-price d-flex">
                                     <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
                                     <span class="piece">/{{ $detailedProduct->unit }}</span></div>
                                 </div>
                                 @endif
 
                             </div>
-                            @if (! $detailedProduct->discount == 0)
-                            <div class="font-weight-bold h5">
-                                ({{ ($detailedProduct->discount_type == 'amount')?'Rs.':'' }} {{ $detailedProduct->discount }}{{ !($detailedProduct->discount_type == 'amount')?' %':'' }} off)
-                            </div>
-                            @endif
+
 
                             <div class="d-flex flex-wrap align-items-center">
                                 <!-- Rating -->
@@ -152,39 +169,18 @@
                                     </div>
                                 </div>
                                 <!-- Rating Ends -->
-                                <div class="social-media font-weight-bold d-inline-flex align-items-center">
+                                {{-- <div class="social-media font-weight-bold d-inline-flex align-items-center">
                                     <!-- <label class="mr-3 mb-0 font-weight-bold">
                                     Share On
                                     </label> -->
                                     <ul class="p-0 m-0 d-flex align-items-center">
-                                        {{-- <style>
-                                            .jssocials-shares{
-                                                display: inline-flex;
-                                            }
-                                            .jssocials-share{
-                                                padding-right: 5px;
-                                            }
-                                        </style> --}}
+                                        
                                         <li class="mr-2">
                                             <div id="share"></div>
                                         </li>
-                                        {{-- <li class="mr-2">
-                                            <a href="#">
-                                                <i class="fa fa-youtube-play" aria-hidden="true"></i>
-                                            </a>
-                                        </li>
-                                        <li class="mr-2">
-                                            <a href="#">
-                                                <i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        </li>
-                                        <li class="mr-2">
-                                            <a href="#">
-                                                <i class="fa fa-instagram" aria-hidden="true"></i>
-                                            </a>
-                                        </li> --}}
                                     </ul>
                                     
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <hr>
@@ -292,12 +288,19 @@
                                 <div class="col-2 m-auto">
                                     <div class="product-description-label h5">{{__('Total Price')}}:</div>
                                 </div>
-                                <div class="col-10">
-                                    <div class="product-price" style="background: none;">
+                                <div class="col-3">
+                                    <div class="product-price text-dark" style="background: none;">
                                         <strong id="chosen_price" class="font-weight-bold h5">
                                             
                                         </strong>
                                     </div>
+                                </div>
+                                <div class="col-7">
+                                    @if (! $detailedProduct->discount == 0)
+                                    <div class="font-weight-bold h5">
+                                        ({{ ($detailedProduct->discount_type == 'amount')?'Rs.':'' }} {{ $detailedProduct->discount }}{{ !($detailedProduct->discount_type == 'amount')?' %':'' }} off)
+                                    </div>
+                                    @endif
                                 </div>
                             </div>
 
@@ -309,7 +312,7 @@
                                              {{__('Buy Now')}}
                                         </button>
                                         <button type="button" class="btn-custom" onclick="addToCart()">
-                                            <span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span>
+                                            <span class=" d-md-inline-block"> {{__('Add to cart')}}</span>
                                         </button>
                                     @else
                                         <button type="button" class="btn btn-styled btn-base-3 btn-icon-left strong-700" disabled>
@@ -539,6 +542,238 @@
                 </div>
             </div>
         </div>
+        </div>
+    </section>
+
+    <section class="gry-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9">
+                    <div class="my-4 bg-white p-3">
+                        <div class="section_title_block d-flex justify-content-between align-item-center h-100">
+                            @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->name == "Nepali")
+                            <h2 class="position-relative mb-0">सम्बन्धित उत्पादनहरु</h2>
+                            
+                            @else
+                            <h2 class="position-relative mb-0">Related Products</h2>
+                            
+                            @endif
+                                
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="product-lists mt-4">
+                                    <div class="right-side-wrapper">
+                                        <div class="grid-container2 best_selling">
+                                            @foreach (filter_products(\App\Product::where('subcategory_id', $detailedProduct->subcategory_id)->where('id', '!=', $detailedProduct->id))->get() as $key => $related_product)
+                                                <div class="grid-item mx-1">
+                                                    <div class="product-grid-item">
+                                                    <div class="category-title">
+                                                        <h6 class="title">
+                                                            <a href="{{ route('product', $related_product->slug) }}" class="">{{ __($related_product->name) }}</a>
+                                                        </h6>
+                                                    </div>
+                
+                                                    <div class="product-grid-image">
+                                                        <a href="{{ route('product', $related_product->slug) }}">
+                                                            @php
+                                                                $filepath = $related_product->thumbnail_img;
+                                                            @endphp
+                                                            @if(isset($filepath))
+                                                                @if (file_exists(public_path($filepath)))
+                                                                    <img src="{{ asset($related_product->thumbnail_img) }}" alt="{{ $related_product->name }}" data-src="{{ asset($related_product->thumbnail_img) }}" class="img-fluid pic-1">
+                                                                @else
+                                                                    <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $related_product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
+                                                                @endif
+                                                            @else
+                                                                <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $related_product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
+                                                            @endif
+                                                        </a>
+                                                    </div>
+                                                    <div class="price-cart text-center pt-2">
+                                                        <div class="price d-flex flex-column align-items-center">
+                                                            <div class="prices d-flex align-items-center">
+                                                                <h6 class="m-0 gray">{{ home_discounted_base_price($related_product->id) }}</h6>
+                                                                @if(home_base_price($related_product->id) != home_discounted_base_price($related_product->id))
+                                                                <span>{{ home_base_price($related_product->id) }}</span>
+                                                                @endif
+                                                            </div>
+                                                            <div class="d-flex w-100 mt-2">
+                                            
+                                                                @php
+                                                                $qty = 0;
+                                                                if($related_product->variant_product){
+                                                                    foreach ($related_product->stocks as $key => $stock) {
+                                                                        $qty += $stock->qty;
+                                                                    }
+                                                                }
+                                                                else{
+                                                                    $qty = $related_product->current_stock ;
+                                                                }
+                                                                @endphp
+                                                                @if($qty == 0)
+                                                                <div class="stock mr-1">
+                                                                    Out of Stock
+                                                                </div>
+                                                                @endif
+                                                                @if (! $related_product->discount == 0)
+                                                                <div class="product-discount-label">
+                                                                    {{ ($related_product->discount_type == 'amount')?'Rs.':'' }} {{ $related_product->discount }}{{ !($related_product->discount_type == 'amount')?' %':'' }}
+                                                                </div>
+                                                                @endif
+                                                            
+                                                            </div>
+                                                        </div>
+                                                        <a class="all-deals ico effect" onclick="showAddToCartModal({{ $related_product->id }})" data-toggle="tooltip" data-placement="right"
+                                                            title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
+                                                    </div>
+                                                    <div class="cart-compare">
+                                                        <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToWishList({{$related_product->id}})"
+                                                            ><i class="fa fa-heart icon mr-2"></i>Wishlist
+                                                        </a>
+                                                        <a class="all-deals effect gray" onclick="addToCompare({{$related_product->id}})">
+                                                        <i class="fa fa-exchange icon mr-2"></i>Compare
+                                                        </a>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3  d-xl-block">
+                    <div class="seller-info-box my-4">
+                        <div class="sold-by position-relative">
+                            @if ($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1 && $detailedProduct->user->seller->verification_status == 1)
+                                <div class="position-absolute medal-badge">
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" viewBox="0 0 287.5 442.2">
+                                        <polygon style="fill:#F8B517;" points="223.4,442.2 143.8,376.7 64.1,442.2 64.1,215.3 223.4,215.3 "/>
+                                        <circle style="fill:#FBD303;" cx="143.8" cy="143.8" r="143.8"/>
+                                        <circle style="fill:#F8B517;" cx="143.8" cy="143.8" r="93.6"/>
+                                        <polygon style="fill:#FCFCFD;" points="143.8,55.9 163.4,116.6 227.5,116.6 175.6,154.3 195.6,215.3 143.8,177.7 91.9,215.3 111.9,154.3
+                                        60,116.6 124.1,116.6 "/>
+                                    </svg>
+                                </div>
+                            @endif
+                            
+                            <div class="title font-weight-bold">{{__('Sold By')}}</div>
+                            @if($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
+                                <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}" class="name d-block font-weight-bold">{{ $detailedProduct->user->shop->name }}
+                                @if ($detailedProduct->user->seller->verification_status == 1)
+                                    <span class="ml-2"><i class="fa fa-check-circle" style="color:green"></i></span>
+                                @else
+                                    <span class="ml-2"><i class="fa fa-times-circle" style="color:red"></i></span>
+                                @endif
+                                </a>
+                                <div class="location">{{ $detailedProduct->user->shop->address }}</div>
+                            @else
+                                <span class="font-weight-bold">{{ env('APP_NAME') }}</span>
+                                
+                            @endif
+                            @php
+                                $total = 0;
+                                $rating = 0;
+                                foreach ($detailedProduct->user->products as $key => $seller_product) {
+                                    $total += $seller_product->reviews->count();
+                                    $rating += $seller_product->reviews->sum('rating');
+                                }
+                            @endphp
+
+                            <div class="rating text-center d-block">
+                                <span class="star-rating star-rating-sm d-block">
+                                    @if ($total > 0)
+                                        {{ renderStarRating($rating/$total) }}
+                                    @else
+                                        {{ renderStarRating(0) }}
+                                    @endif
+                                </span>
+                                <span class="rating-count d-block ml-0">({{ $total }} {{__('customer reviews')}})</span>
+                            </div>
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                            @if($detailedProduct->added_by == 'seller')
+                                <div class="col">
+                                    <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}" class="d-block store-btn">{{__('Visit Store')}}</a>
+                                </div>
+                                <div class="col">
+                                    <ul class="social-media social-media--style-1-v4 text-center">
+                                        <li>
+                                            <a href="{{ $detailedProduct->user->shop->facebook }}" class="facebook" target="_blank" data-toggle="tooltip" data-original-title="Facebook">
+                                                <i class="fa fa-facebook"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ $detailedProduct->user->shop->google }}" class="google" target="_blank" data-toggle="tooltip" data-original-title="Google">
+                                                <i class="fa fa-google"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ $detailedProduct->user->shop->twitter }}" class="twitter" target="_blank" data-toggle="tooltip" data-original-title="Twitter">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ $detailedProduct->user->shop->youtube }}" class="youtube" target="_blank" data-toggle="tooltip" data-original-title="Youtube">
+                                                <i class="fa fa-youtube"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="seller-top-products-box bg-white sidebar-box mb-3">
+                        <div class="box-title">
+                            {{__('Top Selling Products From This Seller')}}
+                        </div>
+
+                        <div class="box-content">
+                            @foreach (filter_products(\App\Product::where('user_id', $detailedProduct->user_id)->orderBy('num_of_sale', 'desc'))->limit(5)->get() as $key => $top_product)
+                            <div class="mb-3 product-box-3">
+                                <div class="clearfix">
+                                    <div class="product-image float-left">
+                                        <a href="{{ route('product', $top_product->slug) }}">
+                                           @if(is_array(json_decode($top_product->photos)) && count(json_decode($top_product->photos)) > 0)
+                                                @if (file_exists(json_decode($top_product->photos)[0]))
+                                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($top_product->photos)[0]) }}" alt="{{ __($top_product->name) }}">
+                                                @else
+                                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($top_product->name) }}">
+                                                @endif
+
+                                            @else
+                                                <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($top_product->name) }}">
+
+                                            @endif
+                                        </a>
+                                    </div>
+                                    <div class="product-details float-left">
+                                        <h4 class="title text-truncate">
+                                            <a href="{{ route('product', $top_product->slug) }}" class="d-block">{{ $top_product->name }}</a>
+                                        </h4>
+                                        
+                                        <div class="star-rating star-rating-sm mt-1">
+                                            {{ renderStarRating($top_product->rating) }}
+                                        </div>
+                                        <div class="price-box">
+                                            <!-- @if(home_base_price($top_product->id) != home_discounted_base_price($top_product->id))
+                                                <del class="old-product-price strong-400">{{ home_base_price($top_product->id) }}</del>
+                                            @endif -->
+                                            <span class="product-price strong-600">{{ home_discounted_base_price($top_product->id) }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
         </div>
     </section>
     <!-- Product Detail Ends -->

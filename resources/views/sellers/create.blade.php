@@ -32,6 +32,24 @@
                     </div>
                 </div>
             </div>
+            <div class="panel-heading">
+                <h3 class="panel-title">{{__('Category Commissions')}}</h3>
+            </div>
+            <div class="panel-body">
+                @foreach (\App\Category::orderBy('created_at', 'desc')->get() as $key => $category)
+                
+                <div class="form-group">
+                    <input type="hidden" name="arr[{{ $key }}][id]" value="{{ $category->id }}">
+                    <label class="col-sm-3 control-label" for="{{$category->name}}">{{$category->name}}</label>
+                    <div class="col-sm-7">
+                        <input type="number" min="0" step="0.01" class="form-control" name="arr[{{ $key }}][commission_rate]" value="">
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" value="%">
+                    </div>
+                </div>
+                @endforeach
+            </div>
             <div class="panel-footer text-right">
                 <button class="btn btn-purple" type="submit">{{__('Save')}}</button>
             </div>
