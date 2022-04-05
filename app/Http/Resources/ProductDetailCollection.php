@@ -49,12 +49,12 @@ class ProductDetailCollection extends ResourceCollection
                             'sub_categories' => route('subCategories.index', $data->category_id)
                         ]
                     ],
-                    'sub_category' => [
-                        'name' => (isset($data->subCategory) && !$data->subCategory->isEmpty())?$data->subCategory->name:'',
-                        'links' => [
-                            'products' => route('products.subCategory', $data->subcategory_id)
-                        ]
-                    ],
+                    // 'sub_category' => [
+                    //     'name' => (isset($data->subCategory) && !$data->subCategory->isEmpty())?$data->subCategory->name:'',
+                    //     'links' => [
+                    //         'products' => route('products.subCategory', $data->subcategory_id)
+                    //     ]
+                    // ],
                     'brand' => [
                         'name' => $data->brand->name ?? 'N/A',
                         'logo' => $data->brand->logo ?? 'N/A',
