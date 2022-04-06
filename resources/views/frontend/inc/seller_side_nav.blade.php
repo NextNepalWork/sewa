@@ -230,7 +230,7 @@
                         </a>
                     </li>
                 @endif
-                @if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null && \App\Addon::where('unique_identifier', 'affiliate_system')->first()->activated && Auth::user()->affiliate_user != null && Auth::user()->affiliate_user->status)
+                {{-- @if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null && \App\Addon::where('unique_identifier', 'affiliate_system')->first()->activated && Auth::user()->affiliate_user != null && Auth::user()->affiliate_user->status)
                     <li>
                         <a href="{{ route('affiliate.user.index') }}" class="{{ areActiveRoutesHome(['affiliate.user.index', 'affiliate.payment_settings'])}}">
                             <i class="la la-dollar"></i>
@@ -239,7 +239,7 @@
                             </span>
                         </a>
                     </li>
-                @endif
+                @endif --}}
                 @if ($club_point_addon != null && $club_point_addon->activated == 1)
                     <li>
                         <a href="{{ route('earnng_point_for_user') }}" class="{{ areActiveRoutesHome(['earnng_point_for_user'])}}">

@@ -33,8 +33,8 @@
                     <th>{{__('Name')}}</th>
                     <th>{{__('Email Address')}}</th>
                     <th>{{__('Phone')}}</th>
-                    <th>{{__('Package')}}</th>
-                    <th>{{__('Wallet Balance')}}</th>
+                    {{-- <th>{{__('Package')}}</th> --}}
+                    {{-- <th>{{__('Wallet Balance')}}</th> --}}
                     <th width="10%">{{__('Options')}}</th>
                 </tr>
             </thead>
@@ -46,12 +46,12 @@
                             <td>{{$customer->user->name}}</td>
                             <td>{{$customer->user->email}}</td>
                             <td>{{$customer->user->phone}}</td>
-                            <td>
+                            {{-- <td>
                                 @if ($customer->user->customer_package != null)
                                     {{$customer->user->customer_package->name}}
                                 @endif
-                            </td>
-                            <td>{{single_price($customer->user->balance)}}</td>
+                            </td> --}}
+                            {{-- <td>{{single_price($customer->user->balance)}}</td> --}}
                             <td>
                                 <div class="btn-group dropdown">
                                     <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
