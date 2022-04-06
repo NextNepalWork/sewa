@@ -312,11 +312,11 @@ class ProductController extends Controller
 
         flash(__('Product has been inserted successfully'))->success();
         if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff') {
-            // if(isset($request->vendor_id) && $request->vendor_id == 'in-house'){
+            if(isset($request->vendor_id) && $request->vendor_id == 'in-house'){
                 return redirect()->route('products.admin');
-            // }else{
-                // return redirect()->route('seller.products');
-            // }
+            }else{
+                return redirect()->route('products.seller');
+            }
            
         } else {
             if (\App\Addon::where('unique_identifier', 'seller_subscription')->first() != null && \App\Addon::where('unique_identifier', 'seller_subscription')->first()->activated) {
