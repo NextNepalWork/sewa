@@ -22,4 +22,8 @@ class PolicyController extends Controller
     {
         return new PolicyCollection(Policy::where('name', 'return_policy')->get());
     }
+    public function terms()
+    {
+        return new PolicyCollection(Policy::where('name', 'terms')->get());
+    }
 }
