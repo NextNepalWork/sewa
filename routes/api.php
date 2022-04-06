@@ -85,6 +85,8 @@ Route::prefix('v1')->group(function () {
     Route::get('policies/return', 'Api\PolicyController@returnPolicy')->name('policies.return');
 
     Route::get('policies/terms', 'Api\PolicyController@terms')->name('policies.terms');
+    Route::get('policies/privacy', 'Api\PolicyController@privacy')->name('policies.privacy');
+
 
 
     Route::get('user/info/{id}', 'Api\UserController@info')->middleware('auth:api');
