@@ -100,7 +100,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
 
         $product = new Product;
@@ -120,7 +119,7 @@ class ProductController extends Controller
         } else {
             if(isset($request->vendor_id) && $request->vendor_id == 'in-house'){
                 $product->user_id = \App\User::where('user_type', 'admin')->first()->id;
-            }else{
+            }else{  
                 $product->user_id = $request->vendor_id;
                 // $added_by = 'seller';
             }
@@ -313,11 +312,11 @@ class ProductController extends Controller
 
         flash(__('Product has been inserted successfully'))->success();
         if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff') {
-            if(isset($request->vendor_id) && $request->vendor_id == 'in-house'){
+            // if(isset($request->vendor_id) && $request->vendor_id == 'in-house'){
                 return redirect()->route('products.admin');
-            }else{
-                return redirect()->route('seller.products');
-            }
+            // }else{
+                // return redirect()->route('seller.products');
+            // }
            
         } else {
             if (\App\Addon::where('unique_identifier', 'seller_subscription')->first() != null && \App\Addon::where('unique_identifier', 'seller_subscription')->first()->activated) {
