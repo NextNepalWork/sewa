@@ -111,14 +111,14 @@
                                             <a class="nav-link" href="{{route('products.seller')}}">{{__('Seller Products')}}</a>
                                         </li>
                                     @endif
-                                    @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
+                                    {{-- @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
                                         <li class="{{ areActiveRoutes(['classified_products'])}}">
                                             <a class="nav-link" href="{{route('classified_products')}}">{{__('Classified Products')}}</a>
                                         </li>
                                     @endif
                                     <li class="{{ areActiveRoutes(['digitalproducts.index', 'digitalproducts.create', 'digitalproducts.edit'])}}">
                                         <a class="nav-link" href="{{route('digitalproducts.index')}}">{{__('Digital Products')}}</a>
-                                    </li>
+                                    </li> --}}
                                     <li class="{{ areActiveRoutes(['product_bulk_upload.index'])}}">
                                         <a class="nav-link" href="{{route('product_bulk_upload.index')}}">{{__('Bulk Import')}}</a>
                                     </li>
@@ -288,9 +288,9 @@
                                 <li class="{{ areActiveRoutes(['customers.index'])}}">
                                     <a class="nav-link" href="{{ route('customers.index') }}">{{__('Customer list')}}</a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['customer_packages.index', 'customer_packages.create', 'customer_packages.edit'])}}">
+                                {{-- <li class="{{ areActiveRoutes(['customer_packages.index', 'customer_packages.create', 'customer_packages.edit'])}}">
                                     <a class="nav-link" href="{{ route('customer_packages.index') }}">{{__('Classified Packages')}}</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
                         @endif
@@ -367,9 +367,9 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li class="{{ areActiveRoutes(['activation.index'])}}">
+                                {{-- <li class="{{ areActiveRoutes(['activation.index'])}}">
                                     <a class="nav-link" href="{{route('activation.index')}}">{{__('Activation')}}</a>
-                                </li>
+                                </li> --}}
                                 <li class="{{ areActiveRoutes(['payment_method.index'])}}">
                                     <a class="nav-link" href="{{ route('payment_method.index') }}">{{__('Payment method')}}</a>
                                 </li>
@@ -450,12 +450,12 @@
                                 <li class="{{ areActiveRoutes(['generalsettings.color'])}}">
                                     <a class="nav-link" href="{{route('generalsettings.color')}}">{{__('Color Settings')}}</a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['generalsettings.color'])}}">
+                                {{-- <li class="{{ areActiveRoutes(['generalsettings.color'])}}">
                                     <a class="nav-link" href="{{route('blog.index')}}">{{__('Blogs')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['pages.testimonialindex'])}}">
                                     <a class="nav-link" href="{{route('pages.testimonialindex')}}">{{__('Testimonial')}}</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
                         @endif
@@ -671,21 +671,21 @@
                                     
                                 </ul>
                             </li>
-                            <li  class="{{ areActiveRoutes(['state.index'])}}">
+                            {{-- <li  class="{{ areActiveRoutes(['state.index'])}}">
                                 <a class="nav-link" href="{{ route('state.index') }}">
                                     <i class="fa fa-wrench"></i>
                                     <span class="menu-title">{{__('States')}}</span>
                                 </a>
-                            </li>
+                            </li> --}}
 
-                        @if(Auth::user()->user_type == 'admin' || in_array('15', json_decode(Auth::user()->staff->role->permissions)))
+                        {{-- @if(Auth::user()->user_type == 'admin' || in_array('15', json_decode(Auth::user()->staff->role->permissions)))
                             <li class="{{ areActiveRoutes(['addons.index', 'addons.create'])}}">
                                 <a class="nav-link" href="{{ route('addons.index') }}">
                                     <i class="fa fa-wrench"></i>
                                     <span class="menu-title">{{__('Addon Manager')}}</span>
                                 </a>
                             </li>
-                        @endif
+                        @endif --}}
 
                     </ul>
                 </div>

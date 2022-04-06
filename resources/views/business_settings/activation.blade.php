@@ -18,7 +18,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+{{-- <div class="row">
     <h3 class="text-center">{{__('Classified Product Activate')}}</h3>
     <div class="col-lg-4">
         <div class="panel">
@@ -33,7 +33,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <h3 class="text-center">{{__('Business Related')}}</h3>
 <div class="row">
     <div class="col-lg-4">
@@ -49,7 +49,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-4">
+    {{-- <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title text-center">{{__('Wallet System Activation')}}</h3>
@@ -61,7 +61,7 @@
                 </label>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
@@ -91,7 +91,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-4">
+    {{-- <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title text-center">{{__('Conversation Activation')}}</h3>
@@ -103,7 +103,7 @@
                 </label>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
