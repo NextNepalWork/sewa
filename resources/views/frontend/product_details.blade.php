@@ -38,43 +38,44 @@
 
 @section('content')
     <!-- Breadcrumbs -->
-    <section id="breadcrumb-wrapper" class="position-relative">
-        <div class="image">
+    <section id="breadcrumb-wrapper" class="position-relative bg-light">
+        {{-- <div class="image">
             <img src="{{asset('frontend/assets/images/banner/1.jpg')}}" alt="breadcrumb-image" class="img-fluid">
-        </div>
-        <div class="overlay position-absolute">
-            <div class="title p-4">
-                <ol class="breadcrumb p-0 bg-transparent p-0 m-0">
-                    <li class="">
-                        <a href="{{ route('home') }}">Home</a>
-                    </li>
-                    @php
-                        $category=\App\Models\Category::where('id',$detailedProduct->category_id)->first();
-                        $sub_category=\App\Models\SubCategory::where('id',$detailedProduct->subcategory_id)->first();
-                        $sub_sub=\App\Models\SubSubCategory::where('id',$detailedProduct->subsubcategory_id)->first();
+        </div> --}}
+    
+       <div class="container">
+        <ol class="breadcrumb mt-3 py-3">
+            <li>
+                <a class="text-dark font-weight-bold" href="{{ route('home') }}">Home</a>
+            </li>
+            @php
+                $category=\App\Models\Category::where('id',$detailedProduct->category_id)->first();
+                $sub_category=\App\Models\SubCategory::where('id',$detailedProduct->subcategory_id)->first();
+                $sub_sub=\App\Models\SubSubCategory::where('id',$detailedProduct->subsubcategory_id)->first();
 
-                    @endphp
-                    <li class="">
-                        <a href="{{ route('products.category',$category->slug) }}">{{$category->name}}</a>
+            @endphp
+            <li>
+                <a class="text-dark font-weight-bold"  href="{{ route('products.category',$category->slug) }}">{{$category->name}}</a>
+            </li>
+            @if ($sub_category!=null)
+                <li>
+                    <a class="text-dark font-weight-bold" href="{{ route('products.subcategory',$sub_category->slug) }}">{{$sub_category->name}}</a>
+                </li>
+                @if ($sub_sub!=null)
+                    <li>
+                        <a class="text-dark font-weight-bold" href="{{ route('products.subsubcategory',$sub_sub->slug) }}">{{$sub_sub->name}}</a>
                     </li>
-                    @if ($sub_category!=null)
-                        <li class="">
-                            <a href="{{ route('products.subcategory',$sub_category->slug) }}">{{$sub_category->name}}</a>
-                        </li>
-                        @if ($sub_sub!=null)
-                            <li class="">
-                                <a href="{{ route('products.subsubcategory',$sub_sub->slug) }}">{{$sub_sub->name}}</a>
-                            </li>
 
-                        @endif
-                    @endif
+                @endif
+            @endif
 
-                    <li class="">
-                        <a href="{{ route('product',$detailedProduct->slug) }}">{{$detailedProduct->name}}</a>
-                    </li>
-                </ol>
-            </div>
-        </div>
+            <li>
+                <a class="text-dark font-weight-bold" href="{{ route('product',$detailedProduct->slug) }}">{{$detailedProduct->name}}</a>
+            </li>
+        </ol>
+
+
+       </div>
     </section>
     <!-- Breadcrumbs Ends -->
 
@@ -134,19 +135,7 @@
                         <div class="about mb-1">
                             <div class="d-inline-block flex-column flex-wrap mb-2">
                                 <h3 class="font-weight-bold m-0">{{ __($detailedProduct->name) }}</h3>
-                                @if(home_price($detailedProduct->id) != home_discounted_price($detailedProduct->id))
-                                <div class="product-price d-flex">
-                                    <div class="first-price mr-2">{{ home_price($detailedProduct->id) }}
-                                        <span>/{{ $detailedProduct->unit }}</span></div>
-                                    <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
-                                    <span class="piece">/{{ $detailedProduct->unit }}</span></div>
-                                </div>
-                                @else
-                                <div class="product-price d-flex">
-                                    <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
-                                    <span class="piece">/{{ $detailedProduct->unit }}</span></div>
-                                </div>
-                                @endif
+                                
 
                             </div>
 
@@ -201,12 +190,30 @@
                             @endif --}}
                         </div>
                         <hr>
-                        <div class="descrip mb-2" style="max-height: fit-content">
+                        {{-- <div class="descrip mb-2" style="max-height: fit-content">
                             <h5>Description</h5>
-                            {{-- <p> --}}
-                                {!! $detailedProduct->description !!}
-                            {{-- </p> --}}
+                            
+                            {!! $detailedProduct->description !!}
+                            
+                        </div> --}}
+                        <div class="form-group">
+                            @if(home_price($detailedProduct->id) != home_discounted_price($detailedProduct->id))
+                                <div class="product-price text-dark">
+                                    <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
+                                        <span class="piece">/{{ $detailedProduct->unit }}</span>
+                                    </div>
+                                    <div class="first-price mr-2">{{ home_price($detailedProduct->id) }}
+                                        <span>/{{ $detailedProduct->unit }}</span>
+                                    </div>
+                                </div>
+                                @else
+                                <div class="product-price text-dark">
+                                    <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
+                                    <span class="piece">/{{ $detailedProduct->unit }}</span></div>
+                                </div>
+                            @endif
                         </div>
+
 
                         <form id="option-choice-form" class="image-size-wrapper">
                             @csrf
@@ -244,10 +251,10 @@
                                 </div>
 
                                 @if (count(json_decode($detailedProduct->colors)) > 0)
-                                <div class="form-group col-lg-8 col-md-6">
-                                    <div class="image-select pl-4">
+                                <div class="form-group col-lg-12 col-md-6">
+                                    <div class="image-select">
                                         <h5>Color</h5>
-                                        <div class="my-color">
+                                        <div class="my-color ml-5">
                                             @foreach (json_decode($detailedProduct->colors) as $key => $color)
                                             <label class="radio m-0" style="background: {{ $color }};" for="{{ $detailedProduct->id }}-color-{{ $key }}" data-toggle="tooltip">
                                                 <input type="radio" id="{{ $detailedProduct->id }}-color-{{ $key }}" name="color" value="{{ $color }}" @if($key == 0) checked @endif>
@@ -266,13 +273,9 @@
                                     <div class="size-wrapper">
                                         <div class="size-select">
                                             <h5>{{ \App\Attribute::find($choice->attribute_id)->name }}</h5>
-                                            <div class="select-size">
+                                            <div class="select-size ml-5">
                                                 {{-- {{dd($choice->values)}} --}}
                                                 @foreach ($choice->values as $key => $value)
-                                                {{-- <div class="size">S</div> --}}
-                                                {{-- <input type="hidden" id="{{ $choice->attribute_id }}-{{ $value }}" name="attribute_id_{{ $choice->attribute_id }}" value="{{ $value }}" @if($key == 0) checked @endif>
-                                                <label class="size" for="{{ $choice->attribute_id }}-{{ $value }}">{{ $value }}</label> --}}
-
                                                 <input type="radio" id="{{ $choice->attribute_id }}-{{ $value }}" name="attribute_id_{{ $choice->attribute_id }}" value="{{ $value }}" @if($key == 0) checked @endif>
                                                     <label for="{{ $choice->attribute_id }}-{{ $value }}" class="size">{{ $value }}</label>
                                                 @endforeach
@@ -304,6 +307,18 @@
                                 </div>
                             </div>
 
+                            <div class="row no-gutters">
+                                <div class="product-description-label font-weight-bold d-flex">
+                                    Shipping Cost:
+                                    @if ($detailedProduct->shipping_type=='free')
+                                       <span class="cost pl-2">Free</span> 
+                                    @else
+                                        <span class="cost pl-2"> {{$detailedProduct->shipping_cost}} </span>
+                                    @endif
+                                </div>
+                            </div>
+
+
                             <div class="d-table width-100 mt-3">
                                 <div class="d-table-cell">
                                     <!-- Buy Now button -->
@@ -331,7 +346,7 @@
                         <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
                             <a class="nav-item nav-link active" id="first-tab" data-toggle="tab" href="#first"
                             role="tab" aria-controls="first" aria-selected="true"
-                            style="color: rgb(72, 77, 103);">Additional Information</a>
+                            style="color: rgb(72, 77, 103);">Product Details</a>
                             
                             <a class="nav-item nav-link" id="second-tab" data-toggle="tab" href="#second" role="tab"
                             aria-controls="second" aria-selected="false"
