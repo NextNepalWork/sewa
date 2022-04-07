@@ -330,7 +330,7 @@
                                             <span class=" d-md-inline-block"> {{__('Add to cart')}}</span>
                                         </button>
                                     @else
-                                        <button type="button" class="btn btn-styled btn-base-3 btn-icon-left strong-700" disabled>
+                                        <button type="button" class="btn btn-effect btn-base-3 btn-icon-left strong-700" disabled>
                                              {{__('Out of Stock')}}
                                         </button>
                                     @endif
