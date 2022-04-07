@@ -1198,6 +1198,7 @@
                                                         @if(home_base_price($product->id) != home_discounted_base_price($product->id))
                                                             <span class="ml-0">{{ home_base_price($product->id) }}</span>&nbsp;&nbsp;
                                                         @endif
+                                                        {{$product->discount}}
                                                         @if (! $product->discount == 0)
                                                             <div>
                                                                 {{ ($product->discount_type == 'amount')?'  Rs.':'' }} -{{ ($product->discount) }}{{ !($product->discount_type == 'amount')?' %':'' }}
