@@ -23,7 +23,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="shop-name">{{__('Shop Name')}}</label>
                     <div class="col-sm-9">
-                        <input type="text" placeholder="{{__('Shop Name')}}" id="name" name="shop-name" value="{{$shop->name}}" class="form-control" required>
+                        <input type="text" placeholder="{{__('Shop Name')}}" id="name" name="shop_name" value="{{$shop->name}}" class="form-control" required>
                     </div>
                 </div>
                 <div class="form-group">
