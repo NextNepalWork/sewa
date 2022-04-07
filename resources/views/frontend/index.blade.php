@@ -1192,13 +1192,13 @@
                                                         $qty = $product->current_stock ;
                                                     }
                                                 @endphp
+                                                        {{$product->discount}}
                                                 @if($qty > 0)
                                                     <h6 class="m-0 gray text-left cus-price">{{ home_discounted_base_price($product->id) }}&nbsp;</h6>
                                                     <div class="d-flex justify-content-between w-100 align-items-center">
                                                         @if(home_base_price($product->id) != home_discounted_base_price($product->id))
                                                             <span class="ml-0">{{ home_base_price($product->id) }}</span>&nbsp;&nbsp;
                                                         @endif
-                                                        {{$product->discount}}
                                                         @if (! $product->discount == 0)
                                                             <div>
                                                                 {{ ($product->discount_type == 'amount')?'  Rs.':'' }} -{{ ($product->discount) }}{{ !($product->discount_type == 'amount')?' %':'' }}
