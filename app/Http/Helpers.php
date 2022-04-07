@@ -346,6 +346,7 @@ if (! function_exists('format_price')) {
     function format_price($price)
     {
         if(BusinessSetting::where('type', 'symbol_format')->first()->value == 1){
+            return currency_symbol().'.'.$price;
             return currency_symbol().number_format($price, BusinessSetting::where('type', 'no_of_decimals')->first()->value);
         }
         return number_format($price, BusinessSetting::where('type', 'no_of_decimals')->first()->value).currency_symbol();
@@ -523,7 +524,6 @@ if (! function_exists('home_discounted_base_price')) {
         elseif($product->tax_type == 'amount'){
             $price += $product->tax;
         }
-
         return format_price(convert_price($price));
     }
 }
