@@ -74,6 +74,7 @@ class SellerController extends Controller
             if($seller->save()){
                 $shop = new Shop;
                 $shop->user_id = $user->id;
+                $shop->name = $request->shop_name;
                 $shop->slug = 'demo-shop-'.$user->id;
                 $shop->save();
                 foreach($request->arr as $value){
@@ -112,7 +113,8 @@ class SellerController extends Controller
     public function edit($id)
     {
         $seller = Seller::findOrFail(decrypt($id));
-        return view('sellers.edit', compact('seller'));
+        $shop = Shop::where('user_id',($seller->user_id))->first();
+        return view('sellers.edit', compact('seller','shop'));
     }
 
     /**

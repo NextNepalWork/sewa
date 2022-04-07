@@ -21,6 +21,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-sm-3 control-label" for="shop-name">{{__('Shop Name')}}</label>
+                    <div class="col-sm-9">
+                        <input type="text" placeholder="{{__('Shop Name')}}" id="name" name="shop-name" value="{{$shop->name}}" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-sm-3 control-label" for="email">{{__('Email Address')}}</label>
                     <div class="col-sm-9">
                         <input type="text" placeholder="{{__('Email Address')}}" id="email" name="email" class="form-control" value="{{$seller->user->email}}" required>
