@@ -200,11 +200,11 @@
                             @if(home_price($detailedProduct->id) != home_discounted_price($detailedProduct->id))
                                 <div class="product-price text-dark">
                                     <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
-                                        <span class="piece">/{{ $detailedProduct->unit }}</span>
+                                        {{-- <span class="piece">/{{ $detailedProduct->unit }}</span> --}}
                                     </div>
                                     <div class="d-flex">
                                         <div class="first-price mr-2">{{ home_price($detailedProduct->id) }}
-                                            <span>/{{ $detailedProduct->unit }}</span>
+                                            {{-- <span>/{{ $detailedProduct->unit }}</span> --}}
                                         </div>
                                         <div class="discount">
                                             @if (! $detailedProduct->discount == 0)
