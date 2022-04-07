@@ -1280,6 +1280,8 @@
     <div id="section_best_sellers">
 
     </div>
+    
+
 
 
 
@@ -1413,7 +1415,54 @@
             });
             $.post('{{ route('home.section.best_sellers') }}', {_token:'{{ csrf_token() }}'}, function(data){
                 $('#section_best_sellers').html(data);
-                slickInit();
+                // slickInit();
+               
+                $(".slider_feature2").slick({
+                    autoplay: true,
+                    slidesToShow: 7,
+                    slidesToScroll: 7,
+                    arrows: true,
+                    dots: false,
+                    responsive: [
+                        {
+                            breakpoint: 1400,
+                            settings: {
+                                slidesToShow: 5,
+                                slidesToScroll: 4,
+                            },
+                        },
+                        {
+                            breakpoint: 1080,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1,
+                            },
+                        },
+                        {
+                            breakpoint: 780,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 1,
+                            },
+                        },
+                        {
+                            breakpoint: 600,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 1,
+                                dots: true,
+                            },
+                        },
+                        {
+                            breakpoint: 480,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 1,
+                                dots: true,
+                            },
+                        },
+                    ],
+                });
             });
         });
     </script>
