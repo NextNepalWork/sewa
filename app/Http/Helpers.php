@@ -324,7 +324,7 @@ if (! function_exists('convert_price')) {
         $business_settings = BusinessSetting::where('type', 'system_default_currency')->first();
         if($business_settings!=null){
             $currency = Currency::find($business_settings->value);
-            $price = floatval($price) / floatval($currency->exchange_rate);
+            $price = intval($price) / intval($currency->exchange_rate);
         }
 
         $code = \App\Currency::findOrFail(\App\BusinessSetting::where('type', 'system_default_currency')->first()->value)->code;
@@ -335,7 +335,7 @@ if (! function_exists('convert_price')) {
             $currency = Currency::where('code', $code)->first();
         }
 
-        $price = floatval($price) * floatval($currency->exchange_rate);
+        $price = intval($price) * intval($currency->exchange_rate);
 
         return $price;
     }
@@ -346,9 +346,9 @@ if (! function_exists('format_price')) {
     function format_price($price)
     {
         if(BusinessSetting::where('type', 'symbol_format')->first()->value == 1){
-            return currency_symbol().number_format($price, BusinessSetting::where('type', 'no_of_decimals')->first()->value);
+            return currency_symbol().intval($price, BusinessSetting::where('type', 'no_of_decimals')->first()->value);
         }
-        return number_format($price, BusinessSetting::where('type', 'no_of_decimals')->first()->value).currency_symbol();
+        return intval($price, BusinessSetting::where('type', 'no_of_decimals')->first()->value).currency_symbol();
     }
 }
 
@@ -523,7 +523,7 @@ if (! function_exists('home_discounted_base_price')) {
         elseif($product->tax_type == 'amount'){
             $price += $product->tax;
         }
-
+// return convert_price($price);
         return format_price(convert_price($price));
     }
 }

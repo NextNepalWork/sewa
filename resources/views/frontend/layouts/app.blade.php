@@ -204,7 +204,10 @@
 .category_title_top{
     margin: auto;
 }
-
+.cus-price{
+    color: #f78035!important;
+    font-size: 20px!important;
+}
 </style>
 </head>
 <body  onload="myFunction()">

@@ -1077,7 +1077,7 @@ section#productlist .product-grid-item .price-cart {
     transition: all 0.3s;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    /* justify-content: space-around; */
 }
 
 section#productlist .product-grid-item .price-cart .all-deals {

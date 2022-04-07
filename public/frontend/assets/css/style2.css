@@ -444,7 +444,7 @@ a.btn:hover {
     transition: all 0.3s;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    /* justify-content: space-around; */
 }
 
 .product-grid-item .price-cart .all-deals {
@@ -466,7 +466,7 @@ a.btn:hover {
 }
 
 .product-grid-item .price-cart span {
-    color: var(--red);
+    /* color: var(--red); */
     font-size: 12px;
     font-weight: 500;
     text-decoration: line-through;
