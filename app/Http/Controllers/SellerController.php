@@ -135,8 +135,12 @@ class SellerController extends Controller
         }
         if($user->save()){
             if($seller->save()){
-                flash(__('Seller has been updated successfully'))->success();
-                return redirect()->route('sellers.index');
+                $shop = Shop::where('user_id',$seller->user_id)->first();
+                $shop->name = $request->shop_name;
+                if($shop->save()){
+                    flash(__('Seller has been updated successfully'))->success();
+                    return redirect()->route('sellers.index');
+                }
             }
         }
 
