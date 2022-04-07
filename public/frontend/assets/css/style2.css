@@ -676,16 +676,16 @@ h6.gray {
 #product-detail-wrapper .product-price .first-price {
     text-decoration: line-through;
     /* color: var(--red_light); */
-    color: white;
-    background-color: var(--theme_color_sub);
+    color: grey;
+    /* background-color: var(--theme_color_sub); */
 
-    padding: 5px 10px;
+    /* padding: 5px 10px; */
 }
 
 #product-detail-wrapper .product-price .second-price {
-    font-size: 1rem;
-    background-color: var(--theme_color);
-    padding: 5px 10px;
+    font-size: 1.5rem;
+    color: var(--theme_color_sub);
+    /* padding: 5px 10px; */
 }
 
 /* #product-detail-wrapper .product-price .second-price {} */
@@ -844,9 +844,9 @@ table th {
     font-size: 20px;
 }
 
-#product-detail-wrapper .image-size-wrapper .form-group:first-child {
+/* #product-detail-wrapper .image-size-wrapper .form-group:first-child {
     border-right: 1px solid #d0d0d0;
-}
+} */
 
 #product-detail-wrapper .descrip {
     max-height: 82px;
