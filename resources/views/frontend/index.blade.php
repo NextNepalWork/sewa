@@ -1194,6 +1194,7 @@
                                                 @endphp
                                                         {{-- {{$product->discount}} --}}
                                                 @if($qty > 0)
+                                                
                                                     <h6 class="m-0 gray text-left cus-price">{{ home_discounted_base_price($product->id) }}&nbsp;</h6>
                                                     <div class="d-flex justify-content-between w-100 align-items-center">
                                                         @if(home_base_price($product->id) != home_discounted_base_price($product->id))
