@@ -1280,92 +1280,11 @@
     <div id="section_best_sellers">
 
     </div>
+    
 
 
 
-    <!-- <section class="mb-3">
-        <div class="container">
-            <div class="row gutters-10">
-                <div class="col-lg-6">
-                    <div class="section-title-1 clearfix">
-                        <h3 class="heading-5 strong-700 mb-0 float-left">
-                            <span class="mr-4">{{__('Top 10 Catogories')}}</span>
-                        </h3>
-                        <ul class="float-right inline-links">
-                            <li>
-                                <a href="{{ route('categories.all') }}" class="active">{{__('सबै हेर्न Catogories')}}</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="row gutters-5">
-                    <div class="mb-3 col-6">
-                                <a href="#" class="bg-white border d-block c-base-2 box-2 icon-anim pl-2">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col-3 text-center">
-                                            <img src="" data-src="" alt="" class="img-fluid img lazyload">
-                                        </div>
-                                        <div class="info col-7">
-                                            <div class="name text-truncate pl-3 py-4">dfsf</div>
-                                        </div>
-                                        <div class="col-2 text-center">
-                                            <i class="la la-angle-right c-base-1"></i>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        @foreach (\App\Category::where('top', 1)->get() as $category)
-                            <div class="mb-3 col-6">
-                                <a href="{{ route('products.category', $category->slug) }}" class="bg-white border d-block c-base-2 box-2 icon-anim pl-2">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col-3 text-center">
-                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->banner) }}" alt="{{ __($category->name) }}" class="img-fluid img lazyload">
-                                        </div>
-                                        <div class="info col-7">
-                                            <div class="name text-truncate pl-3 py-4">{{ __($category->name) }}</div>
-                                        </div>
-                                        <div class="col-2 text-center">
-                                            <i class="la la-angle-right c-base-1"></i>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="section-title-1 clearfix">
-                        <h3 class="heading-5 strong-700 mb-0 float-left">
-                            <span class="mr-4">{{__('Top 10 Brands')}}</span>
-                        </h3>
-                        <ul class="float-right inline-links">
-                            <li>
-                                <a href="{{ route('brands.all') }}" class="active">{{__('सबै हेर्न Brands')}}</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="row gutters-5">
-                        @foreach (\App\Brand::where('top', 1)->get() as $brand)
-                            <div class="mb-3 col-6">
-                                <a href="{{ route('products.brand', $brand->slug) }}" class="bg-white border d-block c-base-2 box-2 icon-anim pl-2">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col-3 text-center">
-                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($brand->logo) }}" alt="{{ __($brand->name) }}" class="img-fluid img lazyload">
-                                        </div>
-                                        <div class="info col-7">
-                                            <div class="name text-truncate pl-3 py-4">{{ __($brand->name) }}</div>
-                                        </div>
-                                        <div class="col-2 text-center">
-                                            <i class="la la-angle-right c-base-1"></i>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
+
 @endsection
 
 @section('script')
@@ -1413,7 +1332,54 @@
             });
             $.post('{{ route('home.section.best_sellers') }}', {_token:'{{ csrf_token() }}'}, function(data){
                 $('#section_best_sellers').html(data);
-                slickInit();
+                // slickInit();
+               
+                $(".slider_feature2").slick({
+                    autoplay: true,
+                    slidesToShow: 7,
+                    slidesToScroll: 7,
+                    arrows: true,
+                    dots: false,
+                    responsive: [
+                        {
+                            breakpoint: 1400,
+                            settings: {
+                                slidesToShow: 5,
+                                slidesToScroll: 4,
+                            },
+                        },
+                        {
+                            breakpoint: 1080,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1,
+                            },
+                        },
+                        {
+                            breakpoint: 780,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 1,
+                            },
+                        },
+                        {
+                            breakpoint: 600,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 1,
+                                dots: true,
+                            },
+                        },
+                        {
+                            breakpoint: 480,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 1,
+                                dots: true,
+                            },
+                        },
+                    ],
+                });
             });
         });
     </script>

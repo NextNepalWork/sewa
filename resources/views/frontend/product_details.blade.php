@@ -202,8 +202,17 @@
                                     <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
                                         <span class="piece">/{{ $detailedProduct->unit }}</span>
                                     </div>
-                                    <div class="first-price mr-2">{{ home_price($detailedProduct->id) }}
-                                        <span>/{{ $detailedProduct->unit }}</span>
+                                    <div class="d-flex">
+                                        <div class="first-price mr-2">{{ home_price($detailedProduct->id) }}
+                                            <span>/{{ $detailedProduct->unit }}</span>
+                                        </div>
+                                        <div class="discount">
+                                            @if (! $detailedProduct->discount == 0)
+                                            <div class="">
+                                                (-{{ ($detailedProduct->discount_type == 'amount')?'Rs.':'' }} {{ $detailedProduct->discount }}{{ !($detailedProduct->discount_type == 'amount')?' %':'' }} off)
+                                            </div>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                                 @else
@@ -230,25 +239,6 @@
                             }
                             @endphp
                             <div class="form-row">
-                                <div class="form-group col-lg-4 col-md-6">
-                                    <div class="quantity">
-                                        <h5>Quantity</h5>
-                                        <div class="qty-1">
-                                            <span class="input-group-btn minus">
-                                                <button class="btn btn-number" type="button" data-type="minus" data-field="quantity" style="padding:0px;">
-                                                    -
-                                                </button>
-                                            </span>
-                                            <input type="text" name="quantity" class="input-number text-center" placeholder="1" value="1" min="1" max="10">
-                                            <span class="input-group-btn plus" data-type="plus" data-field="quantity">
-                                                <button class="btn btn-number" type="button" data-type="plus" data-field="quantity" style="padding:0px;">
-                                                    +
-                                                </button>
-                                            </span>
-                                        </div>
-                                        <div class="avialable-amount">(<span id="available-quantity">{{ $qty }}</span> {{__('available')}})</div>
-                                    </div>
-                                </div>
 
                                 @if (count(json_decode($detailedProduct->colors)) > 0)
                                 <div class="form-group col-lg-12 col-md-6">
@@ -285,26 +275,40 @@
                                 </div>
                                 @endforeach
                                 @endif
+
+                                <div class="form-group col-lg-4 col-md-6">
+                                    <div class="quantity">
+                                        <h5>Quantity</h5>
+                                        <div class="qty-1">
+                                            <span class="input-group-btn minus">
+                                                <button class="btn btn-number" type="button" data-type="minus" data-field="quantity" style="padding:0px;">
+                                                    -
+                                                </button>
+                                            </span>
+                                            <input type="text" name="quantity" class="input-number text-center" placeholder="1" value="1" min="1" max="10">
+                                            <span class="input-group-btn plus" data-type="plus" data-field="quantity">
+                                                <button class="btn btn-number" type="button" data-type="plus" data-field="quantity" style="padding:0px;">
+                                                    +
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <div class="avialable-amount">(<span id="available-quantity">{{ $qty }}</span> {{__('available')}})</div>
+                                    </div>
+                                </div>
                             </div>
                             
-                            <div class="row no-gutters py-2 d-none" id="chosen_price_div">
+                            <div class="row no-gutters py-2 d-none align-items-center" id="chosen_price_div">
                                 <div class="col-2 m-auto">
-                                    <div class="product-description-label h5">{{__('Total Price')}}:</div>
+                                    <div class="product-description-label h5 m-0">{{__('Total Price')}}:</div>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-10">
                                     <div class="product-price text-dark" style="background: none;">
                                         <strong id="chosen_price" class="font-weight-bold h5">
                                             
                                         </strong>
                                     </div>
                                 </div>
-                                <div class="col-7">
-                                    @if (! $detailedProduct->discount == 0)
-                                    <div class="font-weight-bold h5">
-                                        ({{ ($detailedProduct->discount_type == 'amount')?'Rs.':'' }} {{ $detailedProduct->discount }}{{ !($detailedProduct->discount_type == 'amount')?' %':'' }} off)
-                                    </div>
-                                    @endif
-                                </div>
+
                             </div>
 
                             <div class="row no-gutters">
@@ -313,7 +317,7 @@
                                     @if ($detailedProduct->shipping_type=='free')
                                        <span class="cost pl-2">Free</span> 
                                     @else
-                                        <span class="cost pl-2"> {{$detailedProduct->shipping_cost}} </span>
+                                        <span class="cost pl-2"> Rs. {{$detailedProduct->shipping_cost}} </span>
                                     @endif
                                 </div>
                             </div>
