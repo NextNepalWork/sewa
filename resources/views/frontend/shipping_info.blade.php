@@ -236,7 +236,8 @@
                                    <input type="hidden" name="checkout_type" value="logged">
                                    <div class="col-md-6">
                                     <button type="button" class="btn add_btn_img" onclick="add_new_address()">
-                                       <img src="https://image.flaticon.com/icons/png/512/1104/1104261.png" alt="Add new address" class="img-fluid"> 
+                                       <img src="https://www.mcicon.com/wp-content/uploads/2020/12/Abstract_Add_1-copy.jpg" alt="Add new address" class="img-fluid"> 
+                                       
                                      </button>
                                    </div>
                                </div>
