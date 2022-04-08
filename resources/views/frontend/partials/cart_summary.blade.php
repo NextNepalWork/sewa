@@ -111,6 +111,13 @@
                     </td>
                 </tr>
 
+                {{-- <tr class="cart-shipping">
+                    <th>{{__('Delivery Charge')}}</th>
+                    <td class="text-right">
+                        <span class="text-italic">{{  }}</span>
+                    </td>
+                </tr> --}}
+
                 <tr class="cart-shipping">
                     <th>{{__('Total Shipping')}}</th>
                     <td class="text-right">
