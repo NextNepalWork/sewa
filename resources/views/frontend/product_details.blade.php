@@ -218,7 +218,7 @@
                                 @else
                                 <div class="product-price text-dark">
                                     <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
-                                    <span class="piece">/{{ $detailedProduct->unit }}</span></div>
+                                    {{-- <span class="piece">/{{ $detailedProduct->unit }}</span></div> --}}
                                 </div>
                             @endif
                         </div>
