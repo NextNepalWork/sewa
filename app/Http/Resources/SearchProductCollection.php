@@ -13,6 +13,7 @@ class SearchProductCollection extends ResourceCollection
                 $placeholder_img='frontend/images/placeholder.jpg';
 
                 return [
+                    'id' => $data->id,
                     'name' => $data->name,
                     'thumbnail_image' => file_exists($data->thumbnail_img) ? $data->thumbnail_img : $placeholder_img,
                     'base_price' => (double) homeBasePrice($data->id),
