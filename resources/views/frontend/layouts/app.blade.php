@@ -191,7 +191,13 @@
     background-image: url('{{asset("frontend/preloader/2.gif")}}');
 
 }
-
+.custom-close {
+  position: absolute;
+  right: 25px;
+}
+.height-95vh{
+    height: 95vh;
+}
 #loading div img {
     max-height: 90px;
     min-height: 90px;
@@ -214,8 +220,27 @@
     <div id="loading">
         <div class="d-flex justify-content-center align-items-center h-75"> <img src="{{asset('frontend/preloader/logo.jpeg')}}" alt=""></div>
     </div>
+    @php
+        $generalsetting = \App\GeneralSetting::first();
+    @endphp
+    @if ($generalsetting->pop_status == 1)
+        <div class="modal fade coming-soon-modal height-95vh" id="abc" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"
+            style="z-index: 99999;">
+            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="p-0 modal-header w-100">
+                    <img src="{{asset($generalsetting->pop_img)}}" class="w-100 height-95vh">
+                    <button type="button" class="close m-0 custom-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
 
+            </div>
+            </div>
+        </div>
+        
+    @endif
             <!-- MAIN WRAPPER -->
             <div class="body-wrap shop-default shop-cards shop-tech">
 
@@ -311,8 +336,13 @@
 
 {{-- script-new js --}}
 {{-- <script src="{{ asset('frontend/js/script-new.js') }}"></script> --}}
-
-
+@if ($generalsetting->pop_status == 1)
+<script type="text/javascript">
+    $(window).on('load', function() {
+        $('.coming-soon-modal').modal('show');
+    });
+</script>
+@endif
 
 <script>
     function showFrontendAlert(type, message){

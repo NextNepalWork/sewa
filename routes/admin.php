@@ -157,6 +157,11 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 	Route::resource('roles','RoleController');
     Route::get('/roles/destroy/{id}', 'RoleController@destroy')->name('roles.destroy');
 
+    Route::get('/pop-edit', 'BannerController@popEdit')->name('pop-edit');
+    Route::post('/pop-update', 'BannerController@popupdate')->name('pop-update');
+	Route::post('/pop_update_status', 'BannerController@pop_update_status')->name('pop_update_status');
+
+
     Route::resource('staffs','StaffController');
     Route::get('/staffs/destroy/{id}', 'StaffController@destroy')->name('staffs.destroy');
 

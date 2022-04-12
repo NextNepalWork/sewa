@@ -60,10 +60,16 @@
                       <ul class="my_account dropdown-menu pl-3 ">
                          <div class="input_track_blo d-flex flex-column pb-2">
                             <label><small class="font-weight-bold">Track Your Order</small></label>
+                            <form class="" action="{{ route('orders.track') }}" method="GET" enctype="multipart/form-data">
+
                             <div class="track_input_btn d-flex">
-                               <input type="text" class="form-control" placeholder="Enter order id" />
-                               <button class="btn_custom_go"> <a href="#">Go </a></button>
+
+                               <input name="order_code" type="text" class="form-control" placeholder="Enter order id" />
+                               <button type="submit" class="btn_custom_go">Go</button>    
                             </div>
+
+                           </form>
+
                          </div>
                       </ul>
                    </div>
@@ -115,13 +121,15 @@
                          }
                      @endphp
                      <a href="" class="dropdown-toggle top-bar-item" data-toggle="dropdown" style="color:white">
-                         <img src="{{ asset('frontend/images/placeholder.jpg') }}" height="11" data-src="{{ asset('frontend/images/icons/flags/'.$locale.'.png') }}" class="flag lazyload text-light" alt="{{ \App\Language::where('code', $locale)->first()->name }}" height="11">
+                        {{$locale}}
+                         {{-- <img src="{{ asset('frontend/images/placeholder.jpg') }}" height="11" data-src="{{ asset('frontend/images/icons/flags/'.$locale.'.png') }}" class="flag lazyload text-light" alt="{{ \App\Language::where('code', $locale)->first()->name }}" height="11"> --}}
                          {{-- <span class="language">{{ \App\Language::where('code', $locale)->first()->name }}</span> --}}
                      </a>
                      <ul class="dropdown-menu">
                          @foreach (\App\Language::all() as $key => $language)
                              <li class="dropdown-item text-light @if($locale == $language) active @endif">
-                                 <a href="#" data-flag="{{ $language->code }}"><img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/flags/'.$language->code.'.png') }}" class="flag lazyload" alt="{{ $language->name }}" height="11">
+                                 <a href="#" data-flag="{{ $language->code }}">
+                                    {{-- <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/flags/'.$language->code.'.png') }}" class="flag lazyload" alt="{{ $language->name }}" height="11"> --}}
                                     <span class="language ml-1">{{ $language->name }}</span></a>
                              </li>
                          @endforeach

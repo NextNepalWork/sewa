@@ -59,6 +59,12 @@
   background-color: #258aff !important;
   color: var(--theme_color_sub);
 }
+.demo{
+    background: #258aff;
+    color: #ffff;
+    border-radius: 6px;
+    padding: 5px;
+}
 </style>
 
 <!-- Categories -->
@@ -104,7 +110,7 @@
                             <div class="col-xl-4 col-lg-3 col-md-6 col-12 text-center">
                                 <ul class="p-0">
                                     <li class="title font-weight-bold">
-                                        <a href="{{ route('products.subcategory', $category->slug) }}">
+                                        <a href="{{ route('products.subcategory', $sub->slug) }}">
                                             {{$sub->name}}
                                         </a>
                                     </li>
@@ -766,7 +772,8 @@
  <!-- Brands Ends -->
  <!--============================================= BEST SELLING END ======-->
  @if (\App\BusinessSetting::where('type', 'best_selling')->first()->value == 1)
-<section id="productlist" class="padding_bottom">
+ {{-- padding_bottom --}}
+<section id="productlist" class="">
     <div class="container">
     <div class="row">
        <div class="col-md-12">
@@ -1032,14 +1039,22 @@
     {{-- <div id="section_featured">
     </div> --}}
     <!--============================================= BANNER START ======-->
+    <style>
+        .banner-img{
+            max-height: 230px;
+            object-fit: cover;
+            width: 100%;
+        }
+    </style>
 <section id="banner_two" class="mb-5">
     <div class="container">
         <div class="row">
         @foreach (\App\Banner::where('position', 1)->where('published', 1)->take(2)->get() as $key => $banner)
             <div class="col-md-6 mb-3">
                 <a href="{{ $banner->url }}">
-                <div class="two_banner_img">
-                    <img src="{{ asset($banner->photo) }}" class="img-fluid" alt="{{ env('APP_NAME') }} promo">
+                    {{-- two_banner_img --}}
+                <div class="">
+                    <img src="{{ asset($banner->photo) }}" class="img-fluid banner-img" alt="{{ env('APP_NAME') }} promo">
                 </div>
                 </a>
             </div>
@@ -1265,8 +1280,9 @@
             @foreach (\App\Banner::where('position', 2)->where('published', 1)->take(2)->get() as $key => $banner)
                 <div class="col-md-6 mb-3">
                     <a href="{{ $banner->url }}">
-                    <div class="two_banner_img">
-                        <img src="{{ asset($banner->photo) }}" class="img-fluid" alt="{{ env('APP_NAME') }} promo">
+                        {{-- two_banner_img --}}
+                    <div class="">
+                        <img src="{{ asset($banner->photo) }}" class="img-fluid banner-img" alt="{{ env('APP_NAME') }} promo">
                     </div>
                     </a>
                 </div>
