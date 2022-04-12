@@ -264,12 +264,12 @@
                              <div class="product-grid-image">
                                 <a href="{{ route('product', $product->slug) }}">
                                     @php
-                                $filepath = $product->thumbnail_img;
+                                $filepath = $product->featured_img;
                                 @endphp
                                 
                                 @if(isset($filepath))
                                     @if (file_exists(public_path($filepath)))
-                                        <img src="{{ asset($product->thumbnail_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
+                                        <img src="{{ asset($product->featured_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->featured_img) }}" class="img-fluid pic-1">
                                     @else
                                         <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
                                     @endif
@@ -408,9 +408,9 @@
                                 </div>
                                 <div class="special_left">
                                     <a href="{{ route('product', $product->slug) }}">
-                                        @if (!empty($product->thumbnail_img))
-                                            @if (file_exists($product->thumbnail_img))
-                                                <img class="img-fit lazyload" src="{{ asset($product->thumbnail_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}"> 
+                                        @if (!empty($product->featured_img))
+                                            @if (file_exists($product->featured_img))
+                                                <img class="img-fit lazyload" src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}"> 
                                             @else
                                                 <img src="{{asset('frontend/images/placeholder.jpg')}}" alt="{{ __($product->name . '-' . $product->unit_price ) }}" class="img-fit lazyload">
                                             @endif
@@ -485,11 +485,11 @@
                                         <div class="product-grid-image">
                                             <a href="{{ route('product', $product->slug) }}">
                                                 @php
-                                                    $filepath = $product->thumbnail_img;
+                                                    $filepath = $product->featured_img;
                                                 @endphp
                                                 @if(isset($filepath))
                                                     @if (file_exists(public_path($filepath)))
-                                                        <img src="{{ asset($product->thumbnail_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
+                                                        <img src="{{ asset($product->featured_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->featured_img) }}" class="img-fluid pic-1">
                                                     @else
                                                         <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
                                                     @endif
@@ -614,11 +614,11 @@
                                         <div class="product-grid-image">
                                             <a href="{{ route('product', $product->slug) }}">
                                                 @php
-                                                    $filepath = $product->thumbnail_img;
+                                                    $filepath = $product->featured_img;
                                                 @endphp
                                                 @if(isset($filepath))
                                                     @if (file_exists(public_path($filepath)))
-                                                        <img src="{{ asset($product->thumbnail_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
+                                                        <img src="{{ asset($product->featured_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->featured_img) }}" class="img-fluid pic-1">
                                                     @else
                                                         <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
                                                     @endif
@@ -791,11 +791,11 @@
                      <div class="product-grid-image">
                         <a href="{{ route('product', $product->slug) }}">
                             @php
-                                $filepath = $product->thumbnail_img;
+                                $filepath = $product->featured_img;
                             @endphp
                             @if(isset($filepath))
                                 @if (file_exists(public_path($filepath)))
-                                    <img src="{{ asset($product->thumbnail_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
+                                    <img src="{{ asset($product->featured_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->featured_img) }}" class="img-fluid pic-1">
                                 @else
                                     <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
                                 @endif
@@ -928,12 +928,12 @@
                                     <div class="product-grid-image">
                                         <a href="{{ route('product', $product->slug) }}">
                                             @php
-                                        $filepath = $product->thumbnail_img;
+                                        $filepath = $product->featured_img;
                                         @endphp
                                         
                                         @if(isset($filepath))
                                             @if (file_exists(public_path($filepath)))
-                                                <img src="{{ asset($product->thumbnail_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
+                                                <img src="{{ asset($product->featured_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->featured_img) }}" class="img-fluid pic-1">
                                             @else
                                                 <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
                                             @endif
@@ -1153,11 +1153,11 @@
                                     <div class="product-grid-image">
                                         <a href="{{ route('product', $product->slug) }}">
                                             @php
-                                        $filepath = $product->thumbnail_img;
+                                        $filepath = $product->featured_img;
                                         @endphp
                                         @if(isset($filepath))
                                             @if (file_exists(public_path($filepath)))
-                                                <img src="{{ asset($product->thumbnail_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
+                                                <img src="{{ asset($product->featured_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->featured_img) }}" class="img-fluid pic-1">
                                             @else
                                                 <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
                                             @endif

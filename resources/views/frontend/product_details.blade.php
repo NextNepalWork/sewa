@@ -208,9 +208,9 @@
                                         </div>
                                         <div class="discount">
                                             @if (! $detailedProduct->discount == 0)
-                                            <div class="">
-                                                (-{{ ($detailedProduct->discount_type == 'amount')?'Rs.':'' }} {{ $detailedProduct->discount }}{{ !($detailedProduct->discount_type == 'amount')?' %':'' }} off)
-                                            </div>
+                                                <div class="">
+                                                    (-{{ ($detailedProduct->discount_type == 'amount')?'Rs.':'' }} {{ $detailedProduct->discount }}{{ !($detailedProduct->discount_type == 'amount')?' %':'' }} off)
+                                                </div>
                                             @endif
                                         </div>
                                     </div>
