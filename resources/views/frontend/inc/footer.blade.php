@@ -5,7 +5,17 @@
 <a href="#" class='top_btn'><i class="fa fa-angle-up"></i></a> --}}
 
 <!-- FOOTER -->
-<footer id="footer" class="footer-bg-color position-relative padding_top pt-5" style="--r1: 130%; --r2: 71.5%">
+@php
+$generalsetting = \App\GeneralSetting::first();
+if($generalsetting->logo != null){
+   // $color = ;
+   $color = \App\Color::where('id',$generalsetting->frontend_color)->first();
+}
+else{
+   $color = '#007bff';
+}
+@endphp
+<footer style="background-color: {{$color->code}}!important" id="footer" class="footer-bg-color position-relative padding_top pt-5" style="--r1: 130%; --r2: 71.5%">
     <div class="footer-top">
         <div class="container">
             <div class="row cols-xs-space cols-sm-space cols-md-space">
@@ -13,7 +23,7 @@
                 @php
                      $generalsetting = \App\GeneralSetting::first();
               @endphp
-          <div class="col-lg-3 col-12">
+          <div class="col-lg-2 col-6">
              <div class="footer-logo-box text_white">
                <div class="footer-title text_white footer_after">
                   <h4 class="mb-2 mb-md-4 text-white">Follow us on</h4>
@@ -48,7 +58,7 @@
           </div>
           <div class="col-lg-2 col-6">
             <div class="footer-title text_white footer_after">
-               <h4 class="mb-2 mb-md-4 text-white">Pages</h4>
+               <h4 class="mb-2 mb-md-4 text-white">About us</h4>
                <ul class="text-white">
                    @foreach (\App\Page::all() as $key => $link)
                   <li class="mb-2">
@@ -83,11 +93,11 @@
                            {{__('Terms & Conditions')}}
                         </a>
                      </li>
-                     <li class="mb-2">
+                     {{-- <li class="mb-2">
                         <a href="{{ route('sellerpolicy') }}" class="text-white">
                            {{__('Seller Policy')}}
                         </a>
-                     </li>
+                     </li> --}}
                    {{-- @endforeach --}}
                 </ul>
              </div>
@@ -117,11 +127,27 @@
                 </ul>
              </div>
           </div>
-          <div class="col-lg-3 col-12 mt-4 mt-lg-0">
+          <div class="col-lg-2 col-6">
              <div class="footer-title text_white footer_after">
-                <h4 class="text-white mb-2 mb-md-4">Customer Support</h4>
+                <h4 class="text-white mb-2 mb-md-4">Contact</h4>
                 <ul>
-                   <li class="text-white mb-2">
+                  <li class="text-white mb-2">
+                     Call us : <a class="text-white" href="tel:{{ $generalsetting->phone }}">{{ $generalsetting->phone }}</a>
+                  </li>
+                  <li class="text-white mb-2">
+                     You can mail us at <a class="text-white" href="https://sewaexpress.com">https://sewaexpress.com</a>
+                  </li>
+                  <li class="text-white mb-2">
+                     Sewa Express Service Hours :
+                  </li>
+                  <li class="text-white mb-2">
+                     Sunday to Saturday 9:30 to 5:30
+                  </li>
+                  {{-- <li class="text-white mb-2">
+                     <a href="{{route('orders.track')}}">Track Order</a>
+                  </li> --}}
+                  
+                   {{-- <li class="text-white mb-2">
                       <span class="pr-3"><i class="fa fa-map-marker" aria-hidden="true"></i></span>{{ $generalsetting->address  }}
                    </li>
                    <li class="text-white mb-2">
@@ -132,16 +158,30 @@
                    <li>
                       <a href="mailto:{{ $generalsetting->email  }}" class="text-white"><span class="pr-3"><i
                                class="fa fa-envelope-square" aria-hidden="true"></i></span>{{ $generalsetting->email  }}</a>
-                   </li>
+                   </li> --}}
                 </ul>
              </div>
           </div>
+          
+          <div class="col-lg-2 col-6">
+               
+            <div class="footer-logo-box text_white">
+              <div class="footer-title text_white footer_after">
+                 <h4 class="mb-2 mb-md-4 text-white">Download app</h4>
+                 <a href="#"><img class="w-100" src="{{asset('uploads/android.png')}}" alt="Download on Android"></a>
+
+                 <a href="#"><img class="w-100" src="{{asset('uploads/apple.png')}}" alt="Download on Apple"></a>
+  
+              </div>
+            </div>
+           </div>
        </div>
        <hr />
        <div class="row">
          <div class="col-md-6 text-center pb-3 pt-2">
             <p class="mb-0 text-white text-left font-weight-normal">
-               We accept ConnectIps, Esewa, Khalti, Visa Card, Master Card
+               Payment Partners : 
+               {{-- <img src="https://www.nicasiabank.com/assets/backend/uploads/nic-asia-bank.png" alt=""> --}}
             </p>
          </div>
           <div class="col-md-6 text-center pb-3 pt-2">

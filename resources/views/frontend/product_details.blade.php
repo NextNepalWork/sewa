@@ -84,7 +84,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 col-md-12 col-12">
-                    <div class="product-carousel">
+                    <div class="product-carousel mt-0">
                         @if(is_array(json_decode($detailedProduct->photos)) && count(json_decode($detailedProduct->photos)) > 0)
                         <!-- Swiper and EasyZoom plugins start -->
                         <div class="swiper-container gallery-top" style="height: 400px">
@@ -131,7 +131,7 @@
                     </div>
                 </div>
                 <div class="col-lg-7 col-md-12 col-12 mx-auto">
-                    <div class="d-flex justify-content-center h-100 product-detail flex-column">
+                    <div class="d-flex justify-content-center product-detail flex-column">
                         <div class="about mb-1">
                             <div class="d-inline-block flex-column flex-wrap mb-2">
                                 <h3 class="font-weight-bold m-0">{{ __($detailedProduct->name) }}</h3>
@@ -209,7 +209,7 @@
                                         <div class="discount">
                                             @if (! $detailedProduct->discount == 0)
                                                 <div class="">
-                                                    (-{{ ($detailedProduct->discount_type == 'amount')?'Rs.':'' }} {{ $detailedProduct->discount }}{{ !($detailedProduct->discount_type == 'amount')?' %':'' }} off)
+                                                    -{{ ($detailedProduct->discount_type == 'amount')?'Rs.':'' }} {{ $detailedProduct->discount }}{{ !($detailedProduct->discount_type == 'amount')?' %':'' }} off
                                                 </div>
                                             @endif
                                         </div>
@@ -297,6 +297,28 @@
                                 </div>
                             </div>
                             
+                            <div class="row no-gutters">
+                                <div class="product-description-label font-weight-bold d-flex">
+                                    Shipping Cost:
+                                    @php   
+                                    $shipping_type = \App\BusinessSetting::where('type', 'shipping_type')->first()->value;
+                                    if($shipping_type == 'product_wise_shipping'){
+                                        $shipping = $detailedProduct->shipping_cost;
+                                    }elseif($shipping_type == 'flat_rate'){
+                                        $shipping = \App\BusinessSetting::where('type', 'flat_rate_shipping_cost')->first()->value;
+                                    }
+                                    @endphp
+                                    @if ($detailedProduct->shipping_type=='free')
+                                       <span class="cost pl-2">Free</span> 
+                                    @else
+                                        @if ($shipping <= 0)
+                                            <span class="cost pl-2">Free</span> 
+                                        @else
+                                            <span class="cost pl-2"> Rs. {{$detailedProduct->shipping_cost}} </span>
+                                        @endif
+                                    @endif
+                                </div>
+                            </div>
                             <div class="row no-gutters py-2 d-none align-items-center" id="chosen_price_div">
                                 <div class="col-2 m-auto">
                                     <div class="product-description-label h5 m-0">{{__('Total Price')}}:</div>
@@ -311,16 +333,6 @@
 
                             </div>
 
-                            <div class="row no-gutters">
-                                <div class="product-description-label font-weight-bold d-flex">
-                                    Shipping Cost:
-                                    @if ($detailedProduct->shipping_type=='free')
-                                       <span class="cost pl-2">Free</span> 
-                                    @else
-                                        <span class="cost pl-2"> Rs. {{$detailedProduct->shipping_cost}} </span>
-                                    @endif
-                                </div>
-                            </div>
 
 
                             <div class="d-table width-100 mt-3">
@@ -346,8 +358,9 @@
                     </div>
                 </div>
                 <div class="col-12 mt-3">
+                    {{-- justify-content-center --}}
                     <nav>
-                        <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
                             <a class="nav-item nav-link active" id="first-tab" data-toggle="tab" href="#first"
                             role="tab" aria-controls="first" aria-selected="true"
                             style="color: rgb(72, 77, 103);">Product Details</a>

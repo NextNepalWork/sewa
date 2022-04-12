@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\GeneralSetting
  *
  * @property int $id
+ * @property string $pop_img
+ * @property int $pop_status
  * @property string $frontend_color
  * @property string|null $logo
  * @property string|null $admin_logo

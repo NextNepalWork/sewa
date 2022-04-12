@@ -1,7 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-
+@php
+$generalsetting = \App\GeneralSetting::first();
+// if($generalsetting->pop_img != null){
+//    // $color = ;
+//    $color = \App\Color::where('id',$generalsetting->frontend_color)->first();
+// }
+// else{
+//    $color = '#007bff';
+// }
+@endphp
     <div class="tab-base">
 
         <!--Nav Tabs-->
@@ -13,13 +22,16 @@
                 <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false">{{ __('Home banner 1') }}</a>
             </li>
             <li class="">
-                <a data-toggle="tab" href="#demo-lft-tab-4" aria-expanded="false">{{ __('Home categories') }}</a>
-            </li>
-            <li class="">
                 <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false">{{ __('Home banner 2') }}</a>
             </li>
             <li class="">
+                <a data-toggle="tab" href="#demo-lft-tab-4" aria-expanded="false">{{ __('Home categories') }}</a>
+            </li>
+            <li class="">
                 <a data-toggle="tab" href="#demo-lft-tab-5" aria-expanded="false">{{ __('Top Categories & Brands') }}</a>
+            </li>
+            <li class="">
+                <a data-toggle="tab" href="#demo-lft-tab-6" aria-expanded="false">{{ __('Pop Up') }}</a>
             </li>
         </ul>
 
@@ -278,6 +290,57 @@
 
                 </div>
             </div>
+            <div id="demo-lft-tab-6" class="tab-pane fade">
+
+                {{-- <div class="row">
+                    <div class="col-sm-12">
+                        <a onclick="add_banner_1()" class="btn btn-rounded btn-info pull-right">{{__('Add New Banner')}}</a>
+                    </div>
+                </div>
+
+                <br> --}}
+
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{__('Pop Up')}}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-striped table-bordered demo-dt-basic" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>{{__('Photo')}}</th>
+                                    <th>{{__('Published')}}</th>
+                                    <th width="10%">{{__('Options')}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <img loading="lazy"  class="img-md" src="{{ asset($generalsetting->pop_img)}}" alt="banner Image">
+                                        </td>
+                                        <td>
+                                            <label class="switch">
+                                            <input onchange="update_popup_published(this)" value="{{ $banner->id }}" type="checkbox" <?php if($generalsetting->pop_status == 1) echo "checked";?> >
+                                            <span class="slider round"></span></label></td>
+                                        <td>
+                                            <div class="btn-group dropdown">
+                                                <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
+                                                    {{__('Actions')}} <i class="dropdown-caret"></i>
+                                                </button>   
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li><a onclick="edit_home_pop()">{{__('Edit')}}</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -339,7 +402,30 @@
             $('.demo-select2-placeholder').select2();
         });
     }
-
+    function edit_home_pop(){
+        var url = '{{ route("pop-edit") }}';
+        $.get(url, {}, function(data){
+            $('#demo-lft-tab-6').html(data);
+            $('.demo-select2-placeholder').select2();
+        });
+    }
+    function update_popup_published(el){
+        if(el.checked){
+            var status = 1;
+        }
+        else{
+            var status = 0;
+        }
+        $.post('{{ route('pop_update_status') }}', {_token:'{{ csrf_token() }}', id:el.value, status:status}, function(data){
+            if(data == 1){
+                showAlert('success', 'Pop up status updated successfully');
+            }
+            else{
+                showAlert('danger', 'Something went wrong');
+            }
+        });
+    }
+    
     function edit_home_banner_2(id){
         var url = '{{ route("home_banners.edit", "home_banner_id") }}';
         url = url.replace('home_banner_id', id);

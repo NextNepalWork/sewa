@@ -131,21 +131,21 @@ $(".slick_category").slick({
         {
             breakpoint: 1400,
             settings: {
-                slidesToShow: 4,
+                slidesToShow: 6,
                 slidesToScroll: 1,
             },
         },
         {
             breakpoint: 1080,
             settings: {
-                slidesToShow: 1,
+                slidesToShow: 6,
                 slidesToScroll: 1,
             },
         },
         {
             breakpoint: 780,
             settings: {
-                slidesToShow: 2,
+                slidesToShow: 4,
                 slidesToScroll: 1,
             },
         },
