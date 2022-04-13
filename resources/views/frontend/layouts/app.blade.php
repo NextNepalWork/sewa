@@ -757,15 +757,14 @@
    }
  }
 
-$(".categories-list").hover(
+ $("#categories-list").hover(
   function () {
     $('.category-list').collapse('show');
   },
   function () {
-    $('.category-list').collapse('hide');
+    $('.category-list').collapse('show');
   }
 );
-
 </script>
 
 @yield('script')
