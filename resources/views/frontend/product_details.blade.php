@@ -649,7 +649,7 @@
                                                                         @endif
                                                                         @if (! $related_product->discount == 0)
                                                                             <div>
-                                                                                {{ ($related_product->discount_type == 'amount')?'  Rs.':'' }} -{{ ($related_product->discount) }}{{ !($related_product->discount_type == 'amount')?' %':'' }}
+                                                                                {{ ($related_product->discount_type == 'amount')?'  Rs.':'' }} -{{ intval(($related_product->discount)) }}{{ !($related_product->discount_type == 'amount')?' %':'' }}
                                             
                                                                             </div>
                                                                         @endif
