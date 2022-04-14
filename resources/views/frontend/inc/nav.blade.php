@@ -289,9 +289,9 @@
                           <img data-toggle="tooltip" data-placement="top" title="Cart" src="{{asset('frontend/assets/images/logo/cart.svg')}}" alt="cart-logo" class="img-fluid img_sag">
                           {{-- <span class="nav-box-text d-none d-xl-inline-block">{{__('Cart')}}</span> --}}
                           @if(Session::has('cart'))
-                          <sup class="nav-box-number sub_block">{{ count(Session::get('cart'))}}</sup>
+                              <sup class="nav-box-number sub_block">{{ count(Session::get('cart'))}}</sup>
                           @else
-                          <sup class="nav-box-number sub_block">0</sup>
+                              <sup class="nav-box-number sub_block">0</sup>
                           @endif
                       </a>
                       <ul class="dropdown-menu dropdown-menu-right px-0">

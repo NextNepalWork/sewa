@@ -7,8 +7,11 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
 use App\User;
 use App\Customer;
+use App\Models\Cart;
+use App\Product;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -61,7 +64,6 @@ class LoginController extends Controller
             flash("Something Went wrong. Please try again.")->error();
             return redirect()->route('user.login');
         }
-
         // check if they're an existing user
         $existingUser = User::where('provider_id', $user->id)->orWhere('email', $user->email)->first();
 
@@ -91,6 +93,10 @@ class LoginController extends Controller
 
             auth()->login($newUser, true);
         }
+        // if(Session::has('cart')){
+        //     dd(Session::has('cart'));
+        // }
+   
         if(session('link') != null){
             return redirect(session('link'));
         }
@@ -119,6 +125,39 @@ class LoginController extends Controller
      */
     public function authenticated()
     {
+        if(session()->get('cart') != '' && session()->get('cart') != null){
+            foreach (session()->get('cart') as $key => $cartItem){
+                $product = Product::find($cartItem['id']);
+                $cart_create = Cart::updateOrCreate([
+                                    'user_id' => Auth::user()->id,
+                                    'product_id' => $cartItem['id'],
+                                    'variation' => $cartItem['variant']
+                                ], [
+                                    'price' => $cartItem['price'],
+                                    'tax' => $cartItem['tax'],
+                                    'shipping_cost' => $cartItem['shipping'],
+                                    'quantity' => DB::raw('quantity + '.$cartItem['quantity'])
+                                ]);
+                            }
+        }
+        session()->forget('cart');
+        $cart_items = Cart::where('user_id',Auth::user()->id)->count();
+        $data = [];
+        if($cart_items > 0){
+            $cart_items = Cart::where('user_id',Auth::user()->id)->get();
+            foreach($cart_items as $a => $b){
+                $item = [
+                    'id' => $b->product_id,
+                    'variant' => $b->variation,
+                    'price' => $b->price,
+                    'tax' => $b->tax,
+                    'shipping' => $b->shipping_cost,
+                    'quantity' => $b->quantity,
+                ];
+                array_push($data,$item);
+            }
+            session()->put('cart', $data);
+        }
         if(auth()->user()->user_type == 'admin' || auth()->user()->user_type == 'staff')
         {
            

@@ -216,7 +216,16 @@
 }
 </style>
 </head>
+@php
+// dd(session()->get('cart'));
+@endphp
 <body  onload="myFunction()">
+
+    {{-- @php
+        echo '<pre>';
+        dd(Auth::check());
+        echo '</pre>';
+    @endphp --}}
     <div id="loading">
         <div class="d-flex justify-content-center align-items-center h-75"> <img src="{{asset('frontend/preloader/logo.jpeg')}}" alt=""></div>
     </div>
