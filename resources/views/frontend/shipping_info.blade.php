@@ -227,6 +227,16 @@
                                                 <span class="plan-type d-block">Address: <span class="right_bold">{{ $address->address }}</span> </span>
                                                 <span class="plan-type d-block">Postal Code: <span>{{ $address->postal_code }}</span> </span>
                                                 <span class="plan-type d-block">City:<span class="right_bold">{{ $address->city }}</span> </span>
+                                                <span class="plan-type d-block">Delivery Location:
+                                                    @php
+                                                    if ($address->delivery_location != null) {
+                                                        $delivery_location=\App\Location::where('id',$address->delivery_location)->first()->toArray();
+                                                    }
+
+                                                    @endphp
+                                                    @if ($address->delivery_location != null)
+                                                    <span class="right_bold">{{$delivery_location['name']}}</span>
+                                                    @endif </span>
                                                 <span class="plan-type d-block">Country: <span class="right_bold">{{ $address->country }}</span> </span>
                                                 <span class="plan-type d-block">Phone: <span class="right_bold">{{ $address->phone }}</span> </span>
                                                 </span>
@@ -236,7 +246,8 @@
                                    <input type="hidden" name="checkout_type" value="logged">
                                    <div class="col-md-6">
                                     <button type="button" class="btn add_btn_img" onclick="add_new_address()">
-                                       <img src="https://image.flaticon.com/icons/png/512/1104/1104261.png" alt="Add new address" class="img-fluid"> 
+                                       <img src="https://www.mcicon.com/wp-content/uploads/2020/12/Abstract_Add_1-copy.jpg" alt="Add new address" class="img-fluid"> 
+                                       
                                      </button>
                                    </div>
                                </div>
@@ -371,6 +382,21 @@
                            <input type="text" class="form-control mb-3" placeholder="{{__('Your City')}}" name="city" value="" required>
                         </div>
                   </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label>{{__('Delivery Location')}}</label>
+                        </div>
+                        <div class="col-md-10">
+                            @php
+                                $locations=\App\Location::all();
+                            @endphp
+                            <select class="delivery" name="delivery_location">
+                                @foreach ($locations as $location)
+                                    <option value="{{$location->id}}">{{$location->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                   <div class="row">
                         <div class="col-md-2">
                            <label>{{__('Postal code')}}</label>
@@ -404,5 +430,9 @@
     function add_new_address(){
         $('#new-address-modal').modal('show');
     }
+
+    $(document).ready(function() {
+        $('.delivery').select2();
+    });
 </script>
 @endsection

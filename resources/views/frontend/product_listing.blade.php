@@ -44,29 +44,32 @@
 @endsection
 
 @section('content')
-    <section id="breadcrumb-wrapper" class="position-relative">
-        <div class="image">
+
+    <!-- Breadcrumbs -->
+    <section id="breadcrumb-wrapper" class="position-relative bg-light">
+        {{-- <div class="image">
             <img src="{{asset('frontend/assets/images/banner/1.jpg')}}" alt="breadcrumb-image" class="img-fluid">
-        </div>
-        <div class="overlay position-absolute">
-            <div class="title p-lg-4 p-md-3 p-3">
-                <ol class="breadcrumb p-0 bg-transparent p-0 m-0">
-                    <li class=""><a href="{{ route('home') }}">{{__('Home')}}</a></li>
-                        <li class=""><a href="{{ route('products') }}">{{__('All Categories')}}</a></li>
-                        @if(isset($category_id))
-                            <li class="active "><a href="{{ route('products.category', \App\Category::find($category_id)->slug) }}">{{ \App\Category::find($category_id)->name }}</a></li>
-                        @endif
-                        @if(isset($subcategory_id))
-                            <li class=""><a href="{{ route('products.category', \App\SubCategory::find($subcategory_id)->category->slug) }}">{{ \App\SubCategory::find($subcategory_id)->category->name }}</a></li>
-                            <li class="active "><a href="{{ route('products.subcategory', \App\SubCategory::find($subcategory_id)->slug) }}">{{ \App\SubCategory::find($subcategory_id)->name }}</a></li>
-                        @endif
-                        @if(isset($subsubcategory_id))
-                            <li class=""><a href="{{ route('products.category', \App\SubSubCategory::find($subsubcategory_id)->subcategory->category->slug) }}">{{ \App\SubSubCategory::find($subsubcategory_id)->subcategory->category->name }}</a></li>
-                            <li class=""><a href="{{ route('products.subcategory', \App\SubsubCategory::find($subsubcategory_id)->subcategory->slug) }}">{{ \App\SubsubCategory::find($subsubcategory_id)->subcategory->name }}</a></li>
-                            <li class="active "><a href="{{ route('products.subsubcategory', \App\SubSubCategory::find($subsubcategory_id)->slug) }}">{{ \App\SubSubCategory::find($subsubcategory_id)->name }}</a></li>
-                        @endif
-                </ol>
-            </div>
+        </div> --}}
+    
+        <div class="container">
+        <ol class="breadcrumb mt-3 py-3">
+            <li class=""><a class="text-dark font-weight-bold" href="{{ route('home') }}">{{__('Home')}}</a></li>
+                <li class=""><a class="text-dark font-weight-bold" href="{{ route('products') }}">{{__('All Categories')}}</a></li>
+                @if(isset($category_id))
+                    <li class="active "><a class="text-dark font-weight-bold" href="{{ route('products.category', \App\Category::find($category_id)->slug) }}">{{ \App\Category::find($category_id)->name }}</a></li>
+                @endif
+                @if(isset($subcategory_id))
+                    <li class=""><a class="text-dark font-weight-bold" href="{{ route('products.category', \App\SubCategory::find($subcategory_id)->category->slug) }}">{{ \App\SubCategory::find($subcategory_id)->category->name }}</a></li>
+                    <li class="active "><a class="text-dark font-weight-bold" href="{{ route('products.subcategory', \App\SubCategory::find($subcategory_id)->slug) }}">{{ \App\SubCategory::find($subcategory_id)->name }}</a></li>
+                @endif
+                @if(isset($subsubcategory_id))
+                    <li class=""><a class="text-dark font-weight-bold" href="{{ route('products.category', \App\SubSubCategory::find($subsubcategory_id)->subcategory->category->slug) }}">{{ \App\SubSubCategory::find($subsubcategory_id)->subcategory->category->name }}</a></li>
+                    <li class=""><a class="text-dark font-weight-bold" href="{{ route('products.subcategory', \App\SubsubCategory::find($subsubcategory_id)->subcategory->slug) }}">{{ \App\SubsubCategory::find($subsubcategory_id)->subcategory->name }}</a></li>
+                    <li class="active "><a class="text-dark font-weight-bold" href="{{ route('products.subsubcategory', \App\SubSubCategory::find($subsubcategory_id)->slug) }}">{{ \App\SubSubCategory::find($subsubcategory_id)->name }}</a></li>
+                @endif
+        </ol>
+
+
         </div>
     </section>
     <!-- Breadcrumbs Ends -->
