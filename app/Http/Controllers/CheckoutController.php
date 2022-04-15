@@ -36,6 +36,7 @@ class CheckoutController extends Controller
         if ($request->payment_option != null) {
 
             $orderController = new OrderController;
+            dd($request->all());
             $orderController->store($request);
 
             $request->session()->put('payment_type', 'cart_payment');
@@ -45,34 +46,6 @@ class CheckoutController extends Controller
                     $paypal = new PaypalController;
                     return $paypal->getCheckout();
                 }
-                // elseif ($request->payment_option == 'stripe') {
-                //     $stripe = new StripePaymentController;
-                //     return $stripe->stripe();
-                // }
-                // elseif ($request->payment_option == 'sslcommerz') {
-                //     $sslcommerz = new PublicSslCommerzPaymentController;
-                //     return $sslcommerz->index($request);
-                // }
-                // elseif ($request->payment_option == 'instamojo') {
-                //     $instamojo = new InstamojoController;
-                //     return $instamojo->pay($request);
-                // }
-                // elseif ($request->payment_option == 'razorpay') {
-                //     $razorpay = new RazorpayController;
-                //     return $razorpay->payWithRazorpay($request);
-                // }
-                // elseif ($request->payment_option == 'paystack') {
-                //     $paystack = new PaystackController;
-                //     return $paystack->redirectToGateway($request);
-                // }
-                // elseif ($request->payment_option == 'voguepay') {
-                //     $voguePay = new VoguePayController;
-                //     return $voguePay->customer_showForm();
-                // }
-                // elseif ($request->payment_option == 'paytm') {
-                //     $paytm = new PaytmController;
-                //     return $paytm->index();
-                // }
                 elseif ($request->payment_option == 'cash_on_delivery') {
                     $request->session()->put('cart', collect([]));
                     // $request->session()->forget('order_id');
@@ -194,7 +167,9 @@ class CheckoutController extends Controller
 
     public function get_shipping_info(Request $request)
     {
-       
+        if(Session::has('selectedLocation')){
+            Session::forget('selectedLocation');
+        }
         if(Session::has('cart') && count(Session::get('cart')) > 0){
             $categories = Category::all();
             return view('frontend.shipping_info', compact('categories'));
@@ -241,6 +216,7 @@ class CheckoutController extends Controller
             $data['checkout_type'] = $request->checkout_type;
         }
 
+        // dd($address->delivery_location);
         $shipping_info = $data;
         $request->session()->put('shipping_info', $shipping_info);
 
@@ -252,14 +228,29 @@ class CheckoutController extends Controller
             $tax += $cartItem['tax']*$cartItem['quantity'];
             $shipping += $cartItem['shipping']*$cartItem['quantity'];
         }
-
+        // foreach (Auth::user()->addresses as $key => $address){
+            // if ($address->set_default){
+                // $default_location = $address;
+                $location = \App\Location::where('id',$address->delivery_location)->count();
+                if($location > 0){
+                    $location = \App\Location::where('id',$address->delivery_location)->first();
+                    $delivery_charge = $location->delivery_charge;
+                    $shipping += $delivery_charge;
+                }
+            // }
+        // }
+        $locationSelected = $address->delivery_location;
         $total = $subtotal + $tax + $shipping;
-
+        if(Session::has('selectedLocation')){
+            Session::forget('selectedLocation');
+        }
+        Session::put('selectedLocation',$locationSelected);
+        
         if(Session::has('coupon_discount')){
                 $total -= Session::get('coupon_discount');
         }
 
-        return view('frontend.delivery_info');
+        return view('frontend.delivery_info',compact('locationSelected'));
         // return view('frontend.payment_select', compact('total'));
     }
 

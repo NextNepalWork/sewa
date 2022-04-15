@@ -493,7 +493,7 @@
                             @endif
                         </div>
                     @endif
-                    @if (\App\BusinessSetting::where('type', 'guest_checkout_active')->first()->value == 1)
+                    {{-- @if (\App\BusinessSetting::where('type', 'guest_checkout_active')->first()->value == 1)
                         <div class="or or--1 mt-0 text-center">
                             <span>or</span>
                         </div>
@@ -501,7 +501,7 @@
                             <a href="{{ route('checkout.shipping_info') }}"
                                 class="btn btn-styled btn-base-1">{{ __('Guest Checkout') }}</a>
                         </div>
-                    @endif
+                    @endif --}}
                 </div>
             </div>
         </div>

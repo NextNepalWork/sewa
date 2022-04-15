@@ -45,10 +45,18 @@
                     <label class="col-sm-3 control-label" for="start_date">{{__('Date')}}</label>
                     <div class="col-sm-9">
                         <div id="demo-dp-range">
-                            <div class="input-daterange input-group" id="datepicker">
+                            {{-- <div class="input-daterange input-group" id="datepicker">
                                 <input type="text" class="form-control" name="start_date">
                                 <span class="input-group-addon">{{__('to')}}</span>
                                 <input type="text" class="form-control" name="end_date">
+                            </div> --}}
+                            <div id="demo-dp-range">
+                                {{-- <input type="datetime-local" value="2018-02-25T19:24:23"/> --}}
+    
+                                    <input type="datetime-local" class="form-control" name="start_date">
+                                    <span class="input-group-addon">{{__('to')}}</span>
+                                    <input type="datetime-local" class="form-control" name="end_date">
+    
                             </div>
                         </div>
                     </div>

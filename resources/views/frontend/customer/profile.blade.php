@@ -141,6 +141,17 @@
                                                     <span class="alpha-6">Country:</span>
                                                     <span class="strong-600 ml-2">{{ $address->country }}</span>
                                                 </div>
+                                                @php
+                                                    $delivery_location = 'empty';
+                                                    if($address->delivery_location){
+                                                        $delivery_location  = \App\Location::where('id', $address->delivery_location)->first();
+                                                        $delivery_location = $delivery_location->name;
+                                                    }
+                                                @endphp
+                                                <div class='mb-2'>
+                                                    <span class="alpha-6">Delivery Location:</span>
+                                                    <span class="strong-600 ml-2">{{ $delivery_location }}</span>
+                                                </div>
                                                 <div class='mb-2'>
                                                     <span class="alpha-6">Phone:</span>
                                                     <span class="strong-600 ml-2">{{ $address->phone }}</span>
@@ -212,6 +223,20 @@
                                     <select class="form-control mb-3 selectpicker" data-placeholder="{{__('Select your country')}}" name="country" required>
                                         @foreach (\App\Country::where('status', 1)->get() as $key => $country)
                                             <option value="{{ $country->name }}">{{ $country->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>{{__('Location')}}</label>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="mb-3">
+                                    <select class="form-control mb-3 selectpicker" data-placeholder="{{__('Select your country')}}" name="delivery_location" required>
+                                        @foreach (\App\Location::get() as $key => $country)
+                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

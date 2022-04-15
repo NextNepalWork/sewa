@@ -29,6 +29,7 @@ use App\Recommend;
 use App\State;
 use ImageOptimizer;
 use Cookie;
+use Response;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class HomeController extends Controller
@@ -761,7 +762,22 @@ class HomeController extends Controller
         $pick_up_points = PickupPoint::all();
         return view('frontend.partials.pick_up_points', compact('pick_up_points'));
     }
+    
+    public function getLocationCharge(Request $request){
+        $category = Location::findOrFail($request->deliveryLocation);
+        $location_charge = $category->delivery_charge;
+        $shippingBeforeLocation = $request->shippingBeforeLocation;
+        $subTotal = $request->subTotal;
+        $taxTotal = $request->taxTotal;
 
+        $value = [
+            'total' => $shippingBeforeLocation+$subTotal+$taxTotal+$location_charge,
+            'total_shipping' => $shippingBeforeLocation+$location_charge,
+            'location_charge' => $location_charge,
+        ];
+        return Response::json($value);
+        // return view('frontend.partials.category_elements', compact('category'));
+    }
     public function get_category_items(Request $request){
         $category = Category::findOrFail($request->id);
         return view('frontend.partials.category_elements', compact('category'));

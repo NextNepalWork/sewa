@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Faq;
+use App\Career;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class FaqController extends Controller
+class CareerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,10 @@ class FaqController extends Controller
      */
     public function index()
     {
-        $blog = Faq::all();
-        return view('faq.index',compact('blog'));
+        $blog = Career::all();
+        return view('career.index',compact('blog'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -26,7 +27,7 @@ class FaqController extends Controller
      */
     public function create()
     {
-        return view('faq.create');
+        return view('career.create');
     }
 
     /**
@@ -37,19 +38,19 @@ class FaqController extends Controller
      */
     public function store(Request $request)
     {
-        $blog = new Faq;
+        $blog = new Career();
         $blog->title = $request->title;
         $blog->description = $request->description;
         $blog->published = 1;
         $blog->save();
-        flash(__('Faq has been inserted successfully'))->success();
-        return redirect()->route('faq.index');
+        flash(__('Career has been inserted successfully'))->success();
+        return redirect()->route('career.index');
     }
 
     public function updateStatus(Request $request)
     {
         
-        $blog = Faq::find($request->id);
+        $blog = Career::find($request->id);
         $blog->published = $request->status;
         if($blog->save()){
             return '1';
@@ -79,8 +80,8 @@ class FaqController extends Controller
      */
     public function edit($id)
     {
-        $blog = Faq::findOrFail($id);
-        return view('faq.edit',compact('blog'));
+        $blog = Career::findOrFail($id);
+        return view('career.edit',compact('blog'));
     }
 
     /**
@@ -92,12 +93,12 @@ class FaqController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $blog = Faq::find($id);
+        $blog = Career::find($id);
         $blog->title = $request->title;
         $blog->description = $request->description;
         $blog->save();
-        flash(__('Faq has been updated successfully'))->success();
-        return redirect()->route('faq.index');
+        flash(__('Career has been updated successfully'))->success();
+        return redirect()->route('career.index');
     }
 
     /**
@@ -108,14 +109,14 @@ class FaqController extends Controller
      */
     public function destroy($id)
     {
-        $blog = Faq::findOrFail($id);
-        if(Faq::destroy($id)){
+        $blog = Career::findOrFail($id);
+        if(Career::destroy($id)){
           
-            flash(__('Faq has been deleted successfully'))->success();
+            flash(__('Career has been deleted successfully'))->success();
         }
         else{
             flash(__('Something went wrong'))->error();
         }
-        return redirect()->route('faq.index');
+        return redirect()->route('career.index');
     }
 }

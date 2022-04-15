@@ -3,154 +3,7 @@
 @section('content')
 
 
-   <!--======================================================= CART START ======-->
-   {{-- <section id="cart_user" class="py-5">
-      <div class="container">
-       @if(Session::has('cart'))
-        
-       <div class="row">
-        
-          <div class="col-xl-8 col-md-12 bg-white p-3">
-             <div class="table-responsive-lg">
-                <table class="table">
-                   <thead>
-                      <tr>
-                         <th class="img_table text-left th_size border-0">Image</th>
-                         <th class="text-left th_size border-0">Product Name</th>
-                         <th class="text-left th_size border-0">Quantity</th>
-                         <th class="text-left th_size border-0">Total</th>
-                         <th class="text-left remove_block_last border-0">Remove</th>
-                      </tr>
-                   </thead>
-                   <!-- /thead -->
-                   <tbody>
-                    @php
-                    $total = 0;
-                    @endphp
-                    @foreach (Session::get('cart') as $key => $cartItem)
-                        @php
-                        $product = \App\Product::find($cartItem['id']);
-                        $total = $total + $cartItem['price']*$cartItem['quantity'];
-                        $product_name_with_choice = $product->name;
-                        if ($cartItem['variant'] != null) {
-                            $product_name_with_choice = $product->name.' - '.$cartItem['variant'];
-                        }
-                        // if(isset($cartItem['color'])){
-                        //     $product_name_with_choice .= ' - '.\App\Color::where('code', $cartItem['color'])->first()->name;
-                        // }
-                        // foreach (json_decode($product->choice_options) as $choice){
-                        //     $str = $choice->name; // example $str =  choice_0
-                        //     $product_name_with_choice .= ' - '.$cartItem[$str];
-                        // }
-                        @endphp
-                      <tr>
-                         <td id="">
-                            <a class="img_men_cart" href="detail.html">
-                               <img
-                                  src="{{ asset($product->thumbnail_img) }}"
-                                  class="img-fluid" alt="{{ $product->name }}">
-                            </a>
-                         </td>
-                         <td class="">
-                            {{ $product_name_with_choice }}
-                         </td>
-                         <td class="">
-                            <div class="input_b">
-                               <b onclick="decreaseValue()" value="Decrease Value" class="minus_b">-</b>
-                               <input type="number" id="numbers" value="0" class="count_b disabled=" name=" qty">
-                               <b class="plus_b " onclick="increaseValue()" value="Increase Value">+</b>
-                            </div>
-                         </td>
-                         <td class="">
-                            <span class="cart-grand-total-price">{{ single_price($cartItem['price']) }}</span>
-                         </td>
-                         <td class=""><a href="#" onclick="removeFromCartView(event, {{ $key }})" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a>
-                         </td>
-                      </tr>
-                      @endforeach
-                   </tbody>
-                   <!-- /tbody -->
-                </table>
-
-             </div>
-             <div class="button_block d-flex justify-content-between align-items-center">
-                <a href=""> <span><i class="fa fa-reply-all"></i></span> Return to shop</a>
-                <!-- <a href="" class="btn_custom">Continue to Shipping</a> -->
-                @if(Auth::user())
-                <a href="{{ route('checkout.get_shipping_info') }}"> <button class="btn_custom"> Continue to Shipping</button></a>
-                @else
-                <a href="{{ route('user.login') }}"> <button class="btn_custom"> Continue to Shipping</button></a>
-                @endif
-             </div>
-          </div>
-       
-          @include('frontend.partials.cart_summary')
-       </div>
-       @endif
-    </div>
- </section> --}}
-
  <div id="page-content">
-   {{-- <section class="slice-xs sct-color-2 border-bottom">
-       <div class="container container-sm">
-           <div class="row cols-delimited justify-content-center">
-               <div class="col">
-                   <div class="icon-block icon-block--style-1-v5 text-center ">
-                       <div class="block-icon c-gray-light mb-0">
-                           <i class="la la-shopping-cart"></i>
-                       </div>
-                       <div class="block-content d-none d-md-block">
-                           <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">1. {{__('My Cart')}}</h3>
-                       </div>
-                   </div>
-               </div>
-
-               <div class="col">
-                   <div class="icon-block icon-block--style-1-v5 text-center active">
-                       <div class="block-icon mb-0">
-                           <i class="la la-map-o"></i>
-                       </div>
-                       <div class="block-content d-none d-md-block">
-                           <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">2. {{__('Shipping info')}}</h3>
-                       </div>
-                   </div>
-               </div>
-
-               <div class="col">
-                   <div class="icon-block icon-block--style-1-v5 text-center">
-                       <div class="block-icon mb-0 c-gray-light">
-                           <i class="la la-truck"></i>
-                       </div>
-                       <div class="block-content d-none d-md-block">
-                           <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">3. {{__('Delivery info')}}</h3>
-                       </div>
-                   </div>
-               </div>
-
-               <div class="col">
-                   <div class="icon-block icon-block--style-1-v5 text-center">
-                       <div class="block-icon c-gray-light mb-0">
-                           <i class="la la-credit-card"></i>
-                       </div>
-                       <div class="block-content d-none d-md-block">
-                           <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">4. {{__('Payment')}}</h3>
-                       </div>
-                   </div>
-               </div>
-
-               <div class="col">
-                   <div class="icon-block icon-block--style-1-v5 text-center">
-                       <div class="block-icon c-gray-light mb-0">
-                           <i class="la la-check-circle"></i>
-                       </div>
-                       <div class="block-content d-none d-md-block">
-                           <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">5. {{__('Confirmation')}}</h3>
-                       </div>
-                   </div>
-               </div>
-           </div>
-       </div>
-   </section> --}}
    <section id="order_list_top">
       <div class="container">
          <div class="row delivery_row_block">
@@ -208,7 +61,9 @@
          </div>
       </div>
   </section>
-
+@php
+    $default_location = '';
+@endphp
    <section id="cart_user" class="py-5">
        <div class="container">
            <div class="row">
@@ -219,25 +74,37 @@
                                <div class="row" id="shipping">
                                    @foreach (Auth::user()->addresses as $key => $address)
                                        <div class="col-md-6">
+                                        @if ($address->set_default)
+                                            @php
+                                                $default_location = $address;
+                                            @endphp
+                                        @endif
+                                        
                                            <label class="active card bg-white p-3">
-                                               <input type="radio" class="radio" name="address_id" value="{{ $address->id }}" @if ($address->set_default)
+                                               <input type="radio" class="radio address_id" name="address_id" data-location="{{$address->delivery_location}}" value="{{ $address->id }}" @if ($address->set_default)
                                                    checked
                                                @endif required>
-                                               <span class="plan-details">
+                                                <span class="plan-details">
                                                 <span class="plan-type d-block">Address: <span class="right_bold">{{ $address->address }}</span> </span>
                                                 <span class="plan-type d-block">Postal Code: <span>{{ $address->postal_code }}</span> </span>
                                                 <span class="plan-type d-block">City:<span class="right_bold">{{ $address->city }}</span> </span>
                                                 <span class="plan-type d-block">Delivery Location:
                                                     @php
-                                                    if ($address->delivery_location != null) {
-                                                        $delivery_location=\App\Location::where('id',$address->delivery_location)->first()->toArray();
-                                                    }
-
+                                                        if ($address->delivery_location != null) {
+                                                            $delivery_location=\App\Location::where('id',$address->delivery_location)->first()->toArray();
+                                                        }
                                                     @endphp
+
                                                     @if ($address->delivery_location != null)
-                                                    <span class="right_bold">{{$delivery_location['name']}}</span>
-                                                    @endif </span>
-                                                <span class="plan-type d-block">Country: <span class="right_bold">{{ $address->country }}</span> </span>
+                                                        <span class="right_bold">{{$delivery_location['name']}}</span>
+                                                    @endif 
+                                                </span>
+                                                <span class="plan-type d-block">
+                                                    Country: 
+                                                    <span class="right_bold">
+                                                        {{ $address->country }}
+                                                    </span> 
+                                                </span>
                                                 <span class="plan-type d-block">Phone: <span class="right_bold">{{ $address->phone }}</span> </span>
                                                 </span>
                                            </label>

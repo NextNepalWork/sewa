@@ -191,6 +191,9 @@
     background-image: url('{{asset("frontend/preloader/2.gif")}}');
 
 }
+.hidden{
+    display: none;
+}
 .custom-close {
   position: absolute;
   right: 25px;
@@ -262,21 +265,21 @@
 
                 @include('frontend.partials.modal')
 
-                @if (\App\BusinessSetting::where('type', 'facebook_chat')->first()->value == 1)
+                {{-- @if (\App\BusinessSetting::where('type', 'facebook_chat')->first()->value == 1)
                     <div id="fb-root"></div>
                     <!-- Your customer chat code -->
                     <div id="fb-customer-chat" class="fb-customerchat"
                     attribution=setup_tool
                     page_id="442591509240170">
                     </div>
-                @endif
-                <script>
+                @endif --}}
+                {{-- <script>
                     var chatbox = document.getElementById('fb-customer-chat');
                     chatbox.setAttribute("page_id", "PAGE-ID");
                     chatbox.setAttribute("attribution", "biz_inbox");
-                  </script>
+                  </script> --}}
                   <!-- Your SDK code -->
-    <script>
+    {{-- <script>
         window.fbAsyncInit = function() {
           FB.init({
             xfbml            : true,
@@ -290,7 +293,7 @@
           js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
-      </script>
+      </script> --}}
                 <div class="modal fade" id="addToCart">
                     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">
                         <div class="modal-content position-relative">
@@ -365,6 +368,66 @@
 
 {{-- script-new js --}}
 {{-- <script src="{{ asset('frontend/js/script-new.js') }}"></script> --}}
+
+<script type="text/javascript">
+    $('.address_id').on('change', function() {
+            // location.reload();
+        var deliveryLocation = $(this).data('location');
+        var subTotal = $('.sub-total').text();
+        var taxTotal = $('.tax-total').text();
+        var shippingBeforeLocation = $('.shipping-before-location').text();
+        $.ajax({
+                        url: "{{ route('location.getLocationCharge') }}",
+                        type: 'post',
+                        data: {
+                            'deliveryLocation': deliveryLocation,
+                            'shippingBeforeLocation': shippingBeforeLocation,
+                            'subTotal': subTotal,
+                            'taxTotal': taxTotal,
+                            '_token':'{{ csrf_token() }}'
+                        },
+                        beforeSend: function()
+                        {
+                        },
+                        success: function(data) {
+                            if (data != '') {
+                                // console.log(parseFloat(subTotal+taxTotal+data+shippingBeforeLocation));
+                                // console.log(subTotal);
+                                // console.log(taxTotal);
+                                console.log(data);
+                                // console.log(shippingBeforeLocation);
+                                // console.log(parseFloat(subTotal+taxTotal+data+shippingBeforeLocation));
+                                // var total = (parseFloat(subTotal).toFixed(2)) + (parseFloat(taxTotal).toFixed(2)) + (parseFloat(data).toFixed(2)) + (parseFloat(shippingBeforeLocation).toFixed(2));
+                                var z = $('.grand-total-span').text('Rs '+data.total);
+                                var x = $('.delivery-charge-span').text('Rs '+data.location_charge);
+                                
+                                // var shiptotal = (parseFloat(data).toFixed(2)) + (parseFloat(shippingBeforeLocation).toFixed(2));
+                                var y = $('.shipping-total-span').text('Rs '+data.total_shipping);
+                                
+
+
+                            //     $(".rowCheck:checked").each(function() {
+                            //         $(this).parents("tr").remove();
+                            //     });
+                            //     $(".myoverlay").css('display', 'none');
+                            //     alert(data['success']);
+                            //     location.href = data.redirectTo;
+                            // } else if (data['error']) {
+                            //     alert(data['error']);
+                            // } else {
+                            //     alert('Whoops something went wrong');
+                            }
+                        },
+                        error: function(data) {
+                            alert(data.responseText);
+                        }
+                    });
+
+        
+    });
+</script>
+
+
 @if ($generalsetting->pop_status == 1)
 <script type="text/javascript">
     $(window).on('load', function() {
