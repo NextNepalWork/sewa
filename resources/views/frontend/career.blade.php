@@ -30,7 +30,7 @@
     <section class="gry-bg py-4">
         <div class="container sm-px-0">
             <div class="row">
-                <div class="col-8">
+                <div class="col-12">
                     <div class="accordion w-100" id="acc">
                         @if (isset($career) && !($career->isEmpty()))
                             @foreach ($career as $a => $item)
@@ -57,7 +57,7 @@
                       
                     </div>
                 </div>
-                <div class="col-4">
+                {{-- <div class="col-4">
                     <form class="cv-form p-4 bg-white">
                                 <div class="form-group">
                                     <label for="Name">Name</label>
@@ -79,7 +79,7 @@
                                     <button type="submit" class="btn-custom">Submit</button>
                                 </div>
                     </form>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
