@@ -453,7 +453,7 @@
                                 <li class="{{ areActiveRoutes(['blog.index'])}}">
                                     <a class="nav-link" href="{{route('blog.index')}}">{{__('Blogs')}}</a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['blog.index'])}}">
+                                <li class="{{ areActiveRoutes(['faq.index'])}}">
                                     <a class="nav-link" href="{{route('faq.index')}}">{{__('Faq')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['career.index'])}}">

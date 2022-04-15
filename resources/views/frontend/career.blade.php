@@ -32,32 +32,28 @@
             <div class="row">
                 <div class="col-8">
                     <div class="accordion w-100" id="acc">
-                        <div class="card mb-3">
-                            <div class="card-header p-0" id="">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link w-100 text-left p-3" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">Accordian
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapse" class="collapse" aria-labelledby="heading" data-parent="#acc">
-                                <div class="card-body">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit nesciunt vitae voluptatum in, asperiores eaque? Harum voluptatum maxime est aliquam, inventore fugit quasi corrupti officia, consectetur sapiente pariatur tenetur beatae?
+                        @if (isset($career) && !($career->isEmpty()))
+                            @foreach ($career as $a => $item)
+                            
+                                <div class="card mb-3">
+                                    <div class="card-header p-0" id="">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-link w-100 text-left p-3" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
+                                                {{$item->title}}
+                                            </button>
+                                        </h2>
+                                    </div>
+                                    <div id="collapse" class="collapse" aria-labelledby="heading" data-parent="#acc">
+                                        <div class="card-body">
+                                            {{$item->description}}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card mb-3">
-                            <div class="card-header p-0" id="">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link w-100 text-left p-3" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse">Accordian
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapse1" class="collapse" aria-labelledby="heading" data-parent="#acc">
-                                <div class="card-body">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit nesciunt vitae voluptatum in, asperiores eaque? Harum voluptatum maxime est aliquam, inventore fugit quasi corrupti officia, consectetur sapiente pariatur tenetur beatae?
-                                </div>
-                            </div>
-                        </div>
+                            @endforeach
+
+                        @else
+                            <p>No Vacancies Available</p>
+                        @endif
                       
                     </div>
                 </div>
