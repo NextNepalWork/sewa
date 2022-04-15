@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Blog;
 use Illuminate\Http\Request;
 use Session;
 use Auth;
@@ -21,6 +22,7 @@ use App\Shop;
 use App\Color;
 use App\Order;
 use App\BusinessSetting;
+use App\Career;
 use App\Coupon;
 use App\Faq;
 use App\Http\Controllers\SearchController;
@@ -834,19 +836,23 @@ class HomeController extends Controller
 
     public function career()
     {
-        return view('frontend.career');
+        $career = Career::where('published',1)->get();
+        return view('frontend.career',compact('career'));
     }
     public function faq()
     {
-        $faq=Faq::where('published',1)->get();
+        $faq = Faq::where('published',1)->get();
         return view('frontend.faq',compact('faq'));
     }
     public function blogs()
     {
-        return view('frontend.blog');
+        $blogs = Blog::where('published',1)->get();
+        return view('frontend.blog',compact('blogs'));
     }
     public function blogDetails($id)
     {
-        return view('frontend.blogDetails');
+        $blog = Blog::where('id',$id)->first();
+        $blogs = Blog::where('published',1)->where('id','!=',$id)->get();
+        return view('frontend.blogDetails',compact('blog','blogs'));
     }
 }

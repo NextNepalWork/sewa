@@ -188,7 +188,7 @@
             <div class="col">
                 <ul class="breadcrumb">
                     <li><a href="{{ route('home') }}">{{__('Home')}}</a></li>
-                    <li>Career</li>
+                    <li>{{$blog->title}}</li>
                 </ul>
             </div>
         </div>
@@ -200,32 +200,35 @@
             <div class="col-xl-8 col-lg-7 p-0">
                 <div class="col-lg-12 col-12 mb-5 mb-lg-0 order-2 order-lg-1">
                     <div class="image-block">
-                        <img src="	https://cdn.shopify.com/s/files/1/0332/6420/5963/articles/1_540x.jpg?v=1581524880" alt="" class="img-fluid">
+                        @if($blog->photo != '')
+                            @if(file_exists($blog->photo))
+                                <img src="{{ asset($blog->photo) }}" class="img-fluid" alt=""> <span class="name">
+                            @else
+                                <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid" alt=""> <span class="name">
+                            @endif
+                        @else
+                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid" alt=""> <span class="name">
+                        @endif
                     </div>
                 </div>
                 <div class="col-lg-12 col-12 mb-5 mb-lg-0 order-3 order-lg-3">
                     <div class="section-title h-100 d-flex flex-column justify-content-center">
-                        <h2 class="pt-4 font-weight-bold">Return on Investment for Various Digital Marketing
+                        <h2 class="pt-4 font-weight-bold">
+                            {{$blog->title}}
                         </h2>
-                        <p class="text_gray_ptext">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Nullam faucibus imperdiet metus at congue. Praesent cursus a ante ut facilisis..</p>
-                        <p class="text_gray_ptext"> Morbi iaculis dolor purus, auctor porta dolor gravida ac.
-                            Mauris ac tristique nulla. In hac habitasse platea dictumst. In ultrices pulvinar
-                            imperdiet. Vivamus ut dui urna. Aenean lacinia ut nisi vel dapibus. Donec id elit
-                            vehicula velit vulputate dignissim.</p>
-                        <p class="text_gray_ptext"> Morbi iaculis dolor purus, auctor porta dolor gravida ac.
-                            Mauris ac tristique nulla. In hac habitasse platea dictumst. In ultrices pulvinar
-                            imperdiet. Vivamus ut dui urna. Aenean lacinia ut nisi vel dapibus. Donec id elit
-                            vehicula velit vulputate dignissim.</p>
+                        <span>{{date('d M,Y',strtotime($blog->created_at))}}</span>
+                        <p class="text_gray_ptext">
+                            {{$blog->description}}
+                        </p>
                     </div>
-                    <div class="section-title h-100 d-flex flex-column justify-content-center">
+                    {{-- <div class="section-title h-100 d-flex flex-column justify-content-center">
                         <h2 class="pt-4 font-weight-bold">Blog Title 1</h2>
                         <p class="text_gray_ptext"> Morbi iaculis dolor purus, auctor porta dolor gravida ac.
                             Mauris ac tristique nulla. In hac habitasse platea dictumst. In ultrices pulvinar
                             imperdiet. Vivamus ut dui urna. Aenean lacinia ut nisi vel dapibus. Donec id elit
                             vehicula velit vulputate dignissim.</p>
-                    </div>
-                    <div class="section-title h-100 d-flex flex-column justify-content-center">
+                    </div> --}}
+                    {{-- <div class="section-title h-100 d-flex flex-column justify-content-center">
                         <h2 class="pt-4 font-weight-bold">Blog Title 2</h2>
                         <p class="text_gray_ptext">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                             Nullam faucibus imperdiet metus at congue. Praesent cursus a ante ut facilisis..</p>
@@ -237,7 +240,7 @@
                             Mauris ac tristique nulla. In hac habitasse platea dictumst. In ultrices pulvinar
                             imperdiet. Vivamus ut dui urna. Aenean lacinia ut nisi vel dapibus. Donec id elit
                             vehicula velit vulputate dignissim.</p>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="col-xl-4 col-lg-5">
@@ -246,77 +249,43 @@
                         <div class="title position-relative">
                             <h4 class="title font-weight-bold mb-4"> Popular Post </h4>
                         </div>
-                        <div class="d-flex align-items-center mb-4">
-                            <div class="post-image mr-4 w-xl-25 w-md-0">
-                                <img src="	https://cdn.shopify.com/s/files/1/0332/6420/5963/articles/couple_540x.jpg?v=1586139452" alt="">
-                            </div>
-                            <div class="post-content w-75">
-                                <div class="date">
-                                    <p class="text-uppercase mb-1"> april 21, 2021 </p>
+                        @if (isset($blogs) && !($blogs->isEmpty()))
+                            @foreach ($blogs as $a => $item)
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="post-image mr-4 w-xl-25 w-md-0">
+                                    @if($item->photo != '')
+                                        @if(file_exists($item->photo))
+                                            <img src="{{ asset($item->photo) }}" class="img-fluid" alt=""> <span class="name">
+                                        @else
+                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid" alt=""> <span class="name">
+                                        @endif
+                                    @else
+                                        <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid" alt=""> <span class="name">
+                                    @endif                                
                                 </div>
-                                <div class="post-title">
-                                    <a href="blog-detail.html">
-                                        <h5 class="font-weight-bold"> Business Data is changing the world’s
-                                            Energy </h5>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center mb-4">
-                            <div class="post-image mr-4 w-xl-25 w-md-0">
-                                <img src="	https://cdn.shopify.com/s/files/1/0332/6420/5963/articles/1_540x.jpg?v=1581524880" alt="">
-                            </div>
-                            <div class="post-content w-75">
-                                <div class="date">
-                                    <p class="text-uppercase mb-1"> april 21, 2021 </p>
-                                </div>
-                                <div class="post-title">
-                                    <a href="blog-detail.html">
-                                        <h5 class="font-weight-bold"> Conversion Rate the Sales Funnel
-                                            Optimization </h5>
-                                    </a>
+                                <div class="post-content w-75">
+                                    <div class="date">
+                                        <p class="text-uppercase mb-1"> {{date('d M,Y',strtotime($item->created_at))}}</p>
+                                    </div>
+                                    <div class="post-title">
+                                        <a href="blog-detail.html">
+                                            <h5 class="font-weight-bold">  {{$item->title}}</h5>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="d-flex align-items-center mb-4">
-                            <div class="post-image mr-4 w-xl-25 w-md-0">
-                                <img src="	https://cdn.shopify.com/s/files/1/0332/6420/5963/articles/couple_540x.jpg?v=1586139452" alt="">
-                            </div>
-                            <div class="post-content w-75">
-                                <div class="date">
-                                    <p class="text-uppercase mb-1"> april 21, 2021 </p>
-                                </div>
-                                <div class="post-title">
-                                    <a href="blog-detail.html">
-                                        <h5 class="font-weight-bold"> Digital Marketing Strategies for Lead
-                                            Generation</h5>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center mb-4">
-                            <div class="post-image mr-4 w-xl-25 w-md-0">
-                                <img src="	https://cdn.shopify.com/s/files/1/0332/6420/5963/articles/couple_540x.jpg?v=1586139452" alt="">
-                            </div>
-                            <div class="post-content w-75">
-                                <div class="date">
-                                    <p class="text-uppercase mb-1"> april 21, 2021 </p>
-                                </div>
-                                <div class="post-title">
-                                    <a href="blog-detail.html">
-                                        <h5 class="font-weight-bold"> Covid 19 Rising Through Out The World
-                                        </h5>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                            @endforeach
+                        @else
+                            <p>Nothing to show!</p>
+                        @endif
+                        
                     </div>
                 </div>
             </div>
             <!--  <div class="col-xl-9 ">
                 !! $page->content !!
                 </div>  -->
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-xl-8">
                     <div class="blog-comment-section pt-3 pb-3 pl-5 pr-5 mb-5">
                         <div class="col-lg-12 my-4">
@@ -437,7 +406,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </section>

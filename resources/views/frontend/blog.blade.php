@@ -152,128 +152,49 @@
         <div class="container sm-px-0">
             <div id="blog-detail-wrapper" class="py-5">
                 <div class="row justify-content-center">
-                    
+                    @if (isset($blogs) && !($blogs->isEmpty()))
+                        @foreach ($blogs as $a => $item)
                         <div class="col-md-4 col-12 mb-3">
-                            <a href="blog-detail.html">
+                            <a href="{{route('blogDetails',['id' => $item->id])}}">
                                 <div class="card">
                                     <div class="card-head">
-                                                <img src="https://www.onlinekhabar.com/wp-content/uploads/2022/02/Nepal-police-at-Lalitpur-1024x683.jpg" class="img-fluid" alt="">
+                                        @if($item->photo != '')
+                                            @if(file_exists($item->photo))
+                                                <img src="{{ asset($item->photo) }}" class="img-fluid" alt=""> <span class="name">
+                                            @else
+                                                <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid" alt=""> <span class="name">
+                                            @endif
+                                        @else
+                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid" alt=""> <span class="name">
+                                        @endif
                                     </div>
                                     <div class="card-body pt-2">
-                                        <h5 class="card-title">Customer Satisfaction for a Digital
-                                            Marketing
-                                            Agency
+                                        <h5 class="card-title">
+                                            {{$item->title}}
                                         </h5>
-                                        <div class="d-flex align-items-center mt-2">
-                                            <div class="blog-content-img">
+                                                <div class="date">
+                                                    <span>{{date('d M,Y',strtotime($item->created_at))}}</span>
+                                                </div>
+                                        {{-- <div class="d-flex align-items-center mt-2"> --}}
+                                            {{-- <div class="blog-content-img">
                                                 <img src="https://www.onlinekhabar.com/wp-content/uploads/2022/02/Nepal-police-at-Lalitpur-1024x683.jpg"
                                                     class="img-fluid" alt="">
-                                            </div>
-                                            <div
-                                                class="blog-content-discription d-flex flex-column justify-content-start">
-                                                <div class="name">
+                                            </div> --}}
+                                            {{-- <div class="blog-content-discription d-flex flex-column justify-content-start"> --}}
+                                                {{-- <div class="name">
                                                     <h6 class="m-0">James Dej</h6>
-                                                </div>
-                                                <div class="date">
-                                                    <span>Jun 21, 2021</span>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                </div> --}}
+                                            {{-- </div> --}}
+                                        {{-- </div> --}}
                                     </div>
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-4 col-12 mb-3">
-                            <a href="blog-detail.html">
-                                <div class="card">
-                                    <div class="card-head">
-                                                <img src="https://www.onlinekhabar.com/wp-content/uploads/2021/02/pokhara-mahanagar.jpg" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="card-body pt-2">
-                                        <h5 class="card-title">Customer Satisfaction for a Digital
-                                            Marketing
-                                            Agency
-                                        </h5>
-                                        <div class="d-flex align-items-center mt-2">
-                                            <div class="blog-content-img">
-                                                <img src="https://www.onlinekhabar.com/wp-content/uploads/2021/02/pokhara-mahanagar.jpg"
-                                                    class="img-fluid" alt="">
-                                            </div>
-                                            <div
-                                                class="blog-content-discription d-flex flex-column justify-content-start">
-                                                <div class="name">
-                                                    <h6 class="m-0">James Dej</h6>
-                                                </div>
-                                                <div class="date">
-                                                    <span>Jun 21, 2021</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    
-                        <div class="col-md-4 col-12 mb-3">
-                            <a href="blog-detail.html">
-                                <div class="card">
-                                    <div class="card-head">
-                                                <img src="https://www.onlinekhabar.com/wp-content/uploads/2021/04/SIRUWA-Festival-1-768x337.jpg" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="card-body pt-2">
-                                        <h5 class="card-title">Customer Satisfaction for a Digital
-                                            Marketing
-                                            Agency
-                                        </h5>
-                                        <div class="d-flex align-items-center mt-2">
-                                            <div class="blog-content-img">
-                                                <img src="https://www.onlinekhabar.com/wp-content/uploads/2021/04/SIRUWA-Festival-1-768x337.jpg"
-                                                    class="img-fluid" alt="">
-                                            </div>
-                                            <div
-                                                class="blog-content-discription d-flex flex-column justify-content-start">
-                                                <div class="name">
-                                                    <h6 class="m-0">James Dej</h6>
-                                                </div>
-                                                <div class="date">
-                                                    <span>Jun 21, 2021</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-4 col-12 mb-3">
-                            <a href="blog-detail.html">
-                                <div class="card">
-                                    <div class="card-head">
-                                                <img src="https://www.onlinekhabar.com/wp-content/uploads/2021/12/Kalinchock-photo-12-270x170.jpg" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="card-body pt-2">
-                                        <h5 class="card-title">Customer Satisfaction for a Digital
-                                            Marketing
-                                            Agency
-                                        </h5>
-                                        <div class="d-flex align-items-center mt-2">
-                                            <div class="blog-content-img">
-                                                <img src="https://www.onlinekhabar.com/wp-content/uploads/2021/12/Kalinchock-photo-12-270x170.jpg"
-                                                    class="img-fluid" alt="">
-                                            </div>
-                                            <div
-                                                class="blog-content-discription d-flex flex-column justify-content-start">
-                                                <div class="name">
-                                                    <h6 class="m-0">James Dej</h6>
-                                                </div>
-                                                <div class="date">
-                                                    <span>Jun 21, 2021</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                        @endforeach
+
+                    @else
+                        <p>Nothing to show!</p>
+                    @endif
                     </div>
                 </div>
             </div>

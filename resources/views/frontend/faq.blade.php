@@ -30,21 +30,21 @@
             <div class="accordion w-100" id="accordionExample">
                 @if (isset($faq) && !($faq->isEmpty()))
                 @foreach ($faq as $a => $item)
-                <div class="card mb-3">
-                    <div class="card-header py-1" id="{{$a}}">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link w-100 text-left p-0" type="button" data-toggle="collapse" data-target="#collapse{{$a}}" aria-expanded="true" aria-controls="collapse{{$a}}">
-                                {{$item->title}}
-                            </button>
-                        </h2>
-                    </div>
+                    <div class="card mb-3">
+                        <div class="card-header py-1" id="{{$a}}">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link w-100 text-left p-0" type="button" data-toggle="collapse" data-target="#collapse{{$a}}" aria-expanded="true" aria-controls="collapse{{$a}}">
+                                    {{$item->title}}
+                                </button>
+                            </h2>
+                        </div>
 
-                    <div id="collapse{{$a}}" class="collapse {{($a == 0)?'show':''}}" aria-labelledby="heading{{$a}}" data-parent="#accordionExample">
-                        <div class="card-body">
-                            {{$item->description}}
+                        <div id="collapse{{$a}}" class="collapse {{($a == 0)?'show':''}}" aria-labelledby="heading{{$a}}" data-parent="#accordionExample">
+                            <div class="card-body">
+                                {{$item->description}}
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
 
                 @else
