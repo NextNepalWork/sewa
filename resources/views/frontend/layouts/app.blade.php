@@ -168,66 +168,60 @@
     {{-- <noscript>
   <img height="1" width="1" style="display:none"
        src="https://www.facebook.com/tr?id={{ env('FACEBOOK_PIXEL_ID') }}/&ev=PageView&noscript=1"/>
-    </noscript> --}}
-    <!-- End Facebook Pixel Code -->
-    {{-- @endif  --}}
-    <style>
-        .d-table-cell .btn-styled::before {
-            background: #258aff !important;
+</noscript> --}}
+<!-- End Facebook Pixel Code -->
+ {{-- @endif  --}}
+<style>
+    .d-table-cell .btn-styled::before{
+        background: #258aff !important;
 
-        }
+    }
+    .d-table-cell .btn-styled::hover{
+        color: #ffffff!important;
+    }
+    .total-amount-seller{
+        background: #f78035;
+    }
+    /* preloader */
+#loading {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #fff;
+    background-size: 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 99999;
+    background-image: url('{{asset("frontend/preloader/2.gif")}}');
 
-        .d-table-cell .btn-styled::hover {
-            color: #ffffff !important;
-        }
-
-        .total-amount-seller {
-            background: #f78035;
-        }
-
-        /* preloader */
-        #loading {
-            position: fixed;
-            width: 100%;
-            height: 100vh;
-            background: #fff;
-            background-size: 50px;
-            background-repeat: no-repeat;
-            background-position: center;
-            z-index: 99999;
-            background-image: url('{{asset("frontend/preloader/2.gif")}}');
-
-        }
-
-        .custom-close {
-            position: absolute;
-            right: 25px;
-        }
-
-        .height-95vh {
-            height: 95vh;
-        }
-
-        #loading div img {
-            max-height: 90px;
-            min-height: 90px;
-            object-fit: contain;
-            object-position: center;
-        }
-
-        .fa-search {
-            color: white;
-        }
-
-        .category_title_top {
-            margin: auto;
-        }
-
-        .cus-price {
-            color: #f78035 !important;
-            font-size: 20px !important;
-        }
-    </style>
+}
+.hidden{
+    display: none;
+}
+.custom-close {
+  position: absolute;
+  right: 25px;
+}
+.height-95vh{
+    height: 95vh;
+}
+#loading div img {
+    max-height: 90px;
+    min-height: 90px;
+    object-fit: contain;
+    object-position: center;
+}
+.fa-search{
+    color: white;
+}
+.category_title_top{
+    margin: auto;
+}
+.cus-price{
+    color: #f78035!important;
+    font-size: 20px!important;
+}
+</style>
 </head>
 @php
 // dd(session()->get('cart'));
@@ -275,45 +269,48 @@
 
         @include('frontend.partials.modal')
 
-        @if (\App\BusinessSetting::where('type', 'facebook_chat')->first()->value == 1)
-        <div id="fb-root"></div>
-        <!-- Your customer chat code -->
-        <div id="fb-customer-chat" class="fb-customerchat" attribution=setup_tool page_id="442591509240170">
-        </div>
-        @endif
-        <script>
-            var chatbox = document.getElementById('fb-customer-chat');
-            chatbox.setAttribute("page_id", "PAGE-ID");
-            chatbox.setAttribute("attribution", "biz_inbox");
-        </script>
-        <!-- Your SDK code -->
-        <script>
-            window.fbAsyncInit = function() {
-                FB.init({
-                    xfbml: true,
-                });
-            };
-
-            (function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s);
-                js.id = id;
-                js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-        </script>
-        <div class="modal fade" id="addToCart">
-            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">
-                <div class="modal-content position-relative">
-                    <div class="c-preloader">
-                        <i class="fa fa-spin fa-spinner"></i>
+                {{-- @if (\App\BusinessSetting::where('type', 'facebook_chat')->first()->value == 1)
+                    <div id="fb-root"></div>
+                    <!-- Your customer chat code -->
+                    <div id="fb-customer-chat" class="fb-customerchat"
+                    attribution=setup_tool
+                    page_id="442591509240170">
                     </div>
-                    <button type="button" class="close absolute-close-btn" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <div id="addToCart-modal-body">
+                @endif --}}
+                {{-- <script>
+                    var chatbox = document.getElementById('fb-customer-chat');
+                    chatbox.setAttribute("page_id", "PAGE-ID");
+                    chatbox.setAttribute("attribution", "biz_inbox");
+                  </script> --}}
+                  <!-- Your SDK code -->
+    {{-- <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            xfbml            : true,
+          });
+        };
+  
+        (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+      </script> --}}
+                <div class="modal fade" id="addToCart">
+                    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">
+                        <div class="modal-content position-relative">
+                            <div class="c-preloader">
+                                <i class="fa fa-spin fa-spinner"></i>
+                            </div>
+                            <button type="button" class="close absolute-close-btn" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <div id="addToCart-modal-body">
 
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -533,8 +530,7 @@
 
         function addToWishList(id) {
             @if(Auth::check() && (Auth::user() -> user_type == 'customer' || Auth::user() -> user_type == 'seller'))
-            $.post('{{ route('
-                wishlists.store ') }}', {
+            $.post('{{ route('wishlists.store') }}', {
                     _token: '{{ csrf_token() }}',
                     id: id
                 },
@@ -840,7 +836,7 @@
                 $('.category-list').collapse('show');
             },
             function() {
-                $('.category-list').collapse('show');
+                $('.category-list').collapse('hide');
             }
         );
         //  $(".multi-level").hover(

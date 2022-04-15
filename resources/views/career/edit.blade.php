@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<form class="form-horizontal" action="{{ route('faq.update',$blog->id) }}" method="POST" enctype="multipart/form-data">
+<form class="form-horizontal" action="{{ route('career.update',$blog->id) }}" method="POST" enctype="multipart/form-data">
 
 <div class="panel">
     <div class="panel-heading">
-        <h3 class="panel-title">{{ __('Edit Blog Information') }}</h3>
+        <h3 class="panel-title">{{ __('Career Subject') }}</h3>
     </div>
     @csrf
     @method('PUT')
@@ -24,7 +24,7 @@
 </div>
     <div class="panel">
         <div class="panel-heading bord-btm">
-            <h3 class="panel-title">{{__('Blog Description')}}</h3>
+            <h3 class="panel-title">{{__('Career Description')}}</h3>
         </div>
         <div class="panel-body">
             <div class="form-group">

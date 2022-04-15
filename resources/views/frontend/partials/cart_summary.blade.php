@@ -45,6 +45,12 @@
                     $admin_products = array();
                     $seller_products = array();
                 @endphp
+                {{-- @if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'flat_rate')
+                    <span class="first-shipping flat_rate hidden">{{\App\BusinessSetting::where('type', 'flat_rate_shipping_cost')->first()->value}}</span>
+                @elseif(\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'product_wise_shipping')
+                    <span class="first-shipping product_wise_shipping hidden">{{\App\BusinessSetting::where('type', 'flat_rate_shipping_cost')->first()->value}}</span>
+                @endif --}}
+                
                 @foreach (Session::get('cart') as $key => $cartItem)
                     @php
                         $product = \App\Product::find($cartItem['id']);
@@ -79,6 +85,7 @@
                         </td>
                     </tr>
                 @endforeach
+
                 @php
                     if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'seller_wise_shipping') {
                         if(!empty($admin_products)){
@@ -100,28 +107,70 @@
                 <tr class="cart-subtotal">
                     <th>{{__('Subtotal')}}</th>
                     <td class="text-right">
-                        <span class="strong-600">{{ single_price($subtotal) }}</span>
+                        <span class="strong-600 sub-total-span">{{ single_price($subtotal) }}</span>
+                        <span class="hidden sub-total">{{ ($subtotal) }}</span>
                     </td>
                 </tr>
 
                 <tr class="cart-shipping">
                     <th>{{__('Tax')}}</th>
                     <td class="text-right">
-                        <span class="text-italic">{{ single_price($tax) }}</span>
+                        <span class="text-italic tax-total-span">{{ single_price($tax) }}</span>
+                        <span class="hidden tax-total">{{ ($tax) }}</span>
                     </td>
                 </tr>
-
-                {{-- <tr class="cart-shipping">
+                <span class="hidden shipping-before-location">{{$shipping}}</span>
+                {{-- {{Session::forget('selectedLocation')}} --}}
+                @if (Session::has('selectedLocation') && !empty(Session::get('selectedLocation')))
+                    @php
+                    $locationSelected = Session::get('selectedLocation');
+                        $location = \App\Location::where('id',$locationSelected)->count();
+                        // echo $default_location;
+                        $delivery_charge = 0;
+                        if($location > 0){
+                            $location = \App\Location::where('id',$locationSelected)->first();
+                            $delivery_charge = $location->delivery_charge;
+                        }
+                        $shipping += $delivery_charge;
+                        // dd($default_location);
+                    @endphp
+                    
+                @else
+                    @php
+                        $location = \App\Location::where('id',$default_location->delivery_location)->count();
+                        // echo $default_location;
+                        $delivery_charge = 0;
+                        if($location > 0){
+                            $location = \App\Location::where('id',$default_location->delivery_location)->first();
+                            $delivery_charge = $location->delivery_charge;
+                        }
+                        $shipping += $delivery_charge;
+                        // dd($default_location);
+                    @endphp
+                    
+                @endif
+                {{-- @foreach (Auth::user()->addresses as $key => $address)
+                    @if ($address->set_default)
+                    @endif
+                @endforeach --}}
+                <tr class="cart-shipping">
                     <th>{{__('Delivery Charge')}}</th>
                     <td class="text-right">
-                        <span class="text-italic">{{  }}</span>
+                        <span class="text-italic delivery-charge-span">Rs {{ $delivery_charge }}</span>
                     </td>
-                </tr> --}}
+                </tr>
 
                 <tr class="cart-shipping">
                     <th>{{__('Total Shipping')}}</th>
                     <td class="text-right">
-                        <span class="text-italic">{{ single_price($shipping) }}</span>
+                        <span class="text-italic shipping-total-span">
+                            @if($shipping > 0)
+                                {{ single_price($shipping) }}
+                            @else
+                                Free
+                            @endif
+                            
+                        </span>
                     </td>
                 </tr>
 
@@ -144,7 +193,7 @@
                 <tr class="cart-total">
                     <th><span class="strong-600">{{__('Total')}}</span></th>
                     <td class="text-right">
-                        <strong><span>{{ single_price($total) }}</span></strong>
+                        <strong><span class="grand-total-span">{{ single_price($total) }}</span></strong>
                     </td>
                 </tr>
             </tfoot>

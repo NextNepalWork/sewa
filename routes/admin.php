@@ -35,6 +35,9 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 	// Faq
 	Route::resource('/faq','FaqController');
 	Route::post('/faq/update_status','FaqController@updateStatus')->name('faq.status');
+	// Faq
+	Route::resource('/career','CareerController');
+	Route::post('/career/update_status','CareerController@updateStatus')->name('career.status');
 
 	Route::resource('categories','CategoryController');
 	Route::get('/categories/destroy/{id}', 'CategoryController@destroy')->name('categories.destroy');
