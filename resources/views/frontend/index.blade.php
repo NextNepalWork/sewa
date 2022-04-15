@@ -80,8 +80,8 @@
   border-radius: 0;
   display: block !important;
   opacity: 1;
+        
   visibility: visible !important;
-  height:100%;
     }
     .dropdown-submenu .dropdown-menu {
     left: 100% !important;
@@ -196,7 +196,7 @@
                      <a href="{{ route('categories.all') }}">View All</a>
                   </div>
                </div>
-               <ul class="dropdown-menu multi-level category-list bg-white border_one position-absolute w-100 collapse p-0"
+               <ul class="dropdown-menu multi-level category-list bg-white border_one position-absolute w-100 collapse p-0 m-0"
                   role="menu" aria-labelledby="dropdownMenu" id="collapseExample">
                   @foreach (\App\Category::all()->take(11) as $key => $category)
                     @php

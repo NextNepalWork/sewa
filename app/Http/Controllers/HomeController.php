@@ -829,8 +829,8 @@ class HomeController extends Controller
     {
         return view('frontend.blog');
     }
-    public function blogDetails()
+    public function blogDetails($id)
     {
-        return view('frontend.blogDetail');
+        return view('frontend.blogDetails');
     }
 }
