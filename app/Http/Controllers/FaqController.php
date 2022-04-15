@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Faq;
 use Illuminate\Http\Request;
-use App\Blog;
+use App\Http\Controllers\Controller;
 
-class BlogController extends Controller
+class FaqController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blog = Blog::all();
-        return view('blog.index',compact('blog'));
+        $blog = Faq::all();
+        return view('faq.index',compact('blog'));
     }
 
     /**
@@ -25,7 +26,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('blog.create');
+        return view('faq.create');
     }
 
     /**
@@ -36,22 +37,19 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-            $blog = new Blog;
-            $blog->title = $request->title;
-            $blog->description = $request->description;
-            $blog->published = 1;
-        if($request->hasFile('photo')){
-            $blog->photo = $request->photo->store('uploads/blogs');
-        }
-            $blog->save();
-            flash(__('Blog has been inserted successfully'))->success();
-        return redirect()->route('blog.index');
+        $blog = new Faq;
+        $blog->title = $request->title;
+        $blog->description = $request->description;
+        $blog->published = 1;
+        $blog->save();
+        flash(__('Faq has been inserted successfully'))->success();
+        return redirect()->route('faq.index');
     }
 
     public function updateStatus(Request $request)
     {
         
-        $blog = Blog::find($request->id);
+        $blog = Faq::find($request->id);
         $blog->published = $request->status;
         if($blog->save()){
             return '1';
@@ -81,8 +79,8 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        $blog = Blog::findOrFail($id);
-        return view('blog.edit',compact('blog'));
+        $blog = Faq::findOrFail($id);
+        return view('faq.edit',compact('blog'));
     }
 
     /**
@@ -94,16 +92,13 @@ class BlogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $blog = Blog::find($id);
+        $blog = Faq::find($id);
         $blog->photo = $request->previous_photo;
-        if($request->hasFile('photo')){
-            $blog->photo = $request->photo->store('uploads/blogs');
-        }
         $blog->title = $request->title;
         $blog->description = $request->description;
         $blog->save();
-        flash(__('Blog has been updated successfully'))->success();
-        return redirect()->route('blog.index');
+        flash(__('Faq has been updated successfully'))->success();
+        return redirect()->route('faq.index');
     }
 
     /**
@@ -114,14 +109,14 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
-        $blog = Blog::findOrFail($id);
-        if(Blog::destroy($id)){
+        $blog = Faq::findOrFail($id);
+        if(Faq::destroy($id)){
           
-            flash(__('Blog has been deleted successfully'))->success();
+            flash(__('Faq has been deleted successfully'))->success();
         }
         else{
             flash(__('Something went wrong'))->error();
         }
-        return redirect()->route('blog.index');
+        return redirect()->route('faq.index');
     }
 }

@@ -586,6 +586,7 @@ if (! function_exists('currency_symbol')) {
 
 if(! function_exists('renderStarRating')){
     function renderStarRating($rating,$maxRating=5) {
+        $rating = round($rating);
         $fullStar = "<i class = 'fa fa-star active'></i>";
         $halfStar = "<i class = 'fa fa-star half'></i>";
         $emptyStar = "<i class = 'fa fa-star text-secondary'></i>";
@@ -598,6 +599,7 @@ if(! function_exists('renderStarRating')){
         $html = str_repeat($fullStar,$fullStarCount);
         $html .= str_repeat($halfStar,$halfStarCount);
         $html .= str_repeat($emptyStar,$emptyStarCount);
+        // return $rating;
         echo $html;
     }
 }

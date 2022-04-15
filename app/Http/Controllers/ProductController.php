@@ -104,6 +104,7 @@ class ProductController extends Controller
 
         $product = new Product;
         $product->name = $request->name;
+        $product->specs = $request->specs;
 
         
         if(isset($request->vendor_id) && $request->vendor_id == 'in-house'){
@@ -384,6 +385,7 @@ class ProductController extends Controller
         $product->subcategory_id = $request->subcategory_id;
         $product->subsubcategory_id = $request->subsubcategory_id;
         $product->brand_id = $request->brand_id;
+        $product->specs = $request->specs;
         $product->current_stock = $request->current_stock1;
         $product->barcode = $request->barcode;
 

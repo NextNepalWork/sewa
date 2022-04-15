@@ -3,20 +3,21 @@
 @section('content')
 <div class="panel">
     <div class="panel-heading">
-        <h3 class="panel-title">{{ __('Blog Information') }}</h3>
+        <h3 class="panel-title">{{ __('Edit Blog Information') }}</h3>
     </div>
 
     <!--Horizontal Form-->
     <!--===================================================-->
-    <form class="form-horizontal" action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data">
+    <form class="form-horizontal" action="{{ route('blog.update',$blog->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
         <div class="panel-body">
             <div class="form-group">
-                {{-- <label class="col-sm-3" for="title">{{ __('Title') }}</label> --}}
-                {{-- <div class="col-sm-9"> --}}
-                    <input type="text" placeholder="{{ __('Title') }}" id="title" name="title" class="form-control"
+                <label class="col-sm-3" for="title">{{ __('Title') }}</label>
+                <div class="col-sm-9">
+                    <input type="text" placeholder="{{ __('Title') }}" id="title" value="{{ $blog->title }}" name="title" class="form-control"
                         required>
-                {{-- </div> --}}
+                </div>
             </div>
             <div class="panel">
 				<div class="panel-heading bord-btm">
@@ -25,7 +26,7 @@
 				<div class="panel-body">
 					<div class="form-group">
 						<div class="col-lg-9">
-							<textarea class="editor" name="description"></textarea>
+							<textarea class="editor" name="description">{{ $blog->description }}</textarea>
 						</div>
 					</div>
 				</div>
@@ -41,10 +42,15 @@
             </div> --}}
             <div class="form-group">
                 <div class="col-sm-3">
-                    <label class="control-label">{{ __('Blog Images') }}</label>
-                    <strong>(850px*420px)</strong>
-                </div>
-                <div class="col-sm-9">
+                    @if ($blog->photo != null)
+                    <div class="col-md-4 col-sm-4 col-xs-6">
+                        <div class="img-upload-preview">
+                            <img loading="lazy"  src="{{ asset($blog->photo) }}" alt="" class="img-responsive">
+                            <input type="hidden" name="previous_photo" value="{{ $blog->photo }}">
+                            <button type="button" class="btn btn-danger close-btn remove-files"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                @endif
                     <div id="photo">
 
                     </div>
@@ -65,6 +71,10 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
+        $('.remove-files').on('click', function(){
+            $(this).parents(".col-md-4").remove();
+        });
+        
         $('.demo-select2').select2();
 
         $("#photo").spartanMultiImagePicker({

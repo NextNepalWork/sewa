@@ -2,7 +2,7 @@
 @section('content')
 <style>
     .category-list {
-        z-index: 100;
+        z-index: 98;
     }
 
     .sub_menu_list2 {
@@ -193,517 +193,94 @@
                      <h5 class="mb-0">All Categories</h5>
                   </div>
                   <div class="category_btn">
-                     <a href="">View All</a>
+                     <a href="{{ route('categories.all') }}">View All</a>
                   </div>
                </div>
                <ul class="dropdown-menu multi-level category-list bg-white border_one position-absolute w-100 collapse p-0"
                   role="menu" aria-labelledby="dropdownMenu" id="collapseExample">
-                  <li class="dropdown-submenu">
-                     <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1" href="#">
+                  @foreach (\App\Category::all()->take(11) as $key => $category)
+                    @php
+                        $brands = array();
+                    @endphp
+                  <li class="dropdown-submenu" data-id="{{ $category->id }}">
+                     <a href="{{ route('products.category', $category->slug) }}" class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1" href="#">
                         <div class="category_icon_img">
-                           <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span class="name">
-                              Category Main 1
+                            @if($category->icon != '')
+                                @if(file_exists($category->icon))
+                                    <img src="{{ $category->icon }}" class="img-fluid" alt=""> <span class="name">
+                                @else
+                                    <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid" alt=""> <span class="name">
+                                @endif
+                                
+                                {{-- <img class="cat-image lazyload" src="{{ $category->icon }}" data-src="{{ asset($category->icon) }}" width="30" alt="{{ __($category->name) }}"> --}}
+                            @else
+                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid" alt=""> <span class="name">
+                                {{-- <img class="cat-image" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->icon) }}" width="30" alt="{{ __($category->name) }}"> --}}
+
+                            @endif
+                           
+                            {{ __($category->name) }}
                            </span>
                         </div>
                         <div class="icon_show_category">
                            <i class="fa fa-angle-right" aria-hidden="true"></i>
                         </div>
                      </a>
-                     <ul class="dropdown-menu multi-level sub-category">
-                        <li class="dropdown-submenu">
-                           <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                              href="#">
-                              <div class="category_icon_img">
-                                 <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                    class="name">
-                                    Category Level 1
-                                 </span>
-                              </div>
-                              <div class="icon_show_category">
-                                 <i class="fa fa-angle-right" aria-hidden="true"></i>
-                              </div>
-                           </a>
-                           <ul class="dropdown-menu multi-level">
-                              <li class="dropdown-submenu"> <a
-                                    class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                                    href="#">
-                                    <div class="category_icon_img">
-                                       <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                          class="name">
-                                         asmdbaksdkabs
-                                       </span>
-                                    </div>
-                                    <div class="icon_show_category">
-                                       <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    </div>
-                                 </a>
-                            
-                              </li>
-                           </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                           <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                              href="#">
-                              <div class="category_icon_img">
-                                 <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                    class="name">
-                                    Category Level 2
-                                 </span>
-                              </div>
-                              <div class="icon_show_category">
-                                 <i class="fa fa-angle-right" aria-hidden="true"></i>
-                              </div>
-                           </a>
-                           <ul class="dropdown-menu multi-level">
-                              <li class="dropdown-submenu"> <a
-                                    class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                                    href="#">
-                                    <div class="category_icon_img">
-                                       <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                          class="name">
-                                          Category Level hello
-                                       </span>
-                                    </div>
-                                    <div class="icon_show_category">
-                                       <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    </div>
-                                 </a>
-                            
-                              </li>
-                           </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                           <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                              href="#">
-                              <div class="category_icon_img">
-                                 <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                    class="name">
-                                    Category Level 3
-                                 </span>
-                              </div>
-                              <div class="icon_show_category">
-                                 <i class="fa fa-angle-right" aria-hidden="true"></i>
-                              </div>
-                           </a>
-                           <ul class="dropdown-menu multi-level">
-                              <li class="dropdown-submenu"> <a
-                                    class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                                    href="#">
-                                    <div class="category_icon_img">
-                                       <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                          class="name">
-                                          Category Level 1
-                                       </span>
-                                    </div>
-                                    <div class="icon_show_category">
-                                       <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    </div>
-                                 </a>
-                            
-                              </li>
-                           </ul>
-                        </li>
-                
-                     </ul>
+                     @if(count($category->subcategories)>0)
+                        <ul class="dropdown-menu multi-level sub-category">
+                            @foreach ($category->subcategories as $sub)
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
+                                        href="{{ route('products.subcategory', $sub->slug) }}">
+                                        <div class="category_icon_img">
+                                            {{-- <img src="frontend/assets/images/cart.svg" class="img-fluid" alt="">  --}}
+                                            <span class="name">
+                                                {{$sub->name}}
+                                            </span>
+                                        </div>
+                                        <div class="icon_show_category">
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                        </div>
+                                    </a>
+                                    
+                                    @if(count($sub->subsubcategories)>0)
+                                        <ul class="dropdown-menu multi-level">
+                                            @foreach($sub->subsubcategories as $subsub)
+                                                <li class="dropdown-submenu"> <a
+                                                    class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
+                                                    href="{{ route('products.subsubcategory', $subsub->slug) }}">
+                                                    <div class="category_icon_img">
+                                                        {{-- <img src="frontend/assets/images/cart.svg" class="img-fluid" alt="">  --}}
+                                                        <span class="name">
+                                                            {{$subsub->name}}
+                                                        </span>
+                                                    </div>
+                                                    <div class="icon_show_category">
+                                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                                    </div>
+                                                    </a>
+                                            
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </li>     
+                            @endforeach
+                        </ul>
+                     @endif
                   </li>
-                  <li class="dropdown-submenu">
-                     <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1" href="#">
-                        <div class="category_icon_img">
-                           <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span class="name">
-                              Category Main 1
-                           </span>
-                        </div>
-                        <div class="icon_show_category">
-                           <i class="fa fa-angle-right" aria-hidden="true"></i>
-                        </div>
-                     </a>
-                     <ul class="dropdown-menu multi-level sub-category">
-                        <li class="dropdown-submenu">
-                           <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                              href="#">
-                              <div class="category_icon_img">
-                                 <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                    class="name">
-                                    Category Level 2
-                                 </span>
-                              </div>
-                              <div class="icon_show_category">
-                                 <i class="fa fa-angle-right" aria-hidden="true"></i>
-                              </div>
-                           </a>
-                           <ul class="dropdown-menu multi-level">
-                              <li class="dropdown-submenu"> <a
-                                    class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                                    href="#">
-                                    <div class="category_icon_img">
-                                       <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                          class="name">
-                                          Category Level 3
-                                       </span>
-                                    </div>
-                                    <div class="icon_show_category">
-                                       <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    </div>
-                                 </a>
-                            
-                              </li>
-                           </ul>
-                        </li>
-                
-                     </ul>
-                  </li>
-                  <li class="dropdown-submenu">
-                     <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1" href="#">
-                        <div class="category_icon_img">
-                           <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span class="name">
-                              Category Main 1
-                           </span>
-                        </div>
-                        <div class="icon_show_category">
-                           <i class="fa fa-angle-right" aria-hidden="true"></i>
-                        </div>
-                     </a>
-                     <ul class="dropdown-menu multi-level sub-category">
-                        <li class="dropdown-submenu">
-                           <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                              href="#">
-                              <div class="category_icon_img">
-                                 <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                    class="name">
-                                    Category Level 2
-                                 </span>
-                              </div>
-                              <div class="icon_show_category">
-                                 <i class="fa fa-angle-right" aria-hidden="true"></i>
-                              </div>
-                           </a>
-                           <ul class="dropdown-menu multi-level">
-                              <li class="dropdown-submenu"> <a
-                                    class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                                    href="#">
-                                    <div class="category_icon_img">
-                                       <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                          class="name">
-                                          Category Level 3
-                                       </span>
-                                    </div>
-                                    <div class="icon_show_category">
-                                       <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    </div>
-                                 </a>
-                            
-                              </li>
-                           </ul>
-                        </li>
-                
-                     </ul>
-                  </li>
-                  <li class="dropdown-submenu">
-                     <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1" href="#">
-                        <div class="category_icon_img">
-                           <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span class="name">
-                              Category Main 1
-                           </span>
-                        </div>
-                        <div class="icon_show_category">
-                           <i class="fa fa-angle-right" aria-hidden="true"></i>
-                        </div>
-                     </a>
-                     <ul class="dropdown-menu multi-level sub-category">
-                        <li class="dropdown-submenu">
-                           <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                              href="#">
-                              <div class="category_icon_img">
-                                 <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                    class="name">
-                                    Category Level 2
-                                 </span>
-                              </div>
-                              <div class="icon_show_category">
-                                 <i class="fa fa-angle-right" aria-hidden="true"></i>
-                              </div>
-                           </a>
-                           <ul class="dropdown-menu multi-level">
-                              <li class="dropdown-submenu"> <a
-                                    class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                                    href="#">
-                                    <div class="category_icon_img">
-                                       <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                          class="name">
-                                          Category Level 3
-                                       </span>
-                                    </div>
-                                    <div class="icon_show_category">
-                                       <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    </div>
-                                 </a>
-                            
-                              </li>
-                           </ul>
-                        </li>
-                
-                     </ul>
-                  </li>
-                  <li class="dropdown-submenu">
-                     <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1" href="#">
-                        <div class="category_icon_img">
-                           <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span class="name">
-                              Category Main 1
-                           </span>
-                        </div>
-                        <div class="icon_show_category">
-                           <i class="fa fa-angle-right" aria-hidden="true"></i>
-                        </div>
-                     </a>
-                     <ul class="dropdown-menu multi-level sub-category">
-                        <li class="dropdown-submenu">
-                           <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                              href="#">
-                              <div class="category_icon_img">
-                                 <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                    class="name">
-                                    Category Level 2
-                                 </span>
-                              </div>
-                              <div class="icon_show_category">
-                                 <i class="fa fa-angle-right" aria-hidden="true"></i>
-                              </div>
-                           </a>
-                           <ul class="dropdown-menu multi-level">
-                              <li class="dropdown-submenu"> <a
-                                    class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                                    href="#">
-                                    <div class="category_icon_img">
-                                       <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                          class="name">
-                                          Category Level 3
-                                       </span>
-                                    </div>
-                                    <div class="icon_show_category">
-                                       <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    </div>
-                                 </a>
-                            
-                              </li>
-                           </ul>
-                        </li>
-                
-                     </ul>
-                  </li>
-                  <li class="dropdown-submenu">
-                     <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1" href="#">
-                        <div class="category_icon_img">
-                           <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span class="name">
-                              Category Main 1
-                           </span>
-                        </div>
-                        <div class="icon_show_category">
-                           <i class="fa fa-angle-right" aria-hidden="true"></i>
-                        </div>
-                     </a>
-                     <ul class="dropdown-menu multi-level sub-category">
-                        <li class="dropdown-submenu">
-                           <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                              href="#">
-                              <div class="category_icon_img">
-                                 <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                    class="name">
-                                    Category Level 2
-                                 </span>
-                              </div>
-                              <div class="icon_show_category">
-                                 <i class="fa fa-angle-right" aria-hidden="true"></i>
-                              </div>
-                           </a>
-                           <ul class="dropdown-menu multi-level">
-                              <li class="dropdown-submenu"> <a
-                                    class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                                    href="#">
-                                    <div class="category_icon_img">
-                                       <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                          class="name">
-                                          Category Level 3
-                                       </span>
-                                    </div>
-                                    <div class="icon_show_category">
-                                       <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    </div>
-                                 </a>
-                            
-                              </li>
-                           </ul>
-                        </li>
-                
-                     </ul>
-                  </li>
-                  <li class="dropdown-submenu">
-                     <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1" href="#">
-                        <div class="category_icon_img">
-                           <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span class="name">
-                              Category Main 1
-                           </span>
-                        </div>
-                        <div class="icon_show_category">
-                           <i class="fa fa-angle-right" aria-hidden="true"></i>
-                        </div>
-                     </a>
-                     <ul class="dropdown-menu multi-level sub-category">
-                        <li class="dropdown-submenu">
-                           <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                              href="#">
-                              <div class="category_icon_img">
-                                 <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                    class="name">
-                                    Category Level 2
-                                 </span>
-                              </div>
-                              <div class="icon_show_category">
-                                 <i class="fa fa-angle-right" aria-hidden="true"></i>
-                              </div>
-                           </a>
-                           <ul class="dropdown-menu multi-level">
-                              <li class="dropdown-submenu"> <a
-                                    class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                                    href="#">
-                                    <div class="category_icon_img">
-                                       <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                          class="name">
-                                          Category Level 3
-                                       </span>
-                                    </div>
-                                    <div class="icon_show_category">
-                                       <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    </div>
-                                 </a>
-                            
-                              </li>
-                           </ul>
-                        </li>
-                
-                     </ul>
-                  </li>
-                  <li class="dropdown-submenu">
-                     <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1" href="#">
-                        <div class="category_icon_img">
-                           <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span class="name">
-                              Category Main 1
-                           </span>
-                        </div>
-                        <div class="icon_show_category">
-                           <i class="fa fa-angle-right" aria-hidden="true"></i>
-                        </div>
-                     </a>
-                     <ul class="dropdown-menu multi-level sub-category">
-                        <li class="dropdown-submenu">
-                           <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                              href="#">
-                              <div class="category_icon_img">
-                                 <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                    class="name">
-                                    Category Level 2
-                                 </span>
-                              </div>
-                              <div class="icon_show_category">
-                                 <i class="fa fa-angle-right" aria-hidden="true"></i>
-                              </div>
-                           </a>
-                           <ul class="dropdown-menu multi-level">
-                              <li class="dropdown-submenu"> <a
-                                    class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                                    href="#">
-                                    <div class="category_icon_img">
-                                       <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                          class="name">
-                                          Category Level 3
-                                       </span>
-                                    </div>
-                                    <div class="icon_show_category">
-                                       <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    </div>
-                                 </a>
-                            
-                              </li>
-                           </ul>
-                        </li>
-                
-                     </ul>
-                  </li>
-                  <li class="dropdown-submenu">
-                     <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1" href="#">
-                        <div class="category_icon_img">
-                           <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span class="name">
-                              Category Main 1
-                           </span>
-                        </div>
-                        <div class="icon_show_category">
-                           <i class="fa fa-angle-right" aria-hidden="true"></i>
-                        </div>
-                     </a>
-                     <ul class="dropdown-menu multi-level sub-category">
-                        <li class="dropdown-submenu">
-                           <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                              href="#">
-                              <div class="category_icon_img">
-                                 <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                    class="name">
-                                    Category Level 2
-                                 </span>
-                              </div>
-                              <div class="icon_show_category">
-                                 <i class="fa fa-angle-right" aria-hidden="true"></i>
-                              </div>
-                           </a>
-                           <ul class="dropdown-menu multi-level">
-                              <li class="dropdown-submenu"> <a
-                                    class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                                    href="#">
-                                    <div class="category_icon_img">
-                                       <img src="frontend/assets/images/cart.svg" class="img-fluid" alt=""> <span
-                                          class="name">
-                                          Category Level 3
-                                       </span>
-                                    </div>
-                                    <div class="icon_show_category">
-                                       <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    </div>
-                                 </a>
-                            
-                              </li>
-                           </ul>
-                        </li>
-                
-                     </ul>
-                  </li>
+                    @endforeach
             
                </ul>
             </div>
             <div class="col-9">
                <ul class="categories-nav d-flex justify-content-around align-items-center h-100">
-                  <li>
-                     <a href="http://localhost:8000/search?category=women-clothing-fashion"
-                        class="category_title_top">Women's Fashion</a>
+                @foreach(\App\Category::where('top',1)->limit(5)->get() as $top)
+                <li>
+                    <a href="{{ route('products.category', $top->slug) }}" class="category_title_top">{{$top->name}}</a>
 
-                  </li>
-                  <li>
-                     <a href="http://localhost:8000/search?category=men-clothing-fashion"
-                        class="category_title_top">Men's Fashion</a>
-
-                  </li>
-                  <li>
-                     <a href="http://localhost:8000/search?category=sport-outdoor" class="category_title_top">Sports
-                        &amp; Outdoor</a>
-
-                  </li>
-                  <li>
-                     <a href="http://localhost:8000/search?category=Electronics-and-Electric-Q6MRN"
-                        class="category_title_top">Electronic Devices</a>
-
-                  </li>
-                  <li>
-                     <a href="http://localhost:8000/search?category=Category-A-fcKNo" class="category_title_top">TV
-                        &amp; Home Appliances</a>
-
-                  </li>
+                </li>
+                @endforeach
 
                </ul>
             </div>
