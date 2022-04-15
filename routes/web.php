@@ -272,4 +272,9 @@ Route::resource('addresses','AddressController');
 Route::get('/addresses/destroy/{id}', 'AddressController@destroy')->name('addresses.destroy');
 Route::get('/addresses/set_default/{id}', 'AddressController@set_default')->name('addresses.set_default');
 
+Route::get('/faq', 'HomeController@faq')->name('faq');
+Route::get('/blogs', 'HomeController@blogs')->name('blog');
+Route::get('/career', 'HomeController@career')->name('career');
+
 Route::get('/{slug}', 'PageController@show_custom_page')->name('custom-pages.show_custom_page');
+

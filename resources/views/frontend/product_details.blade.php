@@ -37,6 +37,11 @@
 @endsection
 
 @section('content')
+<style>
+    /* .fa-star.active{
+
+    } */
+</style>
     <!-- Breadcrumbs -->
     <section id="breadcrumb-wrapper" class="position-relative bg-light">
         {{-- <div class="image">
@@ -145,11 +150,21 @@
                                 <div class="rating-wrapper mr-3">
                                     <div class="p-ratings">
                                         @php
-                                        $total = 0;
-                                        $total += $detailedProduct->reviews->count();
-                                    @endphp
+                                            $total = 0;
+                                            $rating = 0;
+                                            foreach ($detailedProduct->user->products as $key => $seller_product) {
+                                                $total += $seller_product->reviews->count();
+                                                $rating += $seller_product->reviews->sum('rating');
+                                            }
+                                            // echo $rating/$total;
+                                        @endphp
                                     <i class="star-rating">
-                                        {{ renderStarRating($detailedProduct->rating) }}
+                                        @if ($total > 0)
+                                            {{ renderStarRating($rating/$total) }}
+                                        @else
+                                            {{ renderStarRating(0) }}
+                                        @endif
+                                        {{-- {{ renderStarRating($detailedProduct->rating) }} --}}
                                     </i>
                                     
                                     <span class="rating-count ml-1">
@@ -379,6 +394,11 @@
                             <a class="nav-item nav-link" id="fourth-tab" data-toggle="tab" href="#fourth" role="tab" aria-controls="fourth" aria-selected="false"
                             style="color: rgb(72, 77, 103);">Downloads</a>
                             @endif
+                            
+                            @if($detailedProduct->specs != null)
+                            <a class="nav-item nav-link" id="fifth-tab" data-toggle="tab" href="#fifth" role="tab" aria-controls="fourth" aria-selected="false"
+                            style="color: rgb(72, 77, 103);">Specification</a>
+                            @endif
                     </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
@@ -398,7 +418,7 @@
                                                     @endphp
                                                 @endif
                                             @endforeach
-                                            @if ($commentable)
+                                            {{-- @if ($commentable) --}}
                                             <div class="col-lg-4 col-12 mx-auto">
                                                 <!-- User Comment -->
                                                 <div class="user-comment py-4 px-3">
@@ -453,7 +473,7 @@
                                                 </div>
                                                 <!-- User Comment Ends-->
                                             </div>
-                                            @endif
+                                            {{-- @endif --}}
                                         @endif
 
                                         
@@ -471,17 +491,22 @@
                                                             $user_img=\App\User::where('id',$review->user_id)->first();
                                                         @endphp
                                                         @if (empty($user_img->avatar_original))
-                                                        <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                                                            <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
                                                         @else
-                                                        <img class="img-responsive user-photo" src="{{asset($user_img->avatar_original)}}">
+                                                            @if (file_exists(asset($user_img->avatar_original)))
+                                                                <img class="img-responsive user-photo" src="{{asset($user_img->avatar_original)}}">
+                                                            @else
+                                                            <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+
+                                                            @endif
                                                         @endif
                                                         
                                                     </a>
                                                 </div>
                                                 <div class="media-body">
-                                                    <h5>{{$review->name}}</h5>
+                                                    <h5>{{$user_img->name}}</h5>
                                                     <div class="comment-date mb-2">
-                                                        <p class="m-0 text-uppercase"> {{ date('d-m-Y', strtotime($review->created_at)) }} </p>
+                                                        <p class="m-0 text-uppercase"> {{ date('D, d M Y', strtotime($review->created_at)) }} </p>
                                                     </div>
                                                     <div class="col">
                                                         <div class="rating text-right clearfix d-block">
@@ -564,11 +589,15 @@
                             <div class="py-2 px-4">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <a href="{{ asset($detailedProduct->pdf) }}">{{ __('Download') }}</a>
+                                        <a class="btn btn-success" href="{{ asset($detailedProduct->pdf) }}"><i class="fa fa-download"></i> {{ __('Download PDF') }}</a>
                                     </div>
                                 </div>
                                 <span class="space-md-md"></span>
                             </div>
+                        </div>
+                        
+                        <div class="tab-pane fade p-3 w-75" id="fifth" role="tabpanel"
+                            aria-labelledby="fifth-tab">{!! $detailedProduct->specs !!}
                         </div>
                     </div>
                 </div>
@@ -736,6 +765,7 @@
                                     $total += $seller_product->reviews->count();
                                     $rating += $seller_product->reviews->sum('rating');
                                 }
+                                // echo $rating/$total;
                             @endphp
 
                             <div class="rating text-center d-block">

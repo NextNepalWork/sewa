@@ -280,7 +280,7 @@ class OrderController extends Controller
                 }
             }
             //End Shipping Cost Calculation
-            //Order Details Storing
+            //Order Details Storing 
             foreach (Session::get('cart') as $key => $cartItem) {
                 $product = Product::find($cartItem['id']);
                 $userType = User::where('id', $product->user_id)->first()->user_type;
