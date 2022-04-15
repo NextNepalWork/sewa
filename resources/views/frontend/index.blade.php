@@ -75,24 +75,24 @@
         }
 
         
-.dropdown-submenu:hover>.multi-level {
+    .dropdown-submenu:hover>.multi-level {
   padding: 0;
   border-radius: 0;
   display: block !important;
   opacity: 1;
   visibility: visible !important;
   height:100%;
-}
-.dropdown-submenu .dropdown-menu {
+    }
+    .dropdown-submenu .dropdown-menu {
     left: 100% !important;
     border-radius:0px !important;
 
-}
-.category_icon_img img {
+    }
+    .category_icon_img img {
     max-height:20px;
     min-height:20px;
     object-fit:contain;
-}
+        }
 
 </style>
 

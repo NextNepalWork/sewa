@@ -762,7 +762,7 @@
     $('.category-list').collapse('show');
   },
   function () {
-    $('.category-list').collapse('show');
+    $('.category-list').collapse('hide');
   }
 );
 </script>
