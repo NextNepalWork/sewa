@@ -825,7 +825,10 @@ span.pr-2.category_icon_img img {
     opacity: 0;
 }
 
-.category_icon_img:hover .icon_show_category {
+/* .category_icon_img:hover .icon_show_category {
+    opacity: 1;
+} */
+a.dropdown-item.category_icon_img:hover .icon_show_category {
     opacity: 1;
 }
 
