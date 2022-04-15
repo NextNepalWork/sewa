@@ -65,6 +65,15 @@ else{
                      <a href="{{ route('custom-pages.show_custom_page',['slug' => $link->slug]) }}" class="text-white"> {{ $link->title }}</a>
                   </li>
                   @endforeach
+                  <li class="mb-2">
+                     <a href="{{ route('faq') }}" class="text-white"> Faq</a>
+                  </li>
+                  <li class="mb-2">
+                     <a href="{{ route('blog') }}" class="text-white"> Blogs</a>
+                  </li>
+                  <li class="mb-2">
+                     <a href="{{ route('career') }}" class="text-white">Career</a>
+                  </li>
                </ul>
             </div>
          </div>

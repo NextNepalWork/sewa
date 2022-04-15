@@ -8,7 +8,10 @@ use App\SubSubCategory;
 use App\Category;
 use Session;
 use App\Color;
+use App\Models\Cart;
 use Cookie;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -143,6 +146,19 @@ class CartController extends Controller
                 $cart->push($data);
             }
             $request->session()->put('cart', $cart);
+            //also save the data to cart table
+            if(Auth::check()){
+                $cart_create = Cart::updateOrCreate([
+                    'user_id' => Auth::user()->id,
+                    'product_id' => $data['id'],
+                    'variation' => $data['variant']
+                ], [
+                    'price' => $price,
+                    'tax' => $tax,
+                    'shipping_cost' => $product->shipping_type == 'free' ? 0 : $product->shipping_cost,
+                    'quantity' => DB::raw('quantity + '.$request->quantity)
+                ]);
+            }
         }
         else{
             $cart = collect([$data]);

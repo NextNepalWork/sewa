@@ -32,7 +32,9 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 	// Blog
 	Route::resource('/blog','BlogController');
 	Route::post('/blog/update_status','BlogController@updateStatus')->name('blog.status');
-
+	// Faq
+	Route::resource('/faq','FaqController');
+	Route::post('/faq/update_status','FaqController@updateStatus')->name('faq.status');
 
 	Route::resource('categories','CategoryController');
 	Route::get('/categories/destroy/{id}', 'CategoryController@destroy')->name('categories.destroy');

@@ -19,6 +19,7 @@ use App\Coupon;
 use App\CouponUsage;
 use App\User;
 use App\Address;
+use App\Models\Cart;
 use Session;
 
 class CheckoutController extends Controller
@@ -487,6 +488,8 @@ class CheckoutController extends Controller
     }
 
     public function order_confirmed(){
+        //removefrom table
+        Cart::where('user_id',Auth::user()->id)->delete();
         $order = Order::findOrFail(Session::get('order_id'));
         return view('frontend.order_confirmed', compact('order'));
     }

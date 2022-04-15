@@ -22,6 +22,7 @@ use App\Color;
 use App\Order;
 use App\BusinessSetting;
 use App\Coupon;
+use App\Faq;
 use App\Http\Controllers\SearchController;
 use App\Location;
 use App\Recommend;
@@ -813,5 +814,23 @@ class HomeController extends Controller
     public function flash_deals(){
         $flash_deals=FlashDeal::where('status',1)->get();
         return view('frontend.flashdeals',compact('flash_deals'));
+    }
+
+    public function career()
+    {
+        return view('frontend.career');
+    }
+    public function faq()
+    {
+        $faq=Faq::where('published',1)->get();
+        return view('frontend.faq',compact('faq'));
+    }
+    public function blogs()
+    {
+        return view('frontend.blog');
+    }
+    public function blogDetails()
+    {
+        return view('frontend.blogDetail');
     }
 }
