@@ -276,6 +276,7 @@ Route::get('/addresses/set_default/{id}', 'AddressController@set_default')->name
 Route::get('/faq', 'HomeController@faq')->name('faq');
 Route::get('/blogs', 'HomeController@blogs')->name('blog');
 Route::get('/career', 'HomeController@career')->name('career');
+Route::get('/blog/{id}', 'HomeController@blogDetails')->name('blogDetails');
 
 Route::get('/{slug}', 'PageController@show_custom_page')->name('custom-pages.show_custom_page');
 
