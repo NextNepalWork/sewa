@@ -172,6 +172,24 @@
 <!-- End Facebook Pixel Code -->
  {{-- @endif  --}}
 <style>
+    section#category_section{
+        margin-bottom: 0;
+    }
+    section#productlist .grid-item {
+        margin: 0;
+    }
+    section#productlist .product-grid-item .product-grid-image img {
+        width: 100%;
+    }
+    section#category_section{
+        margin-bottom: 0;
+    }
+    .pb-15{
+        padding-bottom: 15px!important;
+    }
+    .min-height-20{
+        min-height: 20px;
+    }
     .d-table-cell .btn-styled::before{
         background: #258aff !important;
 
