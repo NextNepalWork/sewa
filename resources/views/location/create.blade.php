@@ -31,17 +31,17 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-3 control-label" for="state">{{__('State')}}</label>
+                    <label class="col-lg-3 control-label" for="state">{{__('Districts')}}</label>
                     <div class="col-lg-9">
                         <select name="state" class="form-control demo-select2" required>
-                            <option value="">Select One</option>
-                            <option value="State 1">{{__('State 1')}}</option>
-                            <option value="State 2">{{__('State 2')}}</option>
-                            <option value="State 3">{{__('State 3')}}</option>
-                            <option value="State 4">{{__('State 4')}}</option>
-                            <option value="State 5">{{__('State 5')}}</option>
-                            <option value="State 6">{{__('State 6')}}</option>
-                            <option value="State 7">{{__('State 7')}}</option>
+                            <option value="" selected>Select One</option>
+                            @if (isset($districts) && !empty($districts))
+                                @foreach ($districts as $a => $b)
+                                    <option value="{{$b->id}}">{{$b->name}}</option>
+                                @endforeach                                
+                            @else
+                                <option value="" disabled>District Empty</option>
+                            @endif
                         </select>
                     </div>
                 </div>

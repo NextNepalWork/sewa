@@ -33,10 +33,10 @@ class CheckoutController extends Controller
     //check the selected payment gateway and redirect to that controller accordingly
     public function checkout(Request $request)
     {
+            // dd($request->all());
         if ($request->payment_option != null) {
 
             $orderController = new OrderController;
-            dd($request->all());
             $orderController->store($request);
 
             $request->session()->put('payment_type', 'cart_payment');
@@ -167,6 +167,10 @@ class CheckoutController extends Controller
 
     public function get_shipping_info(Request $request)
     {
+        if(Auth::user()->user_type == 'admin'){
+            flash(__('Not Allowed for Admin'))->error();
+            return redirect()->back()->withInput()->with('error', 'Not Allowed for Admin');
+        }
         if(Session::has('selectedLocation')){
             Session::forget('selectedLocation');
         }

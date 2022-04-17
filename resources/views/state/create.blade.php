@@ -6,7 +6,7 @@
 </div>
 <div class="row">
 	<div class="col-lg-8 col-lg-offset-2">
-		<form class="form form-horizontal mar-top" action="{{ route('state.store') }}" method="POST" enctype="multipart/form-data" id="choice_form">
+		<form class="form form-horizontal mar-top" action="{{ route('districts.store') }}" method="POST" enctype="multipart/form-data" id="choice_form">
 			@csrf
 			<input type="hidden" name="added_by" value="admin">
 			<div class="panel">

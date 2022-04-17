@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Location;
+use App\State;
 use Illuminate\Support\Facades\Auth;
 
 class LocationController extends Controller
@@ -16,9 +17,8 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $locations=Location::orderBy('created_at','desc');
+        $locations=Location::with('districts')->orderBy('created_at','desc');
         $locations = $locations->paginate(15);
-
         return view('location.index',compact('locations'));
     }
 
@@ -29,7 +29,8 @@ class LocationController extends Controller
      */
     public function create()
     {
-        return view('location.create');
+        $districts = State::get();
+        return view('location.create',compact('districts'));
     }
 
     /**
@@ -42,7 +43,7 @@ class LocationController extends Controller
     {
         $location=new Location;
         $location->name=$request->address;
-        $location->state=$request->state;
+        $location->district=$request->state;
         $location->delivery_charge=$request->delivery_charge;
         $location->created_by=Auth::user()->name;
         // $location->save();
@@ -79,7 +80,8 @@ class LocationController extends Controller
     public function edit($id)
     {
         $location = Location::findOrFail(decrypt($id));
-        return view('location.edit', compact('location'));
+        $districts = State::get();
+        return view('location.edit', compact('location','districts'));
     }
 
     /**
@@ -93,7 +95,7 @@ class LocationController extends Controller
     {
         $location=Location::findOrFail($id);
         $location->name=$request->address;
-        $location->state=$request->state;
+        $location->district=$request->state;
         $location->delivery_charge=$request->delivery_charge;
         $location->created_by=Auth::user()->name;
         // $location->save();

@@ -86,8 +86,8 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/countdown/css/flipclock.css') }}" />
     <!-- Countdown end -->
 
-    <link rel="stylesheet" href="https://k1ngzed.com/dist/swiper/swiper.min.css" />
-    <link rel="stylesheet" href="https://k1ngzed.com/dist/EasyZoom/easyzoom.css" />
+    {{-- <link rel="stylesheet" href="https://k1ngzed.com/dist/swiper/swiper.min.css" />
+    <link rel="stylesheet" href="https://k1ngzed.com/dist/EasyZoom/easyzoom.css" /> --}}
 
 
     <!-- Icons -->
@@ -238,23 +238,23 @@
         <div class="d-flex justify-content-center align-items-center h-75"> <img src="{{asset('frontend/preloader/logo.jpeg')}}" alt=""></div>
     </div>
     @php
-    $generalsetting = \App\GeneralSetting::first();
+        $generalsetting = \App\GeneralSetting::first();
     @endphp
     @if ($generalsetting->pop_status == 1)
-    <div class="modal fade coming-soon-modal height-95vh" id="abc" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="z-index: 99999;">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="p-0 modal-header w-100">
-                    <img src="{{asset($generalsetting->pop_img)}}" class="w-100 height-95vh">
-                    <button type="button" class="close m-0 custom-close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+        <div class="modal fade coming-soon-modal height-95vh" id="abc" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="z-index: 99999;">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="p-0 modal-header w-100">
+                        <img src="{{asset($generalsetting->pop_img)}}" class="w-100 height-95vh">
+                        <button type="button" class="close m-0 custom-close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+
                 </div>
-
-
             </div>
         </div>
-    </div>
 
     @endif
     <!-- MAIN WRAPPER -->
@@ -341,8 +341,8 @@
     <script src="{{ asset('frontend/assets/countdown/js/flipclock.js') }}"></script>
     <!-- Custom Js Starts -->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
-    <script src="https://k1ngzed.com/dist/swiper/swiper.min.js"></script>
-    <script src="https://k1ngzed.com/dist/EasyZoom/easyzoom.js"></script>
+    {{-- <script src="https://k1ngzed.com/dist/swiper/swiper.min.js"></script>
+    <script src="https://k1ngzed.com/dist/EasyZoom/easyzoom.js"></script> --}}
 
     <!-- Core -->
     {{-- <script src="{{ asset('frontend/js/vendor/popper.min.js') }}"></script> --}}
@@ -399,9 +399,7 @@
 
     @foreach (session('flash_notification', collect())->toArray() as $message)
     <script>
-        showFrontendAlert('{{ $message['
-            level '] }}', '{{ $message['
-            message '] }}');
+        showFrontendAlert('{{ $message['level'] }}', '{{ $message['message'] }}');
     </script>
     @endforeach
     <script>

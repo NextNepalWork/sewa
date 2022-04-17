@@ -19,7 +19,7 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>{{__('State')}}</th>
+                    <th>{{__('District')}}</th>
                     <th>{{ __('Address') }}</th>
                     <th>{{ __('Delivery Charge(In Rs.)') }}</th>
                     <th>{{__('created_by')}}</th>
@@ -30,7 +30,7 @@
                 @foreach ($locations as $location)
                 <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$location->state}}</td>
+                    <td>{{$location->districts->name}}</td>
                     <td>{{$location->name}}</td>
                     <td>{{$location->delivery_charge}}</td>
                     <td>{{$location->created_by}}</td>

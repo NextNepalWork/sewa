@@ -3,7 +3,7 @@
 @section('content')
         <div class="row">
             <div class="col-lg-12 pull-right">
-                <a href="{{ route('state.create') }}"
+                <a href="{{ route('districts.create') }}"
                     class="btn btn-rounded btn-info pull-right">{{ __('Add New State') }}</a>
             </div>
         </div>
@@ -56,7 +56,7 @@
                                     <ul class="dropdown-menu dropdown-menu-right">
                                        
                                             <li><a
-                                                    href="{{ route('state.edit', $state->id) }}">Edit</a>
+                                                    href="{{ route('districts.edit', $state->id) }}">Edit</a>
                                             </li>
                                         
                                     </ul>
