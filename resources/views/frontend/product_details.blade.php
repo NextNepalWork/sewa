@@ -224,7 +224,7 @@
                                         <div class="discount">
                                             @if (! $detailedProduct->discount == 0)
                                                 <div class="">
-                                                    -{{ ($detailedProduct->discount_type == 'amount')?'Rs.':'' }} {{ $detailedProduct->discount }}{{ !($detailedProduct->discount_type == 'amount')?' %':'' }} off
+                                                    -{{ ($detailedProduct->discount_type == 'amount')?'Rs.':'' }} {{ (intval($detailedProduct->discount,0)) }}{{ !($detailedProduct->discount_type == 'amount')?' %':'' }} off
                                                 </div>
                                             @endif
                                         </div>
@@ -329,7 +329,7 @@
                                         @if ($shipping <= 0)
                                             <span class="cost pl-2">Free</span> 
                                         @else
-                                            <span class="cost pl-2"> Rs. {{$detailedProduct->shipping_cost}} </span>
+                                            <span class="cost pl-2"> Rs. {{(intval($detailedProduct->shipping_cost,0))}} </span>
                                         @endif
                                     @endif
                                 </div>
