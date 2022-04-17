@@ -182,6 +182,12 @@
     .total-amount-seller{
         background: #f78035;
     }
+    .title{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 200px;
+    }
     /* preloader */
 #loading {
     position: fixed;
