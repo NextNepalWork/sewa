@@ -173,22 +173,22 @@
  {{-- @endif  --}}
 <style>
     section#category_section{
-        margin-bottom: 0;
+        margin-bottom: 0!important;
     }
     section#productlist .grid-item {
-        margin: 0;
+        margin: 0!important;
     }
     section#productlist .product-grid-item .product-grid-image img {
-        width: 100%;
+        width: 100%!important;
     }
     section#category_section{
-        margin-bottom: 0;
+        margin-bottom: 0!important;
     }
     .pb-15{
         padding-bottom: 15px!important;
     }
     .min-height-20{
-        min-height: 20px;
+        min-height: 20px!important;
     }
     .d-table-cell .btn-styled::before{
         background: #258aff !important;
