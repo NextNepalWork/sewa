@@ -19,9 +19,12 @@ class CartController extends Controller
     {
         //dd($cart->all());
         $categories = Category::all();
-        if(Auth::user()->user_type == 'admin'){
-            flash(__('Not Allowed for Admin'))->error();
-            return redirect()->back()->withInput()->with('error', 'Not Allowed for Admin');
+        
+        if(Auth::check()){            
+            if(Auth::user()->user_type == 'admin'){
+                flash(__('Not Allowed for Admin'))->error();
+                return redirect()->back()->withInput()->with('error', 'Not Allowed for Admin');
+            }
         }
         return view('frontend.view_cart', compact('categories'));
     }
