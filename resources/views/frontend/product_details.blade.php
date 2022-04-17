@@ -173,6 +173,22 @@
                                     </div>
                                 </div>
                                 <!-- Rating Ends -->
+                                
+                                <div class="font-weight-bold d-inline-flex align-items-center">
+                                    <ul class="p-0 m-0 d-flex align-items-center">                                        
+                                        <li class="mr-2">
+                                            <div class="jssocials-share jssocials-share-email">
+                                                <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToWishList({{$detailedProduct->id}})">
+                                                    <i class="fa fa-heart icon mr-2"></i>
+                                                </a>
+                                                <a class="all-deals effect gray" onclick="addToCompare({{$detailedProduct->id}})">
+                                                    <i class="fa fa-exchange icon mr-2"></i>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    
+                                </div>
                                 {{-- <div class="social-media font-weight-bold d-inline-flex align-items-center">
                                     <!-- <label class="mr-3 mb-0 font-weight-bold">
                                     Share On

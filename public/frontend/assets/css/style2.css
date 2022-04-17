@@ -308,13 +308,13 @@ a.btn:hover {
 }
 
 #product-listing-wrapper .grid-item::after {
-    content: "";
+    /* content: "";
     right: -1px;
     height: 60%;
     width: 1px;
     top: 20%;
     position: absolute;
-    background-color: #ececec;
+    background-color: #ececec; */
 }
 
 #product-listing-wrapper .grid-item.g-4::after {
