@@ -125,6 +125,30 @@
                                     @foreach (Auth::user()->addresses as $key => $address)
                                         <div class="col-lg-6">
                                             <div class="border p-3 pr-5 rounded mb-3 position-relative">
+                                                @php
+                                                    $delivery_location = 'empty';
+                                                    if($address->delivery_location){
+                                                        $delivery_location1  = \App\Location::where('id', $address->delivery_location)->first();
+                                                        $delivery_location = $delivery_location1->name;
+                                                        $delivery_disctrict = $delivery_location1->district;
+                                                        $district  = \App\State::where('id', $delivery_disctrict)->first();
+                                                    }
+                                                @endphp
+                                                <div class='mb-2'>
+                                                    <span class="alpha-6">Delivery Location:</span>
+                                                    <span class="strong-600 ml-2">{{ $delivery_location }}</span>
+                                                </div>
+                                                <div class='mb-2'>
+                                                    <span class="alpha-6">Country:</span>
+                                                    <span class="strong-600 ml-2">{{ $address->country }}</span>
+                                                </div>
+                                                <div class='mb-2'>
+                                                    <span class="alpha-6">District:</span>
+                                                    <span class="strong-600 ml-2">
+                                                       
+                                                        {{ $district->name }}
+                                                    </span>
+                                                </div>
                                                 <div class='mb-2'>
                                                     <span class="alpha-6">Address:</span>
                                                     <span class="strong-600 ml-2">{{ $address->address }}</span>
@@ -136,21 +160,6 @@
                                                 <div class='mb-2'>
                                                     <span class="alpha-6">City:</span>
                                                     <span class="strong-600 ml-2">{{ $address->city }}</span>
-                                                </div>
-                                                <div class='mb-2'>
-                                                    <span class="alpha-6">Country:</span>
-                                                    <span class="strong-600 ml-2">{{ $address->country }}</span>
-                                                </div>
-                                                @php
-                                                    $delivery_location = 'empty';
-                                                    if($address->delivery_location){
-                                                        $delivery_location  = \App\Location::where('id', $address->delivery_location)->first();
-                                                        $delivery_location = $delivery_location->name;
-                                                    }
-                                                @endphp
-                                                <div class='mb-2'>
-                                                    <span class="alpha-6">Delivery Location:</span>
-                                                    <span class="strong-600 ml-2">{{ $delivery_location }}</span>
                                                 </div>
                                                 <div class='mb-2'>
                                                     <span class="alpha-6">Phone:</span>
@@ -208,21 +217,29 @@
                     <div class="p-3">
                         <div class="row">
                             <div class="col-md-2">
-                                <label>{{__('Address')}}</label>
-                            </div>
-                            <div class="col-md-10">
-                                <textarea class="form-control textarea-autogrow mb-3" placeholder="{{__('Your Address')}}" rows="1" name="address" required></textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
                                 <label>{{__('Country')}}</label>
                             </div>
                             <div class="col-md-10">
                                 <div class="mb-3">
                                     <select class="form-control mb-3 selectpicker" data-placeholder="{{__('Select your country')}}" name="country" required>
                                         @foreach (\App\Country::where('status', 1)->get() as $key => $country)
-                                            <option value="{{ $country->name }}">{{ $country->name }}</option>
+                                            <option value="{{ $country->name }}" {{($country->name == 'Nepal')?'selected':''}}>{{ $country->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>{{__('District')}}</label>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="mb-3">
+                                    <select class="form-control mb-3 selectpicker address-district" data-placeholder="{{__('Select your district')}}" name="district.
+                                    " required>
+                                    <option selected>Choose a District</option>
+                                        @foreach (\App\State::where('country_id','154')->get() as $key => $country)
+                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -234,12 +251,20 @@
                             </div>
                             <div class="col-md-10">
                                 <div class="mb-3">
-                                    <select class="form-control mb-3 selectpicker" data-placeholder="{{__('Select your country')}}" name="delivery_location" required>
-                                        @foreach (\App\Location::get() as $key => $country)
+                                    <select class="form-control mb-3 selectpicker address-location" data-placeholder="{{__('Select your country')}}" name="delivery_location" required>
+                                        {{-- @foreach (\App\Location::get() as $key => $country)
                                             <option value="{{ $country->id }}">{{ $country->name }}</option>
-                                        @endforeach
+                                        @endforeach --}}
                                     </select>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>{{__('Address')}}</label>
+                            </div>
+                            <div class="col-md-10">
+                                <textarea class="form-control textarea-autogrow mb-3" placeholder="{{__('Your Address')}}" rows="1" name="address" required></textarea>
                             </div>
                         </div>
                         <div class="row">

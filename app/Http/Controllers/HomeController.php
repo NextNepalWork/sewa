@@ -31,6 +31,7 @@ use App\Recommend;
 use App\State;
 use ImageOptimizer;
 use Cookie;
+use Exception;
 use Response;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 
@@ -129,6 +130,7 @@ class HomeController extends Controller
 
     public function profile(Request $request)
     {
+        // dd(Auth::user()->addresses);
         if(Auth::user()->user_type == 'customer'){
             return view('frontend.customer.profile');
         }
@@ -163,7 +165,18 @@ class HomeController extends Controller
         flash(__('Sorry! Something went wrong.'))->error();
         return back();
     }
+    public function getLocation(Request $request){
+        $district_id = $request->district_id;
+        $locations = Location::where('district',$district_id)->count();
 
+        // return Response::json($locations);
+        if($locations > 0){
+            $locations = Location::where('district',$district_id)->get()->toArray();
+            return Response::json($locations);
+        }else{
+            return Response::json('false');
+        }
+    }
     public function orderStatus(){
         $user = Auth::user();
         $order = Order::where('user_id', $user->id)->get();
@@ -766,18 +779,29 @@ class HomeController extends Controller
     }
     
     public function getLocationCharge(Request $request){
-        $category = Location::findOrFail($request->deliveryLocation);
-        $location_charge = $category->delivery_charge;
-        $shippingBeforeLocation = $request->shippingBeforeLocation;
-        $subTotal = $request->subTotal;
-        $taxTotal = $request->taxTotal;
-
-        $value = [
-            'total' => $shippingBeforeLocation+$subTotal+$taxTotal+$location_charge,
-            'total_shipping' => $shippingBeforeLocation+$location_charge,
-            'location_charge' => $location_charge,
-        ];
-        return Response::json($value);
+        try{
+            $category = Location::findOrFail($request->deliveryLocation);
+            $location_charge = $category->delivery_charge;
+            $shippingBeforeLocation = $request->shippingBeforeLocation;
+            $subTotal = $request->subTotal;
+            $taxTotal = $request->taxTotal;
+            $data = [
+                'location_charge' => $location_charge,
+                'shippingBeforeLocation' => $shippingBeforeLocation,
+                'subTotal' => $subTotal,
+                'taxTotal' => $taxTotal,
+            ];
+            // return Response::json($data);
+    
+            $value = [
+                'total' => $shippingBeforeLocation+$subTotal+$taxTotal+$location_charge,
+                'total_shipping' => $shippingBeforeLocation+$location_charge,
+                'location_charge' => $location_charge,
+            ];
+            return Response::json($value);
+        }catch(Exception $e){
+            return Response::json($e->getMessage());
+        }
         // return view('frontend.partials.category_elements', compact('category'));
     }
     public function get_category_items(Request $request){

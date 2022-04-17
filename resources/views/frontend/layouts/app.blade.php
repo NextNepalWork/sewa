@@ -392,6 +392,7 @@
     <script src="https://use.fontawesome.com/79d6e010ae.js"></script>
 
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- App JS -->
     <script src="{{ asset('frontend/js/active-shop.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
