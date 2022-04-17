@@ -388,3 +388,87 @@ $(document).ajaxComplete(function () {
         $(".selectpicker").select2({});
     });
 });
+
+$('.address_id').on('change',function(e){    
+    var location_id = $(this).data('location')
+    var taxTotal = $('.tax-total').text();
+    var subTotal = $('.sub-total').text();
+    var shippingBeforeLocation = $('.shipping-before-location').text();
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    var ajaxurl = '/location/getLocationCharge';
+    $.ajax({
+        type: 'POST',
+        url: ajaxurl,
+        data: {
+            "deliveryLocation": location_id,
+            "taxTotal": taxTotal,
+            "subTotal": subTotal,
+            "shippingBeforeLocation": shippingBeforeLocation,
+        },
+        dataType: 'json',
+        beforeSend: function() {},
+        success: function(data) {
+
+            if (data != 'false') {
+                console.log(data);
+                $('.delivery-charge-span').text('Rs.'+data.location_charge);
+                $('.shipping-total-span').text('Rs.'+data.total_shipping);
+                $('.grand-total-span').text('Rs.'+data.total);
+                // optionLoop = '';
+                // options = data;
+                // options.forEach(function(index) {
+                //     optionLoop +=
+                //         '<option value="'+index.id+'">'+index.name+'</option>';
+                // });
+            } 
+            // else {
+            //     optionLoop = '<option disabled>No Locations</option>';
+            // }
+            // $(".address-location").html(optionLoop);
+
+        },
+        error: function(data) {
+            showFrontendAlert('error',data.responseText);
+        }
+    });
+});
+$('.address-district').on('change',function(e){
+    var district_id = $(this).val();
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    var ajaxurl = '/location/getLocation';
+    $.ajax({
+        type: 'POST',
+        url: ajaxurl,
+        data: {
+            "district_id": district_id,
+        },
+        dataType: 'json',
+        beforeSend: function() {},
+        success: function(data) {
+
+            if (data != 'false') {
+                optionLoop = '';
+                options = data;
+                options.forEach(function(index) {
+                    optionLoop +=
+                        '<option value="'+index.id+'">'+index.name+'</option>';
+                });
+            } else {
+                optionLoop = '<option disabled>No Locations</option>';
+            }
+            $(".address-location").html(optionLoop);
+
+        },
+        error: function(data) {
+            showFrontendAlert('error',data.responseText);
+        }
+    });
+});
