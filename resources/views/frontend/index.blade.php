@@ -192,9 +192,9 @@
                   <div class="category_title">
                      <h5 class="mb-0">All Categories</h5>
                   </div>
-                  <div class="category_btn">
-                     <a href="{{ route('categories.all') }}">View All</a>
-                  </div>
+                  {{-- <div class="category_btn">
+                     
+                  </div> --}}
                </div>
                <ul class="dropdown-menu multi-level category-list bg-white border_one position-absolute w-100 collapse p-0 m-0"
                   role="menu" aria-labelledby="dropdownMenu" id="collapseExample">
@@ -270,7 +270,17 @@
                      @endif
                   </li>
                     @endforeach
-            
+                    <li class="dropdown-submenu">
+                        <a href="{{ route('categories.all') }}" class="dropdown-item category_icon_img d-flex justify-content-between">
+                            <div class="category_icon_img">
+                                {{-- <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid" alt=""> <span class="name"> --}}
+                                    <i class="fa fa-category" aria-hidden="true"></i>
+                                    View All
+                               </span>
+                            </div>
+                         </a>
+                        
+                    </li>
                </ul>
             </div>
             <div class="col-9">

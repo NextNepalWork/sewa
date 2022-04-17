@@ -71,7 +71,7 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 		Route::get('edit/{id}', 'DeliveryBoyController@edit')->name('edit');
 		Route::put('update/{id}', 'DeliveryBoyController@update')->name('update');
 	});
-	Route::group(["prefix" => "state/", "as" => 'state.'], function(){
+	Route::group(["prefix" => "districts/", "as" => 'districts.'], function(){
 		Route::get('', 'StateController@index')->name('index');
 		Route::get('create', 'StateController@create')->name('create');
 		Route::post('store', 'StateController@store')->name('store');

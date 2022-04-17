@@ -32,17 +32,17 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-3 control-label" for="name">{{__('Text Color')}}</label>
+                    <label class="col-lg-3 control-label" for="name">{{__('District')}}</label>
                     <div class="col-lg-9">
                         <select name="state" class="form-control demo-select2" required>
-                            <option value="">Select One</option>
-                            <option value="State 1" @if ($location->state == 'State 1') selected @endif>{{__('State 1')}}</option>
-                            <option value="State 2" @if ($location->state == 'State 2') selected @endif>{{__('State 2')}}</option>
-                            <option value="State 3" @if ($location->state == 'State 3') selected @endif>{{__('State 3')}}</option>
-                            <option value="State 4" @if ($location->state == 'State 4') selected @endif>{{__('State 4')}}</option>
-                            <option value="State 5" @if ($location->state == 'State 5') selected @endif>{{__('State 5')}}</option>
-                            <option value="State 6" @if ($location->state == 'State 6') selected @endif>{{__('State 6')}}</option>
-                            <option value="State 7" @if ($location->state == 'State 7') selected @endif>{{__('State 7')}}</option>
+                            <option value="" selected>Select One</option>
+                            @if (isset($districts) && !empty($districts))
+                                @foreach ($districts as $a => $b)
+                                    <option {{($b->id == $location->district)?'selected':''}} value="{{$b->id}}">{{$b->name}}</option>
+                                @endforeach                                
+                            @else
+                                <option value="" disabled>District Empty</option>
+                            @endif
                         </select>
                     </div>
                 </div>

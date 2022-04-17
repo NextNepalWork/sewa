@@ -137,6 +137,7 @@
                     
                 @else
                     @php
+                    // if(isset($default_location)){
                         $location = \App\Location::where('id',$default_location->delivery_location)->count();
                         // echo $default_location;
                         $delivery_charge = 0;
@@ -146,6 +147,8 @@
                         }
                         $shipping += $delivery_charge;
                         // dd($default_location);
+
+                    // }
                     @endphp
                     
                 @endif

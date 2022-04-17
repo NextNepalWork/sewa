@@ -471,8 +471,15 @@
                         <li class="{{ areActiveRoutes(['locations.index','locations.create','locations.edit'])}}">
                             <a class="nav-link" href="{{route('locations.index')}}">
                                 <i class="fa fa-map-marker"></i>
-                                <span class="menu-title">{{__(' Location Settings')}}</span>
+                                <span class="menu-title">{{__(' Locations')}}</span>
                                 {{-- <i class="arrow"></i> --}}
+                            </a>
+                        </li>
+                        
+                        <li  class="{{ areActiveRoutes(['districts.index'])}}">
+                            <a class="nav-link" href="{{ route('districts.index') }}">
+                                <i class="fa fa-wrench"></i>
+                                <span class="menu-title">{{__('Districts')}}</span>
                             </a>
                         </li>
                         @endif
@@ -678,12 +685,6 @@
                                     
                                 </ul>
                             </li>
-                            {{-- <li  class="{{ areActiveRoutes(['state.index'])}}">
-                                <a class="nav-link" href="{{ route('state.index') }}">
-                                    <i class="fa fa-wrench"></i>
-                                    <span class="menu-title">{{__('States')}}</span>
-                                </a>
-                            </li> --}}
 
                         {{-- @if(Auth::user()->user_type == 'admin' || in_array('15', json_decode(Auth::user()->staff->role->permissions)))
                             <li class="{{ areActiveRoutes(['addons.index', 'addons.create'])}}">

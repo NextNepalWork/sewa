@@ -43,7 +43,7 @@
                 <!-- Button trigger modal -->
                 <li class="d-flex align-items-center top_head_right">
                   <a href="{{route('shops.create')}}" class="mr-2 text-light" >
-                     Become a Vendor
+                     Sell on Sewa Express
                   </a>
                   <button type="button" data-toggle="modal" data-target="#currency" style="background: transparent; border:none; color:white;">
                      Currency Converter

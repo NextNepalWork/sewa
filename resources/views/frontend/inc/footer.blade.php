@@ -198,11 +198,15 @@ else{
        </style>
        <div class="row">
          <div class="col-md-6 text-center pb-3 pt-2 d-flex align-items-end">
-            <p class="m-0 text-white" style="font-size:.8125rem;">Payment Partners:</p>
+            <p class="m-0 text-white" style="font-size:.8125rem;">Payment Mode:</p>
                <ul class="footer-image d-flex ml-2">
-                  <li class="mr-1"><a href=""> <img
-                           src="https://www.nicasiabank.com/assets/backend/uploads/nic-asia-bank.png"
-                           class="img-fluid "></a></li>
+                  <li class="mr-1"><a href=""> 
+                     <img src="https://www.nicasiabank.com/assets/backend/uploads/nic-asia-bank.png" class="img-fluid "></a>
+                  </li>
+                  <li class="mr-1"><a href=""> 
+                     <img src="{{asset('frontend/images/icons/cards/cod.png')}}" class="img-fluid ">
+                  </a>
+                  </li>
                   {{-- <li class="mr-1"><a href=""> <img
                            src="https://www.nicasiabank.com/assets/backend/uploads/nic-asia-bank.png"
                            class="img-fluid "></a></li>

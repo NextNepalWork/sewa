@@ -49,7 +49,7 @@ class StateController extends Controller
             $input = $request->except('_token');
             State::create($input);
             flash(__('State created successfully'))->success();
-            return redirect()->route('state.index');
+            return redirect()->route('districts.index');
         }
     }
 
@@ -77,7 +77,7 @@ class StateController extends Controller
             $input = $request->except('_token');
             $state->update($input);
             flash(__('State updated successfully'))->success();
-            return redirect()->route('state.index');
+            return redirect()->route('districts.index');
         }
     }
 }
