@@ -509,7 +509,7 @@ $time = [];
 // dd(strtotime(date('d-m-Y')),$flash_deal->start_date,$flash_deal->end_date);
 @endphp
 
-<section id="productlist" class="pb-15">
+<section id="productlist" class="">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -640,7 +640,7 @@ $time = [];
 </section>
 
 <!-- Brands -->
-<section id="our-brands" class="pb-15">
+<section id="our-brands" class="">
     <div class="container">
         <div class="product-lists">
             <div class="row">
@@ -690,7 +690,7 @@ $time = [];
 <!--============================================= BEST SELLING END ======-->
 @if (\App\BusinessSetting::where('type', 'best_selling')->first()->value == 1)
 {{-- padding_bottom --}}
-<section id="productlist" class="pb-15">
+<section id="productlist" class="">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -813,7 +813,7 @@ $time = [];
 
 @if(Auth::check())
 @if(isset($recommended) && (($recommended)->count()) >0)
-<section id="product-listing-wrapper" class=" product_listing pb-15">
+<section id="product-listing-wrapper" class=" product_listing">
     <div class="container">
         <div class="product-lists">
             <div class="row">
@@ -957,7 +957,7 @@ $time = [];
         width: 100%;
     }
 </style>
-<section id="banner_two" class="mb-5">
+<section id="banner_two" class="mb-3">
     <div class="container">
         <div class="row">
             @foreach (\App\Banner::where('position', 1)->where('published', 1)->take(2)->get() as $key => $banner)
@@ -1056,7 +1056,7 @@ $time = [];
 @foreach (\App\HomeCategory::where('status', 1)->get() as $key => $homeCategory)
 @if ($homeCategory->category != null)
 @if(\App\Product::where('published', 1)->where('category_id', $homeCategory->category->id)->where('current_stock','>',0)->count()>0)
-<section id="product-listing-wrapper" class="product_listing pb-15">
+<section id="product-listing-wrapper" class="product_listing">
     <div class="container">
         <div class="product-lists">
             <div class="row">

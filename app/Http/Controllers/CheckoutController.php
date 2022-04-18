@@ -167,9 +167,12 @@ class CheckoutController extends Controller
 
     public function get_shipping_info(Request $request)
     {
-        if(Auth::user()->user_type == 'admin'){
-            flash(__('Not Allowed for Admin'))->error();
-            return redirect()->back()->withInput()->with('error', 'Not Allowed for Admin');
+        
+        if (Auth::check()) {
+            if(Auth::user()->user_type == 'admin'){
+                flash(__('Not Allowed for Admin'))->error();
+                return redirect()->back()->withInput()->with('error', 'Not Allowed for Admin');
+            }
         }
         if(Session::has('selectedLocation')){
             Session::forget('selectedLocation');

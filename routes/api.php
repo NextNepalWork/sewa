@@ -17,6 +17,11 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('banners', 'Api\BannerController')->only('index');
 
     Route::get('brands/top', 'Api\BrandController@top');
+    Route::get('districts', 'Api\AddressController@districts');
+    Route::get('locations/{id}', 'Api\AddressController@locations');
+    Route::get('getlocation/{id}', 'Api\AddressController@getlocation');
+
+
     Route::apiResource('brands', 'Api\BrandController')->only('index');
 
     Route::apiResource('business-settings', 'Api\BusinessSettingController')->only('index');
