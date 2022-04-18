@@ -163,11 +163,11 @@
                                              @endphp
                                              <a href="{{ route('product', \App\Product::find($id)->slug) }}" target="_blank">
                                              @if(isset($filepath))
-                                                   @if (file_exists(public_path($filepath)))
-                                                         <img loading="lazy"  src="{{ asset(\App\Product::find($id)->featured_img) }}">
-                                                   @else
-                                                      <img loading="lazy"  src="{{ asset('uploads/No_Image.jpg') }}">
-                                                   @endif
+                                             @if(file_exists($filepath))
+                                             <img loading="lazy" src="{{ asset($product->featured) }}" class="img-fluid">
+                                             @else
+                                             <img loading="lazy" src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid">
+                                             @endif
                                              @else
                                                    <img loading="lazy"  src="{{ asset('uploads/No_Image.jpg') }}">
                                              @endif
