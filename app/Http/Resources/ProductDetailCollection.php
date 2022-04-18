@@ -37,7 +37,7 @@ class ProductDetailCollection extends ResourceCollection
                         'avatar_original' =>file_exists($data->user->avatar_original) ? $data->user->avatar_original : $placeholder_img,
                         
                         'shop_name' => $data->added_by == 'admin' ? '' : $data->user->shop->name,
-                        'shop_logo' => $data->added_by == 'admin' ? '' : $data->user->shop->logo,
+                        'shop_logo' => $data->added_by == 'admin' ? $placeholder_img : $data->user->shop->logo,
                         'shop_id' => $data->added_by == 'admin' ? '' :  (($data->user->shop)? strval($data->user->shop->id):'')
                     ],
                     'category' => [
@@ -57,9 +57,9 @@ class ProductDetailCollection extends ResourceCollection
                     //     ]
                     // ],
                     'brand' => [
-                        'id' => $data->brand_id,
+                        'id' => $data->brand_id ?? 'N/A',
                         'name' => $data->brand->name ?? 'N/A',
-                        'logo' => file_exists($data->brand->logo) ? $data->brand->logo : $placeholder_img,
+                        'logo' => $data->brand->logo ?? $placeholder_img,
                         'links' => [
                             'products' => route('api.products.brand', $data->brand_id ?? '/')
                         ]
@@ -90,6 +90,7 @@ class ProductDetailCollection extends ResourceCollection
                     'reviews' => Review::where(['product_id' => $data->id])->get(),
                     'rating_count' => (integer) Review::where(['product_id' => $data->id])->count(),
                     'description' => $data->description,
+                    'specs' => $data->specs,
                     'links' => [
                         'reviews' => route('api.reviews.index', $data->id),
                         'related' => route('products.related', $data->id)
