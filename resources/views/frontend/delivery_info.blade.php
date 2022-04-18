@@ -155,8 +155,11 @@
                                       @foreach ($admin_products as $key => $id)
                                       <tr class="cart-item">
                                           <td class="product-image" width="25%">
+                                             {{-- @php
+                                                 dd(\App\Product::find($id)->feature_img);
+                                             @endphp --}}
                                               <a href="{{ route('product', \App\Product::find($id)->slug) }}" target="_blank">
-                                                  <img loading="lazy"  src="{{ asset(\App\Product::find($id)->thumbnail_img) }}">
+                                                  <img loading="lazy"  src="{{ asset(\App\Product::find($id)->featured_img) }}">
                                               </a>
                                           </td>
                                           <td class="product-name strong-600">
