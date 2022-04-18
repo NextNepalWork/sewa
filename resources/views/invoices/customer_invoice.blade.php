@@ -170,9 +170,9 @@
 							@php
 								//shipping charges of either flat or product wise
 								$shipping = $order->orderDetails->sum('shipping_cost');
-								$shipping += $order->location_charge;
+								$shipping += ($order->location_charge);
 							@endphp
-							{{ single_price($shipping }}
+							{{ single_price($shipping) }}
 						</td>
 			        </tr>
 			        <tr>
