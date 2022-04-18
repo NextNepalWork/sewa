@@ -363,7 +363,7 @@
 @php
 $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
 // dd($flash_deal);
-$time = date('Y-m-d H:i:a',$flash_deal->end_date);
+$time = date('Y-m-d H:i:s',$flash_deal->end_date);
 @endphp
 @if($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date)
 <section id="product-listing-wrapper" class=" product_listing pt-3">
@@ -1344,7 +1344,10 @@ $time = date('Y-m-d H:i:a',$flash_deal->end_date);
 
 
 
-
+@php
+    $today = date('Y-m-d H:i:s');
+    // dd($today);
+@endphp
 @endsection
 
 @section('script')
@@ -1352,13 +1355,14 @@ $time = date('Y-m-d H:i:a',$flash_deal->end_date);
     $(document).ready(function() {
         // flash counter
         var data = @json($time);
+        var today = @json($today);
         console.log(data);
         var countDownDate = new Date(data).getTime();
         console.log('countDownDate'+countDownDate)
         // Update the count down every 1 second
         var x = setInterval(function() {
             // Get today's date and time
-            var now = new Date().getTime();
+            var now = new Date(today).getTime();
         console.log('now'+now)
             //   alert(countDownDate);
             // Find the distance between now and the count down date

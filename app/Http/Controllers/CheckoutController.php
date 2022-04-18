@@ -206,6 +206,7 @@ class CheckoutController extends Controller
             $data['name'] = Auth::user()->name;
             $data['email'] = Auth::user()->email;
             $data['address'] = $address->address;
+            $data['delivery_location'] = $address->delivery_location;
             $data['country'] = $address->country;
             $data['city'] = $address->city;
             $data['postal_code'] = $address->postal_code;
@@ -263,6 +264,7 @@ class CheckoutController extends Controller
 
     public function store_delivery_info(Request $request)
     {
+        // dd(Session::has('cart'))
         if(Session::has('cart') && count(Session::get('cart')) > 0){
             $cart = $request->session()->get('cart', collect([]));
             $cart = $cart->map(function ($object, $key) use ($request) {

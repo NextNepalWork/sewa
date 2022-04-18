@@ -198,7 +198,7 @@
                         @php
                             $digital = 0;
                             foreach(Session::get('cart') as $cartItem){
-                                if($cartItem['digital'] == 1){
+                                if(isset($cartItem['digital']) && $cartItem['digital'] == 1){
                                     $digital = 1;
                                 }
                             }

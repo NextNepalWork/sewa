@@ -117,6 +117,7 @@ class HomeController extends Controller
      */
     public function dashboard()
     {
+        // session()->forget('cart');
         if(Auth::user()->user_type == 'seller'){
             return view('frontend.seller.dashboard');
         }
