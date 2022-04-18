@@ -302,6 +302,19 @@
 					</div>
 				</div>
 			</div>
+			<div class="panel">
+				<div class="panel-heading bord-btm">
+					<h3 class="panel-title">{{__('Product Specification')}}</h3>
+				</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<label class="col-lg-2 control-label">{{__('Specification')}}</label>
+						<div class="col-lg-9">
+							<textarea class="editor" name="specs"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
             @if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'product_wise_shipping')
                 <div class="panel">
     				<div class="panel-heading bord-btm">
@@ -383,6 +396,7 @@
 							<textarea name="meta_description" rows="8" class="form-control"></textarea>
 						</div>
 					</div>
+
 					{{-- <div class="form-group">
 						<label class="col-lg-2 control-label">{{ __('Meta Image') }}</label>
 						<div class="col-lg-7">
