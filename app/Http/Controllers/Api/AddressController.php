@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Address;
+use App\Location;
+use App\State;
 use Auth;
 
 class AddressController extends Controller
@@ -22,7 +24,52 @@ class AddressController extends Controller
             'data'=> Auth::user()->addresses,
         ]); 
     }
-
+    public function districts(){        
+        $states = State::get();
+        $data = [];
+        foreach($states as $a => $b){
+            $z = [
+                'id' => $b->id,
+                'name' => $b->name,
+            ];
+            array_push($data,$z);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Districts Retrieve Successfully',
+            'data'=> $data,
+        ]); 
+    }
+    public function getLocation($id){
+        $states = Location::where('id',$id)->first();
+        $data = [
+            'id' => $states->id,
+            'name' => $states->name,
+            'delivery_charge' => $states->delivery_charge
+        ];
+        return response()->json([
+            'success' => true,
+            'message' => 'Districts Retrieve Successfully',
+            'data'=> $data,
+        ]); 
+    }
+    public function locations($id){        
+        $states = Location::where('district',$id)->get();
+        $data = [];
+        foreach($states as $a => $b){
+            $z = [
+                'id' => $b->id,
+                'name' => $b->name,
+                'delivery_charge' => $b->delivery_charge
+            ];
+            array_push($data,$z);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Locations Retrieve Successfully',
+            'data'=> $data,
+        ]); 
+    }
     /**
      * Show the form for creating a new resource.
      *
