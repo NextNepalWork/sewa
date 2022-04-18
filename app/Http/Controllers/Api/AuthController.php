@@ -24,7 +24,7 @@ class AuthController extends Controller
                 // 'user'=>$user,
                 // 'token'=>$tokenResult,
                 'status'=> 422,
-                'message' =>  $validator->errors()
+                'message' =>  $validator->errors()->first()
             ], 201);
         }
        
