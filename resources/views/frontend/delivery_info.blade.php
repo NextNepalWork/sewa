@@ -157,10 +157,22 @@
                                           <td class="product-image" width="25%">
                                              {{-- @php
                                                  dd(\App\Product::find($id)->feature_img);
-                                             @endphp --}}
-                                              <a href="{{ route('product', \App\Product::find($id)->slug) }}" target="_blank">
-                                                  <img loading="lazy"  src="{{ asset(\App\Product::find($id)->featured_img) }}">
-                                              </a>
+                                             @endphp  --}}
+                                             @php
+                                                $filepath = \App\Product::find($id)->featured_img;
+                                             @endphp
+                                             <a href="{{ route('product', \App\Product::find($id)->slug) }}" target="_blank">
+                                             @if(isset($filepath))
+                                                   @if (file_exists(public_path($filepath)))
+                                                         <img loading="lazy"  src="{{ asset(\App\Product::find($id)->featured_img) }}">
+                                                   @else
+                                                      <img loading="lazy"  src="{{ asset('uploads/No_Image.jpg') }}">
+                                                   @endif
+                                             @else
+                                                   <img loading="lazy"  src="{{ asset('uploads/No_Image.jpg') }}">
+                                             @endif
+                                          </a>
+                                                  
                                           </td>
                                           <td class="product-name strong-600">
                                               <a href="{{ route('product', \App\Product::find($id)->slug) }}" target="_blank" class="d-block c-base-2">
