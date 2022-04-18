@@ -113,7 +113,7 @@
                         </div>
 
                         <div class="swiper-container gallery-thumbs">
-                            <div class="swiper-wrapper">
+                            <div class="swiper-wrapper d-flex">
                                 @foreach (json_decode($detailedProduct->photos) as $key => $photo)
                                     <a href="{{ asset($photo) }}">
                                         @if (!empty($photo))
@@ -848,7 +848,7 @@
                                         </a>
                                     </div>
                                     <div class="product-details float-left">
-                                        <h4 class="title text-truncate">
+                                        <h4 class="title text-truncate" style="width:100%">
                                             <a href="{{ route('product', $top_product->slug) }}" class="d-block">{{ $top_product->name }}</a>
                                         </h4>
                                         
