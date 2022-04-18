@@ -41,6 +41,7 @@ class ProductDetailCollection extends ResourceCollection
                         'shop_id' => $data->added_by == 'admin' ? '' :  (($data->user->shop)? strval($data->user->shop->id):'')
                     ],
                     'category' => [
+                        'id' => $data->category_id,
                         'name' => $data->category->name,
                         'banner' => file_exists($data->category->banner) ? $data->category->banner : $placeholder_img,
                         'icon' => file_exists($data->category->icon) ? $data->category->icon : $placeholder_img,
@@ -56,8 +57,9 @@ class ProductDetailCollection extends ResourceCollection
                     //     ]
                     // ],
                     'brand' => [
+                        'id' => $data->brand_id,
                         'name' => $data->brand->name ?? 'N/A',
-                        'logo' => $data->brand->logo ?? 'N/A',
+                        'logo' => file_exists($data->brand->logo) ? $data->brand->logo : $placeholder_img,
                         'links' => [
                             'products' => route('api.products.brand', $data->brand_id ?? '/')
                         ]
