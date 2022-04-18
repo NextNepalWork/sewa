@@ -37,10 +37,11 @@ class ProductDetailCollection extends ResourceCollection
                         'avatar_original' =>file_exists($data->user->avatar_original) ? $data->user->avatar_original : $placeholder_img,
                         
                         'shop_name' => $data->added_by == 'admin' ? '' : $data->user->shop->name,
-                        'shop_logo' => $data->added_by == 'admin' ? '' : $data->user->shop->logo,
+                        'shop_logo' => $data->added_by == 'admin' ? $placeholder_img : $data->user->shop->logo,
                         'shop_id' => $data->added_by == 'admin' ? '' :  (($data->user->shop)? strval($data->user->shop->id):'')
                     ],
                     'category' => [
+                        'id' => $data->category_id,
                         'name' => $data->category->name,
                         'banner' => file_exists($data->category->banner) ? $data->category->banner : $placeholder_img,
                         'icon' => file_exists($data->category->icon) ? $data->category->icon : $placeholder_img,
@@ -56,8 +57,9 @@ class ProductDetailCollection extends ResourceCollection
                     //     ]
                     // ],
                     'brand' => [
+                        'id' => $data->brand_id ?? 'N/A',
                         'name' => $data->brand->name ?? 'N/A',
-                        'logo' => $data->brand->logo ?? 'N/A',
+                        'logo' => $data->brand->logo ?? $placeholder_img,
                         'links' => [
                             'products' => route('api.products.brand', $data->brand_id ?? '/')
                         ]
@@ -88,6 +90,7 @@ class ProductDetailCollection extends ResourceCollection
                     'reviews' => Review::where(['product_id' => $data->id])->get(),
                     'rating_count' => (integer) Review::where(['product_id' => $data->id])->count(),
                     'description' => $data->description,
+                    'specs' => $data->specs,
                     'links' => [
                         'reviews' => route('api.reviews.index', $data->id),
                         'related' => route('products.related', $data->id)
