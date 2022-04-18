@@ -432,6 +432,23 @@
                             </div>
                             <div class="form-box bg-white mt-4">
                                 <div class="form-box-title px-3 py-2">
+                                    {{__('Specification')}}
+                                </div>
+                                <div class="form-box-content p-3">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>{{__('Specification')}}</label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="mb-3">
+                                                <textarea class="editor" name="specs"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-box bg-white mt-4">
+                                <div class="form-box-title px-3 py-2">
                                     {{__('PDF Specification')}}
                                 </div>
                                 <div class="form-box-content p-3">
