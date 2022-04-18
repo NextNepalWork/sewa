@@ -13,7 +13,9 @@ use App\Models\FlashDealProduct;
 use App\Models\Product;
 use App\Models\Shop;
 use App\Models\Color;
+use App\Recommend;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -25,6 +27,13 @@ class ProductController extends Controller
 
     public function show($id)
     {
+        // if(Auth::check()){
+        //     if(Recommend::where('product_id',$id)->where('user_id',Auth::user()->id)->count() == 0)
+        //     Recommend::create([
+        //         'product_id' => $id,
+        //         'user_id' => Auth::user()->id
+        //     ]);
+        // }
         return new ProductDetailCollection(Product::where('id', $id)->get());
     }
 
