@@ -374,7 +374,7 @@ class OrderController extends Controller
 
             $order->save();
 
-            // set_time_limit(1500);
+            set_time_limit(1500);
             //stores the pdf for invoice
             $pdf = PDF::setOptions([
                 'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,

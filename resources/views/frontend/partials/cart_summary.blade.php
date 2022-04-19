@@ -157,12 +157,12 @@
                     @if ($address->set_default)
                     @endif
                 @endforeach --}}
-                <tr class="cart-shipping">
+                {{-- <tr class="cart-shipping">
                     <th>{{__('Delivery Charge')}}</th>
                     <td class="text-right">
                         <span class="text-italic delivery-charge-span">Rs {{ $delivery_charge }}</span>
                     </td>
-                </tr>
+                </tr> --}}
 
                 <tr class="cart-shipping">
                     <th>{{__('Total Shipping')}}</th>

@@ -160,10 +160,10 @@
 			            <th class="gry-color text-left">Total Tax</th>
 			            <td class="currency">{{ single_price($order->orderDetails->sum('tax')) }}</td>
 			        </tr>
-			        <tr class="border-bottom">
+			        {{-- <tr class="border-bottom">
 			            <th class="gry-color text-left">Delivery Charge</th>
 			            <td class="currency">{{ single_price($order->location_charge) }}</td>
-			        </tr>
+			        </tr> --}}
 			        <tr>
 			            <th class="gry-color text-left">Shipping Cost</th>
 			            <td class="currency">

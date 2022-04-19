@@ -40,6 +40,7 @@ class ShopController extends Controller
     public function create()
     {
         $locations=Location::all();
+        // dd($locations);
         if(Auth::check() && Auth::user()->user_type == 'admin'){
             flash(__('Admin can not be a seller'))->error();
             return back();
@@ -92,6 +93,7 @@ class ShopController extends Controller
 
         $seller = new Seller;
         $seller->user_id = $user->id;
+        $seller->pan = $request->pan;
         $seller->save();
 
         if(Shop::where('user_id', $user->id)->first() == null){
@@ -102,10 +104,28 @@ class ShopController extends Controller
             $shop->location=implode('!!', $request['location']);
             // $shop->location=serialize($request['location']);
             $shop->slug = preg_replace('/\s+/', '-', $request->name).'-'.$shop->id;
-
+            if($request->hasFile('logo')){
+                $shop->logo = $request->logo->store('uploads/shop/logo');
+            }
             if($shop->save()){
+                $user->sendEmailVeripficationNotification();
                 auth()->login($user, false);
                 flash(__('Your Shop has been created successfully!'))->success();
+
+                
+              	//admin part
+              	$admins = User::where('user_type','admin')->get();
+              	// if(count($admins) > 0){
+                //   $details = [
+                //   	'id' => \Config::get('app.url').'/shops/visit/'.$shop->slug,
+                //   	'name' => $request->name,
+                //   	'address' => $request->address,
+                //   ];
+                //   foreach($admins as $a => $admin){
+                //     Mail::to($admin->email)->send(new userRegisterMail(json_encode($details)));
+                //   }
+                	
+                // }
                 return redirect()->route('shops.index');
             }
             else{
@@ -219,8 +239,8 @@ class ShopController extends Controller
                 if($request->has('bank_routing_no')){
                     $seller->bank_routing_no = $request->bank_routing_no;
                 }
-                if($request->has('pan_no')){
-                    $seller->pan_no = $request->pan_no;
+                if($request->has('pan')){
+                    $seller->pan = $request->pan;
                 }
                 $seller->save();
             }

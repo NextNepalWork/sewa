@@ -81,7 +81,7 @@
                                         <div class="col-md-2">
                                             <label>{{__('Logo')}} <small>(120x120)</small></label>
                                         </div>
-                                        <div class="col-md-10">
+                                        <div class="col-md-10 mb-3">
                                             <input type="file" name="logo" id="file-2" class="custom-input-file custom-input-file--4" data-multiple-caption="{count} files selected" accept="image/*" />
                                             <label for="file-2" class="mw-100 mb-3">
                                                 <span></span>
@@ -90,6 +90,7 @@
                                                     {{__('Choose image')}}
                                                 </strong>
                                             </label>
+                                            <img src="{{asset($shop->logo)}}" alt="Shop Logo" style="width:50%">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -110,11 +111,10 @@
                                                 @php
                                                     $loc = \App\Shop::where('user_id', Auth::user()->id)->first();
                                                     $array = explode('!!', $loc->location);
-
                                                 @endphp
 
                                                     @foreach ($locations as $location)
-                                                        <option value="{{$location->id}}" <?php if(in_array($location->id,$array)) echo 'selected' ?> >{{$location->state}} > {{$location->name}}</option> 
+                                                        <option value="{{$location->id}}" <?php if(in_array($location->name,$array)) echo 'selected' ?> >{{$location->district}} > {{$location->name}}</option> 
                                                         
                                                     @endforeach 
                                                     
@@ -182,6 +182,14 @@
                                         </div>
                                         <div class="col-md-10">
                                             <input type="number" class="form-control mb-3" placeholder="{{__('Bank Routing Number')}}" name="bank_routing_no" value="{{ $seller->bank_routing_no }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>{{__('Pan')}} <span class="required-star">*</span></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="number" class="form-control mb-3" placeholder="{{__('Pan Number')}}" name="pan" value="{{ $seller->pan }}" required>
                                         </div>
                                     </div>
 
