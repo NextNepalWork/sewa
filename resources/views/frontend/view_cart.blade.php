@@ -95,11 +95,11 @@
                                         @endphp
                                         <tr class="cart-item">
                                             <td class="product-image">
-                                                <a href="{{ route('product', $product->slug) }}" class="mr-3">
-                                                    @if(file_exists($product->featured))
-                                                    <img loading="lazy" src="{{ asset($product->featured) }}" class="img-fluid">
+                                                <a href="{{ route('product', $product->slug) }}" class="mr-3">                                                   
+                                                    @if(file_exists($product->featured_img))
+                                                        <img loading="lazy" src="{{ asset($product->featured_img) }}" class="img-fluid">
                                                     @else
-                                                    <img loading="lazy" src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid">
+                                                        <img loading="lazy" src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid">
                                                     @endif
                                                 </a>
                                             </td>

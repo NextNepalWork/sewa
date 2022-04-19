@@ -1356,18 +1356,18 @@ $time = date('Y-m-d H:i:s',$flash_deal->end_date);
         // flash counter
         var data = @json($time);
         var today = @json($today);
-        console.log(data);
+        // console.log(data);
         var countDownDate = new Date(data).getTime();
-        console.log('countDownDate'+countDownDate)
+        // console.log('countDownDate'+countDownDate)
         // Update the count down every 1 second
         var x = setInterval(function() {
             // Get today's date and time
             var now = new Date(today).getTime();
-        console.log('now'+now)
+        // console.log('now'+now)
             //   alert(countDownDate);
             // Find the distance between now and the count down date
             var distance = countDownDate - now;
-        console.log('distance'+distance)
+        // console.log('distance'+distance)
             // Time calculations for days, hours, minutes and seconds
             var days = Math.floor(distance / (1000 * 60 * 60 * 24));
             var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));

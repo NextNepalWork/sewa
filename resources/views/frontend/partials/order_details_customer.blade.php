@@ -182,12 +182,12 @@
                                     <span class="text-italic">{{ single_price($order->orderDetails->sum('tax')) }}</span>
                                 </td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <th>{{__('Delivery Charge')}}</th>
                                 <td class="text-right">
                                     <span class="text-italic">{{ single_price($order->location_charge) }}</span>
                                 </td>
-                            </tr>
+                            </tr> --}}
                             <tr>
                                 <th>{{__('Shipping')}}</th>
                                 <td class="text-right">
