@@ -645,11 +645,11 @@
                                                     <div class="product-grid-image">
                                                         <a href="{{ route('product', $related_product->slug) }}">
                                                             @php
-                                                                $filepath = $related_product->thumbnail_img;
+                                                                $filepath = $related_product->featured_img;
                                                             @endphp
                                                             @if(isset($filepath))
                                                                 @if (file_exists(public_path($filepath)))
-                                                                    <img src="{{ asset($related_product->thumbnail_img) }}" alt="{{ $related_product->name }}" data-src="{{ asset($related_product->thumbnail_img) }}" class="img-fluid pic-1">
+                                                                    <img src="{{ asset($related_product->featured_img) }}" alt="{{ $related_product->name }}" data-src="{{ asset($related_product->featured_img) }}" class="img-fluid pic-1">
                                                                 @else
                                                                     <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $related_product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
                                                                 @endif

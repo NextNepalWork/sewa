@@ -316,8 +316,8 @@
                                                          <td class="img_header_cart">
                                                             <div>
                                                                <a href="{{ route('product', $product->slug) }}">
-                                                                  @if (file_exists($product->thumbnail_img)) 
-                                                                     <img src="{{ asset($product->thumbnail_img) }}" data-src="{{ asset($product->thumbnail_img) }}" alt="{{ __($product->name) }}">
+                                                                  @if (file_exists($product->featured_img)) 
+                                                                     <img src="{{ asset($product->featured_img) }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name) }}">
                                                                   @else
                                                                      <img src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}">
                                                                   @endif
