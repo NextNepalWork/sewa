@@ -108,7 +108,7 @@ class ShopController extends Controller
                 $shop->logo = $request->logo->store('uploads/shop/logo');
             }
             if($shop->save()){
-                $user->sendEmailVeripficationNotification();
+                $user->sendEmailVerificationNotification();
                 auth()->login($user, false);
                 flash(__('Your Shop has been created successfully!'))->success();
 

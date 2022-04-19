@@ -159,7 +159,7 @@
                                             </div>
                                             <div class="col-md-10">
                                                 <input type="checkbox" class="" placeholder="{{__('Pan')}}" name="read" required>
-                                                <label>{{__('I have read')}} <span class="required-star">*</span></label>
+                                                <label>{{__('I have read and agreed to the seller policy.')}} <span class="required-star">*</span></label>
                                             </div>
                                         </div>
                                     </div>
