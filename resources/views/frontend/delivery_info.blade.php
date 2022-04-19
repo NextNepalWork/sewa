@@ -169,7 +169,7 @@
                                                    <img loading="lazy" src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid">
                                                 @endif
                                              @else
-                                                   <img loading="lazy"  src="{{ asset('uploads/No_Image.jpg') }}">
+                                                   <img loading="lazy"  src="{{ asset('frontend/images/placeholder.jpg') }}">
                                              @endif
                                           </a>
                                                   
@@ -243,7 +243,21 @@
                                           <tr class="cart-item">
                                                 <td class="product-image" width="25%">
                                                    <a href="{{ route('product', \App\Product::find($id)->slug) }}" target="_blank">
-                                                      <img loading="lazy"  src="{{ asset(\App\Product::find($id)->thumbnail_img) }}">
+                                                      
+                                                      @php
+                                                         $filepath = \App\Product::find($id)->featured_img;
+                                                      @endphp
+                                                      <a href="{{ route('product', \App\Product::find($id)->slug) }}" target="_blank">
+                                                      @if(isset($filepath))
+                                                         @if(file_exists($filepath))
+                                                            <img loading="lazy" src="{{ asset(\App\Product::find($id)->featured_img) }}" class="img-fluid">
+                                                         @else
+                                                            <img loading="lazy" src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid">
+                                                         @endif
+                                                      @else
+                                                            <img loading="lazy"  src="{{ asset('frontend/images/placeholder.jpg') }}">
+                                                      @endif
+                                                      {{-- <img loading="lazy"  src="{{ asset(\App\Product::find($id)->thumbnail_img) }}"> --}}
                                                    </a>
                                                 </td>
                                                 <td class="product-name strong-600">
