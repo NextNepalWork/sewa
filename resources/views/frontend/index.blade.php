@@ -364,25 +364,37 @@
 $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
 // dd($flash_deal);
 $time = date('Y-m-d H:i:s',$flash_deal->end_date);
+// echo date('d-m-Y H:i:s').'<br>';
+// echo strtotime(date('d-m-Y')).'<br>';
+// if(strtotime(date('Y-m-d H:i:s')) >= $flash_deal->start_date ){
+//     echo 'yes<br>';
+// }
+
+// if(strtotime(date('Y-m-d H:i:s')) <= $flash_deal->end_date){
+//     echo 'yes<br>';
+// }
+// echo $flash_deal->start_date.'<br>';
+// echo $flash_deal->end_date.'<br>';
+// echo $time.'<br>';
 @endphp
-@if($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date)
+@if($flash_deal != null && strtotime(date('Y-m-d H:i:s')) >= $flash_deal->start_date && strtotime(date('Y-m-d H:i:s')) <= $flash_deal->end_date)
 <section id="product-listing-wrapper" class=" product_listing pt-3">
     <div class="container">
     <div class="product-lists">
     <div class="row">
-       <div class="col-9">
+       <div class="col-lg-9 col-sm-12">
           <div class="col-12">
              <div class="section_title_block d-flex justify-content-between align-item-center h-100">
                 @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->name == "Nepali")
                  <h2 class="position-relative mb-0">Flash Sale</h2>
                  <div class="flash-deal-box float-left d-flex">
-                    Sale Ends in : <div class="countdown countdown--style-1 countdown--style-1-v1 " data-countdown-date="{{ date('m/d/Y', $flash_deal->end_date) }}" data-countdown-label="show"></div>
+                    Sale Ends in : <div class="countdown countdown--style-1 countdown--style-1-v1 " data-countdown-date="{{ date('Y-m-d H:i:s', $flash_deal->end_date) }}" data-countdown-label="show"></div>
                  </div>
                  <a class="btn_view" href="{{ route('flash-deals') }}"> सबै हेर्नुहोस् <span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
                 @else
                  <h2 class="position-relative mb-0">Flash Sale</h2>
                  <div class="flash-deal-box float-left d-flex">
-                     Sale Ends in : <div class="countdown countdown--style-1 countdown--style-1-v1 " data-countdown-date="{{ date('m/d/Y', $flash_deal->end_date) }}" data-countdown-label="show"></div>
+                     Sale Ends in : <div class="countdown countdown--style-1 countdown--style-1-v1 " data-countdown-date="{{ date('Y-m-d H:i:s', $flash_deal->end_date) }}" data-countdown-label="show"></div>
                  </div>
                  <a class="btn_view" href="{{ route('flash-deals') }}"> View all <span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
                 @endif
@@ -479,7 +491,7 @@ $time = date('Y-m-d H:i:s',$flash_deal->end_date);
              </div>
           </div>
        </div>
-       <div class="col-3">
+       <div class="col-lg-3 col-sm-12">
            @php
                $banner = 'uploads/No_Image.jpg';
                 if(isset($flash_deal->banner) && ($flash_deal->banner) != ''){
@@ -493,7 +505,7 @@ $time = date('Y-m-d H:i:s',$flash_deal->end_date);
            <img src="{{asset($banner)}}" style="width: 100%;object-fit:contain;min-height: 100%;max-height: 100%;" alt="">
        </div>
     </div>
- </section>
+</section>
 @endif
 <!--============================================================ CATEGORY START=-->
 {{-- <section id="category_section" class="">
