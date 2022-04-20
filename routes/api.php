@@ -30,6 +30,7 @@ Route::prefix('v1')->group(function () {
     Route::get('categories/home', 'Api\CategoryController@home');
     Route::apiResource('categories', 'Api\CategoryController')->only('index');
     Route::get('sub-categories/{id}', 'Api\SubCategoryController@index')->name('subCategories.index');
+    Route::get('sub-sub-categories/{id}', 'Api\SubCategoryController@subsubcat')->name('subCategories.subsubcat');
 
     Route::apiResource('colors', 'Api\ColorController')->only('index');
 

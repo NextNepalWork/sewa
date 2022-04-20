@@ -642,94 +642,94 @@
                                                 <div class="grid-item mx-1">
                                                     <div class="product-grid-item">
                 
-                                                    <div class="product-grid-image">
-                                                        <a href="{{ route('product', $related_product->slug) }}">
-                                                            @php
-                                                                $filepath = $related_product->featured_img;
-                                                            @endphp
-                                                            @if(isset($filepath))
-                                                                @if (file_exists(public_path($filepath)))
-                                                                    <img src="{{ asset($related_product->featured_img) }}" alt="{{ $related_product->name }}" data-src="{{ asset($related_product->featured_img) }}" class="img-fluid pic-1">
+                                                        <div class="product-grid-image">
+                                                            <a href="{{ route('product', $related_product->slug) }}">
+                                                                @php
+                                                                    $filepath = $related_product->featured_img;
+                                                                @endphp
+                                                                @if(isset($filepath))
+                                                                    @if (file_exists(public_path($filepath)))
+                                                                        <img src="{{ asset($related_product->featured_img) }}" alt="{{ $related_product->name }}" data-src="{{ asset($related_product->featured_img) }}" class="img-fluid pic-1">
+                                                                    @else
+                                                                        <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $related_product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
+                                                                    @endif
                                                                 @else
                                                                     <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $related_product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
                                                                 @endif
-                                                            @else
-                                                                <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $related_product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
-                                                            @endif
-                                                        </a>
-                                                    </div>
-                                                    <div class="category-title mt-2">
-                                                        <h6 class="title">
-                                                            <a href="{{ route('product', $related_product->slug) }}" class="">{{ __($related_product->name) }}</a>
-                                                        </h6>
-                                                        <div class="category">
-                                                           <a class="m-0">{{ $related_product->category->name }}</a>
+                                                            </a>
                                                         </div>
-                                                    </div>
-                                                    <div class="price-cart text-center py-2">
-                                                        <div class="price d-flex flex-column align-items-center w-100">
-                                                            <div class="prices align-items-center d-flex justify-content-between w-100">
-                                                               <div>
-                                                    
-                                                                @php
-                                                                    $qty = 0;
-                                                                    if($related_product->variant_product){
-                                                                        foreach ($related_product->stocks as $key => $stock) {
-                                                                            $qty += $stock->qty;
-                                                                        }
-                                                                    }
-                                                                    else{
-                                                                        $qty = $related_product->current_stock ;
-                                                                    }
-                                                                @endphp
-                                                                @if($qty > 0)
-                                                                    <h6 class="m-0 gray text-left cus-price">{{ home_discounted_base_price($related_product->id) }}&nbsp;</h6>
-                                                                    <div class="d-flex justify-content-between w-100 align-items-center">
-                                                                        @if(home_base_price($related_product->id) != home_discounted_base_price($related_product->id))
-                                                                            <span class="ml-0">{{ home_base_price($related_product->id) }}</span>&nbsp;&nbsp;
-                                                                        @endif
-                                                                        @if (! $related_product->discount == 0)
-                                                                            <div>
-                                                                                {{ ($related_product->discount_type == 'amount')?'  Rs.':'' }} -{{ intval(($related_product->discount)) }}{{ !($related_product->discount_type == 'amount')?' %':'' }}
-                                            
-                                                                            </div>
-                                                                        @endif
-                                                                        
-                                                                    </div>
-                                                                @endif
-                                                                    
-                                                                    <div class="d-flex w-100 mt-2">
-                                                                        @if($qty <= 0)
-                                                                            <div class="stock mr-1">
-                                                                                Out of Stock
-                                                                            </div>
-                                                                        @endif
-                                                                    
-                                                                    </div>
-                                                               </div>
-                                                               @if($qty > 0)
-                                                                <div class="d-flex justify-content-between">
-                                                                    {{-- @if (! $related_product->discount == 0)
-                                                                        <div class="product-discount-label">
-                                                                            {{ ($related_product->discount_type == 'amount')?'Rs.':'' }} {{ $related_product->discount }}{{ !($related_product->discount_type == 'amount')?' %':'' }}
-                                                                        </div>
-                                                                    @endif --}}
-                                                                    <a class="all-deals ico effect" onclick="showAddToCartModal({{ $related_product->id }})" data-toggle="tooltip" data-placement="right"
-                                                                        title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
-                        
-                                                                </div>
-                                                               @endif
+                                                        <div class="category-title mt-2">
+                                                            <h6 class="title">
+                                                                <a href="{{ route('product', $related_product->slug) }}" class="">{{ __($related_product->name) }}</a>
+                                                            </h6>
+                                                            <div class="category">
+                                                            <a class="m-0">{{ $related_product->category->name }}</a>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="cart-compare">
-                                                        <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToWishList({{$related_product->id}})"
-                                                            ><i class="fa fa-heart icon mr-2"></i>Wishlist
-                                                        </a>
-                                                        <a class="all-deals effect gray" onclick="addToCompare({{$related_product->id}})">
-                                                        <i class="fa fa-exchange icon mr-2"></i>Compare
-                                                        </a>
-                                                    </div>
+                                                        <div class="price-cart text-center py-2">
+                                                            <div class="price d-flex flex-column align-items-center w-100">
+                                                                <div class="prices align-items-center d-flex justify-content-between w-100">
+                                                                <div>
+                                                        
+                                                                    @php
+                                                                        $qty = 0;
+                                                                        if($related_product->variant_product){
+                                                                            foreach ($related_product->stocks as $key => $stock) {
+                                                                                $qty += $stock->qty;
+                                                                            }
+                                                                        }
+                                                                        else{
+                                                                            $qty = $related_product->current_stock ;
+                                                                        }
+                                                                    @endphp
+                                                                    @if($qty > 0)
+                                                                        <h6 class="m-0 gray text-left cus-price">{{ home_discounted_base_price($related_product->id) }}&nbsp;</h6>
+                                                                        <div class="d-flex justify-content-between w-100 align-items-center">
+                                                                            @if(home_base_price($related_product->id) != home_discounted_base_price($related_product->id))
+                                                                                <span class="ml-0">{{ home_base_price($related_product->id) }}</span>&nbsp;&nbsp;
+                                                                            @endif
+                                                                            @if (! $related_product->discount == 0)
+                                                                                <div>
+                                                                                    {{ ($related_product->discount_type == 'amount')?'  Rs.':'' }} -{{ intval(($related_product->discount)) }}{{ !($related_product->discount_type == 'amount')?' %':'' }}
+                                                
+                                                                                </div>
+                                                                            @endif
+                                                                            
+                                                                        </div>
+                                                                    @endif
+                                                                        
+                                                                        <div class="d-flex w-100 mt-2">
+                                                                            @if($qty <= 0)
+                                                                                <div class="stock mr-1">
+                                                                                    Out of Stock
+                                                                                </div>
+                                                                            @endif
+                                                                        
+                                                                        </div>
+                                                                </div>
+                                                                @if($qty > 0)
+                                                                    <div class="d-flex justify-content-between">
+                                                                        {{-- @if (! $related_product->discount == 0)
+                                                                            <div class="product-discount-label">
+                                                                                {{ ($related_product->discount_type == 'amount')?'Rs.':'' }} {{ $related_product->discount }}{{ !($related_product->discount_type == 'amount')?' %':'' }}
+                                                                            </div>
+                                                                        @endif --}}
+                                                                        {{-- <a class="all-deals ico effect" onclick="showAddToCartModal({{ $related_product->id }})" data-toggle="tooltip" data-placement="right"
+                                                                            title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a> --}}
+                            
+                                                                    </div>
+                                                                @endif
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{-- <div class="cart-compare">
+                                                            <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToWishList({{$related_product->id}})"
+                                                                ><i class="fa fa-heart icon mr-2"></i>Wishlist
+                                                            </a>
+                                                            <a class="all-deals effect gray" onclick="addToCompare({{$related_product->id}})">
+                                                            <i class="fa fa-exchange icon mr-2"></i>Compare
+                                                            </a>
+                                                        </div> --}}
                                                     </div>
                                                 </div>
                                             @endforeach
