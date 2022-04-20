@@ -7,6 +7,7 @@ Route::prefix('v1/auth')->group(function () {
     Route::post('signup', 'Api\AuthController@signup');
     Route::post('social-login', 'Api\AuthController@socialLogin');
     Route::post('password/create', 'Api\PasswordResetController@create');
+    Route::post('change-password', 'Api\PasswordResetController@change')->middleware('auth:api');
     Route::middleware('auth:api')->group(function () {
         Route::get('logout', 'Api\AuthController@logout');
         Route::get('user', 'Api\AuthController@user');
