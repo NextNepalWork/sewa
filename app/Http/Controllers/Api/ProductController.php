@@ -51,7 +51,7 @@ class ProductController extends Controller
     {
         $scope = request('scope');
 
-        // $products = Product::where('category_id', $id);
+        $products = [];
 
         switch ($scope) {       
             case 'price_low_to_high':
@@ -75,6 +75,7 @@ class ProductController extends Controller
                 break;
 
             default:
+                $products = Product::where('category_id', $id)->paginate(10);
                 break;
         }
         return new ProductCollection($products);
@@ -92,7 +93,7 @@ class ProductController extends Controller
     {
         $scope = request('scope');
 
-        // $products = Product::where('category_id', $id);
+        $products = [];
 
         switch ($scope) {       
             case 'price_low_to_high':
@@ -116,6 +117,7 @@ class ProductController extends Controller
                 break;
 
             default:
+                $products = Product::where('subcategory_id', $id)->paginate(10);
                 break;
         }
         return new ProductCollection($products);
@@ -129,7 +131,7 @@ class ProductController extends Controller
     {
         $scope = request('scope');
 
-        // $products = Product::where('category_id', $id);
+        $products = [];
 
         switch ($scope) {       
             case 'price_low_to_high':
@@ -153,6 +155,7 @@ class ProductController extends Controller
                 break;
 
             default:
+                $products = Product::where('subsubcategory_id', $id)->paginate(10);
                 break;
         }
         return new ProductCollection($products);
