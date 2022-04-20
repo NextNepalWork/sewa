@@ -204,18 +204,28 @@
                             }
                         @endphp
                         @if($digital != 1)
-                       <div class="col-xl-6 col-md-6 m-auto">
-                          <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="Cash on Delivery">
-                              <label id="file-input">
-                            <img class="img_select img-fluid" src="{{ asset('frontend/images/icons/cards/cod.png')}}" 
-                                >
-                            </label>
-                            <input type="radio" id="file-input" name="payment_option" value="cash_on_delivery" checked>
+                        <div class="col-xl-6 col-md-6 m-auto">
+                            <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="Cash on Delivery">
+                                <label id="file-input">
+                                <img class="img_select img-fluid" src="{{ asset('frontend/images/icons/cards/cod.png')}}" 
+                                    >
+                                </label>
+                                <input type="radio" id="file-input" name="payment_option" value="cash_on_delivery" checked>
 
-                          </div>
+                            </div>
+                        </div>
+                       @endif
+                       @endif
+                       <div class="col-xl-6 col-md-6 m-auto">
+                           <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="Cash on Delivery">
+                               <label id="file-input">
+                               <img class="img_select img-fluid" src="{{ asset('frontend/images/icons/cards/cod.png')}}" 
+                                   >
+                               </label>
+                               <input type="radio" id="file-input" name="payment_option" value="cash_on_delivery" checked>
+
+                           </div>
                        </div>
-                       @endif
-                       @endif
                        {{-- @if(\App\BusinessSetting::where('type', 'esewa')->first()->value == 1)
                        <div class="col-xl-6 col-md-6 m-auto">
                           <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="E-sewa">

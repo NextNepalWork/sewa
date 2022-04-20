@@ -362,20 +362,7 @@
 
 @php
 $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
-// dd($flash_deal);
 $time = date('Y-m-d H:i:s',$flash_deal->end_date);
-// echo date('d-m-Y H:i:s').'<br>';
-// echo strtotime(date('d-m-Y')).'<br>';
-// if(strtotime(date('Y-m-d H:i:s')) >= $flash_deal->start_date ){
-//     echo 'yes<br>';
-// }
-
-// if(strtotime(date('Y-m-d H:i:s')) <= $flash_deal->end_date){
-//     echo 'yes<br>';
-// }
-// echo $flash_deal->start_date.'<br>';
-// echo $flash_deal->end_date.'<br>';
-// echo $time.'<br>';
 @endphp
 @if($flash_deal != null && strtotime(date('Y-m-d H:i:s')) >= $flash_deal->start_date && strtotime(date('Y-m-d H:i:s')) <= $flash_deal->end_date)
 <section id="product-listing-wrapper" class=" product_listing pt-3">
@@ -1424,7 +1411,7 @@ $time = date('Y-m-d H:i:s',$flash_deal->end_date);
 
                 $(".slider_feature2").slick({
                     autoplay: true,
-                    slidesToShow: 7,
+                    slidesToShow: 5,
                     slidesToScroll: 7,
                     arrows: true,
                     dots: false,
