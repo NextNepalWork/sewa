@@ -15,6 +15,7 @@ class SearchProductCollection extends ResourceCollection
                 return [
                     'id' => $data->id,
                     'name' => $data->name,
+                    'category_id' => $data->category_id,
                     'thumbnail_image' => file_exists($data->thumbnail_img) ? $data->thumbnail_img : $placeholder_img,
                     'base_price' => (double) homeBasePrice($data->id),
                     'base_discounted_price' => (double) homeDiscountedBasePrice($data->id),

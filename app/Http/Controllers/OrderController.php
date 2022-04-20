@@ -382,23 +382,25 @@ class OrderController extends Controller
                 'tempDir' => storage_path('logs/'),
             ])->loadView('invoices.customer_invoice', compact('order'));
             $output = $pdf->output();
-            file_put_contents(public_path('invoices/' . 'Order#' . $order->code . '.pdf'), $output);
-            $data['view'] = 'emails.invoice';
-            $data['subject'] = 'Order Placed - ' . $order->code;
-            $data['from'] = 'Sewa Digital';
-            $data['content'] = 'Hi. A new order has been placed. Please check the attached invoice.';
-            $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
-            $data['file_name'] = 'Order#' . $order->code . '.pdf';
+            file_put_contents(public_path('/invoices/Order#' . $order->code . '.pdf'), $output);
 
-            if (Config::get('mail.username') != null) {
-                try {
-                    Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
-                    Log::info('I am in try');
-                } catch (\Exception $e) {
-                    Log::info('Mail is here');
-                }
-            }
-            unlink($data['file']);
+            $pdf->download('Order-'.$order->code.'.pdf');
+            // $data['view'] = 'emails.invoice';
+            // $data['subject'] = 'Order Placed - ' . $order->code;
+            // $data['from'] = 'Sewa Digital Express';
+            // $data['content'] = 'Hi. A new order has been placed. Please check the attached invoice.';
+            // $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
+            // $data['file_name'] = 'Order#' . $order->code . '.pdf';
+
+            // if (Config::get('mail.username') != null) {
+            //     try {
+            //         Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
+            //         Log::info('I am in try');
+            //     } catch (\Exception $e) {
+            //         Log::info('Mail is here');
+            //     }
+            // }
+            // unlink($data['file']);
             // dd($seller_products);
             // foreach ($seller_products as $key => $seller_product) {
             //     $user = User::where('id', $key)->first();

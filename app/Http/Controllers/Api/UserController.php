@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($request->user_id);
         $user->update([
-            'name' => $request->name
+            'name' => $request->name,
         ]);
         return response()->json([
             'message' => 'Profile information has been updated successfully'
