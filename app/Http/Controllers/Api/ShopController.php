@@ -16,6 +16,7 @@ class ShopController extends Controller
         return new ShopCollection(Shop::all());
     }
     public function recommendations(){
+        
         $recommended = [];
         if(Auth::check()){
             $recommended = Recommend::where('user_id',Auth::user()->id)->orderBy('id','desc')->get();
