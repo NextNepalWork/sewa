@@ -86,6 +86,10 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/countdown/css/flipclock.css') }}" />
     <!-- Countdown end -->
 
+    <link rel="stylesheet" href="{{ asset('frontend/assets/swiper/drift-basic.css') }}" />
+    <link rel="stylesheet" href="{{ asset('frontend/assets/swiper/swiper.min.css') }}" />
+
+
     {{-- <link rel="stylesheet" href="https://k1ngzed.com/dist/swiper/swiper.min.css" />
     <link rel="stylesheet" href="https://k1ngzed.com/dist/EasyZoom/easyzoom.css" /> --}}
 
@@ -363,8 +367,20 @@
     <!-- Magnific Popup Ends-->
     <!-- Countdown start -->
     <script src="{{ asset('frontend/assets/countdown/js/flipclock.js') }}"></script>
+
     <!-- Custom Js Starts -->
+
+    
+    <script src="{{ asset('frontend/assets/swiper/drift.min.js') }}"></script>
+
+    <script src="{{ asset('frontend/assets/swiper/swiper.min.js') }}"></script>
+
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+
+    <script src="{{ asset('frontend/assets/js/secondary.js') }}"></script>
+
+
+
     {{-- <script src="https://k1ngzed.com/dist/swiper/swiper.min.js"></script>
     <script src="https://k1ngzed.com/dist/EasyZoom/easyzoom.js"></script> --}}
 
