@@ -257,13 +257,14 @@
 
 /* Swiper Slider */
 .zoom {
-    width: 80%;
-    height: 500px;
-    left: 100%;
-    top: 0;
+    width: 50%;
+    height: 200px;
+    left: 0;
+    top: -10%;
     position: absolute;
-    z-index: 9;
+    z-index: 1;
 }
+
 
 .img-responsive {
     max-width: 100;
@@ -436,8 +437,8 @@
     <script src="{{ asset('frontend/assets/swiper/drift.min.js') }}"></script>
 
     <script src="{{ asset('frontend/assets/swiper/swiper.min.js') }}"></script>
-
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+
 
     <script src="{{ asset('frontend/assets/js/secondary.js') }}"></script>
 
