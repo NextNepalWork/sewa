@@ -403,7 +403,120 @@
       </div>
    </div>
    <!-- search mobile new end  -->
-      
+   <section class="d-lg-block d-none">
+      <div class="container p-0">
+         <div class="row no-gutters">
+            <div class="col-2 d-md-block d-none" id="categories-list">
+               <div class="category_title_top d-flex justify-content-between theme_bg" data-toggle="collapse"
+                  href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  <div class="category_title">
+                     <h5 class="mb-0">All Categories</h5>
+                  </div>
+                  {{-- <div class="category_btn">
+                     
+                  </div> --}}
+               </div>
+               <ul class="dropdown-menu multi-level category-list bg-white border_one position-absolute w-100 collapse p-0 m-0"
+                  role="menu" aria-labelledby="dropdownMenu" id="collapseExample">
+                  @foreach (\App\Category::all()->take(11) as $key => $category)
+                    @php
+                        $brands = array();
+                    @endphp
+                  <li class="dropdown-submenu" data-id="{{ $category->id }}">
+                     <a href="{{ route('products.category', $category->slug) }}" class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1" href="#">
+                        <div class="category_icon_img">
+                            @if($category->icon != '')
+                                @if(file_exists($category->icon))
+                                    <img src="{{ $category->icon }}" class="img-fluid" alt=""> <span class="name">
+                                @else
+                                    <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid" alt=""> <span class="name">
+                                @endif
+                                
+                                {{-- <img class="cat-image lazyload" src="{{ $category->icon }}" data-src="{{ asset($category->icon) }}" width="30" alt="{{ __($category->name) }}"> --}}
+                            @else
+                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid" alt=""> <span class="name">
+                                {{-- <img class="cat-image" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->icon) }}" width="30" alt="{{ __($category->name) }}"> --}}
+
+                            @endif
+                           
+                            {{ __($category->name) }}
+                           </span>
+                        </div>
+                        <div class="icon_show_category">
+                           <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </div>
+                     </a>
+                     @if(count($category->subcategories)>0)
+                        <ul class="dropdown-menu multi-level sub-category">
+                            @foreach ($category->subcategories as $sub)
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
+                                        href="{{ route('products.subcategory', $sub->slug) }}">
+                                        <div class="category_icon_img">
+                                            {{-- <img src="frontend/assets/images/cart.svg" class="img-fluid" alt="">  --}}
+                                            <span class="name">
+                                                {{$sub->name}}
+                                            </span>
+                                        </div>
+                                        <div class="icon_show_category">
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                        </div>
+                                    </a>
+                                    
+                                    @if(count($sub->subsubcategories)>0)
+                                        <ul class="dropdown-menu multi-level">
+                                            @foreach($sub->subsubcategories as $subsub)
+                                                <li class="dropdown-submenu"> <a
+                                                    class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
+                                                    href="{{ route('products.subsubcategory', $subsub->slug) }}">
+                                                    <div class="category_icon_img">
+                                                        {{-- <img src="frontend/assets/images/cart.svg" class="img-fluid" alt="">  --}}
+                                                        <span class="name">
+                                                            {{$subsub->name}}
+                                                        </span>
+                                                    </div>
+                                                    <div class="icon_show_category">
+                                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                                    </div>
+                                                    </a>
+                                            
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </li>     
+                            @endforeach
+                        </ul>
+                     @endif
+                  </li>
+                    @endforeach
+                    <li class="dropdown-submenu">
+                        <a href="{{ route('categories.all') }}" class="dropdown-item category_icon_img d-flex justify-content-between">
+                            <div class="category_icon_img">
+                                {{-- <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid" alt=""> <span class="name"> --}}
+                                    <i class="fa fa-category" aria-hidden="true"></i>
+                                    View All
+                               </span>
+                            </div>
+                         </a>
+                        
+                    </li>
+               </ul>
+            </div>
+            <div class="col-10">
+               <ul class="categories-nav d-flex justify-content-around align-items-center h-100">
+                @foreach(\App\Category::where('top',1)->limit(5)->get() as $top)
+                <li>
+                    <a href="{{ route('products.category', $top->slug) }}" class="category_title_top">{{$top->name}}</a>
+
+                </li>
+                @endforeach
+
+               </ul>
+            </div>
+         </div>
+      </div>
+   </section>
 </div>
 
 
