@@ -4,7 +4,6 @@
 @else
 <html lang="en">
 @endif
-
 <head>
 
     @php
@@ -175,6 +174,12 @@
 </noscript> --}}
 <!-- End Facebook Pixel Code -->
  {{-- @endif  --}}
+ 
+<style>
+    .multi-level{
+        min-height: 100vh!important;
+    }
+</style>
 <style>
     section#category_section{
         margin-bottom: 0!important;
@@ -445,6 +450,11 @@
     @endforeach
     <script>
         $(document).ready(function() {
+            $('.view-seller-policy').on('click',function(){
+                $('#exampleModal222').modal('show');
+            });
+            $('.multi-level').css('min-height','100vh!important');
+
             $('.category-nav-element').each(function(i, el) {
                 $(el).on('mouseover', function() {
                     if (!$(el).find('.sub-cat-menu').hasClass('loaded')) {
@@ -539,6 +549,53 @@
             showFrontendAlert('error',data.responseText);
         }
     });
+});
+$(".flash_feature").slick({
+    infinite: true,
+    autoplay: true,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    arrows: true,
+    dots: false,
+    responsive: [
+        {
+            breakpoint: 1400,
+            settings: {
+                slidesToShow: 4,
+                slidesToScroll: 1,
+            },
+        },
+        {
+            breakpoint: 1080,
+            settings: {
+                slidesToShow: 4,
+                slidesToScroll: 1,
+            },
+        },
+        {
+            breakpoint: 780,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+            },
+        },
+        {
+            breakpoint: 600,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                dots: true,
+            },
+        },
+        {
+            breakpoint: 480,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                dots: true,
+            },
+        },
+    ],
 });
 $('.address-district').on('change',function(e){
     var district_id = $(this).val();

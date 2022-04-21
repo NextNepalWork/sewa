@@ -396,16 +396,15 @@ class ProductController extends Controller
                 $product->refundable = 0;
             }
         }
-
+        $thumb = [];        
         if ($request->has('previous_photos')) {
             $photos = $request->previous_photos;
             $thumb = $request->previous_thumbnail_img;
         }
         else{
             $photos = array();
-            $thumb=array();
         }
-
+// dd($thumb);
         if ($request->hasFile('photos')) {
             foreach ($request->photos as $key => $photo) {
                 $path = $photo->store('uploads/products/photos');
@@ -416,7 +415,7 @@ class ProductController extends Controller
 
 
                 array_push($photos, $path);
-                array_push($thumb, $thumbnail_path);
+                // array_push($thumb, $thumbnail_path);
                 //ImageOptimizer::optimize(base_path('public/').$path);
             }
         }

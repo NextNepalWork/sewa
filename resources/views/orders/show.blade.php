@@ -222,12 +222,27 @@
     					{{-- {{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('tax')) }} --}}
     				</td>
     			</tr>
-                <tr>
+    			<tr>
     				<td>
-    					<strong>{{__('Shipping')}} :</strong>
+    					<strong>{{__('Delivery Charge')}} :</strong>
     				</td>
     				<td>
-    					{{ single_price($order->orderDetails->sum('shipping_cost')) }}
+    					{{ single_price($order->location_charge) }}
+
+    					{{-- {{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('tax')) }} --}}
+    				</td>
+    			</tr>
+                <tr>
+    				<td>
+    					<strong>{{__('Total Shipping')}} :</strong>
+    				</td>
+    				<td>
+						@php
+							//shipping charges of either flat or product wise
+							$shipping = $order->orderDetails->sum('shipping_cost');
+							$shipping += $order->location_charge;
+						@endphp
+    					{{ single_price($shipping) }}
 
     					{{-- {{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('shipping_cost')) }} --}}
     				</td>
@@ -237,7 +252,7 @@
     					<strong>{{__('TOTAL')}} :</strong>
     				</td>
     				<td class="text-bold h4">
-    					{{ single_price($order->orderDetails->sum('price') + $order->orderDetails->sum('tax') + $order->orderDetails->sum('shipping_cost')) }}
+    					{{ single_price($order->grand_total) }}
 
     					{{-- {{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('price') + $order->orderDetails->where('seller_id', $admin_user_id)->sum('tax') + $order->orderDetails->where('seller_id', $admin_user_id)->sum('shipping_cost')) }} --}}
     				</td>

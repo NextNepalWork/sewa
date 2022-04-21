@@ -1,6 +1,17 @@
 @extends('frontend.layouts.app')
 
 @section('content')
+@php
+    // $b = 'a & b /d ,g';
+    // $a = (preg_replace('/[^A-Za-z0-9\-]/', ' ', $b));
+    // $c = preg_replace('!\s+!', ' ', $a);
+    // $d = str_replace(' ','-',$c);
+    // dd($d);
+    // $string = str_replace(' ','-',strtolower(trim($b)));
+    
+    // dd();
+    //                 dd(preg_replace('/[^A-Za-z0-9\-]/', '', $string));
+@endphp
 <div class="breadcrumb-area">
     <div class="container">
         <div class="row">
@@ -17,82 +28,123 @@
     
 @if($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date)
     
-<section class="mb-4">
-
+<section id="product-listing-wrapper" class=" product_listing">
     <div class="container">
-        <div class="px-2 py-4 p-md-4 bg-white shadow-sm">
-            <div class="section-title-1 clearfix ">
-                <h3 class="heading-5 strong-700 mb-0 float-left">
-                    {{$flash_deal->title}}
-                </h3>
-                <div class="flash-deal-box float-left">
-                    <div class="countdown countdown--style-1 countdown--style-1-v1 " data-countdown-date="{{ date('m/d/Y', $flash_deal->end_date) }}" data-countdown-label="show"></div>
-                </div>
-                <ul class="inline-links float-right">
-                    <li><a href="{{ route('flash-deal-details', $flash_deal->slug) }}" class="active">View More</a></li>
-                </ul>
-            </div>
-            <div class="caorusel-box arrow-round gutters-5">
-                <div class="slick-carousel" data-slick-items="6" data-slick-xl-items="5" data-slick-lg-items="4"  data-slick-md-items="3" data-slick-sm-items="2" data-slick-xs-items="2">
-                    @foreach ($flash_deal->flash_deal_products as $key => $flash_deal_product)
-                        @php
-                            $product = \App\Product::find($flash_deal_product->product_id);
-                        @endphp
-                        @if ($product != null && $product->published != 0)
-                            <div class="caorusel-card">
-                                <div class="product-box-2 bg-white alt-box my-2">  
-                                    <div class="position-relative overflow-hidden">
-                                        <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center">
-                                            @if (!empty($product->featured_img)) 
-                                                <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
-                                            @else
-                                                <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
-                                            @endif
-                                        </a>
-                                        <div class="product-btns clearfix">
-                                            <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" tabindex="0">
-                                                <i class="la la-heart-o"></i>
-                                            </button>
-                                            <button class="btn add-compare" title="Add to Compare" onclick="addToCompare({{ $product->id }})" tabindex="0">
-                                                <i class="la la-refresh"></i>
-                                            </button>
-                                            <button class="btn quick-view" title="Quick view" onclick="showAddToCartModal({{ $product->id }})" tabindex="0">
-                                                <i class="la la-eye"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div class="p-md-3 p-2">
-                                        <div class="price-box">
-                                            @if(home_base_price($product->id) != home_discounted_base_price($product->id))
-                                                <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
-                                            @endif
-                                            <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
-                                        </div>
-                                        <div class="star-rating star-rating-sm mt-1">
-                                            {{ renderStarRating($product->rating) }}
-                                        </div>
-                                        <h2 class="product-title p-0">
-                                            <a href="{{ route('product', $product->slug) }}" class=" text-truncate">{{ __($product->name) }}</a>
-                                        </h2>
-
-                                        @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
-                                            <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
-                                                {{ __('Club Point') }}:
-                                                <span class="strong-700 float-right">{{ $product->earn_point }}</span>
-                                            </div>
-                                        @endif
-                                    </div> 
-                                </div>
-                            </div>
-                        @endif
-                    @endforeach
-                
-                </div>
-            </div>
-        </div>
+    <div class="product-lists">
+    <div class="row">
+       <div class="col-12">
+          <div class="col-12">
+             <div class="section_title_block d-flex justify-content-between align-item-center h-100">
+                @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->name == "Nepali")
+                 <h2 class="position-relative mb-0">{{$flash_deal->title}}</h2>
+                 <div class="flash-deal-box float-left d-flex">
+                    Sale Ends in : <div class="countdown countdown--style-1 countdown--style-1-v1 " data-countdown-date="{{ date('m/d/Y', $flash_deal->end_date) }}" data-countdown-label="show"></div>
+                 </div>
+                 <a class="btn_view" href="{{ route('flash-deals') }}"> सबै हेर्नुहोस् <span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                @else
+                 <h2 class="position-relative mb-0">{{$flash_deal->title}}</h2>
+                 <div class="flash-deal-box float-left d-flex">
+                    Sale Ends in : <div class="countdown countdown--style-1 countdown--style-1-v1 " data-countdown-date="{{ date('m/d/Y', $flash_deal->end_date) }}" data-countdown-label="show"></div>
+                 </div>
+                 <a class="btn_view" href="{{ route('flash-deals') }}"> 
+                    
+                </a>
+                @endif
+             </div>
+          </div>
+          <div class="col-12">
+             <div class="grid-container  flash_feature">
+                 @foreach ($flash_deal->flash_deal_products as $key => $flash_deal_product)
+                     @php
+                         $product = \App\Product::find($flash_deal_product->product_id);
+                     @endphp
+                     @if ($product != null && $product->published != 0)
+                         <div class="grid-item mb-4">
+                             <div class="product-grid-item">
+                                 <div class="product-grid-image">
+                                     <a href="{{ route('product', $product->slug) }}">
+                                         @php
+                                             $filepath = $product->featured_img;
+                                         @endphp
+                                         @if(isset($filepath))
+                                             @if (file_exists(public_path($filepath)))
+                                                 <img src="{{ asset($product->featured_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->featured_img) }}" class="img-fluid pic-1">
+                                             @else
+                                                 <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
+                                             @endif
+                                         @else
+                                             <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
+                                         @endif
+                                     </a>
+                                 </div>
+                                 <div class="category-title mt-2">
+                                     <h6 class="title">
+                                     <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
+                                     </h6>
+                                     <div class="category">
+                                     <a class="m-0">{{ $product->category->name }}</a>
+                                     </div>
+                                 </div>
+                                 <div class="price-cart text-center py-2 min-height-20">
+                                     <div class="price d-flex flex-column align-items-center w-100">
+                                         <div class="prices align-items-center d-flex justify-content-between w-100">
+                                             <div>
+                                                 @php
+                                                     $qty = 0;
+                                                     if($product->variant_product){
+                                                         foreach ($product->stocks as $key => $stock) {
+                                                             $qty += $stock->qty;
+                                                         }
+                                                     }
+                                                     else{
+                                                         $qty = $product->current_stock ;
+                                                     }
+                                                 @endphp
+ 
+                                                 @if($qty > 0)
+                                                     <h6 class="m-0 gray text-left cus-price">{{ home_discounted_base_price($product->id) }}&nbsp;</h6>
+                                                     <div class="d-flex justify-content-between w-100 align-items-center">
+                                                         @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                                             <span class="ml-0">{{ home_base_price($product->id) }}</span>&nbsp;&nbsp;
+                                                         @endif
+                                                         @if (! intval(($product->discount),0) == 0)
+                                                             <div>
+                                                                 {{ ($flash_deal_product->discount_type == 'amount')?'  Rs.':'' }} -{{ (intval($flash_deal_product->discount,0)) }}{{ !($product->discount_type == 'amount')?' %':'' }}
+                                                             </div>
+                                                         @endif
+                                                     </div>
+                                                 @endif
+ 
+                                                 <div class="d-flex w-100 mt-2">
+                                                     @if($qty <= 0) 
+                                                         <div class="stock mr-1">
+                                                             Out of Stock
+                                                         </div>
+                                                     @endif
+                                                 </div>
+                                             </div>
+                                             @if($qty > 0)
+                                                 <div class="d-flex justify-content-between">
+                                                     {{-- <div class="product-discount-label">
+                                                         {{ ($product->discount_type == 'amount')?'Rs.':'' }} {{ $product->discount }}{{ !($product->discount_type == 'amount')?' %':'' }}
+                                                     </div> --}}
+                                                     <a class="all-deals ico effect" onclick="showAddToCartModal({{ $product->id }})" data-toggle="tooltip" data-placement="right" title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
+                                                 </div>
+                                             @endif
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     @endif
+                 @endforeach
+             </div>
+             <div class="col-3">
+             </div>
+          </div>
+       </div>
     </div>
-</section>
+ </section>
 @endif
 @endforeach
 

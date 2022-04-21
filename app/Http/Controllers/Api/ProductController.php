@@ -13,7 +13,9 @@ use App\Models\FlashDealProduct;
 use App\Models\Product;
 use App\Models\Shop;
 use App\Models\Color;
+use App\Recommend;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -25,6 +27,13 @@ class ProductController extends Controller
 
     public function show($id)
     {
+        // if(Auth::check()){
+        //     if(Recommend::where('product_id',$id)->where('user_id',Auth::user()->id)->count() == 0)
+        //     Recommend::create([
+        //         'product_id' => $id,
+        //         'user_id' => Auth::user()->id
+        //     ]);
+        // }
         return new ProductDetailCollection(Product::where('id', $id)->get());
     }
 
@@ -40,17 +49,116 @@ class ProductController extends Controller
 
     public function category($id)
     {
-        return new ProductCollection(Product::where('category_id', $id)->latest()->paginate(10));
-    }
+        $scope = request('scope');
 
+        $products = [];
+
+        switch ($scope) {       
+            case 'price_low_to_high':
+                $products = Product::where('category_id', $id)->orderBy('unit_price', 'asc')->paginate(10);
+                break;
+
+            case 'price_high_to_low':
+                $products = Product::where('category_id', $id)->orderBy('unit_price', 'desc')->paginate(10);
+                break;
+
+            case 'new_arrival':
+                $products = Product::where('category_id', $id)->orderBy('created_at', 'desc')->paginate(10);
+                break;
+
+            case 'popularity':
+                $products = Product::where('category_id', $id)->orderBy('num_of_sale', 'desc')->paginate(10);
+                break;
+
+            case 'top_rated':
+                $products = Product::where('category_id', $id)->orderBy('rating', 'desc')->paginate(10);
+                break;
+
+            default:
+                $products = Product::where('category_id', $id)->paginate(10);
+                break;
+        }
+        return new ProductCollection($products);
+    }
+    // public function category($id)
+    // {
+    //     return new ProductCollection(Product::where('category_id', $id)->latest()->paginate(10));
+    // }
+
+    // public function subCategory($id)
+    // {
+    //     return new ProductCollection(Product::where('subcategory_id', $id)->latest()->paginate(10));
+    // }
     public function subCategory($id)
     {
-        return new ProductCollection(Product::where('subcategory_id', $id)->latest()->paginate(10));
+        $scope = request('scope');
+
+        $products = [];
+
+        switch ($scope) {       
+            case 'price_low_to_high':
+                $products = Product::where('subcategory_id', $id)->orderBy('unit_price', 'asc')->paginate(10);
+                break;
+
+            case 'price_high_to_low':
+                $products = Product::where('subcategory_id', $id)->orderBy('unit_price', 'desc')->paginate(10);
+                break;
+
+            case 'new_arrival':
+                $products = Product::where('subcategory_id', $id)->orderBy('created_at', 'desc')->paginate(10);
+                break;
+
+            case 'popularity':
+                $products = Product::where('subcategory_id', $id)->orderBy('num_of_sale', 'desc')->paginate(10);
+                break;
+
+            case 'top_rated':
+                $products = Product::where('subcategory_id', $id)->orderBy('rating', 'desc')->paginate(10);
+                break;
+
+            default:
+                $products = Product::where('subcategory_id', $id)->paginate(10);
+                break;
+        }
+        return new ProductCollection($products);
     }
 
+    // public function subSubCategory($id)
+    // {
+    //     return new ProductCollection(Product::where('subsubcategory_id', $id)->latest()->paginate(10));
+    // }
     public function subSubCategory($id)
     {
-        return new ProductCollection(Product::where('subsubcategory_id', $id)->latest()->paginate(10));
+        $scope = request('scope');
+
+        $products = [];
+
+        switch ($scope) {       
+            case 'price_low_to_high':
+                $products = Product::where('subsubcategory_id', $id)->orderBy('unit_price', 'asc')->paginate(10);
+                break;
+
+            case 'price_high_to_low':
+                $products = Product::where('subsubcategory_id', $id)->orderBy('unit_price', 'desc')->paginate(10);
+                break;
+
+            case 'new_arrival':
+                $products = Product::where('subsubcategory_id', $id)->orderBy('created_at', 'desc')->paginate(10);
+                break;
+
+            case 'popularity':
+                $products = Product::where('subsubcategory_id', $id)->orderBy('num_of_sale', 'desc')->paginate(10);
+                break;
+
+            case 'top_rated':
+                $products = Product::where('subsubcategory_id', $id)->orderBy('rating', 'desc')->paginate(10);
+                break;
+
+            default:
+                $products = Product::where('subsubcategory_id', $id)->paginate(10);
+                break;
+        }
+        return new ProductCollection($products);
     }
 
     public function brand($id)

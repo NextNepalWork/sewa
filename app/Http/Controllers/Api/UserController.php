@@ -17,7 +17,11 @@ class UserController extends Controller
     {
         $user = User::findOrFail($request->user_id);
         $user->update([
-            'name' => $request->name
+            'name' => $request->name,
+            'country' => $request->country,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'postal_code' => $request->postal_code,
         ]);
         return response()->json([
             'message' => 'Profile information has been updated successfully'

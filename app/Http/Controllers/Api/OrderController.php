@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Location;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Cart;
@@ -17,7 +18,30 @@ class OrderController extends Controller
 {
     public function processOrder(Request $request)
     {
-        $shippingAddress = json_decode($request->shipping_address);
+        $coupon_discount = 0;
+        if ($request->coupon_code != '') {
+            $coupon  = Coupon::where('code', $request->coupon_code)
+                                ->first();
+            if(strtotime(date('d-m-Y')) <= $coupon->end_date){
+                $coupon_discount = $coupon->discount;
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Coupon Code Expired'
+                ]);
+            }
+        }
+        $shippingAddress = json_decode($request->shipping_address,true);
+
+        $cartItems = Cart::where('user_id', $request->user_id)->get();
+        // save order details
+        $delivery_location_id = isset($shippingAddress['delivery_location'])?$shippingAddress['delivery_location']:0;
+        if($delivery_location_id > 0){
+            $delivery_location = Location::where('id',$delivery_location_id)->first();
+            $delivery_charge = $delivery_location->delivery_charge;   
+        }else{
+            $delivery_charge = 0;
+        }
         // create an order
         $order = Order::create([
             'user_id' => $request->user_id,
@@ -25,14 +49,11 @@ class OrderController extends Controller
             'payment_type' => $request->payment_type,
             'payment_status' => $request->payment_status,
             'grand_total' => $request->grand_total - $request->coupon_discount,
-            'coupon_discount' => $request->coupon_discount,
+            'coupon_discount' => $coupon_discount,
             'code' => date('Ymd-his'),
-            'date' => strtotime('now')
+            'date' => strtotime('now'),
+            'location_charge' => $delivery_charge
         ]);
-
-        $cartItems = Cart::where('user_id', $request->user_id)->get();
-        // save order details
-
         $shipping = 0;
         $admin_products = array();
         $seller_products = array();
@@ -65,6 +86,13 @@ class OrderController extends Controller
                     }
                 }
         }
+        else{
+            foreach ($cartItems as $key => $cartItem) {
+                $product = \App\Product::find($cartItem->product_id);
+                $shipping += $product->shipping_cost;
+            }
+        }
+        $shipping += $delivery_charge;
 
         foreach ($cartItems as $cartItem) {
             $product = Product::findOrFail($cartItem->product_id);

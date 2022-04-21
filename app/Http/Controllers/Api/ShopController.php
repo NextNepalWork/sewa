@@ -6,6 +6,8 @@ use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ShopCollection;
 use App\Models\Product;
 use App\Models\Shop;
+use App\Recommend;
+use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
@@ -13,7 +15,35 @@ class ShopController extends Controller
     {
         return new ShopCollection(Shop::all());
     }
-
+    public function recommendations(){
+        $recommended = [];
+        if(Auth::check()){
+            $recommended = Recommend::where('user_id',Auth::user()->id)->orderBy('id','desc')->get();
+            
+            // $data = [];
+            // foreach($recommended as $a => $b){
+            //     $z = [
+            //         'id' => $b->id,
+            //         'name' => $b->name,
+            //         'delivery_charge' => $b->delivery_charge
+            //     ];
+            //     array_push($data,$z);
+            // }
+            
+            return new ProductCollection($recommended->paginate(10));
+            // return response()->json([
+            //     'success' => true,
+            //     'message' => 'Locations Retrieve Successfully',
+            //     'data'=> $data,
+            // ]); 
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Login Error',
+                'data'=> [],
+            ]); 
+        }
+    }
     public function info($id)
     {
         return new ShopCollection(Shop::where('id', $id)->get());

@@ -7,6 +7,7 @@ use App\CouponUsage;
 use App\Http\Controllers\AffiliateController;
 use App\Http\Controllers\ClubPointController;
 use App\Http\Controllers\OTPVerificationController;
+use App\Location;
 use App\Mail\CustomerEmail;
 use App\Mail\InvoiceEmailManager;
 use App\Models\Commission;
@@ -229,13 +230,17 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->session()->get('shipping_info'));
         $order = new Order;
         if (Auth::check()) {
             $order->user_id = Auth::user()->id;
         } else {
             $order->guest_id = mt_rand(100000, 999999);
         }
-
+        $delivery_location_id = $request->session()->get('shipping_info')['delivery_location'];
+        $delivery_location = Location::where('id',$delivery_location_id)->first();
+        $delivery_charge = $delivery_location->delivery_charge;
+        
         $order->shipping_address = json_encode($request->session()->get('shipping_info'));
 
         $order->payment_type = $request->payment_option;
@@ -243,6 +248,7 @@ class OrderController extends Controller
         $order->payment_status_viewed = '0';
         $order->code = date('Ymd-His') . rand(10, 99);
         $order->date = strtotime('now');
+        $order->location_charge = $delivery_charge;
 
         if ($order->save()) {
             $subtotal = 0;
@@ -253,9 +259,9 @@ class OrderController extends Controller
 
             //Calculate Shipping Cost
             if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'flat_rate') {
-
                 $shipping = \App\BusinessSetting::where('type', 'flat_rate_shipping_cost')->first()->value;
-            } elseif (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'seller_wise_shipping') {
+            } 
+            elseif (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'seller_wise_shipping') {
 
                 foreach (Session::get('cart') as $key => $cartItem) {
                     $product = \App\Product::find($cartItem['id']);
@@ -278,7 +284,14 @@ class OrderController extends Controller
                         $shipping += \App\Shop::where('user_id', $key)->first()->shipping_cost;
                     }
                 }
+            }else{
+                foreach (Session::get('cart') as $key => $cartItem) {
+                    $product = \App\Product::find($cartItem['id']);
+                    $shipping += $product->shipping_cost;
+                }
             }
+            $shipping += $delivery_charge;
+            // dd($shipping);
             //End Shipping Cost Calculation
             //Order Details Storing 
             foreach (Session::get('cart') as $key => $cartItem) {
@@ -315,7 +328,7 @@ class OrderController extends Controller
                 $order_detail->price = $cartItem['price'] * $cartItem['quantity'];
                 $order_detail->tax = $cartItem['tax'] * $cartItem['quantity'];
                 $order_detail->shipping_type = $cartItem['shipping_type'];
-                $order_detail->product_referral_code = $cartItem['product_referral_code'];
+                $order_detail->product_referral_code = isset($cartItem['product_referral_code'])?$cartItem['product_referral_code']:null;
 
                 //Dividing Shipping Costs
 
@@ -332,7 +345,7 @@ class OrderController extends Controller
                         }
                     } else {
                         $order_detail->shipping_cost = \App\Product::find($cartItem['id'])->shipping_cost;
-                        $shipping += \App\Product::find($cartItem['id'])->shipping_cost;
+                        // $shipping += \App\Product::find($cartItem['id'])->shipping_cost;
                     }
                 } else {
                     $order_detail->shipping_cost = 0;
@@ -361,24 +374,33 @@ class OrderController extends Controller
 
             $order->save();
 
-            // set_time_limit(1500);
+            set_time_limit(1500);
             //stores the pdf for invoice
-            // $pdf = PDF::setOptions([
-            //     'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
-            //     'logOutputFile' => storage_path('logs/log.htm'),
-            //     'tempDir' => storage_path('logs/'),
-            // ])->loadView('invoices.customer_invoice', compact('order'));
-            // $output = $pdf->output();
-            // file_put_contents(public_path('invoices/' . 'Order#' . $order->code . '.pdf'), $output);
+            $pdf = PDF::setOptions([
+                'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
+                'logOutputFile' => storage_path('logs/log.htm'),
+                'tempDir' => storage_path('logs/'),
+            ])->loadView('invoices.customer_invoice', compact('order'));
+            $output = $pdf->output();
+            file_put_contents(public_path('/invoices/Order#' . $order->code . '.pdf'), $output);
+
+            $pdf->download('Order-'.$order->code.'.pdf');
             // $data['view'] = 'emails.invoice';
             // $data['subject'] = 'Order Placed - ' . $order->code;
-            // $data['from'] = 'Sewa Digital';
-            // // $data['from'] = env('MAIL_USERNAME');
+            // $data['from'] = 'Sewa Digital Express';
             // $data['content'] = 'Hi. A new order has been placed. Please check the attached invoice.';
             // $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
-            // // $data['file'] = 'public/invoices/Order#'.$order->code.'.pdf';
             // $data['file_name'] = 'Order#' . $order->code . '.pdf';
 
+            // if (Config::get('mail.username') != null) {
+            //     try {
+            //         Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
+            //         Log::info('I am in try');
+            //     } catch (\Exception $e) {
+            //         Log::info('Mail is here');
+            //     }
+            // }
+            // unlink($data['file']);
             // dd($seller_products);
             // foreach ($seller_products as $key => $seller_product) {
             //     $user = User::where('id', $key)->first();
@@ -414,24 +436,9 @@ class OrderController extends Controller
             //     }
             // }
 
-            //sends email to customer with the invoice pdf attached
+            // sends email to customer with the invoice pdf attached
             // dd(Config::get('mail.username') != null, $request->session()->get('shipping_info')['email']);
-            // if (Config::get('mail.username') != null) {
-            //     // if(env('MAIL_USERNAME') != null){
-            //     try {
-            //         Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
-            //         Mail::to(User::where('user_type', 'admin')->first()->email)->send(new InvoiceEmailManager($data));
-            //         // dd($request->session()->get('shipping_info')['email']);
-            //         // dispatch(new SendInvoiceEmail($array));
-            //         // dispatch(new SendInvoiceEmail(User::where('user_type', 'admin')->first()->email, $array));
-            //         Log::info('I am in try');
-            //         // Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($array));
-            //         // Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new InvoiceEmailManager($array));
-            //     } catch (\Exception $e) {
-            //         Log::info('Mail is here');
-            //     }
-            // }
-            // unlink($data['file']);
+            
 
             $request->session()->put('order_id', $order->id);
         }

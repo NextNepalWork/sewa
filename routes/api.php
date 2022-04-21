@@ -7,6 +7,7 @@ Route::prefix('v1/auth')->group(function () {
     Route::post('signup', 'Api\AuthController@signup');
     Route::post('social-login', 'Api\AuthController@socialLogin');
     Route::post('password/create', 'Api\PasswordResetController@create');
+    Route::post('change-password', 'Api\PasswordResetController@change')->middleware('auth:api');
     Route::middleware('auth:api')->group(function () {
         Route::get('logout', 'Api\AuthController@logout');
         Route::get('user', 'Api\AuthController@user');
@@ -30,6 +31,7 @@ Route::prefix('v1')->group(function () {
     Route::get('categories/home', 'Api\CategoryController@home');
     Route::apiResource('categories', 'Api\CategoryController')->only('index');
     Route::get('sub-categories/{id}', 'Api\SubCategoryController@index')->name('subCategories.index');
+    Route::get('sub-sub-categories/{id}', 'Api\SubCategoryController@subsubcat')->name('subCategories.subsubcat');
 
     Route::apiResource('colors', 'Api\ColorController')->only('index');
 
@@ -82,6 +84,7 @@ Route::prefix('v1')->group(function () {
     Route::get('wishlists/{id}', 'Api\WishlistController@index')->middleware('auth:api');
     Route::post('wishlists/check-product', 'Api\WishlistController@isProductInWishlist')->middleware('auth:api');
     Route::apiResource('wishlists', 'Api\WishlistController')->except(['index', 'update', 'show'])->middleware('auth:api');
+    Route::get('recommendations', 'Api\ShopController@recommendations')->middleware('auth:api');
 
     Route::apiResource('settings', 'Api\SettingsController')->only('index');
 

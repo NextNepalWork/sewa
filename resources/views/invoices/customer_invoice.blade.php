@@ -156,13 +156,24 @@
 			            <th class="gry-color text-left">Sub Total</th>
 			            <td class="currency">{{ single_price($order->orderDetails->sum('price')) }}</td>
 			        </tr>
-			        <tr>
-			            <th class="gry-color text-left">Shipping Cost</th>
-			            <td class="currency">{{ single_price($order->orderDetails->sum('shipping_cost')) }}</td>
-			        </tr>
 			        <tr class="border-bottom">
 			            <th class="gry-color text-left">Total Tax</th>
 			            <td class="currency">{{ single_price($order->orderDetails->sum('tax')) }}</td>
+			        </tr>
+			        {{-- <tr class="border-bottom">
+			            <th class="gry-color text-left">Delivery Charge</th>
+			            <td class="currency">{{ single_price($order->location_charge) }}</td>
+			        </tr> --}}
+			        <tr>
+			            <th class="gry-color text-left">Shipping Cost</th>
+			            <td class="currency">
+							@php
+								//shipping charges of either flat or product wise
+								$shipping = $order->orderDetails->sum('shipping_cost');
+								$shipping += ($order->location_charge);
+							@endphp
+							{{ single_price($shipping) }}
+						</td>
 			        </tr>
 			        <tr>
 			            <th class="text-left strong">Grand Total</th>

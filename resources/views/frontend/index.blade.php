@@ -183,120 +183,7 @@
 </section> -->
 <!-- Categories Ends -->  
  <!-- Categories -->
-   <section class="d-lg-block d-none">
-      <div class="container p-0">
-         <div class="row no-gutters">
-            <div class="col-3 d-md-block d-none" id="categories-list">
-               <div class="category_title_top d-flex justify-content-between theme_bg" data-toggle="collapse"
-                  href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                  <div class="category_title">
-                     <h5 class="mb-0">All Categories</h5>
-                  </div>
-                  {{-- <div class="category_btn">
-                     
-                  </div> --}}
-               </div>
-               <ul class="dropdown-menu multi-level category-list bg-white border_one position-absolute w-100 collapse p-0 m-0"
-                  role="menu" aria-labelledby="dropdownMenu" id="collapseExample">
-                  @foreach (\App\Category::all()->take(11) as $key => $category)
-                    @php
-                        $brands = array();
-                    @endphp
-                  <li class="dropdown-submenu" data-id="{{ $category->id }}">
-                     <a href="{{ route('products.category', $category->slug) }}" class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1" href="#">
-                        <div class="category_icon_img">
-                            @if($category->icon != '')
-                                @if(file_exists($category->icon))
-                                    <img src="{{ $category->icon }}" class="img-fluid" alt=""> <span class="name">
-                                @else
-                                    <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid" alt=""> <span class="name">
-                                @endif
-                                
-                                {{-- <img class="cat-image lazyload" src="{{ $category->icon }}" data-src="{{ asset($category->icon) }}" width="30" alt="{{ __($category->name) }}"> --}}
-                            @else
-                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid" alt=""> <span class="name">
-                                {{-- <img class="cat-image" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->icon) }}" width="30" alt="{{ __($category->name) }}"> --}}
 
-                            @endif
-                           
-                            {{ __($category->name) }}
-                           </span>
-                        </div>
-                        <div class="icon_show_category">
-                           <i class="fa fa-angle-right" aria-hidden="true"></i>
-                        </div>
-                     </a>
-                     @if(count($category->subcategories)>0)
-                        <ul class="dropdown-menu multi-level sub-category">
-                            @foreach ($category->subcategories as $sub)
-                                <li class="dropdown-submenu">
-                                    <a class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                                        href="{{ route('products.subcategory', $sub->slug) }}">
-                                        <div class="category_icon_img">
-                                            {{-- <img src="frontend/assets/images/cart.svg" class="img-fluid" alt="">  --}}
-                                            <span class="name">
-                                                {{$sub->name}}
-                                            </span>
-                                        </div>
-                                        <div class="icon_show_category">
-                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                        </div>
-                                    </a>
-                                    
-                                    @if(count($sub->subsubcategories)>0)
-                                        <ul class="dropdown-menu multi-level">
-                                            @foreach($sub->subsubcategories as $subsub)
-                                                <li class="dropdown-submenu"> <a
-                                                    class="dropdown-item category_icon_img d-flex justify-content-between" tabindex="-1"
-                                                    href="{{ route('products.subsubcategory', $subsub->slug) }}">
-                                                    <div class="category_icon_img">
-                                                        {{-- <img src="frontend/assets/images/cart.svg" class="img-fluid" alt="">  --}}
-                                                        <span class="name">
-                                                            {{$subsub->name}}
-                                                        </span>
-                                                    </div>
-                                                    <div class="icon_show_category">
-                                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                                    </div>
-                                                    </a>
-                                            
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
-                                </li>     
-                            @endforeach
-                        </ul>
-                     @endif
-                  </li>
-                    @endforeach
-                    <li class="dropdown-submenu">
-                        <a href="{{ route('categories.all') }}" class="dropdown-item category_icon_img d-flex justify-content-between">
-                            <div class="category_icon_img">
-                                {{-- <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid" alt=""> <span class="name"> --}}
-                                    <i class="fa fa-category" aria-hidden="true"></i>
-                                    View All
-                               </span>
-                            </div>
-                         </a>
-                        
-                    </li>
-               </ul>
-            </div>
-            <div class="col-9">
-               <ul class="categories-nav d-flex justify-content-around align-items-center h-100">
-                @foreach(\App\Category::where('top',1)->limit(5)->get() as $top)
-                <li>
-                    <a href="{{ route('products.category', $top->slug) }}" class="category_title_top">{{$top->name}}</a>
-
-                </li>
-                @endforeach
-
-               </ul>
-            </div>
-         </div>
-      </div>
-   </section>
    <!-- Categories Ends -->
 <section id="slider">
     <div class="container p-0">
@@ -359,8 +246,143 @@
     </div>
 </section>
 
+
+@php
+$flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
+$time = date('Y-m-d H:i:s',$flash_deal->end_date);
+@endphp
+@if($flash_deal != null && strtotime(date('Y-m-d H:i:s')) >= $flash_deal->start_date && strtotime(date('Y-m-d H:i:s')) <= $flash_deal->end_date)
+<section id="product-listing-wrapper" class=" product_listing pt-3">
+    <div class="container">
+    <div class="product-lists">
+    <div class="row">
+       <div class="col-lg-9 col-sm-12">
+          <div class="col-12">
+             <div class="section_title_block d-flex justify-content-between align-item-center h-100">
+                @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->name == "Nepali")
+                 <h2 class="position-relative mb-0">Flash Sale</h2>
+                 <div class="flash-deal-box float-left d-flex">
+                    Sale Ends in : <div class="countdown countdown--style-1 countdown--style-1-v1 " data-countdown-date="{{ date('Y-m-d H:i:s', $flash_deal->end_date) }}" data-countdown-label="show"></div>
+                 </div>
+                 <a class="btn_view" href="{{ route('flash-deals') }}"> सबै हेर्नुहोस् <span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                @else
+                 <h2 class="position-relative mb-0">Flash Sale</h2>
+                 <div class="flash-deal-box float-left d-flex">
+                     Sale Ends in : <div class="countdown countdown--style-1 countdown--style-1-v1 " data-countdown-date="{{ date('Y-m-d H:i:s', $flash_deal->end_date) }}" data-countdown-label="show"></div>
+                 </div>
+                 <a class="btn_view" href="{{ route('flash-deals') }}"> View all <span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                @endif
+             </div>
+          </div>
+          <div class="col-12">
+             <div class="grid-container  flash_feature">
+                 @foreach ($flash_deal->flash_deal_products as $key => $flash_deal_product)
+                     @php
+                         $product = \App\Product::find($flash_deal_product->product_id);
+                     @endphp
+                     @if ($product != null && $product->published != 0)
+                         <div class="grid-item mb-4">
+                             <div class="product-grid-item">
+                                 <div class="product-grid-image">
+                                     <a href="{{ route('product', $product->slug) }}">
+                                         @php
+                                             $filepath = $product->featured_img;
+                                         @endphp
+                                         @if(isset($filepath))
+                                             @if (file_exists(public_path($filepath)))
+                                                 <img src="{{ asset($product->featured_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->featured_img) }}" class="img-fluid pic-1">
+                                             @else
+                                                 <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
+                                             @endif
+                                         @else
+                                             <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
+                                         @endif
+                                     </a>
+                                 </div>
+                                 <div class="category-title mt-2">
+                                     <h6 class="title">
+                                     <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
+                                     </h6>
+                                     <div class="category">
+                                     <a class="m-0">{{ $product->category->name }}</a>
+                                     </div>
+                                 </div>
+                                 <div class="price-cart text-center py-2 min-height-20">
+                                     <div class="price d-flex flex-column align-items-center w-100">
+                                         <div class="prices align-items-center d-flex justify-content-between w-100">
+                                             <div>
+                                                 @php
+                                                     $qty = 0;
+                                                     if($product->variant_product){
+                                                         foreach ($product->stocks as $key => $stock) {
+                                                             $qty += $stock->qty;
+                                                         }
+                                                     }
+                                                     else{
+                                                         $qty = $product->current_stock ;
+                                                     }
+                                                 @endphp
+ 
+                                                 @if($qty > 0)
+                                                     <h6 class="m-0 gray text-left cus-price">{{ home_discounted_base_price($product->id) }}&nbsp;</h6>
+                                                     <div class="d-flex justify-content-between w-100 align-items-center">
+                                                         @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                                             <span class="ml-0">{{ home_base_price($product->id) }}</span>&nbsp;&nbsp;
+                                                         @endif
+                                                         @if (! intval(($product->discount),0) == 0)
+                                                             <div>
+                                                                 {{ ($flash_deal_product->discount_type == 'amount')?'  Rs.':'' }} -{{ (intval($flash_deal_product->discount,0)) }}{{ !($product->discount_type == 'amount')?' %':'' }}
+                                                             </div>
+                                                         @endif
+                                                     </div>
+                                                 @endif
+ 
+                                                 <div class="d-flex w-100 mt-2">
+                                                     @if($qty <= 0) 
+                                                         <div class="stock mr-1">
+                                                             Out of Stock
+                                                         </div>
+                                                     @endif
+                                                 </div>
+                                             </div>
+                                             @if($qty > 0)
+                                                 <div class="d-flex justify-content-between">
+                                                     {{-- <div class="product-discount-label">
+                                                         {{ ($product->discount_type == 'amount')?'Rs.':'' }} {{ $product->discount }}{{ !($product->discount_type == 'amount')?' %':'' }}
+                                                     </div> --}}
+                                                     <a class="all-deals ico effect" onclick="showAddToCartModal({{ $product->id }})" data-toggle="tooltip" data-placement="right" title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
+                                                 </div>
+                                             @endif
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     @endif
+                 @endforeach
+             </div>
+             <div class="col-3">
+             </div>
+          </div>
+       </div>
+       <div class="col-lg-3 col-sm-12">
+           @php
+               $banner = 'uploads/No_Image.jpg';
+                if(isset($flash_deal->banner) && ($flash_deal->banner) != ''){
+                    if (file_exists(public_path($filepath))){
+                        $banner = $flash_deal->banner;
+                    }
+                }
+
+               
+           @endphp
+           <img src="{{asset($banner)}}" style="width: 100%;object-fit:contain;min-height: 100%;max-height: 100%;" alt="">
+       </div>
+    </div>
+</section>
+@endif
 <!--============================================================ CATEGORY START=-->
-<section id="category_section" class="">
+{{-- <section id="category_section" class="">
     <div class="container">
         <div class="grid-container slick_category">
             @foreach (\App\Category::where('featured', 1)->get() as $key => $category)
@@ -377,7 +399,7 @@
             @endforeach
         </div>
     </div>
-</section>
+</section> --}}
 <section id="product-listing-wrapper" class=" product_listing">
     <div class="container">
         <div class="product-lists">
@@ -497,14 +519,12 @@
             </div>
         </div>
     </div>
-    </div>
-    </div>
 </section>
 
 <!--=========================================== BEST SELLING START ======-->
 @php
-$flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
-$time = [];
+// $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
+// $time = [];
 // dd($flash_deal);
 // dd(strtotime(date('d-m-Y')),$flash_deal->start_date,$flash_deal->end_date);
 @endphp
@@ -1210,7 +1230,10 @@ $time = [];
 
 
 
-
+@php
+    $today = date('Y-m-d H:i:s');
+    // dd($today);
+@endphp
 @endsection
 
 @section('script')
@@ -1218,14 +1241,19 @@ $time = [];
     $(document).ready(function() {
         // flash counter
         var data = @json($time);
+        var today = @json($today);
+        // console.log(data);
         var countDownDate = new Date(data).getTime();
+        // console.log('countDownDate'+countDownDate)
         // Update the count down every 1 second
         var x = setInterval(function() {
             // Get today's date and time
-            var now = new Date().getTime();
+            var now = new Date(today).getTime();
+        // console.log('now'+now)
             //   alert(countDownDate);
             // Find the distance between now and the count down date
             var distance = countDownDate - now;
+        // console.log('distance'+distance)
             // Time calculations for days, hours, minutes and seconds
             var days = Math.floor(distance / (1000 * 60 * 60 * 24));
             var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -1270,7 +1298,7 @@ $time = [];
 
                 $(".slider_feature2").slick({
                     autoplay: true,
-                    slidesToShow: 7,
+                    slidesToShow: 5,
                     slidesToScroll: 7,
                     arrows: true,
                     dots: false,

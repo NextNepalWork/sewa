@@ -199,15 +199,28 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <th>{{__('Shipping')}}</th>
-                                                        <td class="text-right">
-                                                            <span class="text-italic">{{ single_price($order->orderDetails->sum('shipping_cost')) }}</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
                                                         <th>{{__('Tax')}}</th>
                                                         <td class="text-right">
                                                             <span class="text-italic">{{ single_price($order->orderDetails->sum('tax')) }}</span>
+                                                        </td>
+                                                    </tr>
+                                                    {{-- <tr>
+                                                        <th>{{__('Delivery Charge')}}</th>
+                                                        <td class="text-right">
+                                                            <span class="text-italic">
+                                                                {{ single_price($order->location_charge) }}
+                                                            </span>
+                                                        </td>
+                                                    </tr> --}}
+                                                    <tr>
+                                                        <th>{{__('Total Shipping')}}</th>
+                                                        <td class="text-right">
+                                                            @php
+                                                                //shipping charges of either flat or product wise
+                                                                $shipping = $order->orderDetails->sum('shipping_cost');
+                                                                $shipping += $order->location_charge;
+                                                            @endphp
+                                                            <span class="text-italic">{{ single_price($shipping) }}</span>
                                                         </td>
                                                     </tr>
                                                     <tr>

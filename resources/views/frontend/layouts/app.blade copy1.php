@@ -314,7 +314,11 @@
         });
     }
 </script>
-
+<style>
+    .multi-level{
+        min-height: 100vh!important;
+    }
+</style>
 @foreach (session('flash_notification', collect())->toArray() as $message)
     <script>
         showFrontendAlert('{{ $message['level'] }}', '{{ $message['message'] }}');
@@ -323,6 +327,8 @@
 <script>
 
     $(document).ready(function() {
+        
+    $('.multi-level').css('min-height','100vh!important');
         $('.category-nav-element').each(function(i, el) {
             $(el).on('mouseover', function(){
                 if(!$(el).find('.sub-cat-menu').hasClass('loaded')){
@@ -501,7 +507,6 @@
 
         return false;
     }
-
     function addToCart(){
         if(checkAddToCartValidity()) {
             $('#addToCart').modal();
