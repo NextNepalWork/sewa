@@ -403,6 +403,8 @@
       </div>
    </div>
    <!-- search mobile new end  -->
+   @if ((request()->segment(1)) == '')
+      
    <section class="d-lg-block d-none">
       <div class="container p-0">
          <div class="row no-gutters">
@@ -517,6 +519,7 @@
          </div>
       </div>
    </section>
+   @endif
 </div>
 
 
