@@ -27,7 +27,9 @@ class ProductController extends Controller
 
     public function show($id)
     {
+        
         if(Auth::check()){
+            return 'hello';
             if(Recommend::where('product_id',$id)->where('user_id',Auth::user()->id)->count() == 0)
             Recommend::create([
                 'product_id' => $id,
