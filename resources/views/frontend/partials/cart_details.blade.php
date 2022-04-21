@@ -33,7 +33,15 @@
                                     <tr class="cart-item">
                                         <td class="product-image">
                                             <a href="#" class="mr-3">
-                                                <img loading="lazy"  src="{{ asset($product->thumbnail_img) }}" class="img-fluid">
+                                                @if (!empty($product->featured_img))
+                                                    @if (file_exists($product->featured_img))
+                                                        <img loading="lazy"  src="{{ asset($product->featured_img) }}" class="img-fluid">
+                                                    @else
+                                                        <img loading="lazy"  src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid">    
+                                                    @endif
+                                                @else
+                                                    <img loading="lazy"  src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid">
+                                                @endif
                                             </a>
                                         </td>
 
@@ -78,15 +86,15 @@
                 <div class="row align-items-center pt-4">
                     <div class="col-6">
                         <a href="{{ route('home') }}" class="link link--style-3">
-                            <i class="ion-android-arrow-back"></i>
+                            <i class="fa fa-reply-all"></i>
                             {{__('Return to shop')}}
                         </a>
                     </div>
                     <div class="col-6 text-right">
                         @if(Auth::check())
-                            <a href="{{ route('checkout.shipping_info') }}" class="btn btn-styled ">{{__('Continue to Shipping')}}</a>
+                            <a href="{{ route('checkout.shipping_info') }}" class="btn btn-styled btn-base-1">{{__('Continue to Shipping')}}</a>
                         @else
-                            <button class="btn btn-styled " onclick="showCheckoutModal()">{{__('Continue to Shipping')}}</button>
+                            <button class="btn btn-styled btn-base-1" onclick="showCheckoutModal()" style="background: var(--theme_color)">{{__('Continue to Shipping')}}</button>
                         @endif
                     </div>
                 </div>

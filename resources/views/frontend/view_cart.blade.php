@@ -434,7 +434,7 @@
                                     <input type="email" name="email" class="form-control"
                                         placeholder="{{ __('Email') }}">
                                     <span class="input-group-addon">
-                                        <i class="text-md la la-user"></i>
+                                        <i class="text-md la la-user" style="line-height: 0px"></i>
                                     </span>
                                 </div>
                             </div>
@@ -444,7 +444,7 @@
                                     <input type="password" name="password" class="form-control"
                                         placeholder="{{ __('Password') }}">
                                     <span class="input-group-addon">
-                                        <i class="text-md la la-lock"></i>
+                                        <i class="text-md la la-lock" style="line-height: 0px"></i>
                                     </span>
                                 </div>
                             </div>
