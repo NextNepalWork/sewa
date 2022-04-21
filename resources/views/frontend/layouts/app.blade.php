@@ -4,7 +4,6 @@
 @else
 <html lang="en">
 @endif
-
 <head>
 
     @php
