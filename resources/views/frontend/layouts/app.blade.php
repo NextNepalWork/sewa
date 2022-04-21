@@ -254,6 +254,63 @@
     color: #f78035!important;
     font-size: 20px!important;
 }
+
+/* Swiper Slider */
+.zoom {
+    width: 80%;
+    height: 500px;
+    left: 100%;
+    top: 0;
+    position: absolute;
+    z-index: 9;
+}
+
+.img-responsive {
+    max-width: 100;
+    height: auto;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.swiper-slide {
+    background-size: cover;
+    background-position: center;
+}
+
+.gallery-top {
+    height: 80%;
+    width: 100%;
+}
+
+.gallery-thumbs {
+    height: 20%;
+    box-sizing: border-box;
+    padding: 10px 0;
+}
+
+.gallery-thumbs .swiper-slide {
+    width: 25%;
+    height: 100%;
+    opacity: 0.4;
+}
+
+.gallery-thumbs .swiper-slide-thumb-active {
+    opacity: 1;
+}
+
+/* Swiper Slider Ends */
+
+.product-carousel .swiper-button-next.swiper-button-white,
+.product-carousel .swiper-button-prev.swiper-button-white {
+    color: white;
+    background-color: var(--theme_color);
+}
+
 </style>
 </head>
 @php
@@ -449,6 +506,37 @@
     </script>
     @endforeach
     <script>
+        $(document).ready(function () {
+            // product Gallery and Zoom
+            // activation carousel plugin
+            var galleryThumbs = new Swiper(".gallery-thumbs", {
+                spaceBetween: 10,
+                slidesPerView: 4,
+                freeMode: true,
+                watchSlidesVisibility: true,
+                watchSlidesProgress: true,
+            });
+            var galleryTop = new Swiper(".gallery-top", {
+                spaceBetween: 10,
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                thumbs: {
+                    swiper: galleryThumbs,
+                },
+            });
+
+            var paneContainer = document.querySelector(".zoom");
+
+            $(".swiper-slide").each(function () {
+                new Drift($(this).find("img")[0], {
+                    paneContainer: paneContainer,
+                    inlinePane: false,
+                });
+            });
+        });
+
         $(document).ready(function() {
             $('.view-seller-policy').on('click',function(){
                 $('#exampleModal222').modal('show');
