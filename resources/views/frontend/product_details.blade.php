@@ -92,46 +92,6 @@
                     <div class="product-carousel">
                         @if(is_array(json_decode($detailedProduct->photos)) && count(json_decode($detailedProduct->photos)) > 0)
                         <!-- Swiper and EasyZoom plugins start -->
-                        {{-- <div class="swiper-container gallery-top" >
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide" style="z-index: 1;">
-                                    @if (!empty(json_decode($detailedProduct->photos)[0]))
-                                        @if (file_exists(json_decode($detailedProduct->photos)[0]))
-                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($detailedProduct->photos)[0]) }}" xoriginal="{{ asset(json_decode($detailedProduct->photos)[0]) }}" data-zoom="{{ asset(json_decode($detailedProduct->photos)[0]) }}" />
-                                        @else
-                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload" />
-                                        @endif
-                                    @else
-                                        <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload"/>
-                                    @endif
-                                    
-                                </div>
-                            </div>
-                            <!-- Add Arrows -->
-                            <div class="swiper-button-next swiper-button-white"></div>
-                            <div class="swiper-button-prev swiper-button-white"></div>
-                        </div> --}}
-
-                        {{-- <div class="swiper-container gallery-thumbs">
-                            <div class="swiper-wrapper">
-                                @foreach (json_decode($detailedProduct->photos) as $key => $photo)
-                                    <a href="{{ asset($photo) }}">
-                                        @if (!empty($photo))
-                                            @if (file_exists($photo))
-                                                <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" width="80" data-src="{{ asset($photo) }}"  @if($key == 0) xpreview="{{ asset($photo) }}" @endif>
-                                            @else
-                                                <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" width="80" @if($key == 0) xpreview="{{ asset('frontend/images/placeholder.jpg') }}" @endif>
-                                            @endif
-                                        @else
-                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" width="80" @if($key == 0) xpreview="{{ asset('frontend/images/placeholder.jpg') }}" @endif>
-                                        @endif
-                                        
-                                    </a>
-                                @endforeach
-
-                            </div>
-                        </div> --}}
-
                         <div class="swiper-container gallery-top">
                             <div class="swiper-wrapper">
                                 @foreach (json_decode($detailedProduct->photos) as $key => $photo)
