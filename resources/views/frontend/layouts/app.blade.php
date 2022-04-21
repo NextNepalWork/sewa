@@ -171,6 +171,12 @@
 </noscript> --}}
 <!-- End Facebook Pixel Code -->
  {{-- @endif  --}}
+ 
+<style>
+    .multi-level{
+        min-height: 100vh!important;
+    }
+</style>
 <style>
     section#category_section{
         margin-bottom: 0!important;
@@ -429,6 +435,11 @@
     @endforeach
     <script>
         $(document).ready(function() {
+            $('.view-seller-policy').on('click',function(){
+                $('#exampleModal222').modal('show');
+            });
+            $('.multi-level').css('min-height','100vh!important');
+
             $('.category-nav-element').each(function(i, el) {
                 $(el).on('mouseover', function() {
                     if (!$(el).find('.sub-cat-menu').hasClass('loaded')) {

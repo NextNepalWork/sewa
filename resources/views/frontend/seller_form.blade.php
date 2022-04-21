@@ -152,14 +152,19 @@
                                                     <option value="" selected disabled>No Location Available</option>
                                                 </select>
                                             @endif
+                                            <div class="mt-2">
+                                                
+                                            <input type="checkbox" class="" placeholder="{{__('Pan')}}" name="read" required>
+
+                                            <label>{{__('I have read and agreed to the ')}} <a href="javascript:void(0);" class="view-seller-policy" data-bs-toggle="modal" data-bs-target="#exampleModal222">seller policy</a> <span class="required-star">*</span></label>
+
                                             
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-2">
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="checkbox" class="" placeholder="{{__('Pan')}}" name="read" required>
-                                                <label>{{__('I have read and agreed to the seller policy.')}} <span class="required-star">*</span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -175,6 +180,24 @@
             </div>
         </div>
     </section>
+    <div class="modal fade" id="exampleModal222" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Seller Policy</h5>
+              {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
+            </div>
+            <div class="modal-body">
+                @php
+                    echo \App\Policy::where('name', 'seller_policy')->first()->content;
+                @endphp
+            </div>
+            {{-- <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div> --}}
+          </div>
+        </div>
+    </div>
 
 @endsection
 @section('script')
