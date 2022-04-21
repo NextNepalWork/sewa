@@ -31,7 +31,7 @@ class ShopController extends Controller
             //     array_push($data,$z);
             // }
             
-            return new ProductCollection($recommended->paginate(10));
+            return new ProductCollection($recommended);
             // return response()->json([
             //     'success' => true,
             //     'message' => 'Locations Retrieve Successfully',
