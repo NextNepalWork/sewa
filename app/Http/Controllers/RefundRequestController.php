@@ -82,6 +82,7 @@ class RefundRequestController extends Controller
     {
         $refund=RefundRequest::findOrFail($id);
         $refund->admin_comment=$request->admin_comment;
+        $refund->send_seller=1;
         if ($refund->save()) {
             flash("Admin Comment has been added successfully")->success();
             return redirect()->route('refund_requests_all');

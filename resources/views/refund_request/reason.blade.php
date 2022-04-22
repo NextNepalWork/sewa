@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="form-box mt-4 text-right" style="margin-top:10px">
-                    <button type="submit" class="btn btn-primary">{{ __('Add Comment') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Send To Seller') }}</button>
                 </div>
             </form>
         </div>
