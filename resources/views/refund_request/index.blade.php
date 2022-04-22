@@ -83,6 +83,7 @@
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a onclick="refund_request_money('{{ $refund->id }}')">{{__('Refund Now')}}</a></li>
                                     <li><a href="{{ route('reason_show', $refund->id) }}" target="_blank">{{__('View Reason')}}</a></li>
+                                    {{-- <li><a href="{{ route('reason_show', $refund->id) }}">{{__('Send to Seller')}}</a></li> --}}
                                 </ul>
                             </div>
                         </td>
