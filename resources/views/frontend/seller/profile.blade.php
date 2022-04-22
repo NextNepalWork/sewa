@@ -97,8 +97,31 @@
                                 <div class="form-box-content p-3">
                                     <div class="row gutters-10">
                                         @foreach (Auth::user()->addresses as $key => $address)
+                                        @php
+                                            $delivery_location = 'empty';
+                                            if($address->delivery_location){
+                                                $delivery_location1  = \App\Location::where('id', $address->delivery_location)->first();
+                                                $delivery_location = $delivery_location1->name;
+                                                $delivery_disctrict = $delivery_location1->district;
+                                                $district  = \App\State::where('id', $delivery_disctrict)->first();
+                                            }
+                                        @endphp
                                             <div class="col-lg-6">
                                                 <div class="border p-3 pr-5 rounded mb-3 position-relative">
+                                                    <div>
+                                                        <span class="alpha-6">Delivery Location:</span>
+                                                        <span class="strong-600 ml-2">{{ isset($address)?$delivery_location:'' }}</span>
+                                                    </div>
+                                                    <div>                                                       
+                                                        <span class="alpha-6">Country:</span>
+                                                        <span class="strong-600 ml-2">{{ isset($address)?$address->country:'' }}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span class="alpha-6">District:</span>
+                                                        <span class="strong-600 ml-2">                                                       
+                                                            {{ isset($district)?$district->name:'' }}
+                                                        </span>
+                                                    </div>
                                                     <div>
                                                         <span class="alpha-6">Address:</span>
                                                         <span class="strong-600 ml-2">{{ $address->address }}</span>
@@ -110,10 +133,6 @@
                                                     <div>
                                                         <span class="alpha-6">City:</span>
                                                         <span class="strong-600 ml-2">{{ $address->city }}</span>
-                                                    </div>
-                                                    <div>
-                                                        <span class="alpha-6">Country:</span>
-                                                        <span class="strong-600 ml-2">{{ $address->country }}</span>
                                                     </div>
                                                     <div>
                                                         <span class="alpha-6">Phone:</span>
