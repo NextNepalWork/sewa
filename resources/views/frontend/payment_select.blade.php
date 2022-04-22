@@ -216,16 +216,15 @@
                         </div>
                        @endif
                        @endif
-                       <div class="col-xl-6 col-md-6 m-auto">
-                           <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="Cash on Delivery">
+                       {{-- <div class="col-xl-6 col-md-6 m-auto">
+                           <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="NIC">
                                <label id="file-input">
-                               <img class="img_select img-fluid" src="{{ asset('frontend/images/icons/cards/cod.png')}}" 
-                                   >
+                               <img class="img_select img-fluid" src="{{ asset('uploads/nic.jpg')}}" >
                                </label>
-                               <input type="radio" id="file-input" name="payment_option" value="cash_on_delivery" checked>
+                               <input type="radio" id="file-input" name="payment_option" value="nic" checked>
 
                            </div>
-                       </div>
+                       </div> --}}
                        {{-- @if(\App\BusinessSetting::where('type', 'esewa')->first()->value == 1)
                        <div class="col-xl-6 col-md-6 m-auto">
                           <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="E-sewa">
@@ -243,7 +242,7 @@
                     <div class="button_block d-flex justify-content-between align-items-center">
                        <a href=""> <span><i class="fa fa-reply-all"></i></span> Return to shop</a>
                        <!-- <a href="" class="btn_custom">Continue to Shipping</a> -->
-                     <button type="submit" class="btn_custom"> Complete Order</button>
+                     <button type="button" onclick="submitOrder(this)" class="btn_custom"> Complete Order</button>
                     </div>
                  </div>
                 </form>
@@ -259,14 +258,14 @@
 @endsection
 
 @section('script')
-    {{-- <script type="text/javascript">
-        function use_wallet(){
-            $('input[name=payment_option]').val('wallet');
-            $('#checkout-form').submit();
-        }
+    <script type="text/javascript">
+        // function use_wallet(){
+        //     $('input[name=payment_option]').val('wallet');
+        //     $('#checkout-form').submit();
+        // }
         function submitOrder(el){
             $(el).prop('disabled', true);
             $('#checkout-form').submit();
         }
-    </script> --}}
+    </script>
 @endsection
