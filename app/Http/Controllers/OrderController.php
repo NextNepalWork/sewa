@@ -376,15 +376,15 @@ class OrderController extends Controller
 
             set_time_limit(1500);
             //stores the pdf for invoice
-            $pdf = PDF::setOptions([
-                'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
-                'logOutputFile' => storage_path('logs/log.htm'),
-                'tempDir' => storage_path('logs/'),
-            ])->loadView('invoices.customer_invoice', compact('order'));
-            $output = $pdf->output();
-            file_put_contents(public_path('/invoices/Order#' . $order->code . '.pdf'), $output);
+            // $pdf = PDF::setOptions([
+            //     'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
+            //     'logOutputFile' => storage_path('logs/log.htm'),
+            //     'tempDir' => storage_path('logs/'),
+            // ])->loadView('invoices.customer_invoice', compact('order'));
+            // $output = $pdf->output();
+            // file_put_contents(public_path('/invoices/Order#' . $order->code . '.pdf'), $output);
 
-            $pdf->download('Order-'.$order->code.'.pdf');
+            // $pdf->download('Order-'.$order->code.'.pdf');
             // $data['view'] = 'emails.invoice';
             // $data['subject'] = 'Order Placed - ' . $order->code;
             // $data['from'] = 'Sewa Digital Express';

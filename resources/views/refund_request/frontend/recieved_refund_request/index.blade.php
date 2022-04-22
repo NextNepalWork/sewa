@@ -53,6 +53,8 @@
                                     <tbody>
                                         @if(count($refunds) > 0)
                                             @foreach ($refunds as $key => $refund)
+                                                @if($refund->admin_approval==1)
+
                                                 <tr>
                                                     <td>{{ $key+1 }}</td>
                                                     <td>{{ date('d-m-Y', strtotime($refund->created_at)) }}</td>
@@ -95,6 +97,7 @@
                                                         @endif
                                                     </td>
                                                 </tr>
+                                                @endif
                                             @endforeach
                                         @else
                                             <tr>
