@@ -93,15 +93,18 @@
                                                         if ($address->delivery_location != null) {
                                                             $delivery_location=\App\Location::where('id',$address->delivery_location)->count();
                                                             if($delivery_location > 0){
-                                                                $delivery_location=\App\Location::where('id',$address->delivery_location)->get()->toArray();
+                                                                $delivery_location=\App\Location::where('id',$address->delivery_location)->first()->toArray();
                                                             }else{
                                                                 $delivery_location=[];
                                                             }
                                                         }
+                                                        // dd($delivery_location);
                                                     @endphp
 
                                                     @if ($address->delivery_location != null)
-                                                        <span class="right_bold">{{(isset($delivery_location) && !empty($delivery_location))?$delivery_location['name']:''}}</span>
+                                                        <span class="right_bold">
+                                                            {{(isset($delivery_location) && !empty($delivery_location))?$delivery_location['name']:''}}
+                                                        </span>
                                                     @endif 
                                                 </span>
                                                 <span class="plan-type d-block">
