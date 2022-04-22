@@ -254,14 +254,6 @@
                         <div class="p-3">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label>{{__('Address')}}</label>
-                                </div>
-                                <div class="col-md-10">
-                                    <textarea class="form-control textarea-autogrow mb-3" placeholder="{{__('Your Address')}}" rows="1" name="address" required></textarea>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2">
                                     <label>{{__('Country')}}</label>
                                 </div>
                                 <div class="col-md-10">
@@ -272,6 +264,44 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>{{__('District')}}</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="mb-3">
+                                        <select class="form-control mb-3 selectpicker address-district" data-placeholder="{{__('Select your district')}}" name="district.
+                                        " required>
+                                        <option selected>Choose a District</option>
+                                            @foreach (\App\State::where('country_id','154')->get() as $key => $country)
+                                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>{{__('Location')}}</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="mb-3">
+                                        <select class="form-control mb-3 selectpicker address-location" data-placeholder="{{__('Select your country')}}" name="delivery_location" required>
+                                            {{-- @foreach (\App\Location::get() as $key => $country)
+                                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                            @endforeach --}}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>{{__('Address')}}</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <textarea class="form-control textarea-autogrow mb-3" placeholder="{{__('Your Address')}}" rows="1" name="address" required></textarea>
                                 </div>
                             </div>
                             <div class="row">
