@@ -77,6 +77,20 @@ class RefundRequestController extends Controller
         return view('refund_request.config');
     }
 
+
+    public function admin_comment(Request $request, $id)
+    {
+        $refund=RefundRequest::findOrFail($id);
+        $refund->admin_comment=$request->admin_comment;
+        if ($refund->save()) {
+            flash("Admin Comment has been added successfully")->success();
+            return redirect()->route('refund_requests_all');
+        }
+        else {
+            flash("Something went wrong")->error();
+            return back();
+        }
+    }
     /**
      * Update the specified resource in storage.
      *
