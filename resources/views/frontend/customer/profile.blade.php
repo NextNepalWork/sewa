@@ -136,34 +136,33 @@
                                                 @endphp
                                                 <div class='mb-2'>
                                                     <span class="alpha-6">Delivery Location:</span>
-                                                    <span class="strong-600 ml-2">{{ $delivery_location }}</span>
+                                                    <span class="strong-600 ml-2">{{ isset($address)?$delivery_location:'' }}</span>
                                                 </div>
                                                 <div class='mb-2'>
                                                     <span class="alpha-6">Country:</span>
-                                                    <span class="strong-600 ml-2">{{ $address->country }}</span>
+                                                    <span class="strong-600 ml-2">{{ isset($address)?$address->country:'' }}</span>
                                                 </div>
                                                 <div class='mb-2'>
                                                     <span class="alpha-6">District:</span>
-                                                    <span class="strong-600 ml-2">
-                                                       
-                                                        {{ $district->name }}
+                                                    <span class="strong-600 ml-2">                                                       
+                                                        {{ isset($district)?$district->name:'' }}
                                                     </span>
                                                 </div>
                                                 <div class='mb-2'>
                                                     <span class="alpha-6">Address:</span>
-                                                    <span class="strong-600 ml-2">{{ $address->address }}</span>
+                                                    <span class="strong-600 ml-2">{{ isset($address)?$address->address:'' }}</span>
                                                 </div>
                                                 <div class='mb-2'>
                                                     <span class="alpha-6">Postal Code:</span>
-                                                    <span class="strong-600 ml-2">{{ $address->postal_code }}</span>
+                                                    <span class="strong-600 ml-2">{{ isset($address)?$address->postal_code:''  }}</span>
                                                 </div>
                                                 <div class='mb-2'>
                                                     <span class="alpha-6">City:</span>
-                                                    <span class="strong-600 ml-2">{{ $address->city }}</span>
+                                                    <span class="strong-600 ml-2">{{ isset($address)?$address->city:''  }}</span>
                                                 </div>
                                                 <div class='mb-2'>
                                                     <span class="alpha-6">Phone:</span>
-                                                    <span class="strong-600 ml-2">{{ $address->phone }}</span>
+                                                    <span class="strong-600 ml-2">{{ isset($address)?$address->phone:''  }}</span>
                                                 </div>
                                                 @if ($address->set_default)
                                                     <div class="position-absolute right-0 bottom-0 pr-2 pb-3">

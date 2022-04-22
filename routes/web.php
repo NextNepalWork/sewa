@@ -101,6 +101,8 @@ Route::group(['middleware' => ['checkout']], function(){
 	Route::post('/checkout/payment_select', 'CheckoutController@store_delivery_info')->name('checkout.store_delivery_info');
 });
 
+Route::get('/nic-pay', 'CheckoutController@test')->name('order_confirmed');
+
 Route::get('/checkout/order-confirmed', 'CheckoutController@order_confirmed')->name('order_confirmed');
 Route::post('/checkout/payment', 'CheckoutController@checkout')->name('payment.checkout');
 Route::post('/get_pick_ip_points', 'HomeController@get_pick_ip_points')->name('shipping_info.get_pick_ip_points');

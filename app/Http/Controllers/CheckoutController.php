@@ -29,7 +29,14 @@ class CheckoutController extends Controller
     {
         //
     }
-
+    public function test(){
+        $order_id = Session::get('order_id');
+    
+        $ordercode = Order::where('id', $order_id)->first();
+        
+     
+        return view('frontend.payment.esewa',compact('ordercode'));
+    }
     //check the selected payment gateway and redirect to that controller accordingly
     public function checkout(Request $request)
     {
@@ -61,6 +68,10 @@ class CheckoutController extends Controller
                     $user->balance -= Order::findOrFail($request->session()->get('order_id'))->grand_total;
                     $user->save();
                     return $this->checkout_done($request->session()->get('order_id'), null);
+                }
+                elseif($request->payment_option == 'nic'){
+                    $esewa = new NicController;
+                    return $esewa->esewa();
                 }
                 else{
                     $order = Order::findOrFail($request->session()->get('order_id'));
@@ -264,9 +275,10 @@ class CheckoutController extends Controller
 
     public function store_delivery_info(Request $request)
     {
-        // dd(Session::has('cart'))
         if(Session::has('cart') && count(Session::get('cart')) > 0){
-            $cart = $request->session()->get('cart', collect([]));
+            // $cart = $request->session()->get('cart', collect([]));
+            $cart =collect(Session::get('cart'));
+            // dd($cart);
             $cart = $cart->map(function ($object, $key) use ($request) {
                 if(\App\Product::find($object['id'])->added_by == 'admin'){
                     if($request['shipping_type_admin'] == 'home_delivery'){
