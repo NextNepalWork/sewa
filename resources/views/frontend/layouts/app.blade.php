@@ -85,6 +85,10 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/countdown/css/flipclock.css') }}" />
     <!-- Countdown end -->
 
+    <link rel="stylesheet" href="{{ asset('frontend/assets/swiper/drift-basic.css') }}" />
+    <link rel="stylesheet" href="{{ asset('frontend/assets/swiper/swiper.min.css') }}" />
+
+
     {{-- <link rel="stylesheet" href="https://k1ngzed.com/dist/swiper/swiper.min.css" />
     <link rel="stylesheet" href="https://k1ngzed.com/dist/EasyZoom/easyzoom.css" /> --}}
 
@@ -262,6 +266,69 @@
 .slider_feature .product-grid-item{
     margin: 2px;
 }
+
+/* Swiper Slider */
+.zoom {
+    width: 100%;
+    height: 39%;
+    left: 100%;
+    top: 15px;
+    position: absolute;
+    z-index: 1;
+}
+
+
+.img-responsive {
+    max-width: 100;
+    height: auto;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.swiper-slide {
+    background-size: cover;
+    background-position: center;
+}
+
+.gallery-top {
+    height: 80%;
+    width: 100%;
+}
+
+.gallery-thumbs {
+    height: 20%;
+    box-sizing: border-box;
+    padding: 10px 0;
+}
+
+.gallery-thumbs .swiper-slide {
+    width: 25%;
+    height: 100%;
+    opacity: 0.4;
+}
+
+.gallery-thumbs .swiper-slide-thumb-active {
+    opacity: 1;
+}
+
+/* Swiper Slider Ends */
+
+.product-carousel .swiper-button-next.swiper-button-white,
+.product-carousel .swiper-button-prev.swiper-button-white {
+    color: white;
+    background-color: var(--theme_color);
+}
+.xzoom-preview{
+    z-index: 99999;
+}
+.xzoom-source{
+    z-index: 99999;
+}
 </style>
 </head>
 @php
@@ -380,8 +447,20 @@
     <!-- Magnific Popup Ends-->
     <!-- Countdown start -->
     <script src="{{ asset('frontend/assets/countdown/js/flipclock.js') }}"></script>
+
     <!-- Custom Js Starts -->
+
+    
+    <script src="{{ asset('frontend/assets/swiper/drift.min.js') }}"></script>
+
+    <script src="{{ asset('frontend/assets/swiper/swiper.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+
+
+    <script src="{{ asset('frontend/assets/js/secondary.js') }}"></script>
+
+
+
     {{-- <script src="https://k1ngzed.com/dist/swiper/swiper.min.js"></script>
     <script src="https://k1ngzed.com/dist/EasyZoom/easyzoom.js"></script> --}}
 
@@ -445,6 +524,37 @@
     </script>
     @endforeach
     <script>
+        $(document).ready(function () {
+            // product Gallery and Zoom
+            // activation carousel plugin
+            var galleryThumbs = new Swiper(".gallery-thumbs", {
+                spaceBetween: 10,
+                slidesPerView: 4,
+                freeMode: true,
+                watchSlidesVisibility: true,
+                watchSlidesProgress: true,
+            });
+            var galleryTop = new Swiper(".gallery-top", {
+                spaceBetween: 10,
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                thumbs: {
+                    swiper: galleryThumbs,
+                },
+            });
+
+            var paneContainer = document.querySelector(".zoom");
+
+            $(".swiper-slide").each(function () {
+                new Drift($(this).find("img")[0], {
+                    paneContainer: paneContainer,
+                    inlinePane: false,
+                });
+            });
+        });
+
         $(document).ready(function() {
             $('.view-seller-policy').on('click',function(){
                 $('#exampleModal222').modal('show');

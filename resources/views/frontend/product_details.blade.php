@@ -89,47 +89,56 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 col-md-12 col-12">
-                    <div class="product-carousel mt-0">
+                    <div class="product-carousel">
                         @if(is_array(json_decode($detailedProduct->photos)) && count(json_decode($detailedProduct->photos)) > 0)
                         <!-- Swiper and EasyZoom plugins start -->
-                        <div class="swiper-container gallery-top" >
+                        <div class="swiper-container gallery-top">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide easyzoom easyzoom--overlay " style="z-index: 1;">
-                                    @if (!empty(json_decode($detailedProduct->photos)[0]))
-                                        @if (file_exists(json_decode($detailedProduct->photos)[0]))
-                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($detailedProduct->photos)[0]) }}" xoriginal="{{ asset(json_decode($detailedProduct->photos)[0]) }}" />
+                                @foreach (json_decode($detailedProduct->photos) as $key => $photo)
+
+                                <div class="swiper-slide">
+                                    @if (!empty($photo))
+                                        @if (file_exists($photo))
+                                            <img src="{{ asset($photo) }}"
+                                            data-zoom="{{ asset($photo) }}" class="img-responsive asdf">
                                         @else
-                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload" />
+                                            <img src="{{asset('frontend/images/placeholder.jpg')}}"
+                                            data-zoom="{{asset('frontend/images/placeholder.jpg')}}" class="img-responsive asdf">
                                         @endif
                                     @else
-                                        <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload"/>
+                                        <img src="{{asset('frontend/images/placeholder.jpg')}}"
+                                        data-zoom="{{asset('frontend/images/placeholder.jpg')}}" class="img-responsive asdf">
                                     @endif
-                                    
                                 </div>
+                                @endforeach
                             </div>
                             <!-- Add Arrows -->
-                            {{-- <div class="swiper-button-next swiper-button-white" style="background:none;"></div>
-                            <div class="swiper-button-prev swiper-button-white" style="background:none;"></div> --}}
+                            <div class="swiper-button-next swiper-button-white"></div>
+                            <div class="swiper-button-prev swiper-button-white"></div>
                         </div>
 
                         <div class="swiper-container gallery-thumbs">
-                            <div class="swiper-wrapper d-flex">
+                            <div class="swiper-wrapper">
                                 @foreach (json_decode($detailedProduct->photos) as $key => $photo)
-                                    <a href="{{ asset($photo) }}">
-                                        @if (!empty($photo))
-                                            @if (file_exists($photo))
-                                                <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" width="80" data-src="{{ asset($photo) }}"  @if($key == 0) xpreview="{{ asset($photo) }}" @endif>
-                                            @else
-                                                <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" width="80" @if($key == 0) xpreview="{{ asset('frontend/images/placeholder.jpg') }}" @endif>
-                                            @endif
+                                    @if (!empty($photo))
+                                        @if (file_exists($photo))
+                                            <div class="swiper-slide"
+                                            style="background-image:url('{{ asset($photo) }}')">
+                                        </div>
                                         @else
-                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" width="80" @if($key == 0) xpreview="{{ asset('frontend/images/placeholder.jpg') }}" @endif>
+                                        <div class="swiper-slide"
+                                        style="background-image:url('{{ asset("frontend/images/placeholder.jpg") }}')">
                                         @endif
-                                        
-                                    </a>
+                                    
+                                    @else
+                                    <div class="swiper-slide"
+                                    style="background-image:url('{{ asset("frontend/images/placeholder.jpg") }}')">
+                                    @endif
                                 @endforeach
-
                             </div>
+                        </div>
+
+                        <div class="zoom">
                         </div>
                         <!-- Swiper and EasyZoom plugins end -->
                         @endif
@@ -1026,5 +1035,8 @@
             @endif
         }
 
+
     </script>
+
+    
 @endsection

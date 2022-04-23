@@ -619,11 +619,6 @@ h6.gray {
     display: none !important;
 } */
 
-.product-carousel .swiper-button-next.swiper-button-white,
-.product-carousel .swiper-button-prev.swiper-button-white {
-    color: var(--theme_color);
-}
-
 .product-carousel .gallery-thumbs .swiper-slide {
     position: relative;
     transition: border 0.15s linear;

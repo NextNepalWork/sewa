@@ -20,7 +20,7 @@
                             <div class="row align-items-center">
                                 <div class="col-md-6 col-12 d-flex align-items-center">
                                     <h2 class="heading heading-6 text-capitalize strong-600 mb-0">
-                                        {{__('Refund Request Request')}}
+                                        {{__('Refund Request')}}
                                     </h2>
                                 </div>
                             </div>
@@ -43,6 +43,21 @@
                                 </div>
                             </div>
                         </form>
+                        <div class="form-box bg-white mt-4">
+                            <div class="form-box-title px-3 py-2">
+                                {{__('Admin Comment')}}
+                            </div>
+                            <div class="form-box-content p-3">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label>{{__('Comment')}} <span class="required-star">*</span></label>
+                                    </div>
+                                    <div class="col-md-10">
+                                        {{ $refund->admin_comment }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

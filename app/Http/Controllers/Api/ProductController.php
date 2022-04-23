@@ -27,13 +27,15 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        // if(Auth::check()){
-        //     if(Recommend::where('product_id',$id)->where('user_id',Auth::user()->id)->count() == 0)
-        //     Recommend::create([
-        //         'product_id' => $id,
-        //         'user_id' => Auth::user()->id
-        //     ]);
-        // }
+        
+        if(Auth::check()){
+            return 'hello';
+            if(Recommend::where('product_id',$id)->where('user_id',Auth::user()->id)->count() == 0)
+            Recommend::create([
+                'product_id' => $id,
+                'user_id' => Auth::user()->id
+            ]);
+        }
         return new ProductDetailCollection(Product::where('id', $id)->get());
     }
 
