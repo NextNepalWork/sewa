@@ -231,9 +231,10 @@ class PageController extends Controller
     {
         if(Page::destroy($id)){
             flash('Page has been deleted successfully')->success();
-            return redirect()->back();
+            return redirect()->route('pages.index');
         }
-        return back();
+        flash('Something went wrong')->error();
+        return redirect()->route('pages.index');
     }
 
     public function show_custom_page($slug){

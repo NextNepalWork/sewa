@@ -181,7 +181,9 @@
         margin-bottom: 0!important;
     }
     section#productlist .grid-item {
-        margin: 0!important;
+        margin: 3px!important;
+    /* box-shadow: 0 0 2px 0 rgb(1 1 1 / 30%); */
+        /* border: 0.5px solid rgb(1 1 1 / 8%); */
     }
     section#productlist .product-grid-item .product-grid-image img {
         width: 100%!important;
@@ -249,6 +251,16 @@
 .cus-price{
     color: #f78035!important;
     font-size: 20px!important;
+}
+#search-content .title{
+    width: 100%;
+    text-align: center;
+}
+#search-content li{
+    text-align: center;
+}
+.slider_feature .product-grid-item{
+    margin: 2px;
 }
 </style>
 </head>

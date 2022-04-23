@@ -505,14 +505,14 @@ $time = date('Y-m-d H:i:s',$flash_deal->end_date);
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="cart-compare">
+                        <div class="cart-compare">
                             <a class="all-deals effect gray" onclick="addToWishList({{ $product->id }})">
                                 <i class="fa fa-heart icon mr-2"></i>Wishlist
                             </a>
                             <a class="all-deals effect gray" onclick="addToCompare({{ $product->id }})">
                                 <i class="fa fa-exchange icon mr-2"></i>Compare
                             </a>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
                 @endforeach
@@ -641,13 +641,13 @@ $time = date('Y-m-d H:i:s',$flash_deal->end_date);
                                         </div>
                                     </div>
 
-                                    {{-- <div class="cart-compare">
+                                    <div class="cart-compare">
                                         <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToWishList({{$product->id}})"><i class="fa fa-heart icon mr-2"></i>Wishlist
                                         </a>
                                         <a class="all-deals effect gray" onclick="addToCompare({{$product->id}})">
                                             <i class="fa fa-exchange icon mr-2"></i>Compare
                                         </a>
-                                    </div> --}}
+                                    </div>
                                 </div>
                             </div>
                             @endforeach
@@ -812,13 +812,13 @@ $time = date('Y-m-d H:i:s',$flash_deal->end_date);
                             </div>
                         </div>
 
-                        {{-- <div class="cart-compare">
+                        <div class="cart-compare">
                             <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToWishList({{$product->id}})"><i class="fa fa-heart icon mr-2"></i>Wishlist
                             </a>
                             <a class="all-deals effect gray" onclick="addToCompare({{$product->id}})">
                                 <i class="fa fa-exchange icon mr-2"></i>Compare
-                            </a> --}}
-                        {{-- </div> --}}
+                            </a> 
+                        </div>
                     </div>
                 </div>
                 @endforeach
@@ -947,13 +947,13 @@ $time = date('Y-m-d H:i:s',$flash_deal->end_date);
                             </div>
                         </div>
 
-                        {{-- <div class="cart-compare">
+                        <div class="cart-compare">
                             <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToWishList({{$product->id}})"><i class="fa fa-heart icon mr-2"></i>Wishlist
                             </a>
                             <a class="all-deals effect gray" onclick="addToCompare({{$product->id}})">
                                 <i class="fa fa-exchange icon mr-2"></i>Compare
                             </a>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
                 @endif
@@ -1092,7 +1092,7 @@ $time = date('Y-m-d H:i:s',$flash_deal->end_date);
 
                     <div class="slider_feature">
                         @foreach (filter_products(\App\Product::where('published', 1)->where('category_id', $homeCategory->category->id))->latest()->get() as $key => $product)
-                        <div class="grid-item mb-4">
+                        <div class="grid-item">
                             <div class="product-grid-item mb-3">
 
                                 <div class="product-grid-image">
@@ -1179,13 +1179,13 @@ $time = date('Y-m-d H:i:s',$flash_deal->end_date);
                         </div>
                     </div>
 
-                    {{-- <div class="cart-compare">
+                    <div class="cart-compare">
                         <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToWishList({{$product->id}})"><i class="fa fa-heart icon mr-2"></i>Wishlist
                         </a>
                         <a class="all-deals effect gray" onclick="addToCompare({{$product->id}})">
                             <i class="fa fa-exchange icon mr-2"></i>Compare
                         </a>
-                    </div> --}}
+                    </div>
                 </div>
 
                 @endforeach

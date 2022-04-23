@@ -30,12 +30,12 @@ class CheckoutController extends Controller
         //
     }
     public function test(){
-        $order_id = Session::get('order_id');
-    
+        $order_id = Session::get('order_id');    
         $ordercode = Order::where('id', $order_id)->first();
-        
-     
         return view('frontend.payment.esewa',compact('ordercode'));
+    }
+    public function nicCallback(Request $request){
+        dd($request->all());
     }
     //check the selected payment gateway and redirect to that controller accordingly
     public function checkout(Request $request)

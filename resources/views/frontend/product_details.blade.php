@@ -393,30 +393,66 @@
                         role="tab" aria-controls="first" aria-selected="true"
                         style="color: rgb(72, 77, 103);">Product Details</a>
                         
-                        <a class="nav-item nav-link" id="second-tab" data-toggle="tab" href="#second" role="tab"
-                        aria-controls="second" aria-selected="false"
-                        style="color: rgb(72, 77, 103);">Reviews <span>({{count($detailedProduct->reviews)}})</span>
-                        </a>
-                        @if($detailedProduct->video_link != null)
-                        
-                        <a class="nav-item nav-link" id="third-tab" data-toggle="tab" href="#third" role="tab" aria-controls="third" aria-selected="false"
-                        style="color: rgb(72, 77, 103);">Video</a>
-                        
-                        @endif
-                        @if($detailedProduct->pdf != null)
-                        <a class="nav-item nav-link" id="fourth-tab" data-toggle="tab" href="#fourth" role="tab" aria-controls="fourth" aria-selected="false"
-                        style="color: rgb(72, 77, 103);">Downloads</a>
-                        @endif
-                        
                         @if($detailedProduct->specs != null)
                         <a class="nav-item nav-link" id="fifth-tab" data-toggle="tab" href="#fifth" role="tab" aria-controls="fourth" aria-selected="false"
                         style="color: rgb(72, 77, 103);">Specification</a>
                         @endif
+
+                        
+                        @if($detailedProduct->pdf != null)
+                        <a class="nav-item nav-link" id="fourth-tab" data-toggle="tab" href="#fourth" role="tab" aria-controls="fourth" aria-selected="false"
+                        style="color: rgb(72, 77, 103);">Downloads</a>
+                        @endif
+
+                        @if($detailedProduct->video_link != null)
+                        
+                        <a class="nav-item nav-link" id="third-tab" data-toggle="tab" href="#third" role="tab" aria-controls="third" aria-selected="false"
+                        style="color: rgb(72, 77, 103);">Video</a>
+
+                        @endif
+
+                        <a class="nav-item nav-link" id="second-tab" data-toggle="tab" href="#second" role="tab"
+                        aria-controls="second" aria-selected="false"
+                        style="color: rgb(72, 77, 103);">Reviews <span>({{count($detailedProduct->reviews)}})</span>
+                        </a>
+                        
+                       
+                        
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade p-3 w-75 active show" id="first" role="tabpanel"
                         aria-labelledby="first-tab">{!! $detailedProduct->description !!}
+                    </div>
+                    
+                    <div class="tab-pane fade p-3 w-75" id="fifth" role="tabpanel"
+                        aria-labelledby="fifth-tab">{!! $detailedProduct->specs !!}
+                    </div>
+                    
+                    <div class="tab-pane fade p-3" id="fourth" role="tabpanel" aria-labelledby="fourth-tab">
+                        <div class="py-2 px-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a class="btn btn-success" href="{{ asset($detailedProduct->pdf) }}"><i class="fa fa-download"></i> {{ __('Download PDF') }}</a>
+                                </div>
+                            </div>
+                            <span class="space-md-md"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane fade p-3" id="third" role="tabpanel" aria-labelledby="third-tab">
+                        <div class="fluid-paragraph py-2">
+                            <!-- 16:9 aspect ratio -->
+                            <div class="embed-responsive embed-responsive-16by9 mb-5">
+                                @if ($detailedProduct->video_provider == 'youtube' && $detailedProduct->video_link != null)
+                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ explode('=', $detailedProduct->video_link)[1] }}"></iframe>
+                                @elseif ($detailedProduct->video_provider == 'dailymotion' && $detailedProduct->video_link != null)
+                                    <iframe class="embed-responsive-item" src="https://www.dailymotion.com/embed/video/{{ explode('video/', $detailedProduct->video_link)[1] }}"></iframe>
+                                @elseif ($detailedProduct->video_provider == 'vimeo' && $detailedProduct->video_link != null)
+                                    <iframe src="https://player.vimeo.com/video/{{ explode('vimeo.com/', $detailedProduct->video_link)[1] }}" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane fade p-3" id="second" role="tabpanel" aria-labelledby="second-tab">
                         <div class="row align-items-center justify-content-center">
@@ -584,34 +620,7 @@
 
                         </div>
                     </div>
-                    <div class="tab-pane fade p-3" id="third" role="tabpanel" aria-labelledby="third-tab">
-                        <div class="fluid-paragraph py-2">
-                            <!-- 16:9 aspect ratio -->
-                            <div class="embed-responsive embed-responsive-16by9 mb-5">
-                                @if ($detailedProduct->video_provider == 'youtube' && $detailedProduct->video_link != null)
-                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ explode('=', $detailedProduct->video_link)[1] }}"></iframe>
-                                @elseif ($detailedProduct->video_provider == 'dailymotion' && $detailedProduct->video_link != null)
-                                    <iframe class="embed-responsive-item" src="https://www.dailymotion.com/embed/video/{{ explode('video/', $detailedProduct->video_link)[1] }}"></iframe>
-                                @elseif ($detailedProduct->video_provider == 'vimeo' && $detailedProduct->video_link != null)
-                                    <iframe src="https://player.vimeo.com/video/{{ explode('vimeo.com/', $detailedProduct->video_link)[1] }}" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade p-3" id="fourth" role="tabpanel" aria-labelledby="fourth-tab">
-                        <div class="py-2 px-4">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <a class="btn btn-success" href="{{ asset($detailedProduct->pdf) }}"><i class="fa fa-download"></i> {{ __('Download PDF') }}</a>
-                                </div>
-                            </div>
-                            <span class="space-md-md"></span>
-                        </div>
-                    </div>
                     
-                    <div class="tab-pane fade p-3 w-75" id="fifth" role="tabpanel"
-                        aria-labelledby="fifth-tab">{!! $detailedProduct->specs !!}
-                    </div>
                 </div>
             </div>
         </div>
