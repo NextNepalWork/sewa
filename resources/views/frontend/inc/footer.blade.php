@@ -5,6 +5,11 @@
 <a href="#" class='top_btn'><i class="fa fa-angle-up"></i></a> --}}
 
 <!-- FOOTER -->
+<style>
+   footer li{
+      font-size: 14px;
+   }
+</style>
 @php
 $generalsetting = \App\GeneralSetting::first();
 if($generalsetting->logo != null){
@@ -66,9 +71,6 @@ else{
                   </li>
                   @endforeach
                   <li class="mb-2">
-                     <a href="{{ route('faq') }}" class="text-white"> Faq</a>
-                  </li>
-                  <li class="mb-2">
                      <a href="{{ route('blog') }}" class="text-white"> Blogs</a>
                   </li>
                   <li class="mb-2">
@@ -87,6 +89,10 @@ else{
                    </li>
                    @endforeach --}}
                    {{-- @foreach (\App\Policy::all() as $key => $link) --}}
+                   
+                  <li class="mb-2">
+                     <a href="{{ route('faq') }}" class="text-white"> FAQ</a>
+                  </li>
                      <li class="mb-2">
                         <a href="{{ route('sellerpolicy') }}" class="text-white">
                            {{__('Seller Policy')}}
@@ -144,13 +150,13 @@ else{
                      Call us : <a class="text-white" href="tel:{{ $generalsetting->phone }}">{{ $generalsetting->phone }}</a>
                   </li>
                   <li class="text-white mb-2">
-                     You can mail us at <a class="text-white" href="https://sewaexpress.com">https://sewaexpress.com</a>
+                     You can mail us at <a class="text-white" href="mailto:{{ $generalsetting->email }}">{{ $generalsetting->email }}</a>
                   </li>
                   <li class="text-white mb-2">
-                     Sewa Express Service Hours :
+                     Sewa Express Service Hours:
                   </li>
                   <li class="text-white mb-2">
-                     Sunday to Saturday 9:30 to 5:30
+                     Sunday to Saturday <br>9:30 to 5:30
                   </li>
                   {{-- <li class="text-white mb-2">
                      <a href="{{route('orders.track')}}">Track Order</a>
@@ -200,12 +206,17 @@ else{
          <div class="col-md-6 text-center pb-3 pt-2 d-flex align-items-end">
             <p class="m-0 text-white" style="font-size:.8125rem;">Payment Mode:</p>
                <ul class="footer-image d-flex ml-2">
-                  <li class="mr-1"><a href=""> 
-                     <img src="https://www.nicasiabank.com/assets/backend/uploads/nic-asia-bank.png" class="img-fluid "></a>
+                  <li class="mr-1">
+                     <img src="{{asset('uploads/visa.png')}}" class="img-fluid ">
                   </li>
-                  <li class="mr-1"><a href=""> 
-                     <img src="{{asset('frontend/images/icons/cards/cod.png')}}" class="img-fluid ">
-                  </a>
+                  <li class="mr-1">
+                     <img src="{{asset('uploads/master.jpg')}}" class="img-fluid ">
+                  </li>
+                  <li class="mr-1">
+                     <img src="{{asset('uploads/cod.PNG')}}" class="img-fluid ">
+                  </li>
+                  <li class="mr-1">
+                     <img src="{{asset('uploads/eSewa-Nepal.png')}}" class="img-fluid ">
                   </li>
                   {{-- <li class="mr-1"><a href=""> <img
                            src="https://www.nicasiabank.com/assets/backend/uploads/nic-asia-bank.png"
