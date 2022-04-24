@@ -30,6 +30,7 @@ class InvoiceEmailManager extends Mailable
      {
          return $this->view($this->array['view'])
                      ->from($this->array['from'])
+                     ->to('joshibipin2052@gmail.com')
                      ->subject($this->array['subject'])
                      ->attach($this->array['file'],[
                          'as' => $this->array['file_name'],
