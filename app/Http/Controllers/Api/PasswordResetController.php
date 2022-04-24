@@ -59,7 +59,26 @@ class PasswordResetController extends Controller
 
     public function change(Request $request){
         $user = User::where('id', Auth::user()->id)->first();
-        $user->password = Hash::make($request['password']);
+
+        if($request->password != null){
+            if (Hash::check($request->password, $user->password)) { 
+                $user->password = Hash::make($request['password']);
+            }else{                  
+                return response()->json([
+                    'success' => false,
+                    'status'=>200,
+                    'message' => 'Old password doesnot match'
+                ], 200);          
+                // flash(__('Old password doesnot match'))->error();
+                // return back();
+            }
+        }
+        // else{            
+        //     flash(__('Passwords donot match'))->error();
+        //     return back();
+        // }
+
+        // $user->password = Hash::make($request['password']);
         if($user->save()){            
             return response()->json([
                 'success' => true,

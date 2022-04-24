@@ -74,6 +74,14 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2">
+                                            <label>{{__('Old Password')}}</label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="password" class="form-control mb-3" placeholder="{{__('Old Password')}}" name="old_password">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
                                             <label>{{__('Your Password')}}</label>
                                         </div>
                                         <div class="col-md-10">
@@ -96,74 +104,83 @@
                                 </div>
                                 <div class="form-box-content p-3">
                                     <div class="row gutters-10">
-                                        @foreach (Auth::user()->addresses as $key => $address)
                                         @php
-                                            $delivery_location = 'empty';
-                                            if($address->delivery_location){
-                                                $delivery_location1  = \App\Location::where('id', $address->delivery_location)->first();
-                                                $delivery_location = $delivery_location1->name;
-                                                $delivery_disctrict = $delivery_location1->district;
-                                                $district  = \App\State::where('id', $delivery_disctrict)->first();
-                                            }
+                                            $existing_addresses = \App\Address::where('user_id',Auth::user()->id)->count()
                                         @endphp
-                                            <div class="col-lg-6">
-                                                <div class="border p-3 pr-5 rounded mb-3 position-relative">
-                                                    <div>
-                                                        <span class="alpha-6">Delivery Location:</span>
-                                                        <span class="strong-600 ml-2">{{ isset($address)?$delivery_location:'' }}</span>
-                                                    </div>
-                                                    <div>                                                       
-                                                        <span class="alpha-6">Country:</span>
-                                                        <span class="strong-600 ml-2">{{ isset($address)?$address->country:'' }}</span>
-                                                    </div>
-                                                    <div>
-                                                        <span class="alpha-6">District:</span>
-                                                        <span class="strong-600 ml-2">                                                       
-                                                            {{ isset($district)?$district->name:'' }}
-                                                        </span>
-                                                    </div>
-                                                    <div>
-                                                        <span class="alpha-6">Address:</span>
-                                                        <span class="strong-600 ml-2">{{ $address->address }}</span>
-                                                    </div>
-                                                    <div>
-                                                        <span class="alpha-6">Postal Code:</span>
-                                                        <span class="strong-600 ml-2">{{ $address->postal_code }}</span>
-                                                    </div>
-                                                    <div>
-                                                        <span class="alpha-6">City:</span>
-                                                        <span class="strong-600 ml-2">{{ $address->city }}</span>
-                                                    </div>
-                                                    <div>
-                                                        <span class="alpha-6">Phone:</span>
-                                                        <span class="strong-600 ml-2">{{ $address->phone }}</span>
-                                                    </div>
-                                                    @if ($address->set_default)
-                                                        <div class="position-absolute right-0 bottom-0 pr-2 pb-3">
-                                                            <span class="badge badge-primary bg-base-1">Default</span>
+
+                                        @if($existing_addresses > 0)
+                                            @foreach (Auth::user()->addresses as $key => $address)
+                                                @php
+                                                    $delivery_location = 'empty';
+                                                    if($address->delivery_location){
+                                                        $delivery_location1  = \App\Location::where('id', $address->delivery_location)->first();
+                                                        $delivery_location = $delivery_location1->name;
+                                                        $delivery_disctrict = $delivery_location1->district;
+                                                        $district  = \App\State::where('id', $delivery_disctrict)->first();
+                                                    }
+                                                @endphp
+                                                <div class="col-lg-6">
+                                                    <div class="border p-3 pr-5 rounded mb-3 position-relative">
+                                                        <div>
+                                                            <span class="alpha-6">Delivery Location:</span>
+                                                            <span class="strong-600 ml-2">{{ isset($address)?$delivery_location:'' }}</span>
                                                         </div>
-                                                    @endif
-                                                    <div class="dropdown position-absolute right-0 top-0">
-                                                        <button class="btn bg-gray px-2" type="button" data-toggle="dropdown">
-                                                            <i class="la la-ellipsis-v"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                                            @if (!$address->set_default)
-                                                                <a class="dropdown-item" href="{{ route('addresses.set_default', $address->id) }}">Make This Default</a>
-                                                            @endif
-                                                            {{-- <a class="dropdown-item" href="">Edit</a> --}}
-                                                            <a class="dropdown-item" href="{{ route('addresses.destroy', $address->id) }}">Delete</a>
+                                                        <div>                                                       
+                                                            <span class="alpha-6">Country:</span>
+                                                            <span class="strong-600 ml-2">{{ isset($address)?$address->country:'' }}</span>
+                                                        </div>
+                                                        <div>
+                                                            <span class="alpha-6">District:</span>
+                                                            <span class="strong-600 ml-2">                                                       
+                                                                {{ isset($district)?$district->name:'' }}
+                                                            </span>
+                                                        </div>
+                                                        <div>
+                                                            <span class="alpha-6">Address:</span>
+                                                            <span class="strong-600 ml-2">{{ $address->address }}</span>
+                                                        </div>
+                                                        <div>
+                                                            <span class="alpha-6">Postal Code:</span>
+                                                            <span class="strong-600 ml-2">{{ $address->postal_code }}</span>
+                                                        </div>
+                                                        <div>
+                                                            <span class="alpha-6">City:</span>
+                                                            <span class="strong-600 ml-2">{{ $address->city }}</span>
+                                                        </div>
+                                                        <div>
+                                                            <span class="alpha-6">Phone:</span>
+                                                            <span class="strong-600 ml-2">{{ $address->phone }}</span>
+                                                        </div>
+                                                        @if ($address->set_default)
+                                                            <div class="position-absolute right-0 bottom-0 pr-2 pb-3">
+                                                                <span class="badge badge-primary bg-base-1">Default</span>
+                                                            </div>
+                                                        @endif
+                                                        <div class="dropdown position-absolute right-0 top-0">
+                                                            <button class="btn bg-gray px-2" type="button" data-toggle="dropdown">
+                                                                <i class="la la-ellipsis-v"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                                                @if (!$address->set_default)
+                                                                    <a class="dropdown-item" href="{{ route('addresses.set_default', $address->id) }}">Make This Default</a>
+                                                                @endif
+                                                                {{-- <a class="dropdown-item" href="">Edit</a> --}}
+                                                                <a class="dropdown-item" href="{{ route('addresses.destroy', $address->id) }}">Delete</a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            @endforeach
+                                        @endif
+                                        @if($existing_addresses >= 3)
+                                        @else
+                                            <div class="col-lg-6 mx-auto" onclick="add_new_address()">
+                                                <div class="border p-3 rounded mb-3 c-pointer text-center bg-light">
+                                                    <i class="la la-plus la-2x"></i>
+                                                    <div class="alpha-7">Add New Address</div>
+                                                </div>
                                             </div>
-                                        @endforeach
-                                        <div class="col-lg-6 mx-auto" onclick="add_new_address()">
-                                            <div class="border p-3 rounded mb-3 c-pointer text-center bg-light">
-                                                <i class="la la-plus la-2x"></i>
-                                                <div class="alpha-7">Add New Address</div>
-                                            </div>
-                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

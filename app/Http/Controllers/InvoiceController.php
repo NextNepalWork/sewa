@@ -13,6 +13,7 @@ class InvoiceController extends Controller
     public function customer_invoice_download($id)
     {
         $order = Order::findOrFail($id);
+        // dd($order->orderDetails);
         $pdf = PDF::setOptions([
                         'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
                         'logOutputFile' => storage_path('logs/log.htm'),
@@ -25,6 +26,7 @@ class InvoiceController extends Controller
     public function seller_invoice_download($id)
     {
         $order = Order::findOrFail($id);
+        // dd($order->orderDetails);
         $pdf = PDF::setOptions([
                         'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
                         'logOutputFile' => storage_path('logs/log.htm'),

@@ -36,6 +36,12 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
+        // $existing_addresses = Address::where('user_id',Auth::user()->id)->count();
+        // if($existing_addresses >= 3){
+        //     flash("Only")->warning();
+        //     return back();
+
+        // }
         $address = new Address;
         $address->user_id = Auth::user()->id;
         $address->address = $request->address;
@@ -94,6 +100,7 @@ class AddressController extends Controller
         $address = Address::findOrFail($id);
         if(!$address->set_default){
             $address->delete();
+            flash('Address Deleted')->success();
             return back();
         }
         flash('Default address can not be deleted')->warning();

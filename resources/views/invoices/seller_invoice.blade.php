@@ -160,7 +160,7 @@
 							$user_id = \App\User::where('user_type', 'admin')->first()->id;
 						}
 					@endphp
-	                @foreach ($order->orderDetails->where('seller_id', $user_id) as $key => $orderDetail)
+	                @foreach ($order->orderDetails->where('order_id', $order->id) as $key => $orderDetail)
 		                @if ($orderDetail->product)
 							<tr class="">
 								<td>{{ $orderDetail->product->name }} ({{ $orderDetail->variation }})</td>
