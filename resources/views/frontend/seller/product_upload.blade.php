@@ -376,7 +376,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'product_wise_shipping')
+                            {{-- @if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'product_wise_shipping')
                                 <div class="form-box bg-white mt-4">
                                     <div class="form-box-title px-3 py-2">
                                         {{__('Shipping')}}
@@ -412,7 +412,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endif
+                            @endif --}}
                             <div class="form-box bg-white mt-4">
                                 <div class="form-box-title px-3 py-2">
                                     {{__('Description')}}

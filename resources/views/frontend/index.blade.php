@@ -1091,7 +1091,7 @@ $time = date('Y-m-d H:i:s',$flash_deal->end_date);
                 <div class="slider_feature">
                    @foreach (filter_products(\App\Product::where('published', 1)->where('category_id', $homeCategory->category->id))->latest()->get() as $key => $product)
                    <div class="grid-item">
-                      <div class="product-grid-item mb-3">
+                      <div class="product-grid-item">
                          <div class="product-grid-image">
                             <a href="{{ route('product', $product->slug) }}">
                              @php

@@ -81,6 +81,7 @@
                                         @endif
                                         
                                            <label class="active card bg-white p-3">
+                                               <a href="javascript:void(0);" class="delete-address" data-src="{{ route('addresses.destroy', $address->id) }}"><i class="fa fa-trash fa-2x"></i></a>
                                                <input type="radio" class="radio address_id" name="address_id" data-location="{{$address->delivery_location}}" value="{{ $address->id }}" @if ($address->set_default)
                                                    checked
                                                @endif required>
@@ -119,12 +120,20 @@
                                        </div>
                                    @endforeach
                                    <input type="hidden" name="checkout_type" value="logged">
-                                   <div class="col-md-6">
-                                    <button type="button" class="btn add_btn_img" onclick="add_new_address()">
-                                       <img src="https://www.mcicon.com/wp-content/uploads/2020/12/Abstract_Add_1-copy.jpg" alt="Add new address" class="img-fluid"> 
-                                       
-                                     </button>
-                                   </div>
+
+                                    @php
+                                        $existing_addresses = \App\Address::where('user_id',Auth::user()->id)->count()
+                                    @endphp
+                                    @if($existing_addresses >= 3)
+                                    @else
+                                        <div class="col-md-6">
+                                        <button type="button" class="btn add_btn_img" onclick="add_new_address()">
+                                            <img src="https://www.mcicon.com/wp-content/uploads/2020/12/Abstract_Add_1-copy.jpg" alt="Add new address" class="img-fluid"> 
+                                            
+                                        </button>
+                                        </div>
+                                    @endif
+
                                </div>
                            @else
                                <div class="card">
@@ -324,6 +333,28 @@
 
     $(document).ready(function() {
         $('.delivery').select2();
+
+        $('.delete-address').on('click',function(e){
+            e.preventDefault();
+            var red = $(this).data('src');
+            Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                console.log(result);
+                if (result===false) {
+                    console.log('no0');
+                } else {
+                    console.log('asdf');
+                    window.location.href = red;
+                }
+            });
+        });
     });
 </script>
 @endsection

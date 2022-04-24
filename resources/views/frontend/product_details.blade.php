@@ -392,7 +392,6 @@
 
                     </div>
                 </div>
-
             </div>
             <div class="col-12 mt-3">
                 {{-- justify-content-center --}}
@@ -783,7 +782,15 @@
                                     <span class="ml-2"><i class="fa fa-times-circle" style="color:red"></i></span>
                                 @endif
                                 </a>
-                                <div class="location">{{ $detailedProduct->user->shop->address }}</div>
+                                <div class="location">
+                                    {{-- {{ $detailedProduct->user->shop->address }} --}}
+                                    
+                                @if ($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
+                                <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}">{{ $detailedProduct->user->shop->name }}</a>
+                            @else
+                                {{ __('Inhouse product') }}
+                            @endif
+                                </div>
                             @else
                                 <span class="font-weight-bold">{{ env('APP_NAME') }}</span>
                                 

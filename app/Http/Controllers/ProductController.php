@@ -100,6 +100,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
 
         $product = new Product;
@@ -386,7 +387,7 @@ class ProductController extends Controller
         $product->subsubcategory_id = $request->subsubcategory_id;
         $product->brand_id = $request->brand_id;
         $product->specs = $request->specs;
-        $product->current_stock = $request->current_stock1;
+        $product->current_stock = $request->current_stock;
         $product->barcode = $request->barcode;
 
         if ($refund_request_addon != null && $refund_request_addon->activated == 1) {
