@@ -404,7 +404,7 @@ class OrderController extends Controller
                 }
             }
             unlink($data['file']);
-            dd($data['file']);
+            // dd($data['file']);
             // foreach ($seller_products as $key => $seller_product) {
             //     $user = User::where('id', $key)->first();
             //     // dd(\App\User::find($key)->email);
