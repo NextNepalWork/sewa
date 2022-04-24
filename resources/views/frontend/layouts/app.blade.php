@@ -807,9 +807,15 @@ $('.address-district').on('change',function(e){
                     id: id
                 },
                 function(data) {
-                    $('#compare').html(data);
-                    showFrontendAlert('success', 'Item has been added to compare list');
-                    $('#compare_items_sidenav').html(parseInt($('#compare_items_sidenav').html()) + 1);
+                    if(data == 'false'){
+                        showFrontendAlert('error', 'Products to compare must be of same category. Or you can reset compare list.');
+
+                    }else{
+                        $('#compare').html(data);
+                        showFrontendAlert('success', 'Item has been added to compare list');
+                        $('#compare_items_sidenav').html(parseInt($('#compare_items_sidenav').html()) + 1);
+
+                    }
                 });
         }
 

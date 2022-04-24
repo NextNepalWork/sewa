@@ -76,6 +76,9 @@ else{
                   <li class="mb-2">
                      <a href="{{ route('career') }}" class="text-white">Career</a>
                   </li>
+                  <li class="mb-2">
+                     <a href="{{ route('brands.all') }}" class="text-white">Brands</a>
+                  </li>
                </ul>
             </div>
          </div>
