@@ -165,10 +165,10 @@
                                                         <span class="alpha-6">Address:</span>
                                                         <span class="strong-600 ml-2">{{ isset($address)?$address->address:'' }}</span>
                                                     </div>
-                                                    <div class='mb-2'>
+                                                    {{-- <div class='mb-2'>
                                                         <span class="alpha-6">Postal Code:</span>
                                                         <span class="strong-600 ml-2">{{ isset($address)?$address->postal_code:''  }}</span>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class='mb-2'>
                                                         <span class="alpha-6">City:</span>
                                                         <span class="strong-600 ml-2">{{ isset($address)?$address->city:''  }}</span>
@@ -292,14 +292,14 @@
                                 <input type="text" class="form-control mb-3" placeholder="{{__('Your City')}}" name="city" value="" required>
                             </div>
                         </div>
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-md-2">
                                 <label>{{__('Postal code')}}</label>
                             </div>
                             <div class="col-md-10">
                                 <input type="text" class="form-control mb-3" placeholder="{{__('Your Postal Code')}}" name="postal_code" value="" required>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="row">
                             <div class="col-md-2">
                                 <label>{{__('Phone')}}</label>

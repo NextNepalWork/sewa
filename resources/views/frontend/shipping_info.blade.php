@@ -2,7 +2,11 @@
 
 @section('content')
 
-
+<style>
+    .delete-address{
+        width: 20px;
+    }
+</style>
  <div id="page-content">
    <section id="order_list_top">
       <div class="container">
@@ -87,7 +91,7 @@
                                                @endif required>
                                                 <span class="plan-details">
                                                 <span class="plan-type d-block">Address: <span class="right_bold">{{ $address->address }}</span> </span>
-                                                <span class="plan-type d-block">Postal Code: <span>{{ $address->postal_code }}</span> </span>
+                                                {{-- <span class="plan-type d-block">Postal Code: <span>{{ $address->postal_code }}</span> </span> --}}
                                                 <span class="plan-type d-block">City:<span class="right_bold">{{ $address->city }}</span> </span>
                                                 <span class="plan-type d-block">Delivery Location:
                                                     @php
@@ -185,12 +189,12 @@
                                    </div>
 
                                    <div class="row">
-                                       <div class="col-md-6">
+                                       {{-- <div class="col-md-6">
                                            <div class="form-group has-feedback">
                                                <label class="control-label">{{__('Postal code')}}</label>
                                                <input type="number" min="0" class="form-control" placeholder="{{__('Postal code')}}" name="postal_code" required>
                                            </div>
-                                       </div>
+                                       </div> --}}
                                        <div class="col-md-6">
                                            <div class="form-group has-feedback">
                                                <label class="control-label">{{__('Phone')}}</label>
