@@ -208,29 +208,27 @@
                             </div>
                         </div>
                         <hr>
-
-                        <div class="row align-items-center">
-                            <div class="sold-by col-auto">
-                                <small class="mr-2">Vendor: </small><br>
-                                @if ($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
-                                    <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}">{{ $detailedProduct->user->shop->name }}</a>
-                                @else
-                                    {{ __('Inhouse product') }}
-                                @endif
-                            </div>
-                            {{-- @if (\App\BusinessSetting::where('type', 'conversation_system')->first()->value == 1)
-                                <div class="col-auto">
-                                    <button class="btn btn-primary" onclick="show_chat_modal()">{{__('Message Seller')}}</button>
+                        @if($detailedProduct->brand)
+                            <div class="row align-items-center">
+                                <div class="sold-by col-auto">
+                                    <small class="mr-2">Brand: </small><br>
+                                    <a href="{{route('products.brand',['brand_slug' => $detailedProduct->brand->slug])}}">{{$detailedProduct->brand->name}}</a>
                                 </div>
-                            @endif --}}
-                        </div>
-                        <hr>
-                        {{-- <div class="descrip mb-2" style="max-height: fit-content">
-                            <h5>Description</h5>
-                            
-                            {!! $detailedProduct->description !!}
-                            
-                        </div> --}}
+                            </div>
+                            <hr>
+                        @else
+                            <div class="row align-items-center">
+                                <div class="sold-by col-auto">
+                                    <small class="mr-2">Brand: </small><br>                                    
+                                    @if ($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
+                                        <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}">{{ $detailedProduct->user->shop->name }}</a>
+                                    @else
+                                        {{ __('Inhouse product') }}
+                                    @endif
+                                </div>
+                            </div>
+                            <hr>
+                        @endif
                         <div class="form-group">
                             @if(home_price($detailedProduct->id) != home_discounted_price($detailedProduct->id))
                                 <div class="product-price text-dark">
@@ -451,14 +449,20 @@
                     <div class="tab-pane fade p-3" id="third" role="tabpanel" aria-labelledby="third-tab">
                         <div class="fluid-paragraph py-2">
                             <!-- 16:9 aspect ratio -->
+                            {{-- {{dd($detailedProduct)}} --}}
                             <div class="embed-responsive embed-responsive-16by9 mb-5">
-                                @if ($detailedProduct->video_provider == 'youtube' && $detailedProduct->video_link != null)
-                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ explode('=', $detailedProduct->video_link)[1] }}"></iframe>
-                                @elseif ($detailedProduct->video_provider == 'dailymotion' && $detailedProduct->video_link != null)
-                                    <iframe class="embed-responsive-item" src="https://www.dailymotion.com/embed/video/{{ explode('video/', $detailedProduct->video_link)[1] }}"></iframe>
-                                @elseif ($detailedProduct->video_provider == 'vimeo' && $detailedProduct->video_link != null)
-                                    <iframe src="https://player.vimeo.com/video/{{ explode('vimeo.com/', $detailedProduct->video_link)[1] }}" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                                @endif
+                                @php
+                                    $url = $detailedProduct->video_link;
+                                @endphp
+                                    @if(!filter_var($url, FILTER_VALIDATE_URL) === false)
+                                        @if ($detailedProduct->video_provider == 'youtube' && $detailedProduct->video_link != null)
+                                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ explode('=', $detailedProduct->video_link)[1] }}"></iframe>
+                                        @elseif ($detailedProduct->video_provider == 'dailymotion' && $detailedProduct->video_link != null)
+                                            <iframe class="embed-responsive-item" src="https://www.dailymotion.com/embed/video/{{ explode('video/', $detailedProduct->video_link)[1] }}"></iframe>
+                                        @elseif ($detailedProduct->video_provider == 'vimeo' && $detailedProduct->video_link != null)
+                                            <iframe src="https://player.vimeo.com/video/{{ explode('vimeo.com/', $detailedProduct->video_link)[1] }}" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                        @endif
+                                    @endif
                             </div>
                         </div>
                     </div>
@@ -776,24 +780,21 @@
                             <div class="title font-weight-bold">{{__('Sold By')}}</div>
                             @if($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
                                 <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}" class="name d-block font-weight-bold">{{ $detailedProduct->user->shop->name }}
-                                @if ($detailedProduct->user->seller->verification_status == 1)
-                                    <span class="ml-2"><i class="fa fa-check-circle" style="color:green"></i></span>
-                                @else
-                                    <span class="ml-2"><i class="fa fa-times-circle" style="color:red"></i></span>
-                                @endif
+                                    @if ($detailedProduct->user->seller->verification_status == 1)
+                                        <span class="ml-2"><i class="fa fa-check-circle" style="color:green"></i></span>
+                                    @else
+                                        <span class="ml-2"><i class="fa fa-times-circle" style="color:red"></i></span>
+                                    @endif
                                 </a>
-                                <div class="location">
-                                    {{-- {{ $detailedProduct->user->shop->address }} --}}
-                                    
-                                @if ($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
-                                <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}">{{ $detailedProduct->user->shop->name }}</a>
-                            @else
-                                {{ __('Inhouse product') }}
-                            @endif
+                                <div class="location">                                    
+                                    @if ($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
+                                        <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}">{{ $detailedProduct->user->shop->name }}</a>
+                                    @else
+                                        {{ __('Inhouse product') }}
+                                    @endif
                                 </div>
                             @else
-                                <span class="font-weight-bold">{{ env('APP_NAME') }}</span>
-                                
+                                <span class="font-weight-bold">Inhouse product</span>                                
                             @endif
                             @php
                                 $total = 0;
