@@ -189,19 +189,19 @@
 		        <tbody>
 			        <tr>
 			            <th class="gry-color text-left">Sub Total</th>
-			            <td class="currency">{{ single_price($order->orderDetails->where('seller_id', $user_id)->sum('price')) }}</td>
+			            <td class="currency">{{ single_price($order->orderDetails->where('order_id', $order->id)->sum('price')) }}</td>
 			        </tr>
 			        <tr>
 			            <th class="gry-color text-left">Shipping Cost</th>
-			            <td class="currency">{{ single_price($order->orderDetails->where('seller_id', $user_id)->sum('shipping_cost')) }}</td>
+			            <td class="currency">{{ single_price($order->orderDetails->where('order_id', $order->id)->sum('shipping_cost')) }}</td>
 			        </tr>
 			        <tr class="border-bottom">
 			            <th class="gry-color text-left">Total Tax</th>
-			            <td class="currency">{{ single_price($order->orderDetails->where('seller_id', $user_id)->sum('tax')) }}</td>
+			            <td class="currency">{{ single_price($order->orderDetails->where('order_id', $order->id)->sum('tax')) }}</td>
 			        </tr>
 			        <tr>
 			            <th class="text-left strong">Grand Total</th>
-			            <td class="currency">{{ single_price($order->orderDetails->where('seller_id', $user_id)->sum('price') + $order->orderDetails->where('seller_id', $user_id)->sum('shipping_cost') + $order->orderDetails->where('seller_id', $user_id)->sum('tax')) }}</td>
+			            <td class="currency">{{ single_price($order->orderDetails->where('order_id', $order->id)->sum('price') + $order->orderDetails->where('seller_id', $user_id)->sum('shipping_cost') + $order->orderDetails->where('seller_id', $user_id)->sum('tax')) }}</td>
 			        </tr>
 		        </tbody>
 		    </table>
