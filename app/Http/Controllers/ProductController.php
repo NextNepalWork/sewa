@@ -302,13 +302,13 @@ class ProductController extends Controller
         }
         //combinations end
 
-        foreach (Language::all() as $key => $language) {
-            $data = openJSONFile($language->code);
-            // $data[$product->name] = $product->name;
-            $string = str_replace( '"', '&quot;', $product->name );
-            $data[$string]=$string;
-            saveJSONFile($language->code, $data);
-        }
+        // foreach (Language::all() as $key => $language) {
+        //     $data = openJSONFile($language->code);
+        //     // $data[$product->name] = $product->name;
+        //     $string = str_replace( '"', '&quot;', $product->name );
+        //     $data[$string]=$string;
+        //     saveJSONFile($language->code, $data);
+        // }
 
         $product->save();
 
@@ -511,15 +511,15 @@ class ProductController extends Controller
 
         $product->choice_options = json_encode($choice_options);
 
-        foreach (Language::all() as $key => $language) {
-            $data = openJSONFile($language->code);
-            // dd($data);
-            unset($data[$product->name]);
-            $string = str_replace( '"', '&quot;', $request->name );
-            $data[$string]="";
-            // $data[$request->name] = "";
-            saveJSONFile($language->code, $data);
-        }
+        // foreach (Language::all() as $key => $language) {
+        //     $data = openJSONFile($language->code);
+        //     // dd($data);
+        //     unset($data[$product->name]);
+        //     $string = str_replace( '"', '&quot;', $request->name );
+        //     $data[$string]="";
+        //     // $data[$request->name] = "";
+        //     saveJSONFile($language->code, $data);
+        // }
 
         //combinations start
         $options = array();
