@@ -8,7 +8,7 @@ class Product extends Model
 {
     protected $fillable = [
         'name','added_by', 'user_id', 'category_id', 'subcategory_id', 'subsubcategory_id', 'brand_id', 'video_provider', 'video_link', 'unit_price',
-        'purchase_price', 'unit', 'slug', 'colors', 'choice_options', 'variations', 'current_stock', 'made_in_nepal'
+        'purchase_price', 'warranty','warranty_time','unit', 'slug', 'colors', 'choice_options', 'variations', 'current_stock', 'made_in_nepal'
       ];
     public function category(){
     	return $this->belongsTo(Category::class);

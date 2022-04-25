@@ -144,6 +144,8 @@ class ProductController extends Controller
         }
 
         $product->made_in_nepal = $request->made_in_nepal != null ? 1 : 0;
+        $product->warranty = $request->warranty != null ? 1 : 0;
+        $product->warranty_time = $request->warranty_time;
 
         $photos = array();
         $thumb=array();
@@ -422,6 +424,9 @@ class ProductController extends Controller
         }
         $product->photos = json_encode($photos);
         $product->thumbnail_img = json_encode($thumb);
+        $product->made_in_nepal = $request->made_in_nepal != null ? 1 : 0;
+        $product->warranty = $request->warranty != null ? 1 : 0;
+        $product->warranty_time = $request->warranty_time;
 
         // $product->thumbnail_img = $request->previous_thumbnail_img;
         // if($request->hasFile('thumbnail_img')){
