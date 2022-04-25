@@ -105,6 +105,23 @@
 							</label>
 						</div>
 					</div>
+					
+					<div class="form-group">
+						<label for="warranty" class="col-lg-2 control-label">{{ __('Warranty') }}</label>
+						<div class="col-lg-7">
+							<label class="switch" style="margin-top: 5px;">
+								<input type="checkbox" name="warranty" id="warranty">
+								<span class="slider round"></span>
+							</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="warranty_time" class="col-lg-2 control-label">{{ __('Warranty Time') }}</label>
+						<div class="col-lg-7">
+								<input type="text" class="form-control" name="warranty_time" placeholder="Warranty Time" id="warranty_time">
+						</div>
+					</div>
+
 					<div class="form-group" id="brand">
 						<label class="col-lg-2 control-label">Vendor</label>
 						<div class="col-lg-7">

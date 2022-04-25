@@ -121,6 +121,39 @@
             								</div>
             							</div>
                                     @endif
+                                    
+					<div class="row mt-2">
+                        <label class="col-md-2">
+                            {{ __('Made in Nepal') }}
+                        </label>
+                        <div class="col-md-10">
+                            <label class="switch" style="margin-top:5px;">
+                                <input type="checkbox" name="made_in_nepal" @if ($product->made_in_nepal == 1) checked @endif>
+                                <span class="slider round"></span></label>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <label class="col-md-2">
+                            {{ __('Warranty') }}
+                        </label>
+                        <div class="col-md-10">
+                            <label class="switch" style="margin-top:5px;">
+                                <input type="checkbox" name="warranty" @if ($product->warranty == 1) checked @endif>
+                                <span class="slider round"></span></label>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <label class="col-md-2">
+                            {{ __('Warranty Time') }}
+                        </label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="warranty_time" value="{{($product->warranty_time)}}" placeholder="Warranty Time" id="warranty_time">
+                        </div>
+                    </div>
+
+
                                 </div>
                             </div>
                             <div class="form-box bg-white mt-4">
