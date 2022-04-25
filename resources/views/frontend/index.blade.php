@@ -93,6 +93,9 @@
     min-height:20px;
     object-fit:contain;
         }
+        .dropdown-menu .dropdown-item {
+            padding: 10px 10px 10px 10px;
+        }
 
 </style>
 

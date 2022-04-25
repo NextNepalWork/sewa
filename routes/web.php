@@ -103,6 +103,7 @@ Route::group(['middleware' => ['checkout']], function(){
 
 Route::get('/nic-pay', 'CheckoutController@test')->name('nic');
 Route::post('/nic-callback', 'CheckoutController@nicCallback')->name('nic_callback');
+Route::get('/nic-cancel', 'CheckoutController@niccancel')->name('nic_callback');
 
 Route::get('/checkout/order-confirmed', 'CheckoutController@order_confirmed')->name('order_confirmed');
 Route::post('/checkout/payment', 'CheckoutController@checkout')->name('payment.checkout');
