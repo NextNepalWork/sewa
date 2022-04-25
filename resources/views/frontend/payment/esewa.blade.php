@@ -75,11 +75,11 @@
     <form id="payment_confirmation" action="https://testsecureacceptance.cybersource.com/pay" method="post"><br/>
       <?php
       foreach($params as $name => $value) {
-          " <input type=\"hidden\" id=\"" . $name . "\" name=\"" . $name . "\" value=\"" . $value . "\"/>\n<br>";
+          echo $name." <input type=\"hidden\" id=\"" . $name . "\" name=\"" . $name . "\" value=\"" . $value . "\"/>\n<br>";
       }
       echo "<input type=\"hidden\" id=\"signature\" name=\"signature\" value=\"" . sign($params) . "\"/>\n";
   ?>
-<input type="submit" id="submit" value="Confirm"/>
+<input style="display: none" type="submit" id="submit" value="Confirm"/>
 
       
   </form>
@@ -149,7 +149,7 @@
 
 
 
-      $('#submit').trigger('click');    
+      // $('#submit').trigger('click');    
     </script>
     
   </body>

@@ -195,33 +195,33 @@
                  <div class="col-md-12">
                     <div class="row">
                         @if(\App\BusinessSetting::where('type', 'cash_payment')->first()->value == 1)
-                        @php
-                            $digital = 0;
-                            foreach(Session::get('cart') as $cartItem){
-                                if(isset($cartItem['digital']) && $cartItem['digital'] == 1){
-                                    $digital = 1;
+                            @php
+                                $digital = 0;
+                                foreach(Session::get('cart') as $cartItem){
+                                    if(isset($cartItem['digital']) && $cartItem['digital'] == 1){
+                                        $digital = 1;
+                                    }
                                 }
-                            }
-                        @endphp
-                        @if($digital != 1)
-                        <div class="col-xl-6 col-md-6 m-auto">
-                            <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="Cash on Delivery">
-                                <label id="file-input">
-                                <img class="img_select img-fluid" src="{{ asset('frontend/images/icons/cards/cod.png')}}" 
-                                    >
-                                </label>
-                                <input type="radio" id="file-input" name="payment_option" value="cash_on_delivery" checked>
+                            @endphp
+                            @if($digital != 1)
+                                <div class="col-xl-6 col-md-6 m-auto">
+                                    <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="Cash on Delivery">
+                                        <label id="file-input">
+                                        <img class="img_select img-fluid" src="{{ asset('frontend/images/icons/cards/cod.png')}}" 
+                                            >
+                                        <input class="hidden" type="radio" id="file-input" name="payment_option" value="cash_on_delivery">
+                                        </label>
 
-                            </div>
-                        </div>
-                       @endif
+                                    </div>
+                                </div>
+                            @endif
                        @endif
                        <div class="col-xl-6 col-md-6 m-auto">
                            <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="NIC">
                                <label id="file-input">
                                <img class="img_select img-fluid" src="{{ asset('uploads/nic.jpg')}}" >
+                               <input class="hidden" type="radio" id="file-input" name="payment_option" value="nic">
                                </label>
-                               <input type="radio" id="file-input" name="payment_option" value="nic" checked>
 
                            </div>
                        </div>
