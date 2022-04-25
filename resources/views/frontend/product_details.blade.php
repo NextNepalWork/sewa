@@ -408,20 +408,21 @@
                                     
                                     <div class="title font-weight-bold">{{__('Sold By')}}</div>
                                     @if($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
-                                        <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}" class="name d-block font-weight-bold">{{ $detailedProduct->user->shop->name }}
+                                        <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}" class="name d-block font-weight-bold">
+                                            {{ $detailedProduct->user->shop->name }}
                                             @if ($detailedProduct->user->seller->verification_status == 1)
                                                 <span class="ml-2"><i class="fa fa-check-circle" style="color:green"></i></span>
                                             @else
                                                 <span class="ml-2"><i class="fa fa-times-circle" style="color:red"></i></span>
                                             @endif
                                         </a>
-                                        <div class="location">                                    
+                                        {{-- <div class="location">                                    
                                             @if ($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
                                                 <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}">{{ $detailedProduct->user->shop->name }}</a>
                                             @else
                                                 {{ __('Inhouse product') }}
                                             @endif
-                                        </div>
+                                        </div> --}}
                                     @else
                                         <span class="font-weight-bold">Inhouse product</span>                                
                                     @endif
