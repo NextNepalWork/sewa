@@ -149,7 +149,7 @@
 
 
 
-      $('#submit').trigger('click');    
+      // $('#submit').trigger('click');    
     </script>
     
   </body>
