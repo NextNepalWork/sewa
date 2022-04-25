@@ -46,17 +46,17 @@ class CheckoutController extends Controller
         $order->payment_status = 'paid';
         $json =json_encode([$request->all()]);
         $order->payment_details =$json;
-        $order->save();
+        // $order->save();
 
-        if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null && \App\Addon::where('unique_identifier', 'affiliate_system')->first()->activated) {
-            $affiliateController = new AffiliateController;
-            $affiliateController->processAffiliatePoints($order);
-        }
+        // if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null && \App\Addon::where('unique_identifier', 'affiliate_system')->first()->activated) {
+        //     $affiliateController = new AffiliateController;
+        //     $affiliateController->processAffiliatePoints($order);
+        // }
 
-        if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated) {
-            $clubpointController = new ClubPointController;
-            $clubpointController->processClubPoints($order);
-        }
+        // if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated) {
+        //     $clubpointController = new ClubPointController;
+        //     $clubpointController->processClubPoints($order);
+        // }
 
         if(\App\Addon::where('unique_identifier', 'seller_subscription')->first() == null || !\App\Addon::where('unique_identifier', 'seller_subscription')->first()->activated){
             if (BusinessSetting::where('type', 'category_wise_commission')->first()->value != 1) {
