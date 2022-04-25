@@ -27,7 +27,7 @@
                 		<tr>
                 			<td>
                                 <div class="col-sm-3">
-                                <img loading="lazy"  class="img-md" src="{{ asset($product->thumbnail_img)}}" alt="Image">
+                                <img loading="lazy"  class="img-md" src="{{ asset($product->featured_img)}}" alt="Image">
                                 </div>
                                 <div class="col-sm-9">
                 				<label for="" class="control-label">{{ __($product->name) }}</label>
