@@ -122,12 +122,11 @@
                                 @foreach (json_decode($detailedProduct->photos) as $key => $photo)
                                     @if (!empty($photo))
                                         @if (file_exists($photo))
-                                            <div class="swiper-slide"
-                                            style="background-image:url('{{ asset($photo) }}')">
-                                        </div>
+                                            <div class="swiper-slide" style="background-image:url('{{ asset($photo) }}')">
+                                            </div>
                                         @else
-                                        <div class="swiper-slide"
-                                        style="background-image:url('{{ asset("frontend/images/placeholder.jpg") }}')">
+                                        <div class="swiper-slide" style="background-image:url('{{ asset("frontend/images/placeholder.jpg") }}')">
+                                        </div>
                                         @endif
                                     
                                     @else
@@ -497,10 +496,8 @@
                                     
                                 </div>
                             </div>
-                        </div>
-                        
+                        </div>                        
                     </div>
-
                 </div>
             </div>
             <div class="col-12 mt-3">

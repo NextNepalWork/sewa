@@ -219,14 +219,14 @@
                                                 }
                                                 @endphp
                                                 @if($qty == 0)
-                                                <div class="stock mr-1">
-                                                    Out of Stock
-                                                </div>
+                                                    <div class="stock mr-1">
+                                                        Out of Stock
+                                                    </div>
                                                 @endif
-                                                @if (! $product->discount == 0)
-                                                <div class="product-discount-label font-weight-bold d-flex align-items-center px-2" style="background-color: var(--theme_color_sub); ">
-                                                    {{ ($product->discount_type == 'amount')?'Rs.':'' }} {{ $product->discount }}{{ !($product->discount_type == 'amount')?' %':'' }}
-                                                </div>
+                                                @if ($qty != 0 && intval(($product->discount),0) != 0)
+                                                    <div class="product-discount-label font-weight-bold d-flex align-items-center px-2" style="background-color: var(--theme_color_sub); ">
+                                                        {{ ($product->discount_type == 'amount')?'Rs.':'' }} {{ $product->discount }}{{ !($product->discount_type == 'amount')?' %':'' }}
+                                                    </div>
                                                 @endif
                                             
                                             </div>

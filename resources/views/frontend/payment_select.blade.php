@@ -216,7 +216,7 @@
                         </div>
                        @endif
                        @endif
-                       {{-- <div class="col-xl-6 col-md-6 m-auto">
+                       <div class="col-xl-6 col-md-6 m-auto">
                            <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="NIC">
                                <label id="file-input">
                                <img class="img_select img-fluid" src="{{ asset('uploads/nic.jpg')}}" >
@@ -224,7 +224,7 @@
                                <input type="radio" id="file-input" name="payment_option" value="nic" checked>
 
                            </div>
-                       </div> --}}
+                       </div>
                        {{-- @if(\App\BusinessSetting::where('type', 'esewa')->first()->value == 1)
                        <div class="col-xl-6 col-md-6 m-auto">
                           <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="E-sewa">
