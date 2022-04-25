@@ -71,15 +71,15 @@
     }
 
     ?>
-    Redirecting to NIC Pay...
     <form id="payment_confirmation" action="https://testsecureacceptance.cybersource.com/pay" method="post"><br/>
+      
+<input type="submit" id="submit" value="Redirecting to NIC Pay..."/>
       <?php
       foreach($params as $name => $value) {
-          echo $name." <input type=\"hidden\" id=\"" . $name . "\" name=\"" . $name . "\" value=\"" . $value . "\"/>\n<br>";
+          echo " <input type=\"hidden\" id=\"" . $name . "\" name=\"" . $name . "\" value=\"" . $value . "\"/>\n<br>";
       }
       echo "<input type=\"hidden\" id=\"signature\" name=\"signature\" value=\"" . sign($params) . "\"/>\n";
   ?>
-<input style="display: none" type="submit" id="submit" value="Confirm"/>
 
       
   </form>
@@ -120,14 +120,14 @@
               $(this).append(newlink);
           });
 
-          newbutton = $(document.createElement("input"));
-          newbutton.attr({
-              id:'defaultAll', value:'Default All', type:'button', onClick:'setDefaultsForAll()'
-          });
-          newbutton.bind('click', function() {
-              setDefaultsForAll;
-          });
-          $("#"+payment_form).append(newbutton);
+          // newbutton = $(document.createElement("input"));
+          // newbutton.attr({
+          //     id:'defaultAll', value:'Default All', type:'button', onClick:'setDefaultsForAll()'
+          // });
+          // newbutton.bind('click', function() {
+          //     setDefaultsForAll;
+          // });
+          // $("#"+payment_form).append(newbutton);
       }
 
       function capitalize(string) {
@@ -149,7 +149,7 @@
 
 
 
-      // $('#submit').trigger('click');    
+      $('#submit').trigger('click');    
     </script>
     
   </body>
