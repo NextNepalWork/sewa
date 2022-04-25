@@ -37,6 +37,9 @@ class CheckoutController extends Controller
     public function nicCallback(Request $request){
         dd($request->all());
     }
+    public function niccancel(){
+        dd('asf');
+    }
     //check the selected payment gateway and redirect to that controller accordingly
     public function checkout(Request $request)
     {
