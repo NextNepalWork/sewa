@@ -9,7 +9,7 @@ use Session;
 
 class NicController extends Controller
 {
-    public function esewa()
+    public function nic()
     {
       $order_id = Session::get('order_id');
     
