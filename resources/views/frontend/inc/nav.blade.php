@@ -319,7 +319,7 @@
                                                                   @if (file_exists($product->featured_img)) 
                                                                      <img src="{{ asset($product->featured_img) }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name) }}">
                                                                   @else
-                                                                     <img src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}">
+                                                                     <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}">
                                                                   @endif
                                                                </a>
                                                             </div>
