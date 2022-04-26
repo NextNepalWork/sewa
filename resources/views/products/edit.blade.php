@@ -342,7 +342,7 @@
 					<div class="form-group" id="quantity">
 						<label class="col-lg-2 control-label">{{__('Quantity')}}</label>
 						<div class="col-lg-7">
-							<input type="text" value="{{ $product->current_stock }}" placeholder="{{__('Quantity')}}" name="current_stock1" class="form-control" id="current_stock" onkeypress="return isNumber(event)" required>
+							<input type="text" value="{{ $product->current_stock }}" placeholder="{{__('Quantity')}}" name="current_stock" class="form-control" id="current_stock" onkeypress="return isNumber(event)" required>
 
 						</div>
 					</div>
