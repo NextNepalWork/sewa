@@ -7,7 +7,12 @@
     <div class="product-box">
         <div class="block">
             <div class="block-image">
-                <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" class="lazyload" alt="Product Image">
+                @if (file_exists($product->featured_img)) 
+                   <img class="lazyload" src="{{ asset($product->featured_img) }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name) }}">
+                @else
+                   <img class="lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}">
+                @endif
+                {{-- <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->featured_img)) }}" class="lazyload" alt="Product Image"> --}}
             </div>
             <div class="block-body">
                 <h6 class="strong-600">

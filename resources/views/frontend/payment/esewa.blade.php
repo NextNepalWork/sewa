@@ -76,9 +76,9 @@
 <input type="submit" id="submit" value="Redirecting to NIC Pay..."/>
       <?php
       foreach($params as $name => $value) {
-          echo " <input type=\"hidden\" id=\"" . $name . "\" name=\"" . $name . "\" value=\"" . $value . "\"/>\n<br>";
+          echo  $name.' = '.$value ." <input type=\"hidden\" id=\"" . $name . "\" name=\"" . $name . "\" value=\"" . $value . "\"/>\n<br>";
       }
-      echo "<input type=\"hidden\" id=\"signature\" name=\"signature\" value=\"" . sign($params) . "\"/>\n";
+      echo "signature <input type=\"hidden\" id=\"signature\" name=\"signature\" value=\"" . sign($params) . "\"/>\n";
   ?>
 
       
@@ -149,7 +149,7 @@
 
 
 
-      $('#submit').trigger('click');    
+    //   $('#submit').trigger('click');    
     </script>
     
   </body>

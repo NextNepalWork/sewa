@@ -330,7 +330,7 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="row no-gutters">
+                                    {{-- <div class="row no-gutters">
                                         <div class="product-description-label font-weight-bold d-flex">
                                             Shipping Cost:
                                             @php   
@@ -351,7 +351,7 @@
                                                 @endif
                                             @endif
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="row no-gutters py-2 d-none align-items-center" id="chosen_price_div">
                                         <div class="col-2 m-auto">
                                             <div class="product-description-label h5 m-0">{{__('Total Price')}}:</div>
