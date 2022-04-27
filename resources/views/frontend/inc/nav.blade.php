@@ -1171,11 +1171,11 @@
  <!--======================================================= HEADER END ======-->
 
  @php
-   $currency="https://api.exchangerate.host/latest";
+   // $currency="https://api.exchangerate.host/latest";
    
 
-   $json_data = file_get_contents($currency);
-   $response_data = json_decode($json_data);
+   // $json_data = file_get_contents($currency);
+   // $response_data = json_decode($json_data);
    // dd($response_data);
 //    $req_url = 'https://api.exchangerate.host/latest';
 // $response_json = file_get_contents($req_url);
@@ -1192,7 +1192,7 @@
 
 @endphp
   <!-- Modal -->
-<div class="modal fade" id="currency" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="currency" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog" role="document">
      <div class="modal-content">
        <div class="modal-header">
@@ -1258,6 +1258,6 @@
 
      </div>
    </div>
-</div>
+</div> --}}
 
 
