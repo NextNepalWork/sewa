@@ -174,6 +174,7 @@ class OrderController extends Controller
 
         // $order = Order::where('id',161)->first();
         $shipping_address = json_decode($order->shipping_address,true);
+        return $shipping_address;
         $user_id = $shipping_address['user_id'];
         $user = User::where('id',$user_id)->first();
         // return $shipping_address['email'];
