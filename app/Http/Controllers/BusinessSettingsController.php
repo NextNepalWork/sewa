@@ -85,10 +85,18 @@ class BusinessSettingsController extends Controller
         // ];
 
         // $khalti->value=json_encode($data);
+        $details = array();
+        $data['value'] = 1;
+        $data['esewa_key']=$request->ESEWA_KEY;
+        $data['esewa_secret']=$request->ESEWA_SECRET;
+
+        array_push($details, $data);
         
-        $esewa->value=1;
-        $esewa->esewa_key=$request->ESEWA_KEY;
-        $esewa->esewa_secret=$request->ESEWA_SECRET;
+        $esewa->value = json_encode($details);
+        
+        // $esewa->value=1;
+        // $esewa->esewa_key=$request->ESEWA_KEY;
+        // $esewa->esewa_secret=$request->ESEWA_SECRET;
         $esewa->save();
 
         flash("Settings updated successfully")->success();
