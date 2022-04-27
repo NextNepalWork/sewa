@@ -334,7 +334,7 @@
                     <input type="hidden" name="payment_method" value="esewa_payment">
                     @if ($esewa)
                     @php
-                        $esewa_credentials=\App\BusinessSetting::where('type','esewa_payment')->first()
+                        $esewa_credentials=json_decode(\App\BusinessSetting::where('type','esewa_payment')->first()->value);
                     @endphp
 
                         <div class="form-group">

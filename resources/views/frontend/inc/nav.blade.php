@@ -45,9 +45,9 @@
                   <a href="{{route('shops.create')}}" class="mr-2 text-light" >
                      Sell on Sewa Express
                   </a>
-                  <button type="button" data-toggle="modal" data-target="#currency" style="background: transparent; border:none; color:white;">
+                  {{-- <button type="button" data-toggle="modal" data-target="#currency" style="background: transparent; border:none; color:white;">
                      Currency Converter
-                  </button>
+                  </button> --}}
                   
                    <div class="dropdown user_login_mobile">
                       <button

@@ -78,21 +78,13 @@ class BusinessSettingsController extends Controller
         }
         $esewa->type=$request->payment_method;
 
-        // $data = [
-        //     'value' => 1,
-        //     'khalti_key' => $request->KHALTI_KEY,
-        //     'khalti_secret' => $request->KHALTI_SECRET
-        // ];
+        $data = [
+            'value' => 1,
+            'esewa_key' => $request->ESEWA_KEY,
+            'esewa_secret' => $request->ESEWA_SECRET
+        ];
 
-        // $khalti->value=json_encode($data);
-        $details = array();
-        $data['value'] = 1;
-        $data['esewa_key']=$request->ESEWA_KEY;
-        $data['esewa_secret']=$request->ESEWA_SECRET;
-
-        array_push($details, $data);
-        
-        $esewa->value = json_encode($details);
+        $esewa->value=json_encode($data);
         
         // $esewa->value=1;
         // $esewa->esewa_key=$request->ESEWA_KEY;

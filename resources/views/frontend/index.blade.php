@@ -663,8 +663,8 @@ $time = date('Y-m-d H:i:s',$flash_deal->end_date);
 </section>
 
 <!-- Brands -->
-<section id="our-brands">
-    <div class="container"  style="border-bottom: 1px solid #ddd">
+<section id="our-brands" class="m-3">
+    <div class="container">
         <div class="product-lists">
             <div class="row">
                 <div class="col-xl-12">
@@ -685,7 +685,7 @@ $time = date('Y-m-d H:i:s',$flash_deal->end_date);
                         @endphp
                         @foreach ($brands as $brand)
 
-                        <div class="brand-list mx-1">
+                        <div class="brand-list mx-1" style="border: 2px solid #ddd">
                             <a href="{{route('products.brand',$brand->slug)}}">
                                 <div class="item">
                                     @if (!empty($brand->logo))
