@@ -225,8 +225,11 @@
 
                            </div>
                        </div>
-                       @if((\App\BusinessSetting::where('type', 'esewa_payment')->count() > 0) && (\App\BusinessSetting::where('type', 'esewa_payment')->first()->value == 1))
-                            <div class="col-6">
+                       @php
+                           $esewa=json_decode(\App\BusinessSetting::where('type', 'esewa_payment')->first()->value);
+                       @endphp
+                       @if((\App\BusinessSetting::where('type', 'esewa_payment')->count() > 0) && ($esewa->value == 1))
+                            <div class="col-xl-6 col-md-6 m-auto">
                                 <label class="payment_option mb-4" data-toggle="tooltip" data-title="esewa">
                                     {{-- <button id="payment-button">Pay with esewa</button> --}}
                                     <input type="radio" id="" name="payment_option" value="esewa">
@@ -236,17 +239,6 @@
                                 </label>
                             </div>
                         @endif
-                       {{-- @if(\App\BusinessSetting::where('type', 'esewa')->first()->value == 1)
-                       <div class="col-xl-6 col-md-6 m-auto">
-                          <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="E-sewa">
-                            <label for="file-input">
-                            <img class="img_select img-fluid" src="https://img.favpng.com/7/14/6/esewa-fonepay-pvt-ltd-logo-portable-network-graphics-image-brand-png-favpng-aLLyxWtspEZQckmv19jDj2TWC.jpg" 
-                                >
-                            </label>
-                            <input type="radio" id="file-input" name="payment_option" value="esewa" checked>
-                          </div>
-                       </div>
-                       @endif --}}
                     </div>
                  </div>
                  <div class="col-md-12">

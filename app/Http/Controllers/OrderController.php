@@ -377,15 +377,15 @@ class OrderController extends Controller
             // dd(array($request->session()->get('shipping_info')['email']));
             set_time_limit(1500);
             //stores the pdf for invoice
-            $pdf = PDF::setOptions([
-                'isHtml5ParserEnabled' => true, 
-                'isRemoteEnabled' => true,
-                "isPhpEnabled"=>true,
-                'logOutputFile' => storage_path('logs/log.htm'),
-                'tempDir' => storage_path('logs/'),
-            ])->loadView('invoices.customer_invoice', compact('order'));
-            $output = $pdf->output();
-            file_put_contents(public_path('/invoices/Order#' . $order->code . '.pdf'), $output);
+            // $pdf = PDF::setOptions([
+            //     'isHtml5ParserEnabled' => true, 
+            //     'isRemoteEnabled' => true,
+            //     "isPhpEnabled"=>true,
+            //     'logOutputFile' => storage_path('logs/log.htm'),
+            //     'tempDir' => storage_path('logs/'),
+            // ])->loadView('invoices.customer_invoice', compact('order'));
+            // $output = $pdf->output();
+            // file_put_contents(public_path('/invoices/Order#' . $order->code . '.pdf'), $output);
 
             // $pdf->download('Order-'.$order->code.'.pdf');
             $data['view'] = 'emails.invoice';
@@ -395,15 +395,15 @@ class OrderController extends Controller
             $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
             $data['file_name'] = 'Order#' . $order->code . '.pdf';
 
-            if (Config::get('mail.username') != null) {
-                try {
-                    Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
-                    Log::info('Mail Sent');
-                } catch (\Exception $e) {
-                    Log::info($e->getMessage());
-                }
-            }
-            unlink($data['file']);
+            // if (Config::get('mail.username') != null) {
+            //     try {
+            //         Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
+            //         Log::info('Mail Sent');
+            //     } catch (\Exception $e) {
+            //         Log::info($e->getMessage());
+            //     }
+            // }
+            // unlink($data['file']);
             // dd($data['file']);
             // foreach ($seller_products as $key => $seller_product) {
             //     $user = User::where('id', $key)->first();

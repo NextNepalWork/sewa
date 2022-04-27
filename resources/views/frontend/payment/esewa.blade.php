@@ -1,6 +1,6 @@
 <body>
     @php
-        $esewa=\App\BusinessSetting::where('type','esewa_payment')->where('value',1)->first();
+        $esewa=json_decode(\App\BusinessSetting::where('type','esewa_payment')->first()->value);
     @endphp
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
