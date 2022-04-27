@@ -210,16 +210,16 @@ else{
             <p class="m-0 text-white" style="font-size:.8125rem;">Payment Mode:</p>
                <ul class="footer-image d-flex ml-2">
                   <li class="mr-1">
-                     <img src="{{asset('uploads/visa.png')}}" class="img-fluid ">
+                     <img src="{{asset('uploads/4.jpg')}}" class="img-fluid ">
                   </li>
                   <li class="mr-1">
-                     <img src="{{asset('uploads/master.jpg')}}" class="img-fluid ">
+                     <img src="{{asset('uploads/3.jpg')}}" class="img-fluid ">
                   </li>
                   <li class="mr-1">
-                     <img src="{{asset('uploads/cod.PNG')}}" class="img-fluid ">
+                     <img src="{{asset('uploads/1.jpg')}}" class="img-fluid ">
                   </li>
                   <li class="mr-1">
-                     <img src="{{asset('uploads/eSewa-Nepal.png')}}" class="img-fluid ">
+                     <img src="{{asset('uploads/2.jpg')}}" class="img-fluid ">
                   </li>
                   {{-- <li class="mr-1"><a href=""> <img
                            src="https://www.nicasiabank.com/assets/backend/uploads/nic-asia-bank.png"
