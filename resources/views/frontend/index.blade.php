@@ -663,7 +663,7 @@ $time = date('Y-m-d H:i:s',$flash_deal->end_date);
 </section>
 
 <!-- Brands -->
-<section id="our-brands" class="">
+<section id="our-brands" class="mb-5">
     <div class="container">
         <div class="product-lists">
             <div class="row">
