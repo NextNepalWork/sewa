@@ -342,7 +342,7 @@
                                     <label>{{__('Phone')}}</label>
                                 </div>
                                 <div class="col-md-10">
-                                    <input type="text" class="form-control mb-3" placeholder="{{__('+880')}}" name="phone" value="" required>
+                                    <input type="number" class="form-control mb-3" placeholder="{{__('+880')}}" name="phone" value="" maxlength="10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" required>
                                 </div>
                             </div>
                         </div>

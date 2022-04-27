@@ -105,6 +105,11 @@ Route::get('/nic-pay', 'CheckoutController@test')->name('nic');
 Route::post('/nic-callback', 'CheckoutController@nicCallback')->name('nic_callback');
 Route::get('/nic-cancel', 'CheckoutController@niccancel')->name('nic_callback');
 
+
+//Esewa
+Route::get('page/esewa_payment_success','EsewaController@success');
+Route::get('page/esewa_payment_failed','EsewaController@fail');
+
 Route::get('/checkout/order-confirmed', 'CheckoutController@order_confirmed')->name('order_confirmed');
 Route::post('/checkout/payment', 'CheckoutController@checkout')->name('payment.checkout');
 Route::post('/get_pick_ip_points', 'HomeController@get_pick_ip_points')->name('shipping_info.get_pick_ip_points');

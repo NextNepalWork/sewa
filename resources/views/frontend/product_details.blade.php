@@ -208,15 +208,17 @@
                                     </div>
                                 </div>
                                 <hr>
-                                @if($detailedProduct->brand)
+
                                     <div class="row align-items-center">
                                         <div class="sold-by col-auto">
                                             <small class="mr-2">Brand: </small><br>
+                                            @if($detailedProduct->brand)
                                             <a href="{{route('products.brand',['brand_slug' => $detailedProduct->brand->slug])}}">{{$detailedProduct->brand->name}}</a>
+                                            @endif
                                         </div>
                                     </div>
                                     <hr>
-                                @else
+                                {{-- @else
                                     <div class="row align-items-center">
                                         <div class="sold-by col-auto">
                                             <small class="mr-2">Vendor: </small><br>                                    
@@ -228,7 +230,7 @@
                                         </div>
                                     </div>
                                     <hr>
-                                @endif
+                                @endif --}}
                                 <div class="form-group">
                                     @if(home_price($detailedProduct->id) != home_discounted_price($detailedProduct->id))
                                         <div class="product-price text-dark">
@@ -251,7 +253,8 @@
                                         @else
                                         <div class="product-price text-dark">
                                             <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
-                                            {{-- <span class="piece">/{{ $detailedProduct->unit }}</span></div> --}}
+                                            {{-- <span class="piece">/{{ $detailedProduct->unit }}</span>--}}
+                                            </div> 
                                         </div>
                                     @endif
                                 </div>

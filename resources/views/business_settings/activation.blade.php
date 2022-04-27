@@ -156,7 +156,7 @@
 </div>
 
 <h3 class="text-center">{{__('Payment Related')}}</h3>
-<div class="row">
+{{-- <div class="row">
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading text-center bord-btm">
@@ -309,6 +309,30 @@
                         <input type="checkbox" onchange="updateSettings(this, 'cash_payment')" <?php if(\App\BusinessSetting::where('type', 'cash_payment')->first()->value == 1) echo "checked";?>>
                         <span class="slider round"></span>
                     </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="panel">
+            <div class="panel-heading text-center bord-btm">
+                <h3 class="panel-title">{{__('Esewa Payment Activation')}}</h3>
+            </div>
+            <div class="panel-body">
+                <div class="clearfix">
+                    <img loading="lazy"  class="pull-left" src="https://img.favpng.com/7/14/6/esewa-fonepay-pvt-ltd-logo-portable-network-graphics-image-brand-png-favpng-aLLyxWtspEZQckmv19jDj2TWC.jpg" height="30">
+                    <label class="switch pull-right">
+                        <input type="checkbox" onchange="updateSettings(this, 'esewa_payment')" @if(\App\BusinessSetting::where('type', 'esewa_payment')->first()) {{\App\BusinessSetting::where('type', 'esewa_payment')->first()->value==1}} checked @endif>
+
+                        {{-- <input type="checkbox" onchange="updateSettings(this, 'khalti_payment')" @php if(\App\BusinessSetting::where('type', 'khalti_payment')->first()->value == 1) echo "checked"; @endphp> --}}
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="alert text-center" style="color: #004085;background-color: #cce5ff;border-color: #b8daff;margin-bottom:0;margin-top:10px;">
+                    You need to configure Esewa correctly to enable this feature. <a href="{{ route('payment_method.index') }}">Configure Now</a>
                 </div>
             </div>
         </div>

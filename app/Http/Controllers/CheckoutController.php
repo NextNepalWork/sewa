@@ -151,6 +151,10 @@ class CheckoutController extends Controller
                     $nic = new NicController;
                     return $nic->nic();
                 }
+                elseif($request->payment_option == 'esewa'){
+                    $esewa = new EsewaController;
+                    return $esewa->esewa();
+                }
                 else{
                     $order = Order::findOrFail($request->session()->get('order_id'));
                     $order->manual_payment = 1;

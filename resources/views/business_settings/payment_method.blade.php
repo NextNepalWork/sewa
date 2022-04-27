@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="row">
+{{-- <div class="row">
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
@@ -315,6 +315,75 @@
             </div>
         </div>
     </div>
+</div> --}}
+
+<div class="row">
+
+    @php
+        $esewa=\App\BusinessSetting::where('type','esewa_payment')->exists();
+        // dd($esewa);
+    @endphp
+    <div class="col-lg-6">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title text-center">{{__('Esewa Credential')}}</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" action="{{ route('payment_method.update') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="payment_method" value="esewa_payment">
+                    @if ($esewa)
+                    @php
+                        $esewa_credentials=\App\BusinessSetting::where('type','esewa_payment')->first()
+                    @endphp
+
+                        <div class="form-group">
+                            <div class="col-lg-3">
+                                <label class="control-label">{{__('ESEWA KEY')}}</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" name="ESEWA_KEY" value="{{$esewa_credentials->esewa_key}}" placeholder="ESEWA KEY" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-3">
+                                <label class="control-label">{{__('ESEWA SECRET')}}</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" name="ESEWA_SECRET" value="{{$esewa_credentials->esewa_secret}}" placeholder="ESEWA SECRET" required>
+                            </div>
+                        </div> 
+                    @else
+                        <div class="form-group">
+                            <div class="col-lg-3">
+                                <label class="control-label">{{__('ESEWA KEY')}}</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" name="ESEWA_KEY" value="" placeholder="ESEWA KEY" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-3">
+                                <label class="control-label">{{__('ESEWA SECRET')}}</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" name="ESEWA_SECRET" value="" placeholder="ESEWA SECRET" required>
+                            </div>
+                        </div> 
+                    @endif
+                    
+
+                    <div class="form-group">
+                        <div class="col-lg-12 text-right">
+                            <button class="btn btn-purple" type="submit">{{__('Save')}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
 @endsection
