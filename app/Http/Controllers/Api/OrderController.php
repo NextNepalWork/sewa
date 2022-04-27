@@ -21,6 +21,7 @@ use Mail;
 use PDF;
 use Session;
 use App\Mail\InvoiceEmailManager;
+use Auth;
 
 class OrderController extends Controller
 {
@@ -175,7 +176,10 @@ class OrderController extends Controller
         // $order = Order::where('id',161)->first();
         // $shipping_address = json_decode($request->shipping_address,true);
         // return $shipping_address;
-        // // $user_id = $shipping_address['user_id'];
+        $user = [
+            'email' => Auth::user()->email,
+            'name' => Auth::user()->name
+        ];
         // $user = User::where('id',$user_id)->first();
         // return $shipping_address['email'];
         $pdf = PDF::setOptions([
@@ -184,7 +188,7 @@ class OrderController extends Controller
             "isPhpEnabled"=>true,
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/'),
-        ])->loadView('invoices.customer_invoice', compact('order'));
+        ])->loadView('invoices.customer_invoice', compact('order','user'));
         $output = $pdf->output();
         file_put_contents(public_path('/invoices/Order#' . $order->code . '.pdf'), $output);
         $data['view'] = 'emails.invoice';

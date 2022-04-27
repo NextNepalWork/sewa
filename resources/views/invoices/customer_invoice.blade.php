@@ -105,9 +105,9 @@
 					$shipping_address = json_decode($order->shipping_address);
 				@endphp
 				<tr><td class="strong small gry-color">Bill to:</td></tr>
-				<tr><td class="strong">{{ $shipping_address->name }}</td></tr>
+				<tr><td class="strong">{{ (isset($shipping_address->name))?$shipping_address->name:$user['name'] }}</td></tr>
 				<tr><td class="gry-color small">{{ $shipping_address->address }}, {{ $shipping_address->city }}, {{ $shipping_address->country }}</td></tr>
-				<tr><td class="gry-color small">Email: {{ $shipping_address->email }}</td></tr>
+				<tr><td class="gry-color small">Email: {{ (isset($shipping_address->name))?$shipping_address->email:$user['email'] }}</td></tr>
 				<tr><td class="gry-color small">Phone: {{ $shipping_address->phone }}</td></tr>
 			</table>
 		</div>
