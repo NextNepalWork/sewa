@@ -15,11 +15,17 @@ use App\Models\BusinessSetting;
 use App\User;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
+use Mail;
+use PDF;
+use Session;
+use App\Mail\InvoiceEmailManager;
 
 class OrderController extends Controller
 {
     public function processOrder(Request $request)
-    {
+    {       
         $coupon_discount = 0;
         if ($request->coupon_code != '') {
             $coupon  = Coupon::where('code', $request->coupon_code)
@@ -163,6 +169,36 @@ class OrderController extends Controller
         // clear user's cart
         $user = User::findOrFail($request->user_id);
         $user->carts()->delete();
+
+        set_time_limit(1500);
+
+        // $order = Order::where('id',161)->first();
+        $shipping_address = json_decode($order->shipping_address,true);
+        // return $shipping_address['email'];
+        $pdf = PDF::setOptions([
+            'isHtml5ParserEnabled' => true, 
+            'isRemoteEnabled' => true,
+            "isPhpEnabled"=>true,
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/'),
+        ])->loadView('invoices.customer_invoice', compact('order'));
+        $output = $pdf->output();
+        file_put_contents(public_path('/invoices/Order#' . $order->code . '.pdf'), $output);
+        $data['view'] = 'emails.invoice';
+        $data['subject'] = 'Sewa Digital Express - Order Placed - ' . $order->code;
+        $data['from'] = Config::get('mail.username');
+        $data['content'] = 'Hi. Thank you for ordering from Sewa Digital Express. Here is the pdf of the invoice.';
+        $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
+        $data['file_name'] = 'Order#' . $order->code . '.pdf';
+        if (Config::get('mail.username') != null) {
+            try {
+                Mail::to($shipping_address['email'])->send(new InvoiceEmailManager($data));
+                Log::info('Mail Sent From app');
+            } catch (\Exception $e) {
+                Log::info($e->getMessage());
+            }
+        }
+        unlink($data['file']);
 
         return response()->json([
             'success' => true,
