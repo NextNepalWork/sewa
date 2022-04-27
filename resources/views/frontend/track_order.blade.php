@@ -56,7 +56,13 @@
                                     </tr>
                                     <tr>
                                         <td class="w-50 strong-600">{{__('Customer')}}:</td>
-                                        <td>{{ json_decode($order->shipping_address)->name }}</td>
+                                        <td>
+                                            @php
+                                                $shipping = json_decode($order->shipping_address);
+                                                $user = \App\User::where('id',$shipping['user_id'])->first();
+                                            @endphp
+                                            {{ (isset($shipping['name']))?$shipping['name']:$user->name }}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="w-50 strong-600">{{__('Email')}}:</td>
@@ -66,7 +72,7 @@
                                     </tr>
                                     <tr>
                                         <td class="w-50 strong-600">{{__('Shipping address')}}:</td>
-                                        <td>{{ json_decode($order->shipping_address)->address }}, {{ json_decode($order->shipping_address)->city }}, {{ json_decode($order->shipping_address)->country }}</td>
+                                        <td>{{ (isset($shipping['address']))?$shipping['address']:'' }}, {{ json_decode($order->shipping_address)->city }}, {{ json_decode($order->shipping_address)->country }}</td>
                                     </tr>
                                 </table>
                             </div>
