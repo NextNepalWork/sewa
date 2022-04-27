@@ -16,7 +16,7 @@ class NicController extends Controller
       $ordercode = Order::where('id', $order_id)->first();
       
    
-      return view('frontend.payment.esewa',compact('ordercode'));
+      return view('frontend.payment.nic',compact('ordercode'));
      
       
     }
