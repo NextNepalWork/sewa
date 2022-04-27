@@ -58,7 +58,7 @@
                                         <td class="w-50 strong-600">{{__('Customer')}}:</td>
                                         <td>
                                             @php
-                                                $shipping = json_decode($order->shipping_address);
+                                                $shipping = json_decode($order->shipping_address,true);
                                                 $user = \App\User::where('id',$shipping['user_id'])->first();
                                             @endphp
                                             {{ (isset($shipping['name']))?$shipping['name']:$user->name }}
