@@ -20,6 +20,7 @@ use App\CouponUsage;
 use App\User;
 use App\Address;
 use App\Models\Cart;
+use App\Models\OrderDetail;
 use Session;
 
 class CheckoutController extends Controller
@@ -30,12 +31,89 @@ class CheckoutController extends Controller
         //
     }
     public function test(){
-        $order_id = Session::get('order_id');
-    
+        $order_id = Session::get('order_id');    
         $ordercode = Order::where('id', $order_id)->first();
-        
-     
         return view('frontend.payment.esewa',compact('ordercode'));
+    }
+    public function nicCallback(Request $request){
+        // payment_details
+        $order_code = $request->req_transaction_uuid;
+        $order = Order::where('code',$order_code)->first();
+        // return $this->checkout_done($order->id,$request->all());
+
+
+        $order_details = OrderDetail::where('order_id',$order->id)->update(['payment_status'=>'paid']);
+        $order->payment_status = 'paid';
+        $json =json_encode([$request->all()]);
+        $order->payment_details =$json;
+        // $order->save();
+
+        // if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null && \App\Addon::where('unique_identifier', 'affiliate_system')->first()->activated) {
+        //     $affiliateController = new AffiliateController;
+        //     $affiliateController->processAffiliatePoints($order);
+        // }
+
+        // if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated) {
+        //     $clubpointController = new ClubPointController;
+        //     $clubpointController->processClubPoints($order);
+        // }
+
+        if(\App\Addon::where('unique_identifier', 'seller_subscription')->first() == null || !\App\Addon::where('unique_identifier', 'seller_subscription')->first()->activated){
+            if (BusinessSetting::where('type', 'category_wise_commission')->first()->value != 1) {
+                $commission_percentage = BusinessSetting::where('type', 'vendor_commission')->first()->value;
+                foreach ($order->orderDetails as $key => $orderDetail) {
+                    $orderDetail->payment_status = 'paid';
+                    $orderDetail->save();
+                    if($orderDetail->product->user->user_type == 'seller'){
+                        $seller = $orderDetail->product->user->seller;
+                        $seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price*(100-$commission_percentage))/100 + $orderDetail->tax + $orderDetail->shipping_cost;
+                        $seller->save();
+                    }
+                }
+            }
+            else{
+                foreach ($order->orderDetails as $key => $orderDetail) {
+                    $orderDetail->payment_status = 'paid';
+                    $orderDetail->save();
+                    if($orderDetail->product->user->user_type == 'seller'){
+                        $commission_percentage = $orderDetail->product->category->commision_rate;
+                        $seller = $orderDetail->product->user->seller;
+                        $seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price*(100-$commission_percentage))/100  + $orderDetail->tax + $orderDetail->shipping_cost;
+                        $seller->save();
+                    }
+                }
+            }
+        }
+        else {
+            foreach ($order->orderDetails as $key => $orderDetail) {
+                $orderDetail->payment_status = 'paid';
+                $orderDetail->save();
+                if($orderDetail->product->user->user_type == 'seller'){
+                    $seller = $orderDetail->product->user->seller;
+                    $seller->admin_to_pay = $seller->admin_to_pay + $orderDetail->price + $orderDetail->tax + $orderDetail->shipping_cost;
+                    $seller->save();
+                }
+            }
+        }
+
+        $order->commission_calculated = 1;
+        $order->save();
+
+        Session::put('cart', collect([]));
+        // Session::forget('order_id');
+        Session::forget('payment_type');
+        Session::forget('delivery_info');
+        Session::forget('coupon_id');
+        Session::forget('coupon_discount');
+
+        flash(__('Payment completed'))->success();
+
+        return redirect()->route('order_confirmed');
+        // $order_id = Session::get('order_id');
+        // dd($order_code,$request->all());
+    }
+    public function niccancel(){
+        abort(404);
     }
     //check the selected payment gateway and redirect to that controller accordingly
     public function checkout(Request $request)
@@ -70,8 +148,8 @@ class CheckoutController extends Controller
                     return $this->checkout_done($request->session()->get('order_id'), null);
                 }
                 elseif($request->payment_option == 'nic'){
-                    $esewa = new NicController;
-                    return $esewa->esewa();
+                    $nic = new NicController;
+                    return $nic->nic();
                 }
                 else{
                     $order = Order::findOrFail($request->session()->get('order_id'));

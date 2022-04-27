@@ -150,8 +150,19 @@ class HomeController extends Controller
         $user->postal_code = $request->postal_code;
         $user->phone = $request->phone;
 
+        // if($request->new_password != null && ($request->new_password == $request->confirm_password)){
+        //     $user->password = Hash::make($request->new_password);
+        // }
         if($request->new_password != null && ($request->new_password == $request->confirm_password)){
-            $user->password = Hash::make($request->new_password);
+            if (Hash::check($request->old_password, $user->password)) { 
+                $user->password = Hash::make($request->new_password);
+            }else{               
+                flash(__('Old password doesnot match'))->error();
+                return back();
+            }
+        }else{            
+            flash(__('Passwords donot match'))->error();
+            return back();
         }
 
         if($request->hasFile('photo')){
@@ -194,9 +205,18 @@ class HomeController extends Controller
         $user->city = $request->city;
         $user->postal_code = $request->postal_code;
         $user->phone = $request->phone;
-
+       
+// dd($request->old_password,Hash::make($request->old_password),$user->password);
         if($request->new_password != null && ($request->new_password == $request->confirm_password)){
-            $user->password = Hash::make($request->new_password);
+            if (Hash::check($request->old_password, $user->password)) { 
+                $user->password = Hash::make($request->new_password);
+            }else{               
+                flash(__('Old password doesnot match'))->error();
+                return back();
+            }
+        }else{            
+            flash(__('Passwords donot match'))->error();
+            return back();
         }
 
         if($request->hasFile('photo')){

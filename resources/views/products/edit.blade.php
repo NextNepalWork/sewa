@@ -108,6 +108,22 @@
 						</div>
 					</div>
 					
+					<div class="form-group">
+						<label for="warranty" class="col-lg-2 control-label">{{ __('Warranty') }}</label>
+						<div class="col-lg-7">
+							<label class="switch" style="margin-top: 5px;">
+								<input type="checkbox" name="warranty" id="warranty" {{ $product->warranty == 1 ? 'checked': '' }}>
+								<span class="slider round"></span>
+							</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="warranty_time" class="col-lg-2 control-label">{{ __('Warranty Time') }}</label>
+						<div class="col-lg-7">
+								<input type="text" class="form-control" name="warranty_time" value="{{ $product->warranty_time }}" placeholder="Warranty Time" id="warranty_time">
+						</div>
+					</div>
+					
 					<div class="form-group" id="brand">
 						<label class="col-lg-2 control-label">Vendor</label>
 						<div class="col-lg-7">
@@ -326,7 +342,7 @@
 					<div class="form-group" id="quantity">
 						<label class="col-lg-2 control-label">{{__('Quantity')}}</label>
 						<div class="col-lg-7">
-							<input type="text" value="{{ $product->current_stock }}" placeholder="{{__('Quantity')}}" name="current_stock1" class="form-control" id="current_stock" onkeypress="return isNumber(event)" required>
+							<input type="text" value="{{ $product->current_stock }}" placeholder="{{__('Quantity')}}" name="current_stock" class="form-control" id="current_stock" onkeypress="return isNumber(event)" required>
 
 						</div>
 					</div>

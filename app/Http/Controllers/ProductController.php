@@ -100,6 +100,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
 
         $product = new Product;
@@ -143,6 +144,8 @@ class ProductController extends Controller
         }
 
         $product->made_in_nepal = $request->made_in_nepal != null ? 1 : 0;
+        $product->warranty = $request->warranty != null ? 1 : 0;
+        $product->warranty_time = $request->warranty_time;
 
         $photos = array();
         $thumb=array();
@@ -301,13 +304,13 @@ class ProductController extends Controller
         }
         //combinations end
 
-        foreach (Language::all() as $key => $language) {
-            $data = openJSONFile($language->code);
-            // $data[$product->name] = $product->name;
-            $string = str_replace( '"', '&quot;', $product->name );
-            $data[$string]=$string;
-            saveJSONFile($language->code, $data);
-        }
+        // foreach (Language::all() as $key => $language) {
+        //     $data = openJSONFile($language->code);
+        //     // $data[$product->name] = $product->name;
+        //     $string = str_replace( '"', '&quot;', $product->name );
+        //     $data[$string]=$string;
+        //     saveJSONFile($language->code, $data);
+        // }
 
         $product->save();
 
@@ -386,7 +389,7 @@ class ProductController extends Controller
         $product->subsubcategory_id = $request->subsubcategory_id;
         $product->brand_id = $request->brand_id;
         $product->specs = $request->specs;
-        $product->current_stock = $request->current_stock1;
+        $product->current_stock = $request->current_stock;
         $product->barcode = $request->barcode;
 
         if ($refund_request_addon != null && $refund_request_addon->activated == 1) {
@@ -421,6 +424,9 @@ class ProductController extends Controller
         }
         $product->photos = json_encode($photos);
         $product->thumbnail_img = json_encode($thumb);
+        $product->made_in_nepal = $request->made_in_nepal != null ? 1 : 0;
+        $product->warranty = $request->warranty != null ? 1 : 0;
+        $product->warranty_time = $request->warranty_time;
 
         // $product->thumbnail_img = $request->previous_thumbnail_img;
         // if($request->hasFile('thumbnail_img')){
@@ -510,15 +516,15 @@ class ProductController extends Controller
 
         $product->choice_options = json_encode($choice_options);
 
-        foreach (Language::all() as $key => $language) {
-            $data = openJSONFile($language->code);
-            // dd($data);
-            unset($data[$product->name]);
-            $string = str_replace( '"', '&quot;', $request->name );
-            $data[$string]="";
-            // $data[$request->name] = "";
-            saveJSONFile($language->code, $data);
-        }
+        // foreach (Language::all() as $key => $language) {
+        //     $data = openJSONFile($language->code);
+        //     // dd($data);
+        //     unset($data[$product->name]);
+        //     $string = str_replace( '"', '&quot;', $request->name );
+        //     $data[$string]="";
+        //     // $data[$request->name] = "";
+        //     saveJSONFile($language->code, $data);
+        // }
 
         //combinations start
         $options = array();

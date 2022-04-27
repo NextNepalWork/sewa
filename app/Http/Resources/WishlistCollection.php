@@ -19,6 +19,7 @@ class WishlistCollection extends ResourceCollection
                         'thumbnail_image' =>file_exists($data->product->featured_img) ? $data->product->featured_img : $placeholder_img,
                         'base_price' => (double) homeBasePrice($data->product->id),
                         'base_discounted_price' => (double) homeDiscountedBasePrice($data->product->id),
+                        'unit_price' => $data->product->unit_price,
                         'unit' => $data->product->unit,
                         'rating' => (double) $data->product->rating,
                         'links' => [

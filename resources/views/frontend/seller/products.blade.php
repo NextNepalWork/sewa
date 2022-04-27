@@ -85,7 +85,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>{{__('Name')}}</th>
-                                            <th>{{__('Sub Subcategory')}}</th>
+                                            <th>{{__('Category')}}</th>
                                             <th>{{__('Current Qty')}}</th>
                                             <th>{{__('Base Price')}}</th>
                                             <th>{{__('Published')}}</th>
@@ -102,6 +102,10 @@
                                                 <td>
                                                     @if ($product->subsubcategory != null)
                                                         {{ $product->subsubcategory->name }}
+                                                    @elseif($product->subcategory != null)
+                                                        {{ $product->subcategory->name }}                                                        
+                                                    @elseif($product->category != null)
+                                                        {{ $product->category->name }}
                                                     @endif
                                                 </td>
                                                 <td>

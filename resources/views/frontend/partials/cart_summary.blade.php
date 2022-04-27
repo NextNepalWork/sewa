@@ -7,11 +7,11 @@
           </div>
           <hr style="margin-top:0px">
        </div>
-       <div class="cart-price d-flex justify-content-between mb-2">
+       {{-- <div class="cart-price d-flex justify-content-between mb-2">
           <h6 class="">
              PRODUCT</h6>
           <span class="cart_text">TOTAL</span>
-       </div>
+       </div> --}}
        @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
             @php
                 $total_point = 0;

@@ -43,6 +43,8 @@ class ProductCollection extends ResourceCollection
                     'todays_deal' => (integer) $data->todays_deal,
                     'featured' =>(integer) $data->featured,
                     'unit' => $data->unit,
+                    'warranty' => $data->warranty,
+                    'warranty_time' => $data->warranty_time,
                     'discount' => (double) $data->discount,
                     'discount_type' => $data->discount_type,
                     'rating' => (double) $data->rating,

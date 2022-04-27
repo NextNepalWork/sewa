@@ -5,6 +5,8 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use App\Models\Review;
 use App\Models\Attribute;
+use App\Product;
+use App\ProductStock;
 
 class ProductDetailCollection extends ResourceCollection
 {
@@ -26,6 +28,27 @@ class ProductDetailCollection extends ResourceCollection
                         }
                     }
                 }
+                $variant_stock = [];
+                if($data->variant_product == 1){
+                    $get_products = ProductStock::where('product_id',$data->id)->count();
+                    if($get_products > 0){
+                        $get_products = ProductStock::where('product_id',$data->id)->get()->toArray();
+                        foreach($get_products as $a => $b){
+                            // if(isset($variant_stock[$b['variant']])){
+
+                            // }
+                            $c = [
+                                'name' => $b['variant'],
+                                'sku' => $b['sku'],
+                                'price' => $b['price'],
+                                'qty' => $b['qty'],
+                            ];
+                            array_push($variant_stock,$c);
+                        }
+                    }
+                }
+
+
                 return [
                     'id' => (integer) $data->id,
                     'name' => $data->name,
@@ -65,6 +88,7 @@ class ProductDetailCollection extends ResourceCollection
                         ]
                     ],
                     'variant_product' => $data->variant_product,
+                    'variant_stock' => $variant_stock,
                     'photos' => $photo,
                     'thumbnail_image' => file_exists($data->thumbnail_img) ? $data->thumbnail_img : $placeholder_img,
                     'featured_image' => file_exists($data->featured_img) ? $data->featured_img : $placeholder_img,
@@ -86,6 +110,8 @@ class ProductDetailCollection extends ResourceCollection
                     'tax_type' => $data->tax_type,
                     'shipping_type' => $data->shipping_type,
                     'shipping_cost' => (double) $data->shipping_cost,
+                    'warranty' => $data->warranty,
+                    'warranty_time' => $data->warranty_time,
                     'number_of_sales' => (integer) $data->num_of_sale,
                     'reviews' => Review::where(['product_id' => $data->id])->get(),
                     'rating_count' => (integer) Review::where(['product_id' => $data->id])->count(),

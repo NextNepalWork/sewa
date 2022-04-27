@@ -122,12 +122,11 @@
                                 @foreach (json_decode($detailedProduct->photos) as $key => $photo)
                                     @if (!empty($photo))
                                         @if (file_exists($photo))
-                                            <div class="swiper-slide"
-                                            style="background-image:url('{{ asset($photo) }}')">
-                                        </div>
+                                            <div class="swiper-slide" style="background-image:url('{{ asset($photo) }}')">
+                                            </div>
                                         @else
-                                        <div class="swiper-slide"
-                                        style="background-image:url('{{ asset("frontend/images/placeholder.jpg") }}')">
+                                        <div class="swiper-slide" style="background-image:url('{{ asset("frontend/images/placeholder.jpg") }}')">
+                                        </div>
                                         @endif
                                     
                                     @else
@@ -145,254 +144,361 @@
                     </div>
                 </div>
                 <div class="col-lg-7 col-md-12 col-12 mx-auto">
-                    <div class="d-flex justify-content-center product-detail flex-column">
-                        <div class="about mb-1">
-                            <div class="d-inline-block flex-column flex-wrap mb-2">
-                                <h3 class="font-weight-bold m-0">{{ __($detailedProduct->name) }}</h3>
-                                
-
-                            </div>
-
-
-                            <div class="d-flex flex-wrap align-items-center">
-                                <!-- Rating -->
-                                <div class="rating-wrapper mr-3">
-                                    <div class="p-ratings">
-                                        @php
-                                            $total = 0;
-                                            $rating = 0;
-                                        @endphp
-                                        <i class="star-rating">
-                                            {{-- @if ($detailedProduct->rating > 0)
-                                                {{ renderStarRating($rating/$total) }}
-                                            @else
-                                                {{ renderStarRating(0) }}
-                                            @endif --}}
-                                            {{ renderStarRating($detailedProduct->rating) }}
-                                        </i>
-                                        
-                                        <span class="rating-count ml-1">
-                                            ({{count($detailedProduct->reviews)}} {{__('reviews')}})
-                                        </span>
+                    <div class="row">
+                        <div class="col-lg-8 col-md-12 col-12">
+                            <div class="d-flex justify-content-center product-detail flex-column">
+                                <div class="about mb-1">
+                                    <div class="d-inline-block flex-column flex-wrap mb-2">
+                                        <h3 class="font-weight-bold m-0">{{ __($detailedProduct->name) }}</h3>                               
+        
                                     </div>
-                                </div>
-                                <!-- Rating Ends -->
-                                
-                                <div class="font-weight-bold d-inline-flex align-items-center">
-                                    <ul class="p-0 m-0 d-flex align-items-center">                                        
-                                        <li class="mr-2">
-                                            <div class="jssocials-share jssocials-share-email">
-                                                <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToWishList({{$detailedProduct->id}})">
-                                                    <i class="fa fa-heart icon mr-2"></i>
-                                                </a>
-                                                <a class="all-deals effect gray" onclick="addToCompare({{$detailedProduct->id}})">
-                                                    <i class="fa fa-exchange icon mr-2"></i>
-                                                </a>
+        
+        
+                                    <div class="d-flex flex-wrap align-items-center">
+                                        <!-- Rating -->
+                                        <div class="rating-wrapper mr-3">
+                                            <div class="p-ratings">
+                                                @php
+                                                    $total = 0;
+                                                    $rating = 0;
+                                                @endphp
+                                                <i class="star-rating">
+                                                    {{-- @if ($detailedProduct->rating > 0)
+                                                        {{ renderStarRating($rating/$total) }}
+                                                    @else
+                                                        {{ renderStarRating(0) }}
+                                                    @endif --}}
+                                                    {{ renderStarRating($detailedProduct->rating) }}
+                                                </i>
+                                                
+                                                <span class="rating-count ml-1">
+                                                    ({{count($detailedProduct->reviews)}} {{__('reviews')}})
+                                                </span>
                                             </div>
-                                        </li>
-                                    </ul>
-                                    
-                                </div>
-                                {{-- <div class="social-media font-weight-bold d-inline-flex align-items-center">
-                                    <!-- <label class="mr-3 mb-0 font-weight-bold">
-                                    Share On
-                                    </label> -->
-                                    <ul class="p-0 m-0 d-flex align-items-center">
-                                        
-                                        <li class="mr-2">
-                                            <div id="share"></div>
-                                        </li>
-                                    </ul>
-                                    
-                                </div> --}}
-                            </div>
-                        </div>
-                        <hr>
-
-                        <div class="row align-items-center">
-                            <div class="sold-by col-auto">
-                                <small class="mr-2">Vendor: </small><br>
-                                @if ($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
-                                    <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}">{{ $detailedProduct->user->shop->name }}</a>
-                                @else
-                                    {{ __('Inhouse product') }}
-                                @endif
-                            </div>
-                            {{-- @if (\App\BusinessSetting::where('type', 'conversation_system')->first()->value == 1)
-                                <div class="col-auto">
-                                    <button class="btn btn-primary" onclick="show_chat_modal()">{{__('Message Seller')}}</button>
-                                </div>
-                            @endif --}}
-                        </div>
-                        <hr>
-                        {{-- <div class="descrip mb-2" style="max-height: fit-content">
-                            <h5>Description</h5>
-                            
-                            {!! $detailedProduct->description !!}
-                            
-                        </div> --}}
-                        <div class="form-group">
-                            @if(home_price($detailedProduct->id) != home_discounted_price($detailedProduct->id))
-                                <div class="product-price text-dark">
-                                    <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
-                                        {{-- <span class="piece">/{{ $detailedProduct->unit }}</span> --}}
-                                    </div>
-                                    <div class="d-flex">
-                                        <div class="first-price mr-2">{{ home_price($detailedProduct->id) }}
-                                            {{-- <span>/{{ $detailedProduct->unit }}</span> --}}
                                         </div>
-                                        <div class="discount">
-                                            @if (! $detailedProduct->discount == 0)
-                                                <div class="">
-                                                    -{{ ($detailedProduct->discount_type == 'amount')?'Rs.':'' }} {{ (intval($detailedProduct->discount,0)) }}{{ !($detailedProduct->discount_type == 'amount')?' %':'' }} off
-                                                </div>
+                                        <!-- Rating Ends -->
+                                        
+                                        {{-- <div class="font-weight-bold d-inline-flex align-items-center">
+                                            <ul class="p-0 m-0 d-flex align-items-center">                                        
+                                                <li class="mr-2">
+                                                    <div class="jssocials-share jssocials-share-email">
+                                                        <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToWishList({{$detailedProduct->id}})">
+                                                            <i class="fa fa-heart icon mr-2"></i>
+                                                        </a>
+                                                        <a class="all-deals effect gray" onclick="addToCompare({{$detailedProduct->id}})">
+                                                            <i class="fa fa-exchange icon mr-2"></i>
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            
+                                        </div> --}}
+                                        {{-- <div class="social-media font-weight-bold d-inline-flex align-items-center">
+                                            <!-- <label class="mr-3 mb-0 font-weight-bold">
+                                            Share On
+                                            </label> -->
+                                            <ul class="p-0 m-0 d-flex align-items-center">
+                                                
+                                                <li class="mr-2">
+                                                    <div id="share"></div>
+                                                </li>
+                                            </ul>
+                                            
+                                        </div> --}}
+                                    </div>
+                                </div>
+                                <hr>
+                                @if($detailedProduct->brand)
+                                    <div class="row align-items-center">
+                                        <div class="sold-by col-auto">
+                                            <small class="mr-2">Brand: </small><br>
+                                            <a href="{{route('products.brand',['brand_slug' => $detailedProduct->brand->slug])}}">{{$detailedProduct->brand->name}}</a>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                @else
+                                    <div class="row align-items-center">
+                                        <div class="sold-by col-auto">
+                                            <small class="mr-2">Vendor: </small><br>                                    
+                                            @if ($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
+                                                <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}">{{ $detailedProduct->user->shop->name }}</a>
+                                            @else
+                                                {{ __('Inhouse product') }}
                                             @endif
                                         </div>
                                     </div>
-                                </div>
-                                @else
-                                <div class="product-price text-dark">
-                                    <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
-                                    {{-- <span class="piece">/{{ $detailedProduct->unit }}</span></div> --}}
-                                </div>
-                            @endif
-                        </div>
-
-
-                        <form id="option-choice-form" class="image-size-wrapper">
-                            @csrf
-                            <input type="hidden" name="id" value="{{ $detailedProduct->id }}">
-                            @php
-                            $qty = 0;
-                            if($detailedProduct->variant_product){
-                                foreach ($detailedProduct->stocks as $key => $stock) {
-                                    $qty += $stock->qty;
-                                }
-                            }
-                            else{
-                                $qty = $detailedProduct->current_stock ;
-                            }
-                            @endphp
-                            <div class="form-row">
-
-                                @if (count(json_decode($detailedProduct->colors)) > 0)
-                                <div class="form-group col-lg-12 col-md-6">
-                                    <div class="image-select">
-                                        <h5>Color</h5>
-                                        <div class="my-color ml-5">
-                                            @foreach (json_decode($detailedProduct->colors) as $key => $color)
-                                            <label class="radio m-0" style="background: {{ $color }};" for="{{ $detailedProduct->id }}-color-{{ $key }}" data-toggle="tooltip">
-                                                <input type="radio" id="{{ $detailedProduct->id }}-color-{{ $key }}" name="color" value="{{ $color }}" @if($key == 0) checked @endif>
-                                                <span style="background:{{$color}}; border:{{$color}}"></span> 
-                                            </label>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
+                                    <hr>
                                 @endif
-
-                                @if ($detailedProduct->choice_options != null)
-                                {{-- {{dd($detailedProduct->choice_options)}} --}}
-                                @foreach (json_decode($detailedProduct->choice_options) as $key => $choice)
-                                <div class="form-group col-lg-12 col-md-6">
-                                    <div class="size-wrapper">
-                                        <div class="size-select">
-                                            <h5>{{ \App\Attribute::find($choice->attribute_id)->name }}</h5>
-                                            <div class="select-size ml-5">
-                                                {{-- {{dd($choice->values)}} --}}
-                                                @foreach ($choice->values as $key => $value)
-                                                <input type="radio" id="{{ $choice->attribute_id }}-{{ $value }}" name="attribute_id_{{ $choice->attribute_id }}" value="{{ $value }}" @if($key == 0) checked @endif>
-                                                    <label for="{{ $choice->attribute_id }}-{{ $value }}" class="size">{{ $value }}</label>
-                                                @endforeach
+                                <div class="form-group">
+                                    @if(home_price($detailedProduct->id) != home_discounted_price($detailedProduct->id))
+                                        <div class="product-price text-dark">
+                                            <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
+                                                {{-- <span class="piece">/{{ $detailedProduct->unit }}</span> --}}
+                                            </div>
+                                            <div class="d-flex">
+                                                <div class="first-price mr-2">{{ home_price($detailedProduct->id) }}
+                                                    {{-- <span>/{{ $detailedProduct->unit }}</span> --}}
+                                                </div>
+                                                <div class="discount">
+                                                    @if (! $detailedProduct->discount == 0)
+                                                        <div class="">
+                                                            -{{ ($detailedProduct->discount_type == 'amount')?'Rs.':'' }} {{ (intval($detailedProduct->discount,0)) }}{{ !($detailedProduct->discount_type == 'amount')?' %':'' }} off
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @else
+                                        <div class="product-price text-dark">
+                                            <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
+                                            {{-- <span class="piece">/{{ $detailedProduct->unit }}</span></div> --}}
+                                        </div>
+                                    @endif
+                                </div>
+        
+        
+                                <form id="option-choice-form" class="image-size-wrapper">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $detailedProduct->id }}">
+                                    @php
+                                    $qty = 0;
+                                    if($detailedProduct->variant_product){
+                                        foreach ($detailedProduct->stocks as $key => $stock) {
+                                            $qty += $stock->qty;
+                                        }
+                                    }
+                                    else{
+                                        $qty = $detailedProduct->current_stock ;
+                                    }
+                                    @endphp
+                                    <div class="form-row">
+        
+                                        @if (count(json_decode($detailedProduct->colors)) > 0)
+                                        <div class="form-group col-lg-12 col-md-6">
+                                            <div class="image-select">
+                                                <h5>Color</h5>
+                                                <div class="my-color ml-5">
+                                                    @foreach (json_decode($detailedProduct->colors) as $key => $color)
+                                                    <label class="radio m-0" style="background: {{ $color }};" for="{{ $detailedProduct->id }}-color-{{ $key }}" data-toggle="tooltip">
+                                                        <input type="radio" id="{{ $detailedProduct->id }}-color-{{ $key }}" name="color" value="{{ $color }}" @if($key == 0) checked @endif>
+                                                        <span style="background:{{$color}}; border:{{$color}}"></span> 
+                                                    </label>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endif
+        
+                                        @if ($detailedProduct->choice_options != null)
+                                        {{-- {{dd($detailedProduct->choice_options)}} --}}
+                                        @foreach (json_decode($detailedProduct->choice_options) as $key => $choice)
+                                        <div class="form-group col-lg-12 col-md-6">
+                                            <div class="size-wrapper">
+                                                <div class="size-select">
+                                                    <h5>{{ \App\Attribute::find($choice->attribute_id)->name }}</h5>
+                                                    <div class="select-size ml-5">
+                                                        {{-- {{dd($choice->values)}} --}}
+                                                        @foreach ($choice->values as $key => $value)
+                                                        <input type="radio" id="{{ $choice->attribute_id }}-{{ $value }}" name="attribute_id_{{ $choice->attribute_id }}" value="{{ $value }}" @if($key == 0) checked @endif>
+                                                            <label for="{{ $choice->attribute_id }}-{{ $value }}" class="size">{{ $value }}</label>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                        @endif
+        
+                                        <div class="form-group col-lg-4 col-md-6">
+                                            <div class="quantity">
+                                                <h5>Quantity</h5>
+                                                <div class="qty-1">
+                                                    <span class="input-group-btn minus">
+                                                        <button class="btn btn-number" type="button" data-type="minus" data-field="quantity" style="padding:0px;">
+                                                            -
+                                                        </button>
+                                                    </span>
+                                                    <input type="text" name="quantity" class="input-number text-center" placeholder="1" value="1" min="1" max="10">
+                                                    <span class="input-group-btn plus" data-type="plus" data-field="quantity">
+                                                        <button class="btn btn-number" type="button" data-type="plus" data-field="quantity" style="padding:0px;">
+                                                            +
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                                <div class="avialable-amount">(<span id="available-quantity">{{ $qty }}</span> {{__('available')}})</div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                @endforeach
-                                @endif
-
-                                <div class="form-group col-lg-4 col-md-6">
-                                    <div class="quantity">
-                                        <h5>Quantity</h5>
-                                        <div class="qty-1">
-                                            <span class="input-group-btn minus">
-                                                <button class="btn btn-number" type="button" data-type="minus" data-field="quantity" style="padding:0px;">
-                                                    -
-                                                </button>
-                                            </span>
-                                            <input type="text" name="quantity" class="input-number text-center" placeholder="1" value="1" min="1" max="10">
-                                            <span class="input-group-btn plus" data-type="plus" data-field="quantity">
-                                                <button class="btn btn-number" type="button" data-type="plus" data-field="quantity" style="padding:0px;">
-                                                    +
-                                                </button>
-                                            </span>
+                                    
+                                    {{-- <div class="row no-gutters">
+                                        <div class="product-description-label font-weight-bold d-flex">
+                                            Shipping Cost:
+                                            @php   
+                                            $shipping_type = \App\BusinessSetting::where('type', 'shipping_type')->first()->value;
+                                            if($shipping_type == 'product_wise_shipping'){
+                                                $shipping = $detailedProduct->shipping_cost;
+                                            }elseif($shipping_type == 'flat_rate'){
+                                                $shipping = \App\BusinessSetting::where('type', 'flat_rate_shipping_cost')->first()->value;
+                                            }
+                                            @endphp
+                                            @if ($detailedProduct->shipping_type=='free')
+                                               <span class="cost pl-2">Free</span> 
+                                            @else
+                                                @if ($shipping <= 0)
+                                                    <span class="cost pl-2">Free</span> 
+                                                @else
+                                                    <span class="cost pl-2"> Rs. {{(intval($detailedProduct->shipping_cost,0))}} </span>
+                                                @endif
+                                            @endif
                                         </div>
-                                        <div class="avialable-amount">(<span id="available-quantity">{{ $qty }}</span> {{__('available')}})</div>
+                                    </div> --}}
+                                    <div class="row no-gutters py-2 d-none align-items-center" id="chosen_price_div">
+                                        <div class="col-2 m-auto">
+                                            <div class="product-description-label h5 m-0">{{__('Total Price')}}:</div>
+                                        </div>
+                                        <div class="col-10">
+                                            <div class="product-price text-dark" style="background: none;">
+                                                <strong id="chosen_price" class="font-weight-bold h5">
+                                                    
+                                                </strong>
+                                            </div>
+                                        </div>
+        
                                     </div>
-                                </div>
+        
+        
+        
+                                    <div class="d-table width-100 mt-3">
+                                        <div class="d-table-cell">
+                                            <!-- Buy Now button -->
+                                            @if ($qty > 0)
+                                                <button type="button" class="btn-custom ml-2" onclick="buyNow()">
+                                                     {{__('Buy Now')}}
+                                                </button>
+                                                <button type="button" class="btn-custom" onclick="addToCart()">
+                                                    <span class=" d-md-inline-block"> {{__('Add to cart')}}</span>
+                                                </button>
+                                            @else
+                                                <button type="button" class="btn btn-effect btn-base-3 btn-icon-left strong-700" disabled>
+                                                     {{__('Out of Stock')}}
+                                                </button>
+                                            @endif
+                                        </div>
+                                    </div>
+        
+                                </form>
+        
                             </div>
-                            
-                            <div class="row no-gutters">
-                                <div class="product-description-label font-weight-bold d-flex">
-                                    Shipping Cost:
-                                    @php   
-                                    $shipping_type = \App\BusinessSetting::where('type', 'shipping_type')->first()->value;
-                                    if($shipping_type == 'product_wise_shipping'){
-                                        $shipping = $detailedProduct->shipping_cost;
-                                    }elseif($shipping_type == 'flat_rate'){
-                                        $shipping = \App\BusinessSetting::where('type', 'flat_rate_shipping_cost')->first()->value;
-                                    }
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-12">
+                            <div class="seller-info-box mb-4">
+                                <div class="sold-by position-relative">
+                                    @if ($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1 && $detailedProduct->user->seller->verification_status == 1)
+                                        <div class="position-absolute medal-badge">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" viewBox="0 0 287.5 442.2">
+                                                <polygon style="fill:#F8B517;" points="223.4,442.2 143.8,376.7 64.1,442.2 64.1,215.3 223.4,215.3 "/>
+                                                <circle style="fill:#FBD303;" cx="143.8" cy="143.8" r="143.8"/>
+                                                <circle style="fill:#F8B517;" cx="143.8" cy="143.8" r="93.6"/>
+                                                <polygon style="fill:#FCFCFD;" points="143.8,55.9 163.4,116.6 227.5,116.6 175.6,154.3 195.6,215.3 143.8,177.7 91.9,215.3 111.9,154.3
+                                                60,116.6 124.1,116.6 "/>
+                                            </svg>
+                                        </div>
+                                    @endif
+                                    
+                                    <div class="title font-weight-bold">{{__('Sold By')}}</div>
+                                    @if($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
+                                        <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}" class="name d-block font-weight-bold">
+                                            {{ $detailedProduct->user->shop->name }}
+                                            @if ($detailedProduct->user->seller->verification_status == 1)
+                                                <span class="ml-2"><i class="fa fa-check-circle" style="color:green"></i></span>
+                                            @else
+                                                <span class="ml-2"><i class="fa fa-times-circle" style="color:red"></i></span>
+                                            @endif
+                                        </a>
+                                        {{-- <div class="location">                                    
+                                            @if ($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
+                                                <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}">{{ $detailedProduct->user->shop->name }}</a>
+                                            @else
+                                                {{ __('Inhouse product') }}
+                                            @endif
+                                        </div> --}}
+                                    @else
+                                        <span class="font-weight-bold">Inhouse product</span>                                
+                                    @endif
+                                    @php
+                                        $total = 0;
+                                        $rating = 0;
+                                        foreach ($detailedProduct->user->products as $key => $seller_product) {
+                                            $total += $seller_product->reviews->count();
+                                            $rating += $seller_product->reviews->sum('rating');
+                                        }
+                                        // echo $rating/$total;
                                     @endphp
-                                    @if ($detailedProduct->shipping_type=='free')
-                                       <span class="cost pl-2">Free</span> 
-                                    @else
-                                        @if ($shipping <= 0)
-                                            <span class="cost pl-2">Free</span> 
-                                        @else
-                                            <span class="cost pl-2"> Rs. {{(intval($detailedProduct->shipping_cost,0))}} </span>
-                                        @endif
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="row no-gutters py-2 d-none align-items-center" id="chosen_price_div">
-                                <div class="col-2 m-auto">
-                                    <div class="product-description-label h5 m-0">{{__('Total Price')}}:</div>
-                                </div>
-                                <div class="col-10">
-                                    <div class="product-price text-dark" style="background: none;">
-                                        <strong id="chosen_price" class="font-weight-bold h5">
-                                            
-                                        </strong>
+        
+                                    <div class="rating text-center d-block">
+                                        <span class="star-rating star-rating-sm d-block">
+                                            @if ($total > 0)
+                                                {{ renderStarRating($rating/$total) }}
+                                            @else
+                                                {{ renderStarRating(0) }}
+                                            @endif
+                                        </span>
+                                        <span class="rating-count d-block ml-0">({{ $total }} {{__('customer reviews')}})</span>
                                     </div>
                                 </div>
-
-                            </div>
-
-
-
-                            <div class="d-table width-100 mt-3">
-                                <div class="d-table-cell">
-                                    <!-- Buy Now button -->
-                                    @if ($qty > 0)
-                                        <button type="button" class="btn-custom ml-2" onclick="buyNow()">
-                                             {{__('Buy Now')}}
-                                        </button>
-                                        <button type="button" class="btn-custom" onclick="addToCart()">
-                                            <span class=" d-md-inline-block"> {{__('Add to cart')}}</span>
-                                        </button>
-                                    @else
-                                        <button type="button" class="btn btn-effect btn-base-3 btn-icon-left strong-700" disabled>
-                                             {{__('Out of Stock')}}
-                                        </button>
+                                <div class="row no-gutters align-items-center">
+                                    @if($detailedProduct->added_by == 'seller')
+                                        <div class="col">
+                                            <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}" class="d-block store-btn">{{__('Visit Store')}}</a>
+                                        </div>
+                                        {{-- <div class="col">
+                                            <ul class="social-media social-media--style-1-v4 text-center">
+                                                <li>
+                                                    <a href="{{ $detailedProduct->user->shop->facebook }}" class="facebook" target="_blank" data-toggle="tooltip" data-original-title="Facebook">
+                                                        <i class="fa fa-facebook"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ $detailedProduct->user->shop->google }}" class="google" target="_blank" data-toggle="tooltip" data-original-title="Google">
+                                                        <i class="fa fa-google"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ $detailedProduct->user->shop->twitter }}" class="twitter" target="_blank" data-toggle="tooltip" data-original-title="Twitter">
+                                                        <i class="fa fa-twitter"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ $detailedProduct->user->shop->youtube }}" class="youtube" target="_blank" data-toggle="tooltip" data-original-title="Youtube">
+                                                        <i class="fa fa-youtube"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div> --}}
                                     @endif
                                 </div>
                             </div>
-
-                        </form>
-
+                            <div class="seller-info-box mb-4">
+                                <div class="sold-by position-relative">                                    
+                                    <div class="title font-weight-bold">Services</div>
+                                    <span class="font-weight-bold">
+                                        {{($detailedProduct->refundable == 1)?'Refundable':'Non Refundable'}}
+                                    </span>
+                                    @if (($detailedProduct->made_in_nepal == 1))
+                                        <br><span class="font-weight-bold">Made In Nepal</span>
+                                    @endif
+                                    
+                                    @if (($detailedProduct->warranty == 0))
+                                        <br><span class="font-weight-bold">No Warranty Available</span>
+                                    @else
+                                        <br><span class="font-weight-bold">Warranty:{{' '.$detailedProduct->warranty_time}}</span>
+                                    @endif
+                                    
+                                </div>
+                            </div>
+                        </div>                        
                     </div>
                 </div>
-
             </div>
             <div class="col-12 mt-3">
                 {{-- justify-content-center --}}
@@ -402,30 +508,72 @@
                         role="tab" aria-controls="first" aria-selected="true"
                         style="color: rgb(72, 77, 103);">Product Details</a>
                         
-                        <a class="nav-item nav-link" id="second-tab" data-toggle="tab" href="#second" role="tab"
-                        aria-controls="second" aria-selected="false"
-                        style="color: rgb(72, 77, 103);">Reviews <span>({{count($detailedProduct->reviews)}})</span>
-                        </a>
-                        @if($detailedProduct->video_link != null)
-                        
-                        <a class="nav-item nav-link" id="third-tab" data-toggle="tab" href="#third" role="tab" aria-controls="third" aria-selected="false"
-                        style="color: rgb(72, 77, 103);">Video</a>
-                        
-                        @endif
-                        @if($detailedProduct->pdf != null)
-                        <a class="nav-item nav-link" id="fourth-tab" data-toggle="tab" href="#fourth" role="tab" aria-controls="fourth" aria-selected="false"
-                        style="color: rgb(72, 77, 103);">Downloads</a>
-                        @endif
-                        
                         @if($detailedProduct->specs != null)
                         <a class="nav-item nav-link" id="fifth-tab" data-toggle="tab" href="#fifth" role="tab" aria-controls="fourth" aria-selected="false"
                         style="color: rgb(72, 77, 103);">Specification</a>
                         @endif
+
+                        
+                        @if($detailedProduct->pdf != null)
+                        <a class="nav-item nav-link" id="fourth-tab" data-toggle="tab" href="#fourth" role="tab" aria-controls="fourth" aria-selected="false"
+                        style="color: rgb(72, 77, 103);">Downloads</a>
+                        @endif
+
+                        @if($detailedProduct->video_link != null)
+                        
+                        <a class="nav-item nav-link" id="third-tab" data-toggle="tab" href="#third" role="tab" aria-controls="third" aria-selected="false"
+                        style="color: rgb(72, 77, 103);">Video</a>
+
+                        @endif
+
+                        <a class="nav-item nav-link" id="second-tab" data-toggle="tab" href="#second" role="tab"
+                        aria-controls="second" aria-selected="false"
+                        style="color: rgb(72, 77, 103);">Reviews <span>({{count($detailedProduct->reviews)}})</span>
+                        </a>
+                        
+                       
+                        
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade p-3 w-75 active show" id="first" role="tabpanel"
                         aria-labelledby="first-tab">{!! $detailedProduct->description !!}
+                    </div>
+                    
+                    <div class="tab-pane fade p-3 w-75" id="fifth" role="tabpanel"
+                        aria-labelledby="fifth-tab">{!! $detailedProduct->specs !!}
+                    </div>
+                    
+                    <div class="tab-pane fade p-3" id="fourth" role="tabpanel" aria-labelledby="fourth-tab">
+                        <div class="py-2 px-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a class="btn btn-success" href="{{ asset($detailedProduct->pdf) }}"><i class="fa fa-download"></i> {{ __('Download PDF') }}</a>
+                                </div>
+                            </div>
+                            <span class="space-md-md"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane fade p-3" id="third" role="tabpanel" aria-labelledby="third-tab">
+                        <div class="fluid-paragraph py-2">
+                            <!-- 16:9 aspect ratio -->
+                            {{-- {{dd($detailedProduct)}} --}}
+                            <div class="embed-responsive embed-responsive-16by9 mb-5">
+                                @php
+                                    $url = $detailedProduct->video_link;
+                                @endphp
+                                    @if(!filter_var($url, FILTER_VALIDATE_URL) === false)
+                                        @if ($detailedProduct->video_provider == 'youtube' && $detailedProduct->video_link != null)
+                                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ explode('=', $detailedProduct->video_link)[1] }}"></iframe>
+                                        @elseif ($detailedProduct->video_provider == 'dailymotion' && $detailedProduct->video_link != null)
+                                            <iframe class="embed-responsive-item" src="https://www.dailymotion.com/embed/video/{{ explode('video/', $detailedProduct->video_link)[1] }}"></iframe>
+                                        @elseif ($detailedProduct->video_provider == 'vimeo' && $detailedProduct->video_link != null)
+                                            <iframe src="https://player.vimeo.com/video/{{ explode('vimeo.com/', $detailedProduct->video_link)[1] }}" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                        @endif
+                                    @endif
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane fade p-3" id="second" role="tabpanel" aria-labelledby="second-tab">
                         <div class="row align-items-center justify-content-center">
@@ -593,34 +741,7 @@
 
                         </div>
                     </div>
-                    <div class="tab-pane fade p-3" id="third" role="tabpanel" aria-labelledby="third-tab">
-                        <div class="fluid-paragraph py-2">
-                            <!-- 16:9 aspect ratio -->
-                            <div class="embed-responsive embed-responsive-16by9 mb-5">
-                                @if ($detailedProduct->video_provider == 'youtube' && $detailedProduct->video_link != null)
-                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ explode('=', $detailedProduct->video_link)[1] }}"></iframe>
-                                @elseif ($detailedProduct->video_provider == 'dailymotion' && $detailedProduct->video_link != null)
-                                    <iframe class="embed-responsive-item" src="https://www.dailymotion.com/embed/video/{{ explode('video/', $detailedProduct->video_link)[1] }}"></iframe>
-                                @elseif ($detailedProduct->video_provider == 'vimeo' && $detailedProduct->video_link != null)
-                                    <iframe src="https://player.vimeo.com/video/{{ explode('vimeo.com/', $detailedProduct->video_link)[1] }}" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade p-3" id="fourth" role="tabpanel" aria-labelledby="fourth-tab">
-                        <div class="py-2 px-4">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <a class="btn btn-success" href="{{ asset($detailedProduct->pdf) }}"><i class="fa fa-download"></i> {{ __('Download PDF') }}</a>
-                                </div>
-                            </div>
-                            <span class="space-md-md"></span>
-                        </div>
-                    </div>
                     
-                    <div class="tab-pane fade p-3 w-75" id="fifth" role="tabpanel"
-                        aria-labelledby="fifth-tab">{!! $detailedProduct->specs !!}
-                    </div>
                 </div>
             </div>
         </div>
@@ -751,88 +872,7 @@
                 </div>
 
                 <div class="col-xl-3  d-xl-block">
-                    <div class="seller-info-box my-4">
-                        <div class="sold-by position-relative">
-                            @if ($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1 && $detailedProduct->user->seller->verification_status == 1)
-                                <div class="position-absolute medal-badge">
-                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" viewBox="0 0 287.5 442.2">
-                                        <polygon style="fill:#F8B517;" points="223.4,442.2 143.8,376.7 64.1,442.2 64.1,215.3 223.4,215.3 "/>
-                                        <circle style="fill:#FBD303;" cx="143.8" cy="143.8" r="143.8"/>
-                                        <circle style="fill:#F8B517;" cx="143.8" cy="143.8" r="93.6"/>
-                                        <polygon style="fill:#FCFCFD;" points="143.8,55.9 163.4,116.6 227.5,116.6 175.6,154.3 195.6,215.3 143.8,177.7 91.9,215.3 111.9,154.3
-                                        60,116.6 124.1,116.6 "/>
-                                    </svg>
-                                </div>
-                            @endif
-                            
-                            <div class="title font-weight-bold">{{__('Sold By')}}</div>
-                            @if($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
-                                <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}" class="name d-block font-weight-bold">{{ $detailedProduct->user->shop->name }}
-                                @if ($detailedProduct->user->seller->verification_status == 1)
-                                    <span class="ml-2"><i class="fa fa-check-circle" style="color:green"></i></span>
-                                @else
-                                    <span class="ml-2"><i class="fa fa-times-circle" style="color:red"></i></span>
-                                @endif
-                                </a>
-                                <div class="location">{{ $detailedProduct->user->shop->address }}</div>
-                            @else
-                                <span class="font-weight-bold">{{ env('APP_NAME') }}</span>
-                                
-                            @endif
-                            @php
-                                $total = 0;
-                                $rating = 0;
-                                foreach ($detailedProduct->user->products as $key => $seller_product) {
-                                    $total += $seller_product->reviews->count();
-                                    $rating += $seller_product->reviews->sum('rating');
-                                }
-                                // echo $rating/$total;
-                            @endphp
-
-                            <div class="rating text-center d-block">
-                                <span class="star-rating star-rating-sm d-block">
-                                    @if ($total > 0)
-                                        {{ renderStarRating($rating/$total) }}
-                                    @else
-                                        {{ renderStarRating(0) }}
-                                    @endif
-                                </span>
-                                <span class="rating-count d-block ml-0">({{ $total }} {{__('customer reviews')}})</span>
-                            </div>
-                        </div>
-                        <div class="row no-gutters align-items-center">
-                            @if($detailedProduct->added_by == 'seller')
-                                <div class="col">
-                                    <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}" class="d-block store-btn">{{__('Visit Store')}}</a>
-                                </div>
-                                <div class="col">
-                                    <ul class="social-media social-media--style-1-v4 text-center">
-                                        <li>
-                                            <a href="{{ $detailedProduct->user->shop->facebook }}" class="facebook" target="_blank" data-toggle="tooltip" data-original-title="Facebook">
-                                                <i class="fa fa-facebook"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ $detailedProduct->user->shop->google }}" class="google" target="_blank" data-toggle="tooltip" data-original-title="Google">
-                                                <i class="fa fa-google"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ $detailedProduct->user->shop->twitter }}" class="twitter" target="_blank" data-toggle="tooltip" data-original-title="Twitter">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ $detailedProduct->user->shop->youtube }}" class="youtube" target="_blank" data-toggle="tooltip" data-original-title="Youtube">
-                                                <i class="fa fa-youtube"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="seller-top-products-box bg-white sidebar-box mb-3">
+                    <div class="seller-top-products-box bg-white sidebar-box my-4">
                         <div class="box-title">
                             {{__('Top Selling Products From This Seller')}}
                         </div>

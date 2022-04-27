@@ -161,17 +161,21 @@
                                              @php
                                                 $filepath = \App\Product::find($id)->featured_img;
                                              @endphp
-                                             <a href="{{ route('product', \App\Product::find($id)->slug) }}" target="_blank">
                                              @if(isset($filepath))
                                                 @if(file_exists($filepath))
-                                                   <img loading="lazy" src="{{ asset(\App\Product::find($id)->featured_img) }}" class="img-fluid">
+                                                   <a href="{{ route('product', \App\Product::find($id)->slug) }}" target="_blank">
+                                                      <img loading="lazy" src="{{ asset(\App\Product::find($id)->featured_img) }}" class="img-fluid">
+                                                   </a>
                                                 @else
-                                                   <img loading="lazy" src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid">
+                                                   <a href="{{ route('product', \App\Product::find($id)->slug) }}" target="_blank">
+                                                      <img loading="lazy" src="{{ asset('frontend/images/placeholder.jpg') }}" class="img-fluid">
+                                                   </a>
                                                 @endif
                                              @else
+                                                <a href="{{ route('product', \App\Product::find($id)->slug) }}" target="_blank">
                                                    <img loading="lazy"  src="{{ asset('frontend/images/placeholder.jpg') }}">
+                                                </a>
                                              @endif
-                                          </a>
                                                   
                                           </td>
                                           <td class="product-name strong-600">

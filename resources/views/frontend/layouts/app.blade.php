@@ -177,7 +177,7 @@
  
 <style>
     .multi-level{
-        min-height: 100vh!important;
+        min-height: auto!important;
     }
 </style>
 <style>
@@ -185,7 +185,9 @@
         margin-bottom: 0!important;
     }
     section#productlist .grid-item {
-        margin: 0!important;
+        margin: 3px!important;
+    /* box-shadow: 0 0 2px 0 rgb(1 1 1 / 30%); */
+        /* border: 0.5px solid rgb(1 1 1 / 8%); */
     }
     section#productlist .product-grid-item .product-grid-image img {
         width: 100%!important;
@@ -254,13 +256,23 @@
     color: #f78035!important;
     font-size: 20px!important;
 }
+#search-content .title{
+    width: 100%;
+    text-align: center;
+}
+#search-content li{
+    text-align: center;
+}
+.slider_feature .product-grid-item{
+    margin: 2px;
+}
 
 /* Swiper Slider */
 .zoom {
-    width: 50%;
-    height: 200px;
-    left: 0;
-    top: -10%;
+    width: 100%;
+    height: 39%;
+    left: 100%;
+    top: 15px;
     position: absolute;
     z-index: 1;
 }
@@ -311,7 +323,12 @@
     color: white;
     background-color: var(--theme_color);
 }
-
+.xzoom-preview{
+    z-index: 99999;
+}
+.xzoom-source{
+    z-index: 99999;
+}
 </style>
 </head>
 @php
@@ -542,7 +559,7 @@
             $('.view-seller-policy').on('click',function(){
                 $('#exampleModal222').modal('show');
             });
-            $('.multi-level').css('min-height','100vh!important');
+            $('.multi-level').css('min-height','80vh!important');
 
             $('.category-nav-element').each(function(i, el) {
                 $(el).on('mouseover', function() {
@@ -790,9 +807,15 @@ $('.address-district').on('change',function(e){
                     id: id
                 },
                 function(data) {
-                    $('#compare').html(data);
-                    showFrontendAlert('success', 'Item has been added to compare list');
-                    $('#compare_items_sidenav').html(parseInt($('#compare_items_sidenav').html()) + 1);
+                    if(data == 'false'){
+                        showFrontendAlert('error', 'Products to compare must be of same category. Or you can reset compare list.');
+
+                    }else{
+                        $('#compare').html(data);
+                        showFrontendAlert('success', 'Item has been added to compare list');
+                        $('#compare_items_sidenav').html(parseInt($('#compare_items_sidenav').html()) + 1);
+
+                    }
                 });
         }
 

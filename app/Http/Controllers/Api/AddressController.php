@@ -16,15 +16,14 @@ class AddressController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        
+    {        
          return response()->json([
             'success' => true,
             'message' => 'Address Retrieve Successfully',
             'data'=> Auth::user()->addresses,
         ]); 
     }
-    public function districts(){        
+    public function districts(){
         $states = State::get();
         $data = [];
         foreach($states as $a => $b){
@@ -92,6 +91,7 @@ class AddressController extends Controller
         $address->user_id = strval(Auth::user()->id);
         $address->address = $request->address;
         $address->country = $request->country;
+        $address->delivery_location = $request->delivery_location;
         $address->city = $request->city;
         $address->postal_code = $request->postal_code;
         $address->phone = $request->phone;

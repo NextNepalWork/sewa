@@ -979,7 +979,7 @@ section#productlist .product-grid-item a {
 }
 
 section#productlist .grid-item:hover {
-    box-shadow: 0 0 6px 0 rgb(1 1 1 / 30%);
+    box-shadow: 0 0 4px 0 rgb(1 1 1 / 30%);
 }
 
 section#productlist .product-grid-item:hover {

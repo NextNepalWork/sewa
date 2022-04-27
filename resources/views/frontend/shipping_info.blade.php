@@ -2,7 +2,11 @@
 
 @section('content')
 
-
+<style>
+    .delete-address{
+        width: 20px;
+    }
+</style>
  <div id="page-content">
    <section id="order_list_top">
       <div class="container">
@@ -81,22 +85,31 @@
                                         @endif
                                         
                                            <label class="active card bg-white p-3">
+                                               <a href="javascript:void(0);" class="delete-address" data-src="{{ route('addresses.destroy', $address->id) }}"><i class="fa fa-trash fa-2x"></i></a>
                                                <input type="radio" class="radio address_id" name="address_id" data-location="{{$address->delivery_location}}" value="{{ $address->id }}" @if ($address->set_default)
                                                    checked
                                                @endif required>
                                                 <span class="plan-details">
                                                 <span class="plan-type d-block">Address: <span class="right_bold">{{ $address->address }}</span> </span>
-                                                <span class="plan-type d-block">Postal Code: <span>{{ $address->postal_code }}</span> </span>
+                                                {{-- <span class="plan-type d-block">Postal Code: <span>{{ $address->postal_code }}</span> </span> --}}
                                                 <span class="plan-type d-block">City:<span class="right_bold">{{ $address->city }}</span> </span>
                                                 <span class="plan-type d-block">Delivery Location:
                                                     @php
                                                         if ($address->delivery_location != null) {
-                                                            $delivery_location=\App\Location::where('id',$address->delivery_location)->first()->toArray();
+                                                            $delivery_location=\App\Location::where('id',$address->delivery_location)->count();
+                                                            if($delivery_location > 0){
+                                                                $delivery_location=\App\Location::where('id',$address->delivery_location)->first()->toArray();
+                                                            }else{
+                                                                $delivery_location=[];
+                                                            }
                                                         }
+                                                        // dd($delivery_location);
                                                     @endphp
 
                                                     @if ($address->delivery_location != null)
-                                                        <span class="right_bold">{{$delivery_location['name']}}</span>
+                                                        <span class="right_bold">
+                                                            {{(isset($delivery_location) && !empty($delivery_location))?$delivery_location['name']:''}}
+                                                        </span>
                                                     @endif 
                                                 </span>
                                                 <span class="plan-type d-block">
@@ -111,12 +124,20 @@
                                        </div>
                                    @endforeach
                                    <input type="hidden" name="checkout_type" value="logged">
-                                   <div class="col-md-6">
-                                    <button type="button" class="btn add_btn_img" onclick="add_new_address()">
-                                       <img src="https://www.mcicon.com/wp-content/uploads/2020/12/Abstract_Add_1-copy.jpg" alt="Add new address" class="img-fluid"> 
-                                       
-                                     </button>
-                                   </div>
+
+                                    @php
+                                        $existing_addresses = \App\Address::where('user_id',Auth::user()->id)->count()
+                                    @endphp
+                                    @if($existing_addresses >= 3)
+                                    @else
+                                        <div class="col-md-6">
+                                        <button type="button" class="btn add_btn_img" onclick="add_new_address()">
+                                            <img src="https://www.mcicon.com/wp-content/uploads/2020/12/Abstract_Add_1-copy.jpg" alt="Add new address" class="img-fluid"> 
+                                            
+                                        </button>
+                                        </div>
+                                    @endif
+
                                </div>
                            @else
                                <div class="card">
@@ -168,12 +189,12 @@
                                    </div>
 
                                    <div class="row">
-                                       <div class="col-md-6">
+                                       {{-- <div class="col-md-6">
                                            <div class="form-group has-feedback">
                                                <label class="control-label">{{__('Postal code')}}</label>
                                                <input type="number" min="0" class="form-control" placeholder="{{__('Postal code')}}" name="postal_code" required>
                                            </div>
-                                       </div>
+                                       </div> --}}
                                        <div class="col-md-6">
                                            <div class="form-group has-feedback">
                                                <label class="control-label">{{__('Phone')}}</label>
@@ -316,6 +337,28 @@
 
     $(document).ready(function() {
         $('.delivery').select2();
+
+        $('.delete-address').on('click',function(e){
+            e.preventDefault();
+            var red = $(this).data('src');
+            Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                console.log(result);
+                if (result===false) {
+                    console.log('no0');
+                } else {
+                    console.log('asdf');
+                    window.location.href = red;
+                }
+            });
+        });
     });
 </script>
 @endsection
