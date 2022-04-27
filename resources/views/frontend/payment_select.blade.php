@@ -225,6 +225,17 @@
 
                            </div>
                        </div>
+                       @if((\App\BusinessSetting::where('type', 'esewa_payment')->count() > 0) && (\App\BusinessSetting::where('type', 'esewa_payment')->first()->value == 1))
+                            <div class="col-6">
+                                <label class="payment_option mb-4" data-toggle="tooltip" data-title="esewa">
+                                    {{-- <button id="payment-button">Pay with esewa</button> --}}
+                                    <input type="radio" id="" name="payment_option" value="esewa">
+                                    <span>
+                                        <img loading="lazy" src="https://img.favpng.com/7/14/6/esewa-fonepay-pvt-ltd-logo-portable-network-graphics-image-brand-png-favpng-aLLyxWtspEZQckmv19jDj2TWC.jpg" class="img-fluid">
+                                    </span>
+                                </label>
+                            </div>
+                        @endif
                        {{-- @if(\App\BusinessSetting::where('type', 'esewa')->first()->value == 1)
                        <div class="col-xl-6 col-md-6 m-auto">
                           <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="E-sewa">

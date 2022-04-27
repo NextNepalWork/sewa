@@ -131,7 +131,7 @@
                             <div class="form-box-content p-3">
                                 <div class="row gutters-10">
                                     @php
-                                        $existing_addresses = Address::where('user_id',Auth::user()->id)->count()
+                                        $existing_addresses = \App\Address::where('user_id',Auth::user()->id)->count()
                                     @endphp
 
                                     @if($existing_addresses > 0)                                    
@@ -305,7 +305,7 @@
                                 <label>{{__('Phone')}}</label>
                             </div>
                             <div class="col-md-10">
-                                <input type="text" class="form-control mb-3" placeholder="{{__('+880')}}" name="phone" value="" required>
+                                <input type="number" class="form-control mb-3" placeholder="{{__('9801234567')}}" name="phone" value="" maxlength="10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" required>
                             </div>
                         </div>
                     </div>

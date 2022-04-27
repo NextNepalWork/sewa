@@ -150,9 +150,9 @@
                                     <td>
                                         @if ($orderDetail->product != null)
                     						<a href="{{ route('product', $orderDetail->product->slug) }}" target="_blank">
-												@if (!empty($orderDetail->product->thumbnail_img))
-													@if (file_exists($orderDetail->product->thumbnail_img))
-														<img height="50" src={{ asset($orderDetail->product->thumbnail_img) }}></a>	
+												@if (!empty($orderDetail->product->featured_img))
+													@if (file_exists($orderDetail->product->featured_img))
+														<img height="50" src={{ asset($orderDetail->product->featured_img) }}></a>	
 													@else
 														<img height="50" src={{ asset('frontend/images/placeholder.jpg') }}></a>	
 													@endif
