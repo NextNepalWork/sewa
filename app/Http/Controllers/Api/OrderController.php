@@ -173,10 +173,10 @@ class OrderController extends Controller
         set_time_limit(1500);
 
         // $order = Order::where('id',161)->first();
-        $shipping_address = json_decode($request->shipping_address,true);
+        // $shipping_address = json_decode($request->shipping_address,true);
         // return $shipping_address;
-        $user_id = $shipping_address['user_id'];
-        $user = User::where('id',$user_id)->first();
+        // // $user_id = $shipping_address['user_id'];
+        // $user = User::where('id',$user_id)->first();
         // return $shipping_address['email'];
         $pdf = PDF::setOptions([
             'isHtml5ParserEnabled' => true, 
@@ -195,7 +195,7 @@ class OrderController extends Controller
         $data['file_name'] = 'Order#' . $order->code . '.pdf';
         if (Config::get('mail.username') != null) {
             try {
-                Mail::to($user['email'])->send(new InvoiceEmailManager($data));
+                Mail::to(Auth::user()->email)->send(new InvoiceEmailManager($data));
                 Log::info('Mail Sent From app');
             } catch (\Exception $e) {
                 Log::info($e->getMessage());
