@@ -177,9 +177,17 @@ class OrderController extends Controller
         // $shipping_address = json_decode($request->shipping_address,true);
         // return $shipping_address;
         $user = [
+            'id' => Auth::user()->id,
             'email' => Auth::user()->email,
             'name' => Auth::user()->name
         ];
+        $user = User::where('id',($user['id']))->first();
+        $pdf = PDF::setOptions([
+            'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/')
+        ])->loadView('invoices.customer_invoice', compact('order','user'));
+        $pdf->download('order-'.$order->code.'.pdf');
         // $user = User::where('id',$user_id)->first();
         // return $shipping_address['email'];
         // $pdf = PDF::setOptions([
