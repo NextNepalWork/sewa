@@ -61,7 +61,7 @@ class PasswordResetController extends Controller
         $user = User::where('id', Auth::user()->id)->first();
 
         if($request->password != null){
-            if (Hash::check($request->password, $user->password)) { 
+            if (Hash::check($request->old_password, $user->password)) { 
                 $user->password = Hash::make($request['password']);
             }else{                  
                 return response()->json([

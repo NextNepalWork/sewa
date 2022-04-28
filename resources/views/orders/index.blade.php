@@ -115,7 +115,8 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('price') + $order->orderDetails->where('seller_id', $admin_user_id)->sum('tax')-$order->coupon_discount) }}
+                                    {{ single_price($order->grand_total) }}
+                                    {{-- {{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('price') + $order->orderDetails->where('seller_id', $admin_user_id)->sum('tax')-$order->coupon_discount) }} --}}
                                 </td>
                                 <td>
                                     @php
