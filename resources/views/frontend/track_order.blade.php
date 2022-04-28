@@ -59,7 +59,12 @@
                                         <td>
                                             @php
                                                 $shipping = json_decode($order->shipping_address,true);
-                                                $user = \App\User::where('id',$shipping['user_id'])->first();
+                                                if(isset($shipping['user_id'])){
+                                                    $user = \App\User::where('id',$shipping['user_id'])->first();
+                                                }else{
+                                                    $user_id  = $order->user_id;
+                                                    $user = \App\User::where('id',$user_id)->first();
+                                                }
                                             @endphp
                                             {{ (isset($shipping['name']))?$shipping['name']:$user->name }}
                                         </td>
