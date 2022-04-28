@@ -167,7 +167,7 @@ class OrderController extends Controller
 
         
         $orders = DB::table('orders')
-            ->orderBy('code', 'desc')
+            ->orderBy('id', 'desc')
             ->join('order_details', 'orders.id', '=', 'order_details.order_id')
             ->whereIn('order_details.seller_id', (array)$admin_user_id)
             ->select('orders.id')
