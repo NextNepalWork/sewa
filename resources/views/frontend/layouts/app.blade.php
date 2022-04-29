@@ -177,7 +177,7 @@
  
 <style>
     .multi-level{
-        min-height: auto!important;
+        min-height: 70vh!important;
     }
 </style>
 <style>
@@ -559,7 +559,7 @@
             $('.view-seller-policy').on('click',function(){
                 $('#exampleModal222').modal('show');
             });
-            $('.multi-level').css('min-height','80vh!important');
+            $('.multi-level').css('min-height','50vh!important');
 
             $('.category-nav-element').each(function(i, el) {
                 $(el).on('mouseover', function() {
