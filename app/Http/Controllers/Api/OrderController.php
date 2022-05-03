@@ -47,8 +47,13 @@ class OrderController extends Controller
         // save order details
         $delivery_location_id = isset($shippingAddress['delivery_location'])?$shippingAddress['delivery_location']:0;
         if($delivery_location_id > 0){
-            $delivery_location = Location::where('id',$delivery_location_id)->first();
-            $delivery_charge = $delivery_location->delivery_charge;   
+            $delivery_location = Location::where('id',$delivery_location_id)->count();
+            if($delivery_location > 0){
+                $delivery_location = Location::where('id',$delivery_location_id)->first();
+                $delivery_charge = $delivery_location->delivery_charge;   
+            }else{
+                $delivery_charge = 0;
+            }
         }else{
             $delivery_charge = 0;
         }
