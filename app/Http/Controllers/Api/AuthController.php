@@ -32,6 +32,7 @@ class AuthController extends Controller
             $user = new User;
             $user->name = $request->name;
             $user->email = $request->email;
+            $user->phone = ($request->phone)?$request->phone:null;
             $user->password = bcrypt($request->password);
             $user->email_verified_at = Carbon::now();
             $user->save();
