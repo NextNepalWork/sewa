@@ -13,10 +13,18 @@ use Cookie;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
+use App\Mail\EmailManager;
+use App\Models\Order;
+use Mail;
+
 class CartController extends Controller
 {
     public function index(Request $request)
     {
+        
+        // dd($array);
         //dd($cart->all());
         $categories = Category::all();
         
