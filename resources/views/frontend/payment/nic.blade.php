@@ -75,15 +75,24 @@
     }
 
     ?>
-    <form id="payment_confirmation" action="https://testsecureacceptance.cybersource.com/pay" method="post"><br/>
+    <style>
+      .submit-btn{
+        background: transparent;
+        border: none;
+        font-size: 25px;
+        margin-top: 25px;
+      }
+        
+    </style>
+    <form id="payment_confirmation" action="https://testsecureacceptance.cybersource.com/pay" method="post" style="text-align: center;"><br/>
       
-<input type="submit" id="submit" value="Redirecting to NIC Pay..."/>
+<input class="submit-btn" type="submit" id="submit" value="Redirecting to NIC Pay..."/>
       <?php
     //   $name.' = '.$value .
       foreach($params as $name => $value) {
-          echo '<br>'.$name ."=".$value." <input type=\"hidden\" id=\"" . $name . "\" name=\"" . $name . "\" value=\"" . $value . "\"/>\n";
+          echo " <input type=\"hidden\" id=\"" . $name . "\" name=\"" . $name . "\" value=\"" . $value . "\"/>\n";
       }
-      echo '<br>signature' ."=".sign($params)."<input type=\"hidden\" id=\"signature\" name=\"signature\" value=\"" . sign($params) . "\"/>\n";
+      echo "<input type=\"hidden\" id=\"signature\" name=\"signature\" value=\"" . sign($params) . "\"/>\n";
   ?>
 
       
@@ -154,7 +163,7 @@
 
 
 
-      // $('#submit').trigger('click');    
+      $('#submit').trigger('click');    
     </script>
     
   </body>

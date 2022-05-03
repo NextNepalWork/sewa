@@ -23,7 +23,7 @@ class NewsletterController extends Controller
             //sends newsletter to selected users
         	if ($request->has('user_emails')) {
                 foreach ($request->user_emails as $key => $email) {
-                    $array['view'] = 'emails.newsletter';
+                    $array['view'] = 'emails.invoice';
                     $array['subject'] = $request->subject;
                     $array['from'] = env('MAIL_USERNAME');
                     $array['content'] = $request->content;
