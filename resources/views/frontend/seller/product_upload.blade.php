@@ -87,7 +87,7 @@
                                             <label>{{__('Product Tag')}} <span class="required-star">*</span></label>
                                         </div>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control mb-3 tagsInput" name="tags[]" placeholder="Type & hit enter" data-role="tagsinput" required>
+                                            <input type="text" class="form-control mb-3 tagsInput" name="tags[]" placeholder="Type & hit enter" data-role="tagsinput">
                                         </div>
                                     </div>
                                     @php
