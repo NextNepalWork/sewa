@@ -178,9 +178,31 @@ class CartController extends Controller
     //removes from Cart
     public function removeFromCart(Request $request)
     {
+        // if($request->session()->has('cart')){
+        //     $cart = $request->session()->get('cart', collect([]));
+        //     $detail = $cart[$request->key];
+        //     return $detail;
+
+        //     if(Auth::check()){
+        //         $removeFromDb = Cart::where('user_id',Auth::user()->id)->where('product_id',$detail['id'])->delete();
+        //     }
+
+        //     $cart->forget($request->key);
+
+        //     $request->session()->put('cart', $cart);
+        // }
         if($request->session()->has('cart')){
             $cart = $request->session()->get('cart', collect([]));
-            $cart->forget($request->key);
+            $detail = $cart[$request->key];
+            if(is_array($cart)){
+                unset($cart[$request->key]);
+            }else{
+                $cart->forget($request->key);
+            }     
+            if(Auth::check()){
+                $removeFromDb = Cart::where('user_id',Auth::user()->id)->where('product_id',$detail['id'])->delete();
+            }       
+            // return $request->key;
             $request->session()->put('cart', $cart);
         }
 

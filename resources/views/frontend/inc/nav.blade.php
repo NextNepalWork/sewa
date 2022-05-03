@@ -31,7 +31,10 @@
   display: none;
 }
 </style>
-
+@php
+    
+   //  dd(Session::get('cart'));
+@endphp
 <header class="section-header top-header-bg d-md-block d-none">
     <div class="container px-0">
        <div class="top-header d-flex justify-content-between align-items-center">

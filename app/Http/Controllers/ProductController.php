@@ -595,6 +595,7 @@ class ProductController extends Controller
         $product->save();
 
         flash(__('Product has been updated successfully'))->success();
+        
         if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff') {
             if(isset($request->vendor_id) && $request->vendor_id == 'in-house'){
                 return redirect()->route('products.admin');
