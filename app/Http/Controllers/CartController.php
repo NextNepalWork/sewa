@@ -13,10 +13,18 @@ use Cookie;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
+use App\Mail\EmailManager;
+use App\Models\Order;
+use Mail;
+
 class CartController extends Controller
 {
     public function index(Request $request)
     {
+        
+        // dd($array);
         //dd($cart->all());
         $categories = Category::all();
         
@@ -178,9 +186,31 @@ class CartController extends Controller
     //removes from Cart
     public function removeFromCart(Request $request)
     {
+        // if($request->session()->has('cart')){
+        //     $cart = $request->session()->get('cart', collect([]));
+        //     $detail = $cart[$request->key];
+        //     return $detail;
+
+        //     if(Auth::check()){
+        //         $removeFromDb = Cart::where('user_id',Auth::user()->id)->where('product_id',$detail['id'])->delete();
+        //     }
+
+        //     $cart->forget($request->key);
+
+        //     $request->session()->put('cart', $cart);
+        // }
         if($request->session()->has('cart')){
             $cart = $request->session()->get('cart', collect([]));
-            $cart->forget($request->key);
+            $detail = $cart[$request->key];
+            if(is_array($cart)){
+                unset($cart[$request->key]);
+            }else{
+                $cart->forget($request->key);
+            }     
+            if(Auth::check()){
+                $removeFromDb = Cart::where('user_id',Auth::user()->id)->where('product_id',$detail['id'])->delete();
+            }       
+            // return $request->key;
             $request->session()->put('cart', $cart);
         }
 

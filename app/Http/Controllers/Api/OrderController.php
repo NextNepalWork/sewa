@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\PurchaseHistoryCollection;
 use App\Location;
+use App\Mail\EmailManager;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Cart;
@@ -46,8 +47,13 @@ class OrderController extends Controller
         // save order details
         $delivery_location_id = isset($shippingAddress['delivery_location'])?$shippingAddress['delivery_location']:0;
         if($delivery_location_id > 0){
-            $delivery_location = Location::where('id',$delivery_location_id)->first();
-            $delivery_charge = $delivery_location->delivery_charge;   
+            $delivery_location = Location::where('id',$delivery_location_id)->count();
+            if($delivery_location > 0){
+                $delivery_location = Location::where('id',$delivery_location_id)->first();
+                $delivery_charge = $delivery_location->delivery_charge;   
+            }else{
+                $delivery_charge = 0;
+            }
         }else{
             $delivery_charge = 0;
         }
@@ -182,6 +188,25 @@ class OrderController extends Controller
             'name' => Auth::user()->name
         ];
         $user = User::where('id',($user['id']))->first();
+
+
+        // $order = Order::where('id',213)->first();
+        $products = '';
+        if(!empty($order->orderDetails)){
+            foreach($order->orderDetails as $a => $b){
+                $product_name = Product::where('id',$b['product_id'])->first();
+                $products .= '<br>'.$product_name->name.'</n>';
+            }
+        }
+        $total_amount = $order->grand_total;
+        
+        // $array['view'] = 'emails.newsletter';
+        // $array['subject'] = 'New Order Placed';
+        // $array['from'] = 'nextnepal271@gmail.com';
+        // $array['content'] = 'Thank you for ordering from Sewa Digital Express. An order of total amount Rs. '.$total_amount.' has been placed for following items.';
+        // $array['content'] .= $products;
+        // $array['content'] .= '.</br>You can download the invoice to this order from https://sewa-digital.nextnepal.org/purchase_history';
+        // Mail::to('joshibipin2052@gmail.com')->queue(new EmailManager($array));
         // $pdf = PDF::setOptions([
         //     'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
         //     'logOutputFile' => storage_path('logs/log.htm'),

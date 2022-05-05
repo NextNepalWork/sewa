@@ -11,34 +11,34 @@
       $delivery_state_1 = $delivery_state->name; 
       
       $params = [
-      'access_key' => 'cd7ac9c06b2b3bc8915cb8c08d2e2a93',
-      'profile_id' => 'AC9E8149-F889-4C78-893B-EAF207B3C7AC',
-      'transaction_uuid' => $ordercode->code,
-      'signed_field_names' => 'access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency,bill_address1,bill_city,bill_country,customer_email,customer_lastname',
-      'unsigned_field_names' => '',
-      'signed_date_time' => gmdate("Y-m-d\TH:i:s\Z"),
-      'locale' => 'en',
-      'auth_trans_ref_no' => '',
-      'amount' => $ordercode->grand_total,
-      'bill_to_forename' => (isset($shipping['name']))?$shipping['name']:'',
-      'bill_to_surname' => (isset($shipping['name']))?$shipping['name']:'',
-      'bill_to_email' => (isset($shipping['email']))?$shipping['email']:'',
-      'bill_to_phone' => (isset($shipping['phone']))?$shipping['phone']:'',
-      'bill_to_address_line1' => (isset($shipping['address']))?$shipping['address']:'',
-      'bill_to_address_city' => (isset($shipping['city']))?$shipping['city']:'',
-      'bill_to_address_state' => (isset($delivery_state_1))?$delivery_state_1:'',
-      'bill_to_address_country' => 'NP',
-      'bill_to_address_postal_code' => 'Kathmandu',
-      'transaction_type' => 'sale',
-      'reference_number' =>  date('Y-m-dh:i'),
-      'currency' => 'NPR',
-      'bill_address1' => (isset($delivery_address_1))?$delivery_address_1:'',
-      'bill_city' => (isset($delivery_state_1))?$delivery_state_1:'',
-      'bill_country' => 'Nepal',
-      'customer_email' => (isset($shipping['email']))?$shipping['email']:'',
-      'customer_lastname' => (isset($shipping['name']))?$shipping['name']:'',
-      // 'amount' => $ordercode->grand_total,
-      // 'submit' => ''
+        'access_key' => 'cd7ac9c06b2b3bc8915cb8c08d2e2a93',
+        'amount' => $ordercode->grand_total,
+        'bill_to_address_city' => (isset($shipping['city']))?$shipping['city']:'',
+        'bill_to_address_country' => 'NP',
+        'bill_to_address_line1' => (isset($shipping['address']))?$shipping['address']:'',
+        'bill_to_address_line2' => (isset($shipping['address']))?$shipping['address']:'',
+        'bill_to_address_postal_code' => '4600',
+        'bill_to_address_state' => (isset($delivery_state_1))?$delivery_state_1:'',
+        'bill_to_email' => (isset($shipping['email']))?$shipping['email']:'',
+        'bill_to_forename' => (isset($shipping['name']))?$shipping['name']:'',
+        'bill_to_surname' => (isset($shipping['name']))?$shipping['name']:'',
+        'bill_to_phone' => (isset($shipping['phone']))?$shipping['phone']:'',
+        'card_expiry_date' => '',
+        'card_number' => '',
+        'card_type' => '',
+        'currency' => 'NPR',
+        'payment_method' => 'card',
+        'profile_id' => 'AC9E8149-F889-4C78-893B-EAF207B3C7AC',
+        'transaction_type' => 'sale',
+        'reference_number' =>  date('Y-m-dh:i'),
+        'transaction_uuid' => $ordercode->code,
+        'signed_field_names' => 'access_key,amount,bill_to_address_city,bill_to_address_country,bill_to_address_line1,bill_to_address_line2,bill_to_address_postal_code,bill_to_address_state,bill_to_email,bill_to_forename,bill_to_surname,bill_to_phone,currency,payment_method,profile_id,transaction_type,reference_number,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,auth_trans_ref_no',
+        'unsigned_field_names' => 'card_expiry_date,card_number,card_type',
+        'signed_date_time' => gmdate("Y-m-d\TH:i:s\Z"),
+        'locale' => 'en',
+        'auth_trans_ref_no' => '22',
+        // 'amount' => $ordercode->grand_total,
+        // 'submit' => ''
     ];
     @endphp
 
@@ -51,6 +51,7 @@
     // dd($params);
     
     function sign ($params) {
+      // echo 'here<br>';
       return signData(buildDataToSign($params), SECRET_KEY);
     }
     
@@ -60,24 +61,36 @@
     
     function buildDataToSign($params) {
       $signedFieldNames = explode(",",$params["signed_field_names"]);
+      
       foreach ($signedFieldNames as $field) {
           $dataToSign[] = $field . "=" . $params[$field];
       }
+      // echo 'lll<br>';
       return commaSeparate($dataToSign);
     }
     
     function commaSeparate ($dataToSign) {
+      // echo '2222<br>';
         return implode(",",$dataToSign);
     }
 
     ?>
-    <form id="payment_confirmation" action="https://testsecureacceptance.cybersource.com/pay" method="post"><br/>
+    <style>
+      .submit-btn{
+        background: transparent;
+        border: none;
+        font-size: 25px;
+        margin-top: 25px;
+      }
+        
+    </style>
+    <form id="payment_confirmation" action="https://testsecureacceptance.cybersource.com/pay" method="post" style="text-align: center;"><br/>
       
-<input type="submit" id="submit" value="Redirecting to NIC Pay..."/>
+<input class="submit-btn" type="submit" id="submit" value="Redirecting to NIC Pay..."/>
       <?php
     //   $name.' = '.$value .
       foreach($params as $name => $value) {
-          echo " <input type=\"hidden\" id=\"" . $name . "\" name=\"" . $name . "\" value=\"" . $value . "\"/>\n<br>";
+          echo " <input type=\"hidden\" id=\"" . $name . "\" name=\"" . $name . "\" value=\"" . $value . "\"/>\n";
       }
       echo "<input type=\"hidden\" id=\"signature\" name=\"signature\" value=\"" . sign($params) . "\"/>\n";
   ?>
