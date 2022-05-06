@@ -34,6 +34,7 @@
                         <option value="on_review" @if ($delivery_status == 'on_review') selected @endif>{{__('On review')}}</option>
                         <option value="on_delivery" @if ($delivery_status == 'on_delivery') selected @endif>{{__('On delivery')}}</option>
                         <option value="delivered" @if ($delivery_status == 'delivered') selected @endif>{{__('Delivered')}}</option>
+						<option value="cancel" @if ($delivery_status == 'cancel') selected @endif>{{__('Cancel')}}</option>
                     </select>
                 </div>
             </div>

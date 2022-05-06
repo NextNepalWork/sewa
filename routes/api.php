@@ -44,6 +44,7 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('home-categories', 'Api\HomeCategoryController')->only('index');
 
     Route::post('purchase-history/update-transaction', 'Api\PurchaseHistoryController@updateTransaction')->middleware('auth:api');
+    Route::post('purchase-history/cancel', 'Api\PurchaseHistoryController@cancel')->middleware('auth:api');
     Route::get('purchase-history/{id}', 'Api\PurchaseHistoryController@index')->middleware('auth:api');
     Route::get('purchase-history-details/{id}', 'Api\PurchaseHistoryDetailController@index')->name('purchaseHistory.details')->middleware('auth:api');
 
