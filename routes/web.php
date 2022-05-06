@@ -22,6 +22,13 @@ Route::get('clear', function () {
     Artisan::call('config:cache');
 });
 
+//Socialite Facebook
+Route::get('auth/facebook/callback','SocialController@handleProviderCallback');
+Route::get('auth/facebook/redirect','SocialController@redirectToProvider');
+
+Route::get('auth/google/callback','SocialController@handleProviderCallbackGoogle');
+Route::get('auth/google/redirect','SocialController@redirectToProviderGoogle');
+
 
 Auth::routes(['verify' => true]);
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
