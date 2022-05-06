@@ -1224,6 +1224,10 @@ $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
 @endsection
 
 @section('script')
+@if($flash_deal != null && strtotime(date('Y-m-d H:i:s')) >= $flash_deal->start_date && strtotime(date('Y-m-d H:i:s')) <= $flash_deal->end_date)
+@php
+    $time = '';
+@endphp
 <script>
     $(document).ready(function() {
         // flash counter
@@ -1234,23 +1238,23 @@ $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
         // console.log('countDownDate'+countDownDate)
         // Update the count down every 1 second
         var x = setInterval(function() {
-            // Get today's date and time
-            var now = new Date(today).getTime();
+        // Get today's date and time
+        var now = new Date(today).getTime();
         // console.log('now'+now)
-            //   alert(countDownDate);
-            // Find the distance between now and the count down date
-            var distance = countDownDate - now;
+        //   alert(countDownDate);
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
         // console.log('distance'+distance)
-            // Time calculations for days, hours, minutes and seconds
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            // console.log(document.getElementsByClassName("demo"));
-            // Output the result in an element with id="demo"
-            $('.demo').text(days + " days : " + hours + " hours : " + minutes + " minutes : " + seconds + " seconds");
-            //document.getElementsByClassName("demo").innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
-            // If the count down is over, write some text
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        // console.log(document.getElementsByClassName("demo"));
+        // Output the result in an element with id="demo"
+        $('.demo').text(days + " days : " + hours + " hours : " + minutes + " minutes : " + seconds + " seconds");
+        //document.getElementsByClassName("demo").innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
+        // If the count down is over, write some text
             if (distance < 0) {
                 clearInterval(x);
                 $('.demo').text("EXPIRED");
@@ -1258,6 +1262,13 @@ $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
             }
         }, 1000);
         // flash counter
+    });
+</script>
+@endif
+
+<script>
+    $(document).ready(function() {
+        
         $.post('{{ route('home.section.featured')}}', {_token:'{{ csrf_token() }}'
             },
             function(data) {
