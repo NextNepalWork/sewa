@@ -557,7 +557,7 @@ $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
                     <div class="col-md-12">
                         <div class="product-lists">
                             <div class="right-side-wrapper">
-                                <div class="grid-container2 slider_feature">
+                                <div class="slider_feature">
                                     @foreach (filter_products(\App\Product::where('published', 1)->where('featured', '1'))->limit(12)->get() as $key => $product)
                                     {{-- @php
                                             dd($product);
@@ -716,7 +716,9 @@ $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
 @if (\App\BusinessSetting::where('type', 'best_selling')->first()->value == 1)
 {{-- padding_bottom --}}
 @php
-    $count_best_selling = \App\Product::where('published', 1)->orderBy('num_of_sale', 'desc')->count();
+    $count_best_selling = \App\Product::where('published', 1)->where('num_of_sale', '>',0)->orderBy('num_of_sale', 'desc')->count();
+    // $count = \App\Product::where('published', 1)->where('num_of_sale', '>',0)->orderBy('num_of_sale', 'desc')->get();
+    // dd($count);
 @endphp
 @if($count_best_selling > 0)
     <section id="productlist" class="">
