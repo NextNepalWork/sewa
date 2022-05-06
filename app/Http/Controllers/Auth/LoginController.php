@@ -61,6 +61,7 @@ class LoginController extends Controller
                 $user = Socialite::driver($provider)->stateless()->user();
             }
         } catch (\Exception $e) {
+            flash($e->getMessage())->error();
             flash("Something Went wrong. Please try again.")->error();
             return redirect()->route('user.login');
         }
