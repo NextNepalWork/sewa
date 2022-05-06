@@ -252,9 +252,11 @@
 
 @php
 $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
-$time = date('Y-m-d H:i:s',$flash_deal->end_date);
 @endphp
 @if($flash_deal != null && strtotime(date('Y-m-d H:i:s')) >= $flash_deal->start_date && strtotime(date('Y-m-d H:i:s')) <= $flash_deal->end_date)
+@php    
+    $time = date('Y-m-d H:i:s',$flash_deal->end_date);
+@endphp
 <section id="product-listing-wrapper" class=" product_listing pt-3">
     <div class="container">
     <div class="product-lists">
