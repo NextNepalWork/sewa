@@ -397,7 +397,9 @@ class OrderController extends Controller
 
             if (Config::get('mail.username') != null) {
                 try {
-                    Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
+                    // Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
+                    Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($data));
+                    Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new InvoiceEmailManager($data));
                     Log::info('Mail Sent');
                 } catch (\Exception $e) {
                     Log::info($e->getMessage());

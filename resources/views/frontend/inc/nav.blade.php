@@ -313,9 +313,14 @@
                                                    @foreach($cart as $key => $cartItem)
                                                       <tr>
                                                       @php
-                                                      $product = \App\Product::find($cartItem['id']);
-                                                      $total = $total + $cartItem['price']*$cartItem['quantity'];
+                                                         $product_count = \App\Product::where('id',$cartItem['id'])->count();
                                                       @endphp
+                                                      @if ($product_count > 0)
+                                                         @php                                                          
+                                                            $product = \App\Product::find($cartItem['id']);
+                                                            $total = $total + $cartItem['price']*$cartItem['quantity'];
+                                                         @endphp
+                                                         
                                                          <td class="img_header_cart">
                                                             <div>
                                                                <a href="{{ route('product', $product->slug) }}">
@@ -339,6 +344,7 @@
                                                             </button>
                                                             </a> 
                                                          </td>
+                                                      @endif
                                                       </tr>
                                                    @endforeach
                                                 </tbody>
