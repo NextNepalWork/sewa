@@ -249,7 +249,7 @@ class OrderController extends Controller
         $order->code = date('Ymd-His') . rand(10, 99);
         $order->date = strtotime('now');
         $order->location_charge = $delivery_charge;
-
+dd($request->payment_option);
         if ($order->save()) {
             $subtotal = 0;
             $tax = 0;
