@@ -63,14 +63,14 @@
                             <div class="social-media d-flex justify-content-center h-100">
                                 @if (\App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1)
                                 <div class="facebook text-center mr-3">
-                                    <a href="{{ route('social.login', ['provider' => 'facebook']) }}" class="fa fa-facebook" aria-hidden="true"></a>
+                                    <a href="{{url('auth/facebook/redirect')}}" class="fa fa-facebook" aria-hidden="true"></a>
 
                                     {{-- <a class="fa fa-facebook" aria-hidden="true"></a> --}}
                                 </div>
                                 @endif
                                 @if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1)
                                 <div class="twitter text-center mr-3">
-                                    <a href="{{ route('social.login', ['provider' => 'google']) }}" class="fa fa-google" aria-hidden="true"></a>
+                                    <a href="{{url('auth/google/redirect')}}" class="fa fa-google" aria-hidden="true"></a>
 
                                     {{-- <a class="fa fa-google" aria-hidden="true"></a> --}}
                                 </div>
