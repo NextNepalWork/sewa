@@ -95,7 +95,7 @@
                                         @endphp
                                         <tr class="cart-item">
                                             <td class="product-image">
-                                                <a href="{{ route('product', $product->slug) }}" class="mr-3">                                                   
+                                                <a href="{{ route('product', isset($product->slug)?$product->slug:'Empty') }}" class="mr-3">                                                   
                                                     @if(file_exists($product->featured_img))
                                                         <img loading="lazy" src="{{ asset($product->featured_img) }}" class="img-fluid">
                                                     @else
