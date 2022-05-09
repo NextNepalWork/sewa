@@ -228,6 +228,7 @@
     background-position: center;
     z-index: 99999;
     background-image: url('{{asset("frontend/preloader/2.gif")}}');
+    background-color: #f7f7f7;
 
 }
 .hidden{
@@ -241,8 +242,8 @@
     height: 95vh;
 }
 #loading div img {
-    max-height: 90px;
-    min-height: 90px;
+    max-height: 100px;
+    min-height: 100px;
     object-fit: contain;
     object-position: center;
 }
@@ -343,7 +344,7 @@
         echo '</pre>';
     @endphp --}}
     <div id="loading">
-        <div class="d-flex justify-content-center align-items-center h-75"> <img src="{{asset('frontend/preloader/logo.jpeg')}}" alt=""></div>
+        <div class="d-flex justify-content-center align-items-center h-75"> <img src="{{asset('frontend/preloader/logo.jpg')}}" alt=""></div>
     </div>
     @php
         $generalsetting = \App\GeneralSetting::first();
