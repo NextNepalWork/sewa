@@ -474,13 +474,13 @@
                         </div>
                         <div class="p-3 pb-0">
                             @if (\App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1)
-                                <a href="{{ route('social.login', ['provider' => 'facebook']) }}"
+                                <a href="{{url('auth/facebook/redirect')}}"
                                     class="btn btn-styled btn-block btn-facebook btn-icon--2 btn-icon-left px-4 mb-3">
                                     <i class="icon fa fa-facebook"></i> {{ __('Login with Facebook') }}
                                 </a>
                             @endif
                             @if (\App\BusinessSetting::where('type', 'google_login')->first()->value == 1)
-                                <a href="{{ route('social.login', ['provider' => 'google']) }}"
+                                <a href="{{url('auth/google/redirect')}}"
                                     class="btn btn-styled btn-block btn-google btn-icon--2 btn-icon-left px-4 mb-3">
                                     <i class="icon fa fa-google"></i> {{ __('Login with Google') }}
                                 </a>

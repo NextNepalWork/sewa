@@ -5,7 +5,12 @@
 @php
     $generalsetting = \App\GeneralSetting::first();
 @endphp
-
+<style>
+    .blank-index{
+        background-size: contain!important;
+        background-repeat: no-repeat!important;
+    }
+</style>
 <div class="flex-row">
     <div class="flex-col-xl-6 blank-index d-flex align-items-center justify-content-center"
     @if ($generalsetting->admin_login_sidebar != null)
