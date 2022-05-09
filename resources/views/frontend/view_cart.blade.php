@@ -88,9 +88,9 @@
                                         @php
                                         $product = \App\Product::find($cartItem['id']);
                                         $total = $total + $cartItem['price']*$cartItem['quantity'];
-                                        $product_name_with_choice = $product->name;
+                                        $product_name_with_choice = isset($product->name)?$product->name:'Empty';
                                         if ($cartItem['variant'] != null) {
-                                            $product_name_with_choice = $product->name.' - '.$cartItem['variant'];
+                                            $product_name_with_choice = (isset($product->name)?$product->name:'Empty').' - '.$cartItem['variant'];
                                         }
                                         @endphp
                                         <tr class="cart-item">
