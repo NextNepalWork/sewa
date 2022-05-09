@@ -38,7 +38,7 @@ class SocialController extends Controller
 			$user->remember_token = $userSocial->id;
             $user->password = bcrypt('password');
             $user->save();
-            $user->sendEmailVerificationNotification();
+            // $user->sendEmailVerificationNotification();
             Auth::login($user);
             return redirect()->route('home')->with('status','Successfully Registered');
         }
@@ -62,7 +62,7 @@ class SocialController extends Controller
             $user->password = bcrypt('password');
             $user->email_verified_at = date("Y-m-d h:i:a");
             $user->save();
-            $user->sendEmailVerificationNotification();
+            // $user->sendEmailVerificationNotification();
             Auth::login($user);
             return redirect()->route('home')->with('status','Successfully Registered');
         }
