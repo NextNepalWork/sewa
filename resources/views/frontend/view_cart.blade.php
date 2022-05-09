@@ -86,6 +86,10 @@
                                     @endphp
                                     @foreach (Session::get('cart') as $key => $cartItem)
                                         @php
+                                            $product = \App\Product::where('id',$cartItem['id'])->count();
+                                        @endphp
+                                        @if ($product > 0)
+                                        @php
                                         $product = \App\Product::find($cartItem['id']);
                                         $total = $total + $cartItem['price']*$cartItem['quantity'];
                                         $product_name_with_choice = isset($product->name)?$product->name:'Empty';
@@ -136,6 +140,8 @@
                                                 </a>
                                             </td>
                                         </tr>
+                                            
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>
