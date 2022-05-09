@@ -36,11 +36,12 @@ class LoginController extends Controller
     /*protected $redirectTo = '/';*/
 
 
-    /**
+    /*
+    *
       * Redirect the user to the Google authentication page.
       *
       * @return \Illuminate\Http\Response
-      */
+    */
     public function redirectToProvider($provider)
     {
         return Socialite::driver($provider)->redirect();
@@ -91,6 +92,8 @@ class LoginController extends Controller
             $customer = new Customer;
             $customer->user_id = $newUser->id;
             $customer->save();
+
+            $newUser->sendEmailVerificationNotification();
 
             auth()->login($newUser, true);
         }
@@ -160,8 +163,7 @@ class LoginController extends Controller
             session()->put('cart', $data);
         }
         if(auth()->user()->user_type == 'admin' || auth()->user()->user_type == 'staff')
-        {
-           
+        {           
             return redirect()->route('admin.dashboard');
         }
         elseif(session('link') != null){
