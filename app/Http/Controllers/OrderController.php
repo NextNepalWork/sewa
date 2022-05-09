@@ -245,11 +245,12 @@ class OrderController extends Controller
 
         $order->payment_type = $request->payment_option;
         $order->delivery_viewed = '0';
+        $order->note = $request->session()->get('note');
         $order->payment_status_viewed = '0';
         $order->code = date('Ymd-His') . rand(10, 99);
         $order->date = strtotime('now');
         $order->location_charge = $delivery_charge;
-dd($request->payment_option);
+// dd($request->payment_option);
         if ($order->save()) {
             $subtotal = 0;
             $tax = 0;
@@ -377,35 +378,35 @@ dd($request->payment_option);
             // dd(array($request->session()->get('shipping_info')['email']));
             set_time_limit(1500);
             //stores the pdf for invoice
-            $pdf = PDF::setOptions([
-                'isHtml5ParserEnabled' => true, 
-                'isRemoteEnabled' => true,
-                "isPhpEnabled"=>true,
-                'logOutputFile' => storage_path('logs/log.htm'),
-                'tempDir' => storage_path('logs/'),
-            ])->loadView('invoices.customer_invoice', compact('order'));
-            $output = $pdf->output();
-            file_put_contents(public_path('/invoices/Order#' . $order->code . '.pdf'), $output);
+            // $pdf = PDF::setOptions([
+            //     'isHtml5ParserEnabled' => true, 
+            //     'isRemoteEnabled' => true,
+            //     "isPhpEnabled"=>true,
+            //     'logOutputFile' => storage_path('logs/log.htm'),
+            //     'tempDir' => storage_path('logs/'),
+            // ])->loadView('invoices.customer_invoice', compact('order'));
+            // $output = $pdf->output();
+            // file_put_contents(public_path('/invoices/Order#' . $order->code . '.pdf'), $output);
 
             // $pdf->download('Order-'.$order->code.'.pdf');
-            $data['view'] = 'emails.invoice';
-            $data['subject'] = 'Sewa Digital Express - Order Placed - ' . $order->code;
-            $data['from'] = Config::get('mail.username');
-            $data['content'] = 'Hi. Thank you for ordering from Sewa Digital Express. Here is the pdf of the invoice.';
-            $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
-            $data['file_name'] = 'Order#' . $order->code . '.pdf';
+            // $data['view'] = 'emails.invoice';
+            // $data['subject'] = 'Sewa Digital Express - Order Placed - ' . $order->code;
+            // $data['from'] = Config::get('mail.username');
+            // $data['content'] = 'Hi. Thank you for ordering from Sewa Digital Express. Here is the pdf of the invoice.';
+            // $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
+            // $data['file_name'] = 'Order#' . $order->code . '.pdf';
 
-            if (Config::get('mail.username') != null) {
-                try {
-                    // Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
-                    Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($data));
-                    Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new InvoiceEmailManager($data));
-                    Log::info('Mail Sent');
-                } catch (\Exception $e) {
-                    Log::info($e->getMessage());
-                }
-            }
-            unlink($data['file']);
+            // if (Config::get('mail.username') != null) {
+            //     try {
+            //         // Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
+            //         Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($data));
+            //         Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new InvoiceEmailManager($data));
+            //         Log::info('Mail Sent');
+            //     } catch (\Exception $e) {
+            //         Log::info($e->getMessage());
+            //     }
+            // }
+            // unlink($data['file']);
             // dd($data['file']);
             // foreach ($seller_products as $key => $seller_product) {
             //     $user = User::where('id', $key)->first();

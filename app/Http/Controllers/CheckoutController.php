@@ -384,11 +384,13 @@ class CheckoutController extends Controller
                         $object['shipping'] = 0;
                     }
                 }
+                $object['note'] = $request->note;
                 return $object;
             });
 
             $request->session()->put('cart', $cart);
 
+            // dd($request->session()->get('cart', $cart));
             $subtotal = 0;
             $tax = 0;
             $shipping = 0;

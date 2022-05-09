@@ -1006,12 +1006,12 @@
                             <div class="card">
                                 <div class="card-body px-4">
                                     @if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1)
-                                        <a href="{{ route('social.login', ['provider' => 'google']) }}" class="btn btn-styled btn-block btn-google btn-icon--2 btn-icon-left px-4 my-4">
+                                        <a href="{{url('auth/google/redirect')}}" class="btn btn-styled btn-block btn-google btn-icon--2 btn-icon-left px-4 my-4">
                                             <i class="icon fa fa-google"></i> {{__('Login with Google')}}
                                         </a>
                                     @endif
                                     @if (\App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1)
-                                        <a href="{{ route('social.login', ['provider' => 'facebook']) }}" class="btn btn-styled btn-block btn-facebook btn-icon--2 btn-icon-left px-4 my-4">
+                                        <a href="{{url('auth/facebook/redirect')}}" class="btn btn-styled btn-block btn-facebook btn-icon--2 btn-icon-left px-4 my-4">
                                             <i class="icon fa fa-facebook"></i> {{__('Login with Facebook')}}
                                         </a>
                                     @endif
