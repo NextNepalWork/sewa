@@ -12,7 +12,7 @@ class SocialController extends Controller
      public function redirectToProvider()
     {
         // dd(Socialite::driver('facebook')->redirect()->getTargetUrl());
-     return Socialite::driver('facebook')->redirect()->getTargetUrl();
+     return Socialite::driver('facebook')->redirect();
     }
 
     public function redirectToProviderGoogle()
