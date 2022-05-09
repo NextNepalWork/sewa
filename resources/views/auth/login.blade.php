@@ -12,7 +12,8 @@
         style="background-image:url('{{ asset($generalsetting->admin_login_sidebar) }}');"
     @else
         style="background-image:url('{{ asset('img/bg-img/login-box.jpg') }}');"
-    @endif>
+    @endif
+    >
 
     </div>
     <div class="flex-col-xl-6">
