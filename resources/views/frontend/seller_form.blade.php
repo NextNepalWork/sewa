@@ -28,6 +28,8 @@
                         </div>
                         <form class="" action="{{ route('shops.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            If you are already registerd, <a href="#" data-toggle="modal" data-target="#GuestCheckout">Login</a> here
+
                             @if (!Auth::check())
                                 <div class="form-box bg-white mt-4">
                                     <div class="form-box-title px-3 py-2">
@@ -152,20 +154,22 @@
                                                     <option value="" selected disabled>No Location Available</option>
                                                 </select>
                                             @endif
-                                            <div class="mt-2">
-                                                
-                                            <input type="checkbox" class="" placeholder="{{__('Pan')}}" name="read" required>
-
-                                            <label>{{__('I have read and agreed to the ')}} <a href="javascript:void(0);" class="view-seller-policy" data-bs-toggle="modal" data-bs-target="#exampleModal222">seller policy</a> <span class="required-star">*</span></label>
-
-                                            
-                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-2">
                                             </div>
                                             <div class="col-md-10">
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                        
+                                        <div class="mt-2">                                                                                            
+                                            <input type="checkbox" class="" placeholder="{{__('Pan')}}" name="read" required>
+                                            <label>{{__('I have read and agreed to the ')}} <a href="javascript:void(0);" class="view-seller-policy" data-bs-toggle="modal" data-bs-target="#exampleModal222">seller policy</a> <span class="required-star">*</span></label>
+                                        
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -198,6 +202,56 @@
           </div>
         </div>
     </div>
+    <div class="modal fade" id="GuestCheckout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-zoom" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">{{ __('Vendor Login') }}</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="p-3">
+                    <form class="form-default" role="form" action="{{ route('login') }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <div class="input-group input-group--style-1">
+                                <input type="email" name="email" class="form-control"
+                                    placeholder="{{ __('Email') }}">
+                                <span class="input-group-addon">
+                                    <i class="text-md la la-user" style="line-height: 0px"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group input-group--style-1">
+                                <input type="password" name="password" class="form-control"
+                                    placeholder="{{ __('Password') }}">
+                                <span class="input-group-addon">
+                                    <i class="text-md la la-lock" style="line-height: 0px"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <a href="{{ route('password.request') }}"
+                                    class="link link-xs link--style-3">{{ __('Forgot password?') }}</a>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button type="submit"
+                                    class="btn btn-styled btn-base-1 px-4">{{ __('Sign in') }}</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 @section('script')
