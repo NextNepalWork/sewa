@@ -41,7 +41,7 @@
 
                         <div id="collapse{{$a}}" class="collapse {{($a == 0)?'show':''}}" aria-labelledby="heading{{$a}}" data-parent="#accordionExample">
                             <div class="card-body">
-                                {{$item->description}}
+                                {!!($item->description)!!}
                             </div>
                         </div>
                     </div>
