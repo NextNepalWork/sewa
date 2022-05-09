@@ -27,7 +27,20 @@ class CartController extends Controller
         // dd($array);
         //dd($cart->all());
         $categories = Category::all();
+        $cart = $request->session()->get('cart', collect([]));
+        foreach ($cart as $key => $cartItem){
+            $product = Product::where('id',$cartItem['id'])->count();
+            if($product <=0 ){
+                unset($cart[$key]);
+                if(Auth::check()){
+                    $removeFromDb = Cart::where('user_id',Auth::user()->id)->where('product_id',$cartItem['id'])->delete();
+                }  
+            }  
+        }
+        $request->session()->forget('cart');
+        $request->session()->put('cart', $cart);
         
+        // dd(session()->get('cart'));
         if(Auth::check()){            
             if(Auth::user()->user_type == 'admin'){
                 flash(__('Not Allowed for Admin'))->error();

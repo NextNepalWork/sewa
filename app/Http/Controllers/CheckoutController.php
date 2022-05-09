@@ -21,6 +21,7 @@ use App\User;
 use App\Address;
 use App\Models\Cart;
 use App\Models\OrderDetail;
+use App\Product;
 use Session;
 
 class CheckoutController extends Controller
@@ -260,6 +261,18 @@ class CheckoutController extends Controller
 
     public function get_shipping_info(Request $request)
     {
+        $cart = $request->session()->get('cart', collect([]));
+        foreach ($cart as $key => $cartItem){
+            $product = Product::where('id',$cartItem['id'])->count();
+            if($product <=0 ){
+                unset($cart[$key]);
+                if(Auth::check()){
+                    $removeFromDb = Cart::where('user_id',Auth::user()->id)->where('product_id',$cartItem['id'])->delete();
+                }  
+            }  
+        }
+        $request->session()->forget('cart');
+        $request->session()->put('cart', $cart);
         
         if (Auth::check()) {
             if(Auth::user()->user_type == 'admin'){
