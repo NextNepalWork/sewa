@@ -391,6 +391,16 @@
                   </div>
                </div> --}}
                @endif
+               <div class="card mb-3">
+                  <div class="card-header bg-white py-3">
+                     <h5 class="heading-6 mb-0">Note:</h5>
+                  </div>
+                  <div class="card-body">
+                     <div class="row no-gutters">
+                        <textarea placeholder="Notes for Delivery" cols="10" rows="5" name="note"  class="form-control"></textarea>
+                     </div>
+                  </div>
+               </div>
 
                <div class="col-md-12">
                   <div class="button_block d-flex justify-content-between align-items-center">

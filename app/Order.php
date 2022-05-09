@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    protected $fillable = ['note'];
     public function orderDetails()
     {
         return $this->hasMany(OrderDetail::class);
