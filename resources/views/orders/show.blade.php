@@ -261,6 +261,9 @@
     			</tbody>
     			</table>
     		</div>
+    		<div class="text-left no-print">
+				Order Note : {{($order->note) }}
+    		</div>
     		<div class="text-right no-print">
     			<a href="{{ route('seller.invoice.download', $order->id) }}" class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></a>
     		</div>
