@@ -18,9 +18,16 @@
             @endphp
             @foreach (Session::get('cart') as $key => $cartItem)
                 @php
+                    $product_count = \App\Product::where('id',$cartItem['id'])->count();
+                    if($product_count > 0){
+                        $product = \App\Product::find($cartItem['id']);
+                        $total_point += $product->earn_point*$cartItem['quantity'];                        
+                    }
+                @endphp
+                {{-- @php
                     $product = \App\Product::find($cartItem['id']);
                     $total_point += $product->earn_point*$cartItem['quantity'];
-                @endphp
+                @endphp --}}
             @endforeach
             <div class="club-point mb-3 bg-soft-base-1 border-light-base-1 border">
                 {{ __("Total Club point") }}:
@@ -53,6 +60,10 @@
                 
                 @foreach (Session::get('cart') as $key => $cartItem)
                     @php
+                        $product_count = \App\Product::where('id',$cartItem['id'])->count();
+                    @endphp
+                    @if ($product_count > 0)
+                    @php
                         $product = \App\Product::find($cartItem['id']);
                         if($product->added_by == 'admin'){
                             array_push($admin_products, $cartItem['id']);
@@ -84,6 +95,7 @@
                             <span class="pl-4">{{ single_price($cartItem['price']*$cartItem['quantity']) }}</span>
                         </td>
                     </tr>
+                    @endif
                 @endforeach
 
                 @php
