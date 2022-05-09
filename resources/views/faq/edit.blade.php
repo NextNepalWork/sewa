@@ -5,7 +5,7 @@
 
 <div class="panel">
     <div class="panel-heading">
-        <h3 class="panel-title">{{ __('Edit Blog Information') }}</h3>
+        <h3 class="panel-title">{{ __('Faq Question') }}</h3>
     </div>
     @csrf
     @method('PUT')
@@ -24,7 +24,7 @@
 </div>
     <div class="panel">
         <div class="panel-heading bord-btm">
-            <h3 class="panel-title">{{__('Blog Description')}}</h3>
+            <h3 class="panel-title">{{__('Faq Answer')}}</h3>
         </div>
         <div class="panel-body">
             <div class="form-group">
