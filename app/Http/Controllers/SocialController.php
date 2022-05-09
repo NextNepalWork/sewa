@@ -62,6 +62,7 @@ class SocialController extends Controller
             $user->password = bcrypt('password');
             $user->email_verified_at = date("Y-m-d h:i:a");
             $user->save();
+            $user->sendEmailVerificationNotification();
             Auth::login($user);
             return redirect()->route('home')->with('status','Successfully Registered');
         }
