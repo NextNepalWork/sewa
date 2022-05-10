@@ -97,6 +97,13 @@
 .gallery-thumbs .swiper-slide-thumb-active {
     opacity: 1;
 }
+tr {
+    border: 1px solid #dee2e6;
+}
+td {
+    border: 1px solid #dee2e6;
+    padding: 5px;
+}
 
 </style>
     <!-- Breadcrumbs -->

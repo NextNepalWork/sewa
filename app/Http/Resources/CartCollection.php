@@ -20,7 +20,7 @@ class CartCollection extends ResourceCollection
                         'available_stock' => (integer) $data->product->current_stock,
                     ],
                     'variation' => $data->variation,
-                    'price' => (double) $data->price,
+                    'price' => (integer) $data->price,
                     'tax' => (double) $data->tax,
                     'shipping_cost' => (double) $data->shipping_cost,
                     'quantity' => (integer) $data->quantity,
