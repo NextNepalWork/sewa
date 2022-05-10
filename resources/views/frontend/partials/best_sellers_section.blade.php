@@ -137,7 +137,7 @@
                                     }
                                 @endphp
                                 <div class="product-grid-item mb-3">
-                                    <div class="product-grid-image mb-3">
+                                    <div class="product-grid-image mb-3" style="padding: 10px">
                                         <a href="{{ route('shop.visit', $seller->user->shop->slug) }}">
                                             @if (!empty($seller->user->shop->logo))
                                                 @if (file_exists($seller->user->shop->logo))
