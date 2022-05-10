@@ -17,7 +17,7 @@ class CartCollection extends ResourceCollection
                     'product' => [
                         'name' => $data->product->name,
                         'image' =>file_exists($data->product->featured_img) ? $data->product->featured_img : $placeholder_img,
-                        'available_stock' => $data->product->current_stock,
+                        'available_stock' => (integer) $data->product->current_stock,
                     ],
                     'variation' => $data->variation,
                     'price' => (double) $data->price,
