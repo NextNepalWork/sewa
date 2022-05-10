@@ -39,7 +39,7 @@ class ProductCollection extends ResourceCollection
                     'flash_deal_image' => file_exists($data->flash_deal_img) ? $data->flash_deal_img : $placeholder_img,
                     'unit_price' => number_format(intval($data->unit_price)),
                     'base_price' => (double) homeBasePrice($data->id),
-                    'base_discounted_price' => (double) homeDiscountedBasePrice($data->id),
+                    'base_discounted_price' => number_format(intval(homeDiscountedBasePrice($data->id))),
                     'todays_deal' => (integer) $data->todays_deal,
                     'featured' =>(integer) $data->featured,
                     'unit' => $data->unit,
