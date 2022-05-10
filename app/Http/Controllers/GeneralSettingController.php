@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Color;
 use Illuminate\Http\Request;
 use App\GeneralSetting;
 use ImageOptimizer;
@@ -71,7 +72,22 @@ class GeneralSettingController extends Controller
         $generalsetting = GeneralSetting::first();
         return view("general_settings.color", compact("generalsetting"));
     }
-
+    public function addColor(Request $request)
+    {
+        $color = Color::where('code',$request->code)->count();
+        if($color > 0){            
+            flash(__('Color Already Exists'))->error();
+            return redirect()->back()->withInput()->with('error', 'Color Already Exists');
+        }else{
+            $color = Color::create([
+                'name' => $request->name,
+                'code' => $request->code 
+            ]);
+            flash(__('Color Added'))->success();
+            return redirect()->back()->withInput()->with('success', 'Color Added');
+        }
+    }
+    
     //updates system ui color
     public function storeColor(Request $request)
     {

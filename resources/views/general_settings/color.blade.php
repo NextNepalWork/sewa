@@ -6,6 +6,40 @@
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title">{{__('Footer color')}}</h3>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Launch demo modal
+                  </button>
+                  <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <form action="{{route('generalsettings.color.add')}}" method="post">
+                            <div class="modal-content">
+                                <div class="modal-header d-flex">
+                                    <h5 class="modal-title" id="exampleModalLabel">Add Color</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="name">Title</label>
+                                                <input class="form-control" id="name" type="text" placeholder="Title" name="name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="code">Code</label>
+                                                <input class="form-control" type="color" name="code" id="code">
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary"  type="submit">Save changes</button>
+                                </div>
+                            </div>                   
+                        </form>
+                    </div>
+                </div>
             </div>
 @php
     $colors = \App\Color::get();
