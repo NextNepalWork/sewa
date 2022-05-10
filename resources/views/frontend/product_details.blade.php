@@ -41,6 +41,63 @@
     /* .fa-star.active{
 
     } */
+    /* Swiper Slider */
+.zoom {
+    width: 60%;
+    height: 400px;
+    left: 100%;
+    top: 0;
+    position: absolute;
+    opacity: 1;
+    pointer-events: all;
+}
+
+.drift-zoom-pane {
+    pointer-events: unset !important;
+}
+
+.drift-zoom-pane.drift-open {
+    z-index: 2;
+}
+
+.img-responsive {
+    max-width: 100;
+    height: auto;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.swiper-slide {
+    background-size: cover;
+    background-position: center;
+}
+
+.gallery-top {
+    height: 80%;
+    width: 100%;
+}
+
+.gallery-thumbs {
+    height: 20%;
+    box-sizing: border-box;
+    padding: 10px 0;
+}
+
+.gallery-thumbs .swiper-slide {
+    width: 25%;
+    height: 100%;
+    opacity: 0.4;
+}
+
+.gallery-thumbs .swiper-slide-thumb-active {
+    opacity: 1;
+}
+
 </style>
     <!-- Breadcrumbs -->
     <section id="breadcrumb-wrapper" class="position-relative bg-light">
@@ -277,7 +334,7 @@
                                     <div class="form-row">
         
                                         @if (count(json_decode($detailedProduct->colors)) > 0)
-                                        <div class="form-group col-lg-12 col-md-6">
+                                        <div class="form-group col-lg-12 col-md-6 mb-0">
                                             <div class="image-select">
                                                 <h5>Color</h5>
                                                 <div class="my-color ml-5">
@@ -295,7 +352,7 @@
                                         @if ($detailedProduct->choice_options != null)
                                         {{-- {{dd($detailedProduct->choice_options)}} --}}
                                         @foreach (json_decode($detailedProduct->choice_options) as $key => $choice)
-                                        <div class="form-group col-lg-12 col-md-6">
+                                        <div class="form-group col-lg-12 col-md-6 mb-0">
                                             <div class="size-wrapper">
                                                 <div class="size-select">
                                                     <h5>{{ \App\Attribute::find($choice->attribute_id)->name }}</h5>
@@ -312,7 +369,7 @@
                                         @endforeach
                                         @endif
         
-                                        <div class="form-group col-lg-4 col-md-6">
+                                        <div class="form-group col-lg-4 col-md-6 mt-3">
                                             <div class="quantity">
                                                 <h5>Quantity</h5>
                                                 <div class="qty-1">
