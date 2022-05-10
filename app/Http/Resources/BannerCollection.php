@@ -13,7 +13,7 @@ class BannerCollection extends ResourceCollection
                 return [
                     'photo' => $data->photo,
                     'url' => $data->url,
-                    'position' => $data->position
+                    'position' => (integer) $data->position
                 ];
             })
         ];

@@ -87,7 +87,7 @@ class ProductDetailCollection extends ResourceCollection
                             'products' => route('api.products.brand', $data->brand_id ?? '/')
                         ]
                     ],
-                    'variant_product' => $data->variant_product,
+                    'variant_product' => (integer) $data->variant_product,
                     'variant_stock' => $variant_stock,
                     'photos' => $photo,
                     'thumbnail_image' => file_exists($data->thumbnail_img) ? $data->thumbnail_img : $placeholder_img,
@@ -110,7 +110,7 @@ class ProductDetailCollection extends ResourceCollection
                     'tax_type' => $data->tax_type,
                     'shipping_type' => $data->shipping_type,
                     'shipping_cost' => (double) $data->shipping_cost,
-                    'warranty' => $data->warranty,
+                    'warranty' => (integer) $data->warranty,
                     'warranty_time' => $data->warranty_time,
                     'number_of_sales' => (integer) $data->num_of_sale,
                     'reviews' => Review::where(['product_id' => $data->id])->get(),

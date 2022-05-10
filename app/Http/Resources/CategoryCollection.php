@@ -12,7 +12,7 @@ class CategoryCollection extends ResourceCollection
             'data' => $this->collection->map(function($data) {
                 $placeholder_img='frontend/images/placeholder.jpg';
                 return [
-                    'id' => $data->id,
+                    'id' => (integer) $data->id,
                     'name' => $data->name,
                     'banner' =>file_exists($data->banner) ? $data->banner : $placeholder_img,
                     'icon' => file_exists($data->icon) ? $data->icon : $placeholder_img,

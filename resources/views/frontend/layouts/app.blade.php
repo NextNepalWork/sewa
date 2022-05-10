@@ -191,6 +191,7 @@
     }
     section#productlist .product-grid-item .product-grid-image img {
         width: 100%!important;
+        object-fit: contain!important;
     }
     section#category_section{
         margin-bottom: 0!important;
