@@ -193,6 +193,7 @@ Route::resource('flash_deals','FlashDealController');
 	Route::post('/logo','GeneralSettingController@storeLogo')->name('generalsettings.logo.store');
 	Route::get('/color','GeneralSettingController@color')->name('generalsettings.color');
 	Route::post('/color','GeneralSettingController@storeColor')->name('generalsettings.color.store');
+	Route::post('/color-add','GeneralSettingController@addColor')->name('generalsettings.color.add');
 
 	Route::resource('seosetting','SEOController');
 
