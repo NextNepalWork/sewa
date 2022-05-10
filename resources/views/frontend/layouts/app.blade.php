@@ -270,14 +270,14 @@
 }
 
 /* Swiper Slider */
-.zoom {
+/* .zoom {
     width: 100%;
     height: 39%;
     left: 100%;
     top: 15px;
     position: absolute;
     z-index: 1;
-}
+} */
 
 
 .img-responsive {
