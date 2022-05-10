@@ -244,7 +244,7 @@ class OrderController extends Controller
 
         $order->payment_type = $request->payment_option;
         $order->delivery_viewed = '0';
-        $order->note = $request->session()->get('cart')[0]['note'];
+        $order->note = isset($request->session()->get('cart')[0])?$request->session()->get('cart')[0]['note']:'';
         $order->payment_status_viewed = '0';
         $order->code = date('Ymd-His') . rand(10, 99);
         $order->date = strtotime('now');
