@@ -37,6 +37,7 @@ class SocialController extends Controller
             $user->email = $userSocial->email;
 			$user->remember_token = $userSocial->id;
             $user->password = bcrypt('password');
+            $user->email_verified_at = date("Y-m-d h:i:a");
             $user->save();
             // $user->sendEmailVerificationNotification();
             Auth::login($user);

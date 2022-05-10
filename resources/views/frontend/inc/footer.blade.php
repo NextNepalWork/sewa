@@ -103,7 +103,7 @@ else{
                      </li>
                      <li class="mb-2">
                         <a href="{{ route('returnpolicy') }}" class="text-white">
-                           {{__('Return Policy')}}
+                           {{__('Return & Refund Policy')}}
                         </a>
                      </li>
                      <li class="mb-2">

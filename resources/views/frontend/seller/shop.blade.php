@@ -107,14 +107,18 @@
                                         </div>
                                         <div class="col-md-10">
                                             @if (count($locations)>0)
+                                            {{-- @php
+                                                dd(\App\Shop::where('user_id', Auth::user()->id)->first());
+                                            @endphp --}}
                                             <select name="location[]" class="form-control js-example-basic-multiple" multiple="multiple" required>
                                                 @php
                                                     $loc = \App\Shop::where('user_id', Auth::user()->id)->first();
                                                     $array = explode('!!', $loc->location);
+                                                    // print_r($array)
                                                 @endphp
 
                                                     @foreach ($locations as $location)
-                                                        <option value="{{$location->id}}" <?php if(in_array($location->name,$array)) echo 'selected' ?> >{{$location->district}} > {{$location->name}}</option> 
+                                                        <option value="{{$location->id}}" <?php if(in_array($location->id,$array)) echo 'selected' ?> >{{$location->district}} > {{$location->name}}</option> 
                                                         
                                                     @endforeach 
                                                     

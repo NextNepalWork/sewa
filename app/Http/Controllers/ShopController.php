@@ -170,6 +170,7 @@ class ShopController extends Controller
      */
     public function update(Request $request, $id)
       {
+        //   dd($request->all());
         $shop = Shop::find($id);
 
         if($request->has('name') && $request->has('address')){
@@ -181,8 +182,10 @@ class ShopController extends Controller
             $shop->slug = preg_replace('/\s+/', '-', $request->name).'-'.$shop->id;
 
             $shop->meta_title = $request->meta_title;
-            $shop->meta_description = $request->meta_description;          
-
+            $shop->meta_description = $request->meta_description;      
+            if($request->location){
+                $shop->location=implode('!!', $request->location);            
+            }
             
         }
 
