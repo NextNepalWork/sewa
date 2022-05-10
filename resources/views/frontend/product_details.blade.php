@@ -1090,41 +1090,41 @@
 
 @section('script')
     <script type="text/javascript">
-        $(document).ready(function() {
-    		$('#share').jsSocials({
-    			showLabel: false,
-                showCount: false,
-                shares: ["email", "twitter", "facebook", "linkedin", "pinterest", "stumbleupon", "whatsapp"]
-    		});
-            getVariantPrice();
-    	});
+        // $(document).ready(function() {
+    	// 	$('#share').jsSocials({
+    	// 		showLabel: false,
+        //         showCount: false,
+        //         shares: ["email", "twitter", "facebook", "linkedin", "pinterest", "stumbleupon", "whatsapp"]
+    	// 	});
+        //     getVariantPrice();
+    	// });
 
-        function CopyToClipboard(containerid) {
-            if (document.selection) {
-                var range = document.body.createTextRange();
-                range.moveToElementText(document.getElementById(containerid));
-                range.select().createTextRange();
-                document.execCommand("Copy");
+        // function CopyToClipboard(containerid) {
+        //     if (document.selection) {
+        //         var range = document.body.createTextRange();
+        //         range.moveToElementText(document.getElementById(containerid));
+        //         range.select().createTextRange();
+        //         document.execCommand("Copy");
 
-            } else if (window.getSelection) {
-                var range = document.createRange();
-                document.getElementById(containerid).style.display = "block";
-                range.selectNode(document.getElementById(containerid));
-                window.getSelection().addRange(range);
-                document.execCommand("Copy");
-                document.getElementById(containerid).style.display = "none";
+        //     } else if (window.getSelection) {
+        //         var range = document.createRange();
+        //         document.getElementById(containerid).style.display = "block";
+        //         range.selectNode(document.getElementById(containerid));
+        //         window.getSelection().addRange(range);
+        //         document.execCommand("Copy");
+        //         document.getElementById(containerid).style.display = "none";
 
-            }
-            showFrontendAlert('success', 'Copied');
-        }
+        //     }
+        //     showFrontendAlert('success', 'Copied');
+        // }
 
-        function show_chat_modal(){
-            @if (Auth::check())
-                $('#chat_modal').modal('show');
-            @else
-                $('#login_modal').modal('show');
-            @endif
-        }
+        // function show_chat_modal(){
+        //     @if (Auth::check())
+        //         $('#chat_modal').modal('show');
+        //     @else
+        //         $('#login_modal').modal('show');
+        //     @endif
+        // }
 
 
     </script>
