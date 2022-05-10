@@ -111,6 +111,11 @@ else{
                            {{__('Terms & Conditions')}}
                         </a>
                      </li>
+                     <li class="mb-2">
+                        <a href="{{ route('privacypolicy') }}" class="text-white">
+                           {{__('Privacy Policy')}}
+                        </a>
+                     </li>
                      {{-- <li class="mb-2">
                         <a href="{{ route('sellerpolicy') }}" class="text-white">
                            {{__('Seller Policy')}}

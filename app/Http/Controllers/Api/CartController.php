@@ -27,8 +27,7 @@ class CartController extends Controller
         $str = '';
         if($request->color && $request->variant){
              $str = Color::where('code', $request['color'])->first()->name;
-            
-          $variant = $str.'-'.$variant;
+          $variant = $str.'-'.$request->variant;
         }elseif($request->color && !$request->variant){
              $str = Color::where('code', $request['color'])->first()->name;
             $variant = $str;
@@ -50,6 +49,7 @@ class CartController extends Controller
           
             $price = $product_stock->price;
         }
+        // return $price;
         if($product_stock < $request->quantity){
             return response()->json(['message' =>'Stock Available'.$product->current_stock], 400);
        }elseif($request->quantity < 0){
