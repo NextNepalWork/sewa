@@ -95,7 +95,7 @@ class ProductDetailCollection extends ResourceCollection
                     'flash_deal_image' => file_exists($data->flash_deal_img) ? $data->flash_deal_img : $placeholder_img,
                     'tags' => explode(',', $data->tags),
                     'unit_price' => number_format(intval($data->unit_price)),
-                    'home_discounted_price'=>home_discounted_base_price($data->id),
+                    'home_discounted_price'=> number_format(intval(home_discounted_base_price($data->id))),
                     'price_lower' => (double) explode('-', homeDiscountedPrice($data->id))[0],
                     'price_higher' => (double) explode('-', homeDiscountedPrice($data->id))[1],
                     'choice_options' => $this->convertToChoiceOptions(json_decode($data->choice_options)),
