@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Address;
+use App\Http\Resources\AddressCollection;
 use App\Location;
 use App\State;
 use Auth;
@@ -16,12 +17,30 @@ class AddressController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
-         return response()->json([
-            'success' => true,
-            'message' => 'Address Retrieve Successfully',
-            'data'=> Auth::user()->addresses,
-        ]); 
+    {       
+        $address = Auth::user()->addresses;
+        if(!empty($address)){
+            // 'id': 7
+            // 'user_id': 8, 
+            // 'address': baneshwor, 
+            // 'country': Nepal, 
+            // 'delivery_location': 7, 
+            // 'city': ktm, 
+            // 'postal_code': null, 
+            // 'phone': 9813209017, 
+            return new AddressCollection($address);
+            // return response()->json([
+            //     'success' => true,
+            //     'message' => 'Address Retrieve Successfully',
+            //     'data'=> Auth::user()->addresses,
+            // ]);
+        } else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Address Not Found',
+                'data'=> [],
+            ]);
+        }
     }
     public function districts(){
         $states = State::get();
@@ -97,9 +116,21 @@ class AddressController extends Controller
         $address->phone = $request->phone;
         $address->save();
 
-        return response()->json([
-            'data' => $address,
-            'message' => 'Address Added Successfully !!'],200);
+        $address_s = Address::where('id',$address->id)->first();
+        // $data = [
+        //     'id'=> (integer) $address_s->id,
+        //     'user_id'=> (integer) $address_s->user_id, 
+        //     'address'=> (string) $address_s->address, 
+        //     'country'=> (string) $address_s->country, 
+        //     'delivery_location'=> (integer) $address_s->delivery_location, 
+        //     'city'=> (string) $address_s->city, 
+        //     'postal_code'=> (integer) $address_s->postal_code, 
+        //     'phone'=> (integer) $address_s->phone, 
+        // ];
+        return new AddressCollection($address_s);
+        // return response()->json([
+        //     'data' => AddressCollection($data),
+        //     'message' => 'Address Added Successfully !!'],200);
     }
 
     /**
