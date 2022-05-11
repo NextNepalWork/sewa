@@ -69,9 +69,10 @@
                                                 <div class="form-group">
                                                     <!-- <label>{{ __('Password') }}</label> -->
                                                     <div class="input-group input-group--style-1">
-                                                        <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" name="password">
+                                                        <input type="password" class="password form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" name="password">
                                                         <span class="input-group-addon">
-                                                            <i class="text-md la la-lock"></i>
+                                                            <i class="text-md la la-eye" onclick="showPassword()" style="cursor: pointer;line-height: 0px"></i>
+                                                            {{-- <i class="text-md la la-lock"></i> --}}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -83,9 +84,10 @@
                                                 <div class="form-group">
                                                     <!-- <label>{{ __('Confirm Password') }}</label> -->
                                                     <div class="input-group input-group--style-1">
-                                                        <input type="password" class="form-control" placeholder="{{ __('Confirm Password') }}" name="password_confirmation">
+                                                        <input type="password" class="password form-control" placeholder="{{ __('Confirm Password') }}" name="password_confirmation">
                                                         <span class="input-group-addon">
-                                                            <i class="text-md la la-lock"></i>
+                                                            <i class="text-md la la-eye" onclick="showPassword()" style="cursor: pointer;line-height: 0px"></i>
+                                                            {{-- <i class="text-md la la-lock"></i> --}}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -227,10 +229,10 @@
 
                         <div class="form-group">
                             <div class="input-group input-group--style-1">
-                                <input type="password" name="password" class="form-control"
+                                <input id="password" type="password" name="password" class="password form-control"
                                     placeholder="{{ __('Password') }}">
                                 <span class="input-group-addon">
-                                    <i class="text-md la la-lock" style="line-height: 0px"></i>
+                                    <i class="text-md la la-eye" onclick="showPassword()" style="cursor: pointer;line-height: 0px"></i>
                                 </span>
                             </div>
                         </div>
@@ -262,5 +264,24 @@
         });
     });
 </script>
+<script type="text/javascript">
+    function autoFillSeller(){
+        $('#email').val('seller@example.com');
+        $('#password').val('123456');
+    }
+    function autoFillCustomer(){
+        $('#email').val('customer@example.com');
+        $('#password').val('123456');
+    }
+
     
+    function showPassword() {
+        var x = document.getElementByClass("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
 @endsection
