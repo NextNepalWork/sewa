@@ -117,20 +117,21 @@ class AddressController extends Controller
         $address->save();
 
         $address_s = Address::where('id',$address->id)->first();
-        // $data = [
-        //     'id'=> (integer) $address_s->id,
-        //     'user_id'=> (integer) $address_s->user_id, 
-        //     'address'=> (string) $address_s->address, 
-        //     'country'=> (string) $address_s->country, 
-        //     'delivery_location'=> (integer) $address_s->delivery_location, 
-        //     'city'=> (string) $address_s->city, 
-        //     'postal_code'=> (integer) $address_s->postal_code, 
-        //     'phone'=> (integer) $address_s->phone, 
-        // ];
-        return new AddressCollection($address_s);
-        // return response()->json([
-        //     'data' => AddressCollection($data),
-        //     'message' => 'Address Added Successfully !!'],200);
+        $data = [
+            'id'=> (integer) $address_s->id,
+            'user_id'=> (integer) $address_s->user_id, 
+            'address'=> (string) $address_s->address, 
+            'country'=> (string) $address_s->country, 
+            'delivery_location'=> (integer) $address_s->delivery_location, 
+            'city'=> (string) $address_s->city, 
+            'postal_code'=> (integer) $address_s->postal_code, 
+            'phone'=> (integer) $address_s->phone, 
+        ];
+        // return new AddressCollection($address_s);
+        return response()->json([
+            'success' => true,
+            'data' => ($data),
+            'message' => 'Address Added Successfully !!'],200);
     }
 
     /**
