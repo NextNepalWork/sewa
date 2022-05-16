@@ -274,9 +274,10 @@ class ProductController extends Controller
             $data['color'] = $request['color'];
             $str = Color::where('code', $request['color'])->first()->name;
         }
-
-        foreach (json_decode($request->choice) as $option) {
-            $str .= $str != '' ?  '-'.str_replace(' ', '', $option->name) : str_replace(' ', '', $option->name);
+        if ($request->has('choice') && !empty($request['choice'])) {
+            foreach (json_decode($request->choice) as $option) {
+                $str .= $str != '' ?  '-'.str_replace(' ', '', $option->name) : str_replace(' ', '', $option->name);
+            }            
         }
 
         if($str != null && $product->variant_product){
