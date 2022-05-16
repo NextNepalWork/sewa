@@ -22,7 +22,7 @@ class ProductController extends Controller
     public function index()
     {
         
-        return new ProductCollection(Product::latest()->paginate(10));
+        return new ProductCollection(filter_products(Product::latest()->paginate(10)));
     }
 
     public function show($id)
