@@ -80,7 +80,7 @@ class ProductDetailCollection extends ResourceCollection
                     //     ]
                     // ],
                     'brand' => [
-                        'id' => $data->brand_id ?? 'N/A',
+                        'id' => (string) $data->brand_id ?? 'N/A',
                         'name' => $data->brand->name ?? 'N/A',
                         'logo' => $data->brand->logo ?? $placeholder_img,
                         'links' => [

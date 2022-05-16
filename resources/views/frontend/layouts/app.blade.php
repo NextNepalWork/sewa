@@ -131,14 +131,29 @@
     <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
     {{-- <script src="{{asset('js/OneSignalSDKWorker.js')}}" async=""></script> --}}
     
-    <script>
-    window.OneSignal = window.OneSignal || [];
-    OneSignal.push(function() {
-        OneSignal.init({
-        appId: "7930c420-38ef-4181-b5d3-d289b3d93ab4",
+    {{-- <script>
+        window.OneSignal = window.OneSignal || [];
+        OneSignal.push(function() {
+            OneSignal.init({
+            appId: "7930c420-38ef-4181-b5d3-d289b3d93ab4",
+            });
         });
-    });
-    </script>
+    </script> --}}
+    {{-- <script>
+        var OneSignal = window.OneSignal || [];
+         var initConfig = {
+             appId: "7930c420-38ef-4181-b5d3-d289b3d93ab4",
+             notifyButton: {
+                 enable: true
+             },
+         };
+         OneSignal.push(function () {
+             OneSignal.SERVICE_WORKER_PARAM = { scope: '/push/onesignal/' };
+             OneSignal.SERVICE_WORKER_PATH = 'push/onesignal/OneSignalSDKWorker.js'
+             OneSignal.SERVICE_WORKER_UPDATER_PATH = 'push/onesignal/OneSignalSDKUpdaterWorker.js'
+             OneSignal.init(initConfig);
+         });
+     </script> --}}
     <!-- color theme -->
     {{-- <link href="{{ asset('frontend/css/colors/'.\App\GeneralSetting::first()->frontend_color.'.css')}}" rel="stylesheet" media="all"> --}}
 

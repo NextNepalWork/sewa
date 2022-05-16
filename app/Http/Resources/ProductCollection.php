@@ -17,7 +17,7 @@ class ProductCollection extends ResourceCollection
                 if(!(isset($data->photos)) && empty($data->photos)){
                     array_push($photo,$placeholder_img);
                 }else{
-                    // array_push($photo,$img);
+                    // array_push($photo,$i-g);
                 // return ($data->photos);
                     $items = json_decode($data->photos);
                     if(count(array($items)) > 0){
