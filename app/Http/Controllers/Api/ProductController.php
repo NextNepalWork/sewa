@@ -22,8 +22,6 @@ class ProductController extends Controller
     public function index()
     {
         $products =  filter_products(\App\Product::orderBy('id','DESC')->where('current_stock','>',0)->with('stocks'))->paginate(10);;
-
-        
         return new ProductCollection($products);
     }
 
@@ -184,7 +182,9 @@ class ProductController extends Controller
 
     public function featured()
     {
-        return new ProductCollection(Product::where('featured', 1)->latest()->get());
+        // $products =  filter_products(\App\Product::orderBy('id','DESC')->where('current_stock','>',0)->with('stocks'))->paginate(10);;
+        // return new ProductCollection($products);
+        return new ProductCollection(filter_products(Product::where('featured', 1)->latest()->get()));
     }
 
     public function bestSeller()
