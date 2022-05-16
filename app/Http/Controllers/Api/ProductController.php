@@ -182,9 +182,9 @@ class ProductController extends Controller
 
     public function featured()
     {
-        // $products =  filter_products(\App\Product::orderBy('id','DESC')->where('current_stock','>',0)->with('stocks'))->paginate(10);;
-        // return new ProductCollection($products);
-        return new ProductCollection(filter_products(Product::where('featured', 1)->latest()->get()));
+        $products =  filter_products(\App\Product::orderBy('id','DESC')->where('featured', 1)->where('current_stock','>',0)->with('stocks'))->get();;
+        return new ProductCollection($products);
+        // return new ProductCollection(filter_products(Product::orderBy('id','DESC')->where('featured', 1)->get()));
     }
 
     public function bestSeller()
