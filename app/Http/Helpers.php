@@ -276,7 +276,7 @@ if (! function_exists('combinations')) {
     }
 }
 
-//filter products based on vendor activation system
+//filter products based on vendor activation systemz
 if (! function_exists('filter_products')) {
     function filter_products($products) {
 
