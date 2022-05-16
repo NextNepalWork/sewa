@@ -69,7 +69,7 @@
 
     <!-- Custom Links -->
     <!-- Font Link -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.-apis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- google font  -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Readex+Pro:wght@200&display=swap" rel="stylesheet" />
@@ -128,6 +128,17 @@
     <link type="text/css" href="{{ asset('frontend/css/active.rtl.css') }}" rel="stylesheet" media="all">
     @endif
 
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDKWorker.js" async=""></script>
+    
+    <script>
+    window.OneSignal = window.OneSignal || [];
+    OneSignal.push(function() {
+        OneSignal.init({
+        appId: "7930c420-38ef-4181-b5d3-d289b3d93ab4",
+        });
+    });
+    </script>
     <!-- color theme -->
     {{-- <link href="{{ asset('frontend/css/colors/'.\App\GeneralSetting::first()->frontend_color.'.css')}}" rel="stylesheet" media="all"> --}}
 
