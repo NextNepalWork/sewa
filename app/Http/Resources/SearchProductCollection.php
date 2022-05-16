@@ -13,13 +13,13 @@ class SearchProductCollection extends ResourceCollection
                 $placeholder_img='frontend/images/placeholder.jpg';
 
                 return [
-                    'id' => $data->id,
+                    'id' => (integer) $data->id,
                     'name' => $data->name,
                     'category_id' => $data->category_id,
                     'thumbnail_image' => file_exists($data->featured_img) ? $data->featured_img : $placeholder_img,
                     'base_price' => (double) homeBasePrice($data->id),
-                    'unit_price' => $data->unit_price,
-                    'base_discounted_price' => (double) homeDiscountedBasePrice($data->id),
+                    'unit_price' => number_format(intval($data->unit_price)),
+                    'base_discounted_price' => number_format(intval(homeDiscountedBasePrice($data->id))),
                     'rating' => (double) $data->rating,
                     'links' => [
                         'details' => route('products.show', $data->id),
