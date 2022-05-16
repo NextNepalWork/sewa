@@ -283,9 +283,15 @@ class ProductController extends Controller
         }
 
         if($str != null && $product->variant_product){
-            $product_stock = $product->stocks->where('variant', $str)->first();
-            $price = $product_stock->price;
-            $stockQuantity = $product_stock->qty;
+            $product_stock = $product->stocks->where('variant', $str)->count();
+            if($product_stock){                
+                $product_stock = $product->stocks->where('variant', $str)->first();
+                $price = $product_stock->price;
+                $stockQuantity = $product_stock->qty;
+            }else{
+                $price = $product->unit_price;
+                $stockQuantity = $product->current_stock;
+            }
         }
         else{
             $price = $product->unit_price;
