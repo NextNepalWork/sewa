@@ -276,11 +276,12 @@
 
     
     function showPassword() {
-        var x = document.getElementByClass("password");
-        if (x.type === "password") {
-            x.type = "text";
-        } else {
-            x.type = "password";
+        var x = $('.password');
+        // console.log(x);
+        if('password' == x.attr('type')){
+            x.prop('type', 'text');
+        }else{
+            x.prop('type', 'password');
         }
     }
 </script>
