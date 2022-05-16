@@ -129,7 +129,7 @@
     @endif
 
     <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
-    <script src="{{asset('js/OneSignalSDKWorker.js')}}" async=""></script>
+    {{-- <script src="{{asset('js/OneSignalSDKWorker.js')}}" async=""></script> --}}
     
     <script>
     window.OneSignal = window.OneSignal || [];
