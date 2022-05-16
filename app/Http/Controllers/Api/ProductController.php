@@ -21,8 +21,10 @@ class ProductController extends Controller
 {
     public function index()
     {
+        $products =  filter_products(\App\Product::orderBy('id','DESC')->where('current_stock','>',0)->with('stocks'))->paginate(10);;
+
         
-        return new ProductCollection(filter_products(Product::latest()->paginate(10)));
+        return new ProductCollection($products);
     }
 
     public function show($id)
