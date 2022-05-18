@@ -98,7 +98,7 @@ class AuthController extends Controller
     public function socialLogin(Request $request)
     {
         $request->validate([
-            'email' => 'required|string|email'
+            'email' => 'required|string'
         ]);
         if (User::where('email', $request->email)->first() != null) {
             $user = User::where('email', $request->email)->first();

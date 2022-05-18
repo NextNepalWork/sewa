@@ -139,7 +139,7 @@
             });
         });
     </script> --}}
-    {{-- <script>
+    <script>
         var OneSignal = window.OneSignal || [];
          var initConfig = {
              appId: "7930c420-38ef-4181-b5d3-d289b3d93ab4",
@@ -153,7 +153,7 @@
              OneSignal.SERVICE_WORKER_UPDATER_PATH = 'push/onesignal/OneSignalSDKUpdaterWorker.js'
              OneSignal.init(initConfig);
          });
-     </script> --}}
+     </script>
     <!-- color theme -->
     {{-- <link href="{{ asset('frontend/css/colors/'.\App\GeneralSetting::first()->frontend_color.'.css')}}" rel="stylesheet" media="all"> --}}
 
