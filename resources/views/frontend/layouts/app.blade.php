@@ -127,8 +127,22 @@
     <!-- RTL -->
     <link type="text/css" href="{{ asset('frontend/css/active.rtl.css') }}" rel="stylesheet" media="all">
     @endif
-
-    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    {{-- <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script>
+  
+      // Enable pusher logging - don't include this in production
+      Pusher.logToConsole = true;
+  
+      var pusher = new Pusher('841403de16a5983f6e8c', {
+        cluster: 'ap2'
+      });
+  
+      var channel = pusher.subscribe('my-channel');
+      channel.bind('my-event', function(data) {
+        alert(JSON.stringify(data));
+      });
+    </script> --}}
+    {{-- <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script> --}}
     {{-- <script src="{{asset('js/OneSignalSDKWorker.js')}}" async=""></script> --}}
     
     {{-- <script>
@@ -139,7 +153,7 @@
             });
         });
     </script> --}}
-    <script>
+    {{-- <script>
         var OneSignal = window.OneSignal || [];
          var initConfig = {
              appId: "7930c420-38ef-4181-b5d3-d289b3d93ab4",
@@ -153,7 +167,7 @@
              OneSignal.SERVICE_WORKER_UPDATER_PATH = 'push/onesignal/OneSignalSDKUpdaterWorker.js'
              OneSignal.init(initConfig);
          });
-     </script>
+     </script> --}}
     <!-- color theme -->
     {{-- <link href="{{ asset('frontend/css/colors/'.\App\GeneralSetting::first()->frontend_color.'.css')}}" rel="stylesheet" media="all"> --}}
 

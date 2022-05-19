@@ -296,17 +296,19 @@ td {
                                     <hr>
                                 @endif --}}
                                 <div class="form-group">
-                                    {{-- @if(home_price($detailedProduct->id) != home_discounted_price($detailedProduct->id))
+                                    @if(home_price($detailedProduct->id) != home_discounted_price($detailedProduct->id))
                                         <div class="product-price text-dark">
-                                            <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
-                                            </div>
+                                            {{-- <div class="second-price font-weight-bold">
+                                                {{ home_discounted_price($detailedProduct->id) }}
+                                            </div> --}}
                                             <div class="d-flex">
-                                                <div class="first-price mr-2">{{ home_price($detailedProduct->id) }}
-                                                </div>
+                                                {{-- <div class="first-price mr-2">
+                                                    {{ home_price($detailedProduct->id) }}
+                                                </div> --}}
                                                 <div class="discount">
                                                     @if (! $detailedProduct->discount == 0)
                                                         <div class="">
-                                                            -{{ ($detailedProduct->discount_type == 'amount')?'Rs.':'' }} {{ (intval($detailedProduct->discount,0)) }}{{ !($detailedProduct->discount_type == 'amount')?' %':'' }} off
+                                                            Discount : {{ ($detailedProduct->discount_type == 'amount')?'Rs.':'' }} {{ (intval($detailedProduct->discount,0)) }}{{ !($detailedProduct->discount_type == 'amount')?' %':'' }} off
                                                         </div>
                                                     @endif
                                                 </div>
@@ -317,7 +319,7 @@ td {
                                             <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
                                             </div> 
                                         </div>
-                                    @endif --}}
+                                    @endif
                                 </div>
         
         

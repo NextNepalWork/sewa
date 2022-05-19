@@ -298,3 +298,5 @@ Route::get('/blog/{id}', 'HomeController@blogDetails')->name('blogDetails');
 
 Route::get('/{slug}', 'PageController@show_custom_page')->name('custom-pages.show_custom_page');
 
+Route::get('/test-one-signal', 'PageController@show_custom_page')->name('custom-pages.show_custom_page');
+
