@@ -6,7 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     {{-- merchant.esewa.com.np
     NP-ES-SEWADIGITALEXPRESS --}}
-      <form action="https://merchant.esewa.com.np/epay/main" method="POST">
+      <form action="https://esewa.com.np/epay/main" method="POST">
       <input value="{{$ordercode->grand_total}}" name="tAmt" type="hidden">
       <input value="{{$ordercode->grand_total}}" name="amt" type="hidden">
       <input value="0" name="txAmt" type="hidden">
