@@ -362,9 +362,6 @@ td {
                                             <div class="size-wrapper">
                                                 <div class="size-select">
                                                     <h5>
-                                                        @if ()
-                                                            
-                                                        @endif
                                                         {{ \App\Attribute::find($choice->attribute_id)->name }}
                                                     </h5>
                                                     <div class="select-size ml-5">
