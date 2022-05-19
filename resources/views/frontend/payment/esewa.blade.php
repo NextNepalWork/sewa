@@ -18,7 +18,7 @@
       <input value="Submit" class ='submitesewa' type="submit" style= "display:none">
       </form>
     <script> 
-    $('.submitesewa').trigger('click');
+    // $('.submitesewa').trigger('click');
     
     </script>
     
