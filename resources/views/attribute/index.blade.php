@@ -37,7 +37,7 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{route('attributes.edit', encrypt($attribute->id))}}">{{__('Edit')}}</a></li>
-                                    <li><a onclick="confirm_modal('{{route('attributes.destroy', $attribute->id)}}');">{{__('Delete')}}</a></li>
+                                    {{-- <li><a onclick="confirm_modal('{{route('attributes.destroy', $attribute->id)}}');">{{__('Delete')}}</a></li> --}}
                                 </ul>
                             </div>
                         </td>
