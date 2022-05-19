@@ -361,7 +361,12 @@ td {
                                         <div class="form-group col-lg-12 col-md-6 mb-0">
                                             <div class="size-wrapper">
                                                 <div class="size-select">
-                                                    <h5>{{ \App\Attribute::find($choice->attribute_id)->name }}</h5>
+                                                    <h5>
+                                                        @if ()
+                                                            
+                                                        @endif
+                                                        {{ \App\Attribute::find($choice->attribute_id)->name }}
+                                                    </h5>
                                                     <div class="select-size ml-5">
                                                         {{-- {{dd($choice->values)}} --}}
                                                         @foreach ($choice->values as $key => $value)
