@@ -610,9 +610,14 @@ td {
                     <div class="tab-pane fade p-3 w-75 active show" id="first" role="tabpanel"
                         aria-labelledby="first-tab">{!! $detailedProduct->description !!}
                     </div>
-                    
+                    <style>
+                        #fifth li{
+                            list-style: inside;
+                        }
+                    </style>
                     <div class="tab-pane fade p-3 w-75" id="fifth" role="tabpanel"
-                        aria-labelledby="fifth-tab">{!! $detailedProduct->specs !!}
+                        aria-labelledby="fifth-tab">
+                        {!! $detailedProduct->specs !!}
                     </div>
                     
                     <div class="tab-pane fade p-3" id="fourth" role="tabpanel" aria-labelledby="fourth-tab">
