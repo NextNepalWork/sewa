@@ -315,10 +315,10 @@ td {
                                             </div>
                                         </div>
                                         @else
-                                        <div class="product-price text-dark">
+                                        {{-- <div class="product-price text-dark">
                                             <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
                                             </div> 
-                                        </div>
+                                        </div> --}}
                                     @endif
                                 </div>
         
