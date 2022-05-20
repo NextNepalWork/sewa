@@ -298,27 +298,25 @@ td {
                                 <div class="form-group">
                                     @if(home_price($detailedProduct->id) != home_discounted_price($detailedProduct->id))
                                         <div class="product-price text-dark">
-                                            {{-- <div class="second-price font-weight-bold">
-                                                {{ home_discounted_price($detailedProduct->id) }}
-                                            </div> --}}
+                                            <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
+                                            </div>
                                             <div class="d-flex">
-                                                {{-- <div class="first-price mr-2">
-                                                    {{ home_price($detailedProduct->id) }}
-                                                </div> --}}
+                                                <div class="first-price mr-2">{{ home_price($detailedProduct->id) }}
+                                                </div>
                                                 <div class="discount">
                                                     @if (! $detailedProduct->discount == 0)
                                                         <div class="">
-                                                            Discount : {{ ($detailedProduct->discount_type == 'amount')?'Rs.':'' }} {{ (intval($detailedProduct->discount,0)) }}{{ !($detailedProduct->discount_type == 'amount')?' %':'' }} off
+                                                            -{{ ($detailedProduct->discount_type == 'amount')?'Rs.':'' }} {{ (intval($detailedProduct->discount,0)) }}{{ !($detailedProduct->discount_type == 'amount')?' %':'' }} off
                                                         </div>
                                                     @endif
                                                 </div>
                                             </div>
                                         </div>
                                         @else
-                                        {{-- <div class="product-price text-dark">
+                                        <div class="product-price text-dark">
                                             <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
                                             </div> 
-                                        </div> --}}
+                                        </div>
                                     @endif
                                 </div>
         
@@ -361,9 +359,7 @@ td {
                                         <div class="form-group col-lg-12 col-md-6 mb-0">
                                             <div class="size-wrapper">
                                                 <div class="size-select">
-                                                    <h5>
-                                                        {{ \App\Attribute::find($choice->attribute_id)->name }}
-                                                    </h5>
+                                                    <h5>{{ \App\Attribute::find($choice->attribute_id)->name }}</h5>
                                                     <div class="select-size ml-5">
                                                         {{-- {{dd($choice->values)}} --}}
                                                         @foreach ($choice->values as $key => $value)
@@ -610,14 +606,14 @@ td {
                     <div class="tab-pane fade p-3 w-75 active show" id="first" role="tabpanel"
                         aria-labelledby="first-tab">{!! $detailedProduct->description !!}
                     </div>
+                    
                     <style>
                         #fifth li{
                             list-style: inside;
                         }
                     </style>
                     <div class="tab-pane fade p-3 w-75" id="fifth" role="tabpanel"
-                        aria-labelledby="fifth-tab">
-                        {!! $detailedProduct->specs !!}
+                        aria-labelledby="fifth-tab">{!! $detailedProduct->specs !!}
                     </div>
                     
                     <div class="tab-pane fade p-3" id="fourth" role="tabpanel" aria-labelledby="fourth-tab">
