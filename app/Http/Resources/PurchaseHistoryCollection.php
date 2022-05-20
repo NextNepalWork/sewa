@@ -26,7 +26,7 @@ class PurchaseHistoryCollection extends ResourceCollection
                     'payment_status' => $data->payment_status,
                     'grand_total' => (double) $data->grand_total,
                     'coupon_discount' => (double) $data->coupon_discount,
-                    'shipping_cost' => (double) $data->orderDetails->sum('shipping_cost'),
+                    'shipping_cost' => (double) ($data->orderDetails->sum('shipping_cost')+($data->location_charge)),
                     'subtotal' => (double) $data->orderDetails->sum('price'),
                     'tax' => (double) $data->orderDetails->sum('tax'),
                     'date' => Carbon::createFromTimestamp($data->date)->format('d-m-Y'),
