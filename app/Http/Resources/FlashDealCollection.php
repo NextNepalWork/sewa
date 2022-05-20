@@ -28,7 +28,7 @@ class FlashDealCollection extends ResourceCollection
     
         return [
             'title' => $flash_deal->title,
-            'end_date' => $flash_deal->end_date,
+            'end_date' => (integer) $flash_deal->end_date,
             'products' => new ProductCollection($products)
         ];
         }
