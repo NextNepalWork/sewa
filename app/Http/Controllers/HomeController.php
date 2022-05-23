@@ -34,6 +34,7 @@ use Cookie;
 use Exception;
 use Response;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat\PercentageFormatter;
 
 class HomeController extends Controller
 {
@@ -567,13 +568,23 @@ class HomeController extends Controller
                     $products->orderBy('created_at', 'desc');
                     break;
                 case '2':
-                    $products->orderBy('created_at', 'asc');
+                    $products->orderBy('created_at', 'a sc');
                     break;
                 case '3':
-                    $products->orderBy('unit_price', 'asc');
+                    // $products->orderByRaw('case 
+                    //                 when discount_type = "percentage" then (unit_price - (unit_price * (discount/100)))
+                    //                 end asc');
+                    // type = amount 
+                    // unit_price - discount
+
+                    // type = Percentage
+                    // unit_price - ((unit_price * discount)/100)
+                    $products->orderByRaw('(unit_price - discount) asc');
+                    // $products->orderBy('unit_price', 'asc');
                     break;
                 case '4':
-                    $products->orderBy('unit_price', 'desc');
+                    $products->orderByRaw('(unit_price - discount) desc');
+                    // $products->orderBy('unit_price', 'desc');
                     break;
                 default:
                     // code...
