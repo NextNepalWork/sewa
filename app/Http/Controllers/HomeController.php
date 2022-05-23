@@ -572,8 +572,9 @@ class HomeController extends Controller
                     break;
                 case '3':
                     // $products->orderByRaw('case 
+                    //                 when discount_type = "amount" then (unit_price - discount)
                     //                 when discount_type = "percentage" then (unit_price - (unit_price * (discount/100)))
-                    //                 end asc');
+                    //                 end desc');
                     // type = amount 
                     // unit_price - discount
 

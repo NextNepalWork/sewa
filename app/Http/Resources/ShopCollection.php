@@ -19,6 +19,7 @@ class ShopCollection extends ResourceCollection
                 // echo '</pre>';
                 return [
                     'id'=>$data->id,
+                    'user_id'=>$data->user_id,
                     'name' => $data->name,
                     'user' => [
                         'name' => (!empty($a)?$a->name:'empty'),
