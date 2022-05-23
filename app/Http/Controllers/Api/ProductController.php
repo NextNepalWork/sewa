@@ -256,12 +256,12 @@ class ProductController extends Controller
             //     $collection->appends(['key' =>  $key, 'scope' => $scope]);
             //     return $collection;
             //
-            // case 'shop':
-            //
-            //     $shops = Shop::select('user_id')->where('name', 'like', "%{$key}%")->get()->toArray();
-            //     $collection = new SearchProductCollection(Product::where('user_id', $shops)->orderBy('num_of_sale', 'desc')->paginate(10));
-            //     $collection->appends(['key' =>  $key, 'scope' => $scope]);
-            //     return $collection;
+            case 'shop':
+            
+                $shops = Shop::select('user_id')->where('name', 'like', "%{$key}%")->get()->toArray();
+                $collection = new SearchProductCollection(Product::where('user_id', $shops)->orderBy('num_of_sale', 'desc')->paginate(10));
+                $collection->appends(['key' =>  $key, 'scope' => $scope]);
+                return $collection;
 
             default:
                 $collection = new SearchProductCollection(Product::where('name', 'like', "%{$key}%")->orWhere('tags', 'like', "%{$key}%")->orderBy('num_of_sale', 'desc')->paginate(10));

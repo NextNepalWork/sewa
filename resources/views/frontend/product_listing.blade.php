@@ -1,4 +1,5 @@
 @extends('frontend.layouts.app')
+
 @if(isset($subsubcategory_id))
     @php
         $meta_title = \App\SubSubCategory::find($subsubcategory_id)->meta_title;
@@ -25,7 +26,7 @@
         $meta_description = \App\SeoSetting::first()->description;
     @endphp
 @endif
-
+@section('title'){{ $meta_title }}@endsection
 @section('meta_title'){{ $meta_title }}@stop
 @section('meta_description'){{ $meta_description }}@stop
 
