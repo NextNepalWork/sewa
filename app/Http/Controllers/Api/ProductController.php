@@ -269,7 +269,50 @@ class ProductController extends Controller
                 return $collection;
         }
     }
+    public function searchShop(Request $request)
+    {
 
+        $key = request('key');
+        $user_id = request('user_id');
+        // return $key;
+        $scope = request('scope');
+
+
+        switch ($scope) {
+
+            case 'price_low_to_high':
+                $collection = new SearchProductCollection(Product::where('user_id',$user_id)->orderBy('unit_price', 'asc')->paginate(10));
+                $collection->appends(['key' =>  $key, 'scope' => $scope]);
+                return $collection;
+
+            case 'price_high_to_low':
+                $collection = new SearchProductCollection(Product::where('user_id',$user_id)->orderBy('unit_price', 'desc')->paginate(10));
+                $collection->appends(['key' =>  $key, 'scope' => $scope]);
+                return $collection;
+
+            case 'new_arrival':
+                $collection = new SearchProductCollection(Product::where('user_id',$user_id)->orderBy('created_at', 'desc')->paginate(10));
+                $collection->appends(['key' =>  $key, 'scope' => $scope]);
+                return $collection;
+
+            case 'popularity':
+                $collection = new SearchProductCollection(Product::where('user_id',$user_id)->orderBy('num_of_sale', 'desc')->paginate(10));
+                $collection->appends(['key' =>  $key, 'scope' => $scope]);
+                return $collection;
+
+            case 'top_rated':
+                $collection = new SearchProductCollection(Product::where('user_id',$user_id)->orderBy('rating', 'desc')->paginate(10));
+                $collection->appends(['key' =>  $key, 'scope' => $scope]);
+                return $collection;
+
+            default:
+                $collection = new SearchProductCollection(Product::where('user_id',$user_id)->orderBy('num_of_sale', 'desc')->paginate(10));
+                $collection->appends(['key' =>  $key, 'scope' => $scope]);
+                return $collection;
+        }
+         
+        
+    }
     public function variantPrice(Request $request)
     {
         $product = Product::findOrFail($request->id);
