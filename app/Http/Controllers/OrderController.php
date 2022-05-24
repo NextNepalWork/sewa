@@ -596,6 +596,63 @@ class OrderController extends Controller
                 $data['content'] = 'Your order ' . $order_code . ' is ' . $delivery_stat;
                 $this_user = DB::select('SELECT email FROM users WHERE id = "' . $order->user_id . '"');
                 Mail::to($this_user[0]->email)->send(new CustomerEmail($data));
+
+
+                if($delivery_status == 'pending'){
+                    $message = 'Your Order is Pending.';
+                }elseif($delivery_status == 'on_review'){
+                    $message = 'Your Order is on Review.';
+                }elseif($delivery_status == 'on_delivery'){
+                    $message = 'Your Order is on its way.';            
+                }elseif($delivery_status == 'delivered'){
+                    $message = 'Your Order has been delivered. Please review the product.';            
+                }else{
+                    $message = "Sorry, your order has been cancelled. Please contact our customer care for further details.";
+                }
+                $blog = new Notification();
+                $blog->message = $request->message;
+                $blog->user_id = $order->user_id;
+                $blog->save();
+
+                $app_id = '44f55d66-8a77-486a-9220-27d2e3b9243f';
+                $user_id = $order->user_id;
+                $header = 'Sewa Express';
+                $url = 'https://onesignal.com/api/v1/notifications';
+                $ch = curl_init();
+
+                curl_setopt_array($ch, array(
+                    CURLOPT_URL => $url,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS =>'{
+                        "app_id": "'.$app_id.'",
+                        "data": {"foo": "bar"},    
+                        "include_external_user_ids": ["'.$user_id.'"],
+                        "contents": {"en": "'.$message.'"},
+                        "headings":{"en":"'.$header.'"}
+                    }',      
+                    CURLOPT_HTTPHEADER => array(
+                    'Authorization: Basic ZmUzZDg1OWQtY2U0Ni00Nzg5LTg5MzgtYzY1ZTc4ZTI0NDVl',
+                    'Content-Type: application/json'
+                    ),
+                ));
+                $response = curl_exec ($ch);
+                $err = curl_error($ch);
+                curl_close ($ch);
+                $response = json_decode($response,true);
+                // dd($response);
+                if(isset($response['errors']) && count($response['errors']) > 0){     
+                    if(isset($response['errors']['invalid_external_user_ids'])){
+                        flash(__($response['errors']['invalid_external_user_ids']))->error();
+                    }else{
+                        flash(__($response['errors'][0]))->error();
+                    }
+                }
             } catch (\Exception $e) {
 
             }
@@ -646,62 +703,6 @@ class OrderController extends Controller
         }
         $order->payment_status = $status;
         $order->save();
-        
-        if($status == 'pending'){
-            $message = 'Your Order is Pending.';
-        }elseif($status == 'on_review'){
-            $message = 'Your Order is on Review.';
-        }elseif($status == 'on_delivery'){
-            $message = 'Your Order is on its way.';            
-        }elseif($status == 'delivered'){
-            $message = 'Your Order has been delivered. Please review the product.';            
-        }else{
-            $message = "Sorry, your order has been cancelled. Please contact our customer care for further details.";
-        }
-        $blog = new Notification();
-        $blog->message = $request->message;
-        $blog->user_id = $order->user_id;
-        $blog->save();
-
-        $app_id = '44f55d66-8a77-486a-9220-27d2e3b9243f';
-        $user_id = $order->user_id;
-        $header = 'Sewa Express';
-        $url = 'https://onesignal.com/api/v1/notifications';
-        $ch = curl_init();
-
-        curl_setopt_array($ch, array(
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS =>'{
-                "app_id": "'.$app_id.'",
-                "data": {"foo": "bar"},    
-                "include_external_user_ids": ["'.$user_id.'"],
-                "contents": {"en": "'.$message.'"},
-                "headings":{"en":"'.$header.'"}
-            }',      
-            CURLOPT_HTTPHEADER => array(
-              'Authorization: Basic ZmUzZDg1OWQtY2U0Ni00Nzg5LTg5MzgtYzY1ZTc4ZTI0NDVl',
-              'Content-Type: application/json'
-            ),
-        ));
-        $response = curl_exec ($ch);
-        $err = curl_error($ch);
-        curl_close ($ch);
-        $response = json_decode($response,true);
-        // dd($response);
-        if(isset($response['errors']) && count($response['errors']) > 0){     
-            if(isset($response['errors']['invalid_external_user_ids'])){
-                flash(__($response['errors']['invalid_external_user_ids']))->error();
-            }else{
-                flash(__($response['errors'][0]))->error();
-            }
-        }
 
         if ($order->payment_status == 'paid' && $order->commission_calculated == 0) {
             if (\App\Addon::where('unique_identifier', 'seller_subscription')->first() == null || !\App\Addon::where('unique_identifier', 'seller_subscription')->first()->activated) {
