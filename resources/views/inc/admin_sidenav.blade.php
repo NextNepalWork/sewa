@@ -497,6 +497,9 @@
                                 <li class="{{ areActiveRoutes(['attributes.index','attributes.create','attributes.edit'])}}">
                                     <a class="nav-link" href="{{route('attributes.index')}}">{{__('Attribute')}}</a>
                                 </li>
+                                <li class="{{ areActiveRoutes(['notifications.index','notifications.create','notifications.edit'])}}">
+                                    <a class="nav-link" href="{{route('notifications.index')}}">{{__('Send Notifications')}}</a>
+                                </li>
                                 <li class="{{ areActiveRoutes(['coupon.index','coupon.create','coupon.edit'])}}">
                                     <a class="nav-link" href="{{route('coupon.index')}}">{{__('Coupon')}}</a>
                                 </li>
