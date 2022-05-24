@@ -605,7 +605,7 @@ class OrderController extends Controller
                 }elseif($delivery_status == 'on_delivery'){
                     $message = 'Your Order is on its way.';            
                 }elseif($delivery_status == 'delivered'){
-                    $message = 'Your Order has been delivered. Please review the product.';            
+                    $message = 'Your Order has been delivered.';            
                 }else{
                     $message = "Sorry, your order has been cancelled. Please contact our customer care for further details.";
                 }

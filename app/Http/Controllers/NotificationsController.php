@@ -134,6 +134,20 @@ class NotificationsController extends Controller
 
         return '0';
     }
+    public function getUserNotification($id){
+        $blog = Notification::where('user_id',$id)->orWhere('user_id',null)->count();
+
+        if($blog > 0){
+            $blog = Notification::where('user_id',$id)->orWhere('user_id',null)->get()->toArray();            
+        }else{
+            $blog = [];
+        }
+        return [
+            'data' => json_encode($blog),
+            'success' => true,
+            'status' => 200
+        ];
+    }
     /**
      * Display the specified resource.
      *
@@ -142,7 +156,7 @@ class NotificationsController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**

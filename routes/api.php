@@ -1,5 +1,6 @@
 <?php
 
+use App\Notification;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1/auth')->group(function () {
@@ -18,6 +19,7 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('banners', 'Api\BannerController')->only('index');
 
     Route::get('brands/top', 'Api\BrandController@top');
+    Route::get('notifications/{id}', 'Api\NotificationsController@getUserNotification');
     Route::get('districts', 'Api\AddressController@districts');
     Route::get('locations/{id}', 'Api\AddressController@locations');
     Route::get('getlocation/{id}', 'Api\AddressController@getlocation');
