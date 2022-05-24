@@ -26,7 +26,14 @@
     <meta property="og:description" content="{{ $shop->meta_description }}" />
     <meta property="og:site_name" content="{{ $shop->name }}" />
 @endsection
+<style>
+    #productlist:hover {
+        padding-top:10px;
+        transition: all 0.5s;
+        box-shadow: 0 0 4px 0 rgb(1 1 1 / 30%);
+    }
 
+</style>
 @section('content')
     <!-- <section>
         <img loading="lazy"  src="https://via.placeholder.com/2000x300.jpg" alt="" class="img-fluid">
@@ -290,7 +297,7 @@
     @endif
 
 
-    <section class="@if (!isset($type)) gry-bg @endif pt-5" >
+    <section class="bg-white pt-5" >
         <div class="container">
             <h4 class="heading-5 strong-600 border-bottom pb-3 mb-4">
                 @if (!isset($type))
@@ -318,7 +325,7 @@
                                     }
                                 @endphp
                                 @foreach ($products as $key => $product)
-                                <div class="col-lg-2 col-md-4 col-sm-12">
+                                <div class="col-lg-2 col-md-4 col-sm-12" id="productlist">
                                     <div class="product-grid-item">
 
 
