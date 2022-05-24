@@ -266,4 +266,9 @@ Route::resource('flash_deals','FlashDealController');
 
 	Route::resource('countries','CountryController');
 	Route::post('/countries/status', 'CountryController@updateStatus')->name('countries.status');
+
+	Route::resource('notifications','NotificationsController');
+	// Route::get('/notifications/', 'NotificationsController@index')->name('notifications.index');
+	// Route::get('/notifications/create', 'NotificationsController@create')->name('notifications.create');
+
 });
