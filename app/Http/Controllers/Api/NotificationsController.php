@@ -22,4 +22,26 @@ class NotificationsController extends Controller
             'status' => 200
         ];
     }
+    public function storeNotification(Request $request){
+        $user_id = $request->user_id;
+        $message = $request->message;
+
+        $blog = new Notification();
+        $blog->user_id = $user_id;
+        $blog->message = $message;
+        try{
+            $blog->save();
+            
+            return response()->json([
+                'data' => [],
+                'success' => true,
+                'message' => 'Notification Saved !!'],200);
+        }catch(\Exception $e){
+            return response()->json([
+                'data' => [],
+                'success' => false,
+                'message' => $e->getMessage()],401);
+            }
+        
+    }
 }
