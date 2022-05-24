@@ -57,11 +57,11 @@ class ProductController extends Controller
 
         switch ($scope) {       
             case 'price_low_to_high':
-                $products = Product::where('category_id', $id)->orderBy('unit_price', 'asc')->paginate(10);
+                $products = Product::where('category_id', $id)->selectRaw('*,case when discount_type = "amount" then (unit_price - discount) when discount_type = "percent" then (unit_price - (unit_price * (discount/100))) end as unit_price2')->orderBy('unit_price2', 'asc')->paginate(10);
                 break;
 
             case 'price_high_to_low':
-                $products = Product::where('category_id', $id)->orderBy('unit_price', 'desc')->paginate(10);
+                $products = Product::where('category_id', $id)->selectRaw('*,case when discount_type = "amount" then (unit_price - discount) when discount_type = "percent" then (unit_price - (unit_price * (discount/100))) end as unit_price2')->orderBy('unit_price2', 'desc')->paginate(10);
                 break;
 
             case 'new_arrival':
@@ -99,11 +99,11 @@ class ProductController extends Controller
 
         switch ($scope) {       
             case 'price_low_to_high':
-                $products = Product::where('subcategory_id', $id)->orderBy('unit_price', 'asc')->paginate(10);
+                $products = Product::where('subcategory_id', $id)->selectRaw('*,case when discount_type = "amount" then (unit_price - discount) when discount_type = "percent" then (unit_price - (unit_price * (discount/100))) end as unit_price2')->orderBy('unit_price2', 'asc')->paginate(10);
                 break;
 
             case 'price_high_to_low':
-                $products = Product::where('subcategory_id', $id)->orderBy('unit_price', 'desc')->paginate(10);
+                $products = Product::where('subcategory_id', $id)->selectRaw('*,case when discount_type = "amount" then (unit_price - discount) when discount_type = "percent" then (unit_price - (unit_price * (discount/100))) end as unit_price2')->orderBy('unit_price2', 'desc')->paginate(10);
                 break;
 
             case 'new_arrival':
@@ -137,11 +137,11 @@ class ProductController extends Controller
 
         switch ($scope) {       
             case 'price_low_to_high':
-                $products = Product::where('subsubcategory_id', $id)->orderBy('unit_price', 'asc')->paginate(10);
+                $products = Product::where('subsubcategory_id', $id)->selectRaw('*,case when discount_type = "amount" then (unit_price - discount) when discount_type = "percent" then (unit_price - (unit_price * (discount/100))) end as unit_price2')->orderBy('unit_price2', 'asc')->paginate(10);
                 break;
 
             case 'price_high_to_low':
-                $products = Product::where('subsubcategory_id', $id)->orderBy('unit_price', 'desc')->paginate(10);
+                $products = Product::where('subsubcategory_id', $id)->selectRaw('*,case when discount_type = "amount" then (unit_price - discount) when discount_type = "percent" then (unit_price - (unit_price * (discount/100))) end as unit_price2')->orderBy('unit_price2', 'desc')->paginate(10);
                 break;
 
             case 'new_arrival':
@@ -220,6 +220,7 @@ class ProductController extends Controller
             case 'price_low_to_high':
                 
                 $product_get = Product::where('name', 'like', "%{$key}%")->orWhere('tags', 'like', "%{$key}%")->selectRaw('*,case when discount_type = "amount" then (unit_price - discount) when discount_type = "percent" then (unit_price - (unit_price * (discount/100))) end as unit_price2')->orderBy('unit_price2', 'asc')->paginate(10);
+                $collection = new SearchProductCollection($product_get);
                 // $product_get->orderBy('unit_price', 'asc');
                 // $product_get->selectRaw('*,case 
                 //                     when discount_type = "amount" then (unit_price - discount)
@@ -229,7 +230,6 @@ class ProductController extends Controller
                 // $product_get->orderBy('unit_price', 'asc');
                 // $product_get->get();
                 // return \Response::json($product_get);
-                $collection = new SearchProductCollection($product_get);
                 // $collection = new SearchProductCollection(Product::where('name', 'like', "%{$key}%")->orWhere('tags', 'like', "%{$key}%")->orderBy('unit_price', 'asc')->paginate(10));
                 // $collection->appends(['key' =>  $key, 'scope' => $scope]);
                 return $collection;
