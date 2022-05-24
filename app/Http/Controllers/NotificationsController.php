@@ -40,10 +40,11 @@ class NotificationsController extends Controller
      */
     public function store(Request $request)
     {
+        $app_id = '44f55d66-8a77-486a-9220-27d2e3b9243f';
         $user_id = $request->user_id;
         $message = $request->message;
         $header = 'Sewa Express';
-        
+        // dd($user_id);
         $blog = new Notification;
         $blog->message = $request->message;
 
@@ -61,7 +62,7 @@ class NotificationsController extends Controller
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
                 CURLOPT_POSTFIELDS =>'{
-                    "app_id": "44f55d66-8a77-486a-9220-27d2e3b9243f",
+                    "app_id": "'.$app_id.'",
                     "data": {"foo": "bar"},    
                     "included_segments": ["Subscribed Users"],                
                     "contents": {"en": "'.$message.'"},
@@ -84,9 +85,9 @@ class NotificationsController extends Controller
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
                 CURLOPT_POSTFIELDS =>'{
-                    "app_id": "44f55d66-8a77-486a-9220-27d2e3b9243f",
+                    "app_id": "'.$app_id.'",
                     "data": {"foo": "bar"},    
-                    "include_external_user_ids": ["'.$user_id.'"],                
+                    "include_external_user_ids": ["'.$user_id.'"],
                     "contents": {"en": "'.$message.'"},
                     "headings":{"en":"'.$header.'"}
                 }',      
@@ -104,9 +105,13 @@ class NotificationsController extends Controller
         curl_close ($ch);
 
         $response = json_decode($response,true);
-        dd($response);
-        if(isset($response['errors']) && count($response['errors']) > 0){            
-            flash(__($response['errors'][0]))->error();
+        // dd($response);
+        if(isset($response['errors']) && count($response['errors']) > 0){     
+            if(isset($response['errors']['invalid_external_user_ids'])){
+                flash(__($response['errors']['invalid_external_user_ids']))->error();
+            }else{
+                flash(__($response['errors'][0]))->error();
+            }
             return redirect()->back();
         }
         
