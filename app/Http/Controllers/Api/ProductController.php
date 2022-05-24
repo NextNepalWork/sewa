@@ -218,16 +218,21 @@ class ProductController extends Controller
         switch ($scope) {
 
             case 'price_low_to_high':
-                $product_get = Product::where('name', 'like', "%{$key}%")->orWhere('tags', 'like', "%{$key}%");
+                
+                $product_get = Product::where('name', 'like', "%{$key}%")->orWhere('tags', 'like', "%{$key}%")->selectRaw('*,case when discount_type = "amount" then (unit_price - discount) when discount_type = "percent" then (unit_price - (unit_price * (discount/100))) end as unit_price2')->orderBy('unit_price2', 'asc')->get();
                 // $product_get->orderBy('unit_price', 'asc');
-                $product_get->selectRaw('*,case 
-                                    when discount_type = "amount" then (unit_price - discount)
-                                    when discount_type = "percent" then (unit_price - (unit_price * (discount/100)))
-                                    end as unit_price2');
-                $product_get->orderBy('unit_price2', 'asc');
-                $product_get->paginate(10);
+                // $product_get->selectRaw('*,case 
+                //                     when discount_type = "amount" then (unit_price - discount)
+                //                     when discount_type = "percent" then (unit_price - (unit_price * (discount/100)))
+                //                     end as unit_price2');
+                // $product_get->orderBy('unit_price2', 'asc');
+                // $product_get->orderBy('unit_price', 'asc');
+                // $product_get->get();
+                // return \Response::json($product_get);
                 $collection = new SearchProductCollection($product_get);
-                $collection->appends(['key' =>  $key, 'scope' => $scope]);
+
+                // $collection = new SearchProductCollection(Product::where('name', 'like', "%{$key}%")->orWhere('tags', 'like', "%{$key}%")->orderBy('unit_price', 'asc')->paginate(10));
+                // $collection->appends(['key' =>  $key, 'scope' => $scope]);
                 return $collection;
 
             case 'price_high_to_low':
