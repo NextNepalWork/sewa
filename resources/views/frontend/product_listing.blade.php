@@ -26,7 +26,7 @@
         $meta_description = \App\SeoSetting::first()->description;
     @endphp
 @endif
-@section('title'){{ $meta_title }}@endsection
+@section('title'){{ $meta_title }}@stop
 @section('meta_title'){{ $meta_title }}@stop
 @section('meta_description'){{ $meta_description }}@stop
 

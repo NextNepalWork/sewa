@@ -35,6 +35,7 @@ use Exception;
 use Response;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\PercentageFormatter;
+use DB;
 
 class HomeController extends Controller
 {
@@ -568,23 +569,33 @@ class HomeController extends Controller
                     $products->orderBy('created_at', 'desc');
                     break;
                 case '2':
-                    $products->orderBy('created_at', 'a sc');
+                    $products->orderBy('created_at', 'asc');
                     break;
                 case '3':
-                    // $products->orderByRaw('case 
-                    //                 when discount_type = "amount" then (unit_price - discount)
-                    //                 when discount_type = "percentage" then (unit_price - (unit_price * (discount/100)))
-                    //                 end desc');
+                    $products->selectRaw('*,case 
+                                    when discount_type = "amount" then (unit_price - discount)
+                                    when discount_type = "percent" then (unit_price - (unit_price * (discount/100)))
+                                    end as unit_price2');
                     // type = amount 
                     // unit_price - discount
 
                     // type = Percentage
                     // unit_price - ((unit_price * discount)/100)
-                    $products->orderByRaw('(unit_price - discount) asc');
-                    // $products->orderBy('unit_price', 'asc');
+                    // $products->orderByRaw('(unit_price - discount) asc');
+                    //                     SELECT id,price,
+                    // CASE WHEN discount="amount" THEN price-discountAmount
+                    // WHEN discount="percentage" THEN price-(price*discountAmount/100)
+                    // END AS afterdiscount
+                    // FROM products ORDER by afterdiscount desc;
+                    $products->orderBy('unit_price2', 'asc');
                     break;
                 case '4':
-                    $products->orderByRaw('(unit_price - discount) desc');
+                    $products->selectRaw('*,case 
+                                    when discount_type = "amount" then (unit_price - discount)
+                                    when discount_type = "percent" then (unit_price - (unit_price * (discount/100)))
+                                    end as unit_price2');
+                    $products->orderBy('unit_price2', 'desc');
+                    // $products->orderByRaw('(unit_price - discount) desc');
                     // $products->orderBy('unit_price', 'desc');
                     break;
                 default:
@@ -592,9 +603,9 @@ class HomeController extends Controller
                     break;
             }
         }
-        
+        // $products->with('category');
+// dd($products->get()->toArray());
         $non_paginate_products = filter_products($products)->get();
-
 
         //Attribute Filter
 
