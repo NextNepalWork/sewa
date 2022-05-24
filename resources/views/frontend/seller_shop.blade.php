@@ -156,96 +156,130 @@
             $featured_product=$shop->user->products->where('published', 1)->where('featured', 1)->all();
         @endphp
         @if (count($featured_product)>0)
-            
-        <section class="sct-color-1 pt-5 pb-4">
+        <section id="productlist" class="mt-5">
             <div class="container">
-                <div class="section-title section-title--style-1 text-center mb-4">
-                    <h3 class="section-title-inner heading-3 strong-600">
-                        {{__('Featured Products')}}
-                    </h3>
-                </div>
                 <div class="row">
-                    <div class="col">
-                        <div class="slider_feature">
-                            
-                            @foreach ($featured_product as $key => $product)
-                                <div class="caorusel-card my-5">
-                                    <div class="product-card-2 card card-product shop-cards shop-tech">
-                                        <div class="card-body p-0">
-
-                                            <div class="card-image">
-                                                <a href="{{ route('product', $product->slug) }}" class="d-block">
-                                                    @if ($product->featured_img != '')
-                                                        @if (file_exists($product->featured_img))
-                                                            <img  class="mx-auto img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
-                                                        @else
-                                                            <img  class="mx-auto img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
+                    <div class="col-md-12">
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <div class="section_title_block d-flex justify-content-between align-item-center h-100">
+                                    @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->name == "Nepali")
+                                    <h2 class="position-relative mb-0">विशेष उत्पादनहरू</h2>
+                                    <a class="btn_view" href="{{route('products')}}"> सबै विशेष उत्पादनहरू हेर्नुहोस्<span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                                    @else
+                                    <h2 class="position-relative mb-0">Featured Products</h2>
+                                    <a class="btn_view" href="{{route('products')}}"> View all featured products<span class="pl-2 "><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                                    @endif
+    
+                                    </header>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="product-lists">
+                                    <div class="right-side-wrapper">
+                                        <div class="slider_feature">
+                                            @foreach ($featured_product as $key => $product)
+                                            {{-- @php
+                                                    dd($product);
+                                                @endphp --}}
+                                            <div class="grid-item">
+                                                <div class="product-grid-item">
+    
+    
+                                                    <div class="product-grid-image">
+                                                        <a href="{{ route('product', $product->slug) }}">
+                                                            @php
+                                                            $filepath = $product->featured_img;
+                                                            @endphp
+                                                            @if(isset($filepath))
+                                                            @if (file_exists(public_path($filepath)))
+                                                            <img src="{{ asset($product->featured_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->featured_img) }}" class="img-fluid pic-1">
+                                                            @else
+                                                            <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
+                                                            @endif
+                                                            @else
+                                                            <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
+                                                            @endif
+                                                        </a>
+                                                    </div>
+    
+                                                    <div class="category-title">
+                                                        <div class="category">
+                                                            <a class="m-0" href="{{ route('products.category', $product->category->slug) }}">{{ $product->category->name }}</a>
+                                                        </div>
+                                                        <h6 class="title">
+                                                            <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
+                                                        </h6>
+                                                    </div>
+                                                    <div class="price-cart text-center py-2 min-height-20">
+                                                        <div class="price d-flex flex-column align-items-center w-100">
+                                                            <div class="prices align-items-center d-flex justify-content-between w-100">
+                                                                <div>
+    
+                                                                    @php
+                                                                    $qty = 0;
+                                                                    if($product->variant_product){
+                                                                    foreach ($product->stocks as $key => $stock) {
+                                                                    $qty += $stock->qty;
+                                                                    }
+                                                                    }
+                                                                    else{
+                                                                    $qty = $product->current_stock ;
+                                                                    }
+                                                                    @endphp
+                                                                    @if($qty > 0)
+                                                                    <h6 class="m-0 gray text-left cus-price">{{ home_discounted_base_price($product->id) }}&nbsp;</h6>
+                                                                    <div class="d-flex justify-content-between w-100 align-items-center">
+                                                                        @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                                                        <span class="ml-0">{{ home_base_price($product->id) }}</span>&nbsp;&nbsp;
+                                                                        @endif
+                                                                        @if (! intval(($product->discount),0) == 0)
+                                                                        <div>
+                                                                            {{ ($product->discount_type == 'amount')?'  Rs.':'' }} -{{ intval(($product->discount),0) }}{{ !($product->discount_type == 'amount')?' %':'' }}
+    
+                                                                        </div>
+                                                                        @endif
+    
+                                                                    </div>
+                                                                    @endif
+    
+                                                                    <div class="d-flex w-100 mt-2">
+                                                                        @if($qty <= 0) <div class="stock mr-1">
+                                                                            Out of Stock
+                                                                    </div>
+                                                                    @endif
+    
+                                                                </div>
+                                                            </div>
+                                                            @if($qty > 0)
+                                                            <div class="d-flex justify-content-between">
+                                                                {{-- @if (! intval(($product->discount),0) == 0)
+                                                                            <div class="product-discount-label">
+                                                                                {{ ($product->discount_type == 'amount')?'Rs.':'' }} {{ $product->discount }}{{ !($product->discount_type == 'amount')?' %':'' }}
+                                                            </div>
+                                                            @endif --}}
+                                                            <a class="all-deals ico effect" onclick="showAddToCartModal({{ $product->id }})" data-toggle="tooltip" data-placement="right" title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
+    
+                                                        </div>
                                                         @endif
-                                                    @else
-                                                        <img  class="mx-auto img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
-                                                    @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <div class="cart-compare">
+                                                <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToWishList({{$product->id}})"><i class="fa fa-heart icon mr-2"></i>Wishlist
                                                 </a>
-                                            </div>
-
-                                            <div class="p-3">
-                                                <div class="price-box">
-                                                    <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
-                                                    <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
-                                                </div>
-                                                <div class="star-rating star-rating-sm mt-1">
-                                                    {{ renderStarRating($product->rating) }}
-                                                </div>
-                                                <h2 class="product-title p-0 text-truncate-2">
-                                                    <a href="{{ route('product', $product->slug) }}">{{ __($product->name) }}</a>
-                                                </h2>
-                                                @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
-                                                    <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
-                                                        {{ __('Club Point') }}:
-                                                        <span class="strong-700 float-right">{{ $product->earn_point }}</span>
-                                                    </div>
-                                                @endif
-                                            </div>
-                                            <div class="d-flex w-100 mt-2">
-                            
-                                                @php
-                                                $qty = 0;
-                                                if($product->variant_product){
-                                                    foreach ($product->stocks as $key => $stock) {
-                                                        $qty += $stock->qty;
-                                                    }
-                                                }
-                                                else{
-                                                    $qty = $product->current_stock ;
-                                                }
-                                                @endphp
-                                                @if($qty == 0)
-                                                    <div class="stock mr-1">
-                                                        Out of Stock
-                                                    </div>
-                                                @endif
-                                                @if ($qty != 0 && intval(($product->discount),0) != 0)
-                                                    <div class="product-discount-label font-weight-bold d-flex align-items-center px-2" style="background-color: var(--theme_color_sub); ">
-                                                        {{ ($product->discount_type == 'amount')?'Rs.':'' }} {{ $product->discount }}{{ !($product->discount_type == 'amount')?' %':'' }}
-                                                    </div>
-                                                @endif
-                                            
-                                            </div>
-                                            <div class="cart-add d-flex">
-                                                <button class="btn add-wishlist border-right" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})">
-                                                    <i class="la la-heart-o"></i>
-                                                </button>
-                                                <button class="btn add-compare border-right" title="Add to Compare" onclick="addToCompare({{ $product->id }})">
-                                                    <i class="la la-refresh"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-block btn-icon-left border-top" onclick="showAddToCartModal({{ $product->id }})">
-                                                    <span class="d-none d-sm-inline-block">{{__('Add to cart')}}</span><i class="la la-shopping-cart ml-2"></i>
-                                                </button>
+                                                <a class="all-deals effect gray" onclick="addToCompare({{$product->id}})">
+                                                    <i class="fa fa-exchange icon mr-2"></i>Compare
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
+                                    @endforeach
                                 </div>
-                            @endforeach
-                            
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -256,7 +290,7 @@
     @endif
 
 
-    <section class="@if (!isset($type)) gry-bg @endif pt-5">
+    <section class="@if (!isset($type)) gry-bg @endif pt-5" >
         <div class="container">
             <h4 class="heading-5 strong-600 border-bottom pb-3 mb-4">
                 @if (!isset($type))
@@ -267,104 +301,115 @@
                     {{__('All Products')}}
                 @endif
             </h4>
-            <div class="product-list row gutters-5 sm-no-gutters">
-                @php
-                    if (!isset($type)){
-                        $products = \App\Product::where('user_id', $shop->user->id)->where('published', 1)->orderBy('created_at', 'desc')->paginate(24);
-                    }
-                    elseif ($type == 'top_selling'){
-                        $products = \App\Product::where('user_id', $shop->user->id)->where('published', 1)->orderBy('num_of_sale', 'desc')->paginate(24);
-                    }
-                    elseif ($type == 'all_products'){
-                        $products = \App\Product::where('user_id', $shop->user->id)->where('published', 1)->paginate(24);
-                    }
-                @endphp
-                @foreach ($products as $key => $product)
-                    <div class="col-xxl-2 col-lg-3 col-md-4 col-6">
-                        <div class="card product-box-1 mb-3">
-                            <div class="card-image">
-                                <a href="{{ route('product', $product->slug) }}" class="d-block text-center">
-                                    @if ($product->thumbnail_img != '')
-                                        @if (file_exists($product->thumbnail_img))
-                                        <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" 
-                                        data-src="{{ asset($product->thumbnail_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
-                                        @else
-                                            <img  class="mx-auto img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
-                                        @endif
-                                    @else
-                                        <img  class="mx-auto img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
-                                    @endif
-                                    
-                                </a>
-                            </div>
-                            <div class="card-body p-0">
-                                <div class="px-3 py-2">
-                                     @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
-                                        <div class="club-point mb-2 bg-soft-base-1 border-light-base-1 border">
-                                            {{ __('Club Point') }}:
-                                            <span class="strong-700 float-right">{{ $product->earn_point }}</span>
-                                        </div>
-                                    @endif
-                                    <h2 class="title text-truncate-2 mb-0">
-                                        <a href="{{ route('product', $product->slug) }}">{{ __($product->name) }}</a>
-                                    </h2>
-                                </div>
-                                <div class="price-bar row no-gutters">
-                                    <div class="price col-md-7">
-                                        @if(home_price($product->id) != home_discounted_price($product->id))
-                                            <del class="old-product-price strong-600">{{ home_base_price($product->id) }}</del>
-                                            <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
-                                        @else
-                                            <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
-                                        @endif
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="star-rating star-rating-sm float-md-right">
-                                            {{ renderStarRating($product->rating) }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex w-100 mt-2">
-                            
-                                    @php
-                                    $qty = 0;
-                                    if($product->variant_product){
-                                        foreach ($product->stocks as $key => $stock) {
-                                            $qty += $stock->qty;
-                                        }
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-lists">
+                        <div class="right-side-wrapper">
+                            <div class="row">
+                                @php
+                                    if (!isset($type)){
+                                        $products = \App\Product::where('user_id', $shop->user->id)->where('published', 1)->orderBy('created_at', 'desc')->paginate(24);
                                     }
-                                    else{
-                                        $qty = $product->current_stock ;
+                                    elseif ($type == 'top_selling'){
+                                        $products = \App\Product::where('user_id', $shop->user->id)->where('published', 1)->orderBy('num_of_sale', 'desc')->paginate(24);
                                     }
-                                    @endphp
-                                    @if($qty == 0)
-                                    <div class="stock mr-1">
-                                        Out of Stock
+                                    elseif ($type == 'all_products'){
+                                        $products = \App\Product::where('user_id', $shop->user->id)->where('published', 1)->paginate(24);
+                                    }
+                                @endphp
+                                @foreach ($products as $key => $product)
+                                <div class="col-lg-2 col-md-4 col-sm-12">
+                                    <div class="product-grid-item">
+
+
+                                        <div class="product-grid-image">
+                                            <a href="{{ route('product', $product->slug) }}">
+                                                @php
+                                                $filepath = $product->featured_img;
+                                                @endphp
+                                                @if(isset($filepath))
+                                                @if (file_exists(public_path($filepath)))
+                                                <img src="{{ asset($product->featured_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->featured_img) }}" class="img-fluid pic-1">
+                                                @else
+                                                <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
+                                                @endif
+                                                @else
+                                                <img src="{{ asset('uploads/No_Image.jpg') }}" alt="{{ $product->name }}" data-src="{{ asset('uploads/No_Image.jpg') }}" class="img-fluid pic-1">
+                                                @endif
+                                            </a>
+                                        </div>
+
+                                        <div class="category-title">
+                                            <div class="category">
+                                                <a class="m-0" href="{{ route('products.category', $product->category->slug) }}">{{ $product->category->name }}</a>
+                                            </div>
+                                            <h6 class="title">
+                                                <a href="{{ route('product', $product->slug) }}" class="">{{ __($product->name) }}</a>
+                                            </h6>
+                                        </div>
+                                        <div class="price-cart text-center py-2 min-height-20">
+                                            <div class="price d-flex flex-column align-items-center w-100">
+                                                <div class="prices align-items-center d-flex justify-content-between w-100">
+                                                    <div>
+
+                                                        @php
+                                                        $qty = 0;
+                                                        if($product->variant_product){
+                                                        foreach ($product->stocks as $key => $stock) {
+                                                        $qty += $stock->qty;
+                                                        }
+                                                        }
+                                                        else{
+                                                        $qty = $product->current_stock ;
+                                                        }
+                                                        @endphp
+                                                        @if($qty > 0)
+                                                        <h6 class="m-0 gray text-left cus-price">{{ home_discounted_base_price($product->id) }}&nbsp;</h6>
+                                                        <div class="d-flex justify-content-between w-100 align-items-center">
+                                                            @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                                            <span class="ml-0">{{ home_base_price($product->id) }}</span>&nbsp;&nbsp;
+                                                            @endif
+                                                            @if (! intval(($product->discount),0) == 0)
+                                                            <div>
+                                                                {{ ($product->discount_type == 'amount')?'  Rs.':'' }} -{{ intval(($product->discount),0) }}{{ !($product->discount_type == 'amount')?' %':'' }}
+
+                                                            </div>
+                                                            @endif
+
+                                                        </div>
+                                                        @endif
+
+                                                        <div class="d-flex w-100 mt-2">
+                                                            @if($qty <= 0) <div class="stock mr-1">
+                                                                Out of Stock
+                                                        </div>
+                                                        @endif
+
+                                                    </div>
+                                                </div>
+                                                @if($qty > 0)
+                                                    <div class="d-flex justify-content-between">
+                                                    <a class="all-deals ico effect" onclick="showAddToCartModal({{ $product->id }})" data-toggle="tooltip" data-placement="right" title="Add to Cart"><i class="fa fa-shopping-cart icon"></i> </a>
+
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
                                     </div>
-                                    @endif
-                                    @if (! $product->discount == 0)
-                                    <div class="product-discount-label font-weight-bold d-flex align-items-center px-2" style="background-color: var(--theme_color_sub); ">
-                                        {{ ($product->discount_type == 'amount')?'Rs.':'' }} {{ $product->discount }}{{ !($product->discount_type == 'amount')?' %':'' }}
+
+                                    <div class="cart-compare">
+                                        <a class="all-deals effect gray" href="javasctipy:void(0);" onclick="addToWishList({{$product->id}})"><i class="fa fa-heart icon mr-2"></i>Wishlist
+                                        </a>
+                                        <a class="all-deals effect gray" onclick="addToCompare({{$product->id}})">
+                                            <i class="fa fa-exchange icon mr-2"></i>Compare
+                                        </a>
                                     </div>
-                                    @endif
-                                
-                                </div>
-                                <div class="cart-add d-flex">
-                                    <button class="btn add-wishlist border-right" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})">
-                                        <i class="la la-heart-o"></i>
-                                    </button>
-                                    <button class="btn add-compare border-right" title="Add to Compare" onclick="addToCompare({{ $product->id }})">
-                                        <i class="la la-refresh"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-block btn-icon-left border-top" onclick="showAddToCartModal({{ $product->id }})">
-                                        <span class="d-none d-sm-inline-block">{{__('Add to cart')}}</span><i class="la la-shopping-cart ml-2"></i>
-                                    </button>
                                 </div>
                             </div>
+                            @endforeach
                         </div>
                     </div>
-                @endforeach
-            </div>
+                </div>
             <div class="row">
                 <div class="col">
                     <div class="products-pagination my-5">
