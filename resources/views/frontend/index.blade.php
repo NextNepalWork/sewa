@@ -962,7 +962,7 @@ $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
         $.post('{{ route('home.section.best_selling')}}', {_token:'{{ csrf_token() }}'
             },
             function(data) {
-                console.log(data);
+                // console.log(data);
                 $('#section_best_selling').html(data);
                 $(".best-selling").slick({
                     infinite: true,
@@ -1012,57 +1012,10 @@ $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
                     ],
                 });
             });
-        $.post('{{ route('home.section.home_categories')}}', {_token:'{{ csrf_token() }}'
-            },
+        $.post('{{ route('home.section.home_categories')}}', {_token:'{{ csrf_token() }}'},
             function(data) {
                 $('#section_home_categories').html(data);
-                $(".slider_feature").slick({
-                    infinite: true,
-                    autoplay: true,
-                    slidesToShow: 5,
-                    slidesToScroll: 1,
-                    arrows: true,
-                    dots: false,
-                    responsive: [
-                        {
-                            breakpoint: 1400,
-                            settings: {
-                                slidesToShow: 5,
-                                slidesToScroll: 1,
-                            },
-                        },
-                        {
-                            breakpoint: 1080,
-                            settings: {
-                                slidesToShow: 5,
-                                slidesToScroll: 1,
-                            },
-                        },
-                        {
-                            breakpoint: 780,
-                            settings: {
-                                slidesToShow: 2,
-                                slidesToScroll: 1,
-                            },
-                        },
-                        {
-                            breakpoint: 600,
-                            settings: {
-                                slidesToShow: 1,
-                                slidesToScroll: 1,
-                                dots: true,
-                            },
-                        },
-                        {
-                            breakpoint: 480,
-                            settings: {
-                                slidesToShow: 1,
-                                slidesToScroll: 1,
-                                dots: true,
-                            },
-                        },
-                    ],
-                });
+                
             });
         $.post('{{ route('home.section.best_sellers')}}', {_token:'{{ csrf_token() }}'
             },
@@ -1116,6 +1069,55 @@ $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
                     ],
                 });
             });
+    });
+    $( document ).ajaxStop(function() {
+        $(".slider_feature").slick({
+                    infinite: true,
+                    autoplay: true,
+                    slidesToShow: 5,
+                    slidesToScroll: 1,
+                    arrows: true,
+                    dots: false,
+                    responsive: [
+                        {
+                            breakpoint: 1400,
+                            settings: {
+                                slidesToShow: 5,
+                                slidesToScroll: 1,
+                            },
+                        },
+                        {
+                            breakpoint: 1080,
+                            settings: {
+                                slidesToShow: 5,
+                                slidesToScroll: 1,
+                            },
+                        },
+                        {
+                            breakpoint: 780,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 1,
+                            },
+                        },
+                        {
+                            breakpoint: 600,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1,
+                                dots: true,
+                            },
+                        },
+                        {
+                            breakpoint: 480,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1,
+                                dots: true,
+                            },
+                        },
+                    ],
+                });
     });
 </script>
 @endsection
