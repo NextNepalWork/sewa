@@ -72,7 +72,7 @@ Route::resource('locations','LocationController');
 Route::get('/sitemap.xml', function(){
 	return base_path('sitemap.xml');
 });
-
+Route::get('/sitemap.xml','HomeController@sitemap')->name('sitemap');
 
 Route::get('/customer-products', 'CustomerProductController@customer_products_listing')->name('customer.products');
 Route::get('/customer-products?subsubcategory={subsubcategory_slug}', 'CustomerProductController@search')->name('customer_products.subsubcategory');
