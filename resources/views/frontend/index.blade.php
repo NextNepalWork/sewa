@@ -1071,53 +1071,53 @@ $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
             });
     });
     $( document ).ajaxStop(function() {
-        $(".slider_feature").slick({
-                    infinite: true,
-                    autoplay: true,
-                    slidesToShow: 5,
-                    slidesToScroll: 1,
-                    arrows: true,
-                    dots: false,
-                    responsive: [
-                        {
-                            breakpoint: 1400,
-                            settings: {
-                                slidesToShow: 5,
-                                slidesToScroll: 1,
-                            },
-                        },
-                        {
-                            breakpoint: 1080,
-                            settings: {
-                                slidesToShow: 5,
-                                slidesToScroll: 1,
-                            },
-                        },
-                        {
-                            breakpoint: 780,
-                            settings: {
-                                slidesToShow: 2,
-                                slidesToScroll: 1,
-                            },
-                        },
-                        {
-                            breakpoint: 600,
-                            settings: {
-                                slidesToShow: 1,
-                                slidesToScroll: 1,
-                                dots: true,
-                            },
-                        },
-                        {
-                            breakpoint: 480,
-                            settings: {
-                                slidesToShow: 1,
-                                slidesToScroll: 1,
-                                dots: true,
-                            },
-                        },
-                    ],
-                });
+        $(".slider_feature33").slick({
+            infinite: true,
+            autoplay: true,
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            responsive: [
+                {
+                    breakpoint: 1400,
+                    settings: {
+                        slidesToShow: 5,
+                        slidesToScroll: 1,
+                    },
+                },
+                {
+                    breakpoint: 1080,
+                    settings: {
+                        slidesToShow: 5,
+                        slidesToScroll: 1,
+                    },
+                },
+                {
+                    breakpoint: 780,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1,
+                    },
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        dots: true,
+                    },
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        dots: true,
+                    },
+                },
+            ],
+        });
     });
 </script>
 @endsection
