@@ -479,7 +479,7 @@
     <!-- Popper Ends-->
     <!-- 3rd Bootstrap Js Link Starts -->
     <script src="{{ asset('frontend/assets/bootstrap-4.3.1/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('frontend/assets/bootstrap-4.3.1/js/bootstrap.min.js.map') }}"></script>
+    {{-- <script src="{{ asset('frontend/assets/bootstrap-4.3.1/js/bootstrap.min.js.map') }}"></script> --}}
     <!-- Bootstrap Js Link Ends -->
     <!-- Slick Js -->
     <script src="{{ asset('frontend/assets/slick/slick.min.js') }}"></script>
