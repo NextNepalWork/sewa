@@ -371,6 +371,102 @@
 .xzoom-source{
     z-index: 99999;
 }
+/* mobile smart search */
+.type-search-box {
+    position: absolute;
+    top: 100%;
+    border: 1px solid #eceff1;
+    box-shadow: 0 5px 25px 0 rgba(123, 123, 123, 0.15);
+    background: #fff;
+    width: 100%;
+    height: auto;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -ms-webkit-transition: all 0.3s;
+    min-height: 200px;
+    z-index: 999999;
+    margin-left: -24px;
+}
+
+.type-search-box .search-preloader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+.type-search-box .search-preloader .loader {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-18px);
+    -webkit-transform: translateX(-18px);
+}
+
+.type-search-box .search-nothing {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    font-size: 15px;
+    text-align: center;
+    width: 100%;
+    padding: 5px 20px;
+}
+
+.type-search-box .title {
+    background: #ddd;
+    font-size: 10px;
+    text-align: right;
+    opacity: 0.5;
+    padding: 3px 15px 4px;
+    text-transform: uppercase;
+    line-height: 1;
+    width: 100%;
+}
+
+.type-search-box ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.type-search-box ul a {
+    display: block;
+    padding: 5px 15px;
+    color: #525252;
+}
+
+.type-search-box ul a:hover {
+    background: #f7f7f7;
+}
+
+.type-search-box .search-product .image {
+    width: 50px;
+    min-width: 50px;
+    background-color: #ffffff;
+    background-size: cover;
+    height: 50px;
+    background-position: center;
+}
+
+.type-search-box .product a {
+    padding: 8px 15px;
+}
+
+.type-search-box .search-product .product-name {
+    margin-bottom: 5px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-left: 20px;
+}
+
+.type-search-box .search-product .price-box {
+    margin-left: 20px;
+}
 </style>
 </head>
 @php
@@ -791,6 +887,14 @@ $('.address-district').on('change',function(e){
             search();
         });
 
+        $('#search_mob').on('keyup', function(){
+            MobSearch();
+        });
+
+        $('#search_mob').on('focus', function(){
+            MobSearch();
+        });
+
         function search() {
             var search = $('#search').val();
             if (search.length > 0) {
@@ -820,6 +924,35 @@ $('.address-district').on('change',function(e){
                 $('body').removeClass("typed-search-box-shown");
             }
         }
+
+        function MobSearch(){
+        var search = $('#search_mob').val();
+        
+        if(search.length > 0){
+            $('body').addClass("type-search-box-shown");
+
+            $('.type-search-box').removeClass('d-none');
+            $('.search-preloader').removeClass('d-none');
+            $.post('{{ route('search.ajax') }}', { _token: '{{ @csrf_token() }}', search:search}, function(data){
+                if(data == '0'){
+                    // $('.type-search-box').addClass('d-none');
+                    $('#mob_search-content').html(null);
+                    $('.type-search-box .search-nothing').removeClass('d-none').html('Sorry, nothing found for <strong>"'+search+'"</strong>');
+                    $('.search-preloader').addClass('d-none');
+
+                }
+                else{
+                    $('.type-search-box .search-nothing').addClass('d-none').html(null);
+                    $('#mob_search-content').html(data);
+                    $('.search-preloader').addClass('d-none');
+                }
+            });
+        }
+        else {
+            $('.type-search-box').addClass('d-none');
+            $('body').removeClass("type-search-box-shown");
+        }
+    }
 
         function updateNavCart() {
             $.post('{{ route('cart.nav_cart') }}', {
