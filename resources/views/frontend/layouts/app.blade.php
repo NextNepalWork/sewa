@@ -69,8 +69,8 @@
 
     <!-- Custom Links -->
     <!-- Font Link -->
-    <link rel="preconnect" href="https://fonts.-apis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    {{-- <link rel="preconnect" href="https://fonts.-apis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> --}}
     <!-- google font  -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Readex+Pro:wght@200&display=swap" rel="stylesheet" />
     <!-- Font Link Ends -->

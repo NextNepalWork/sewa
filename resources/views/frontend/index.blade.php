@@ -822,7 +822,6 @@ $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
 
 <!--=========================================== Home category section ======-->
 
-
 <!--=========================================== Home category section END ======-->
 
 

@@ -901,7 +901,19 @@ class HomeController extends Controller
         $flash_deals=FlashDeal::where('status',1)->get();
         return view('frontend.flashdeals',compact('flash_deals'));
     }
+    public function sitemap() {
+        $categories = Category::get(['id','name','slug','updated_at']);
+        $subcategories = SubCategory::get(['id','name','slug','updated_at']);
+        $subsubcategories = SubSubCategory::get(['id','name','slug','updated_at']);
+        $products = Product::get(['name','slug','updated_at']);
+        return response()->view('sitemap', [
+            'categories' => $categories,
+            'products' => $products,
+            'subcategories' => $subcategories,
+            'subsubcategories' => $subsubcategories,
 
+        ])->header('Content-Type', 'text/xml');
+    }
     public function career()
     {
         $career = Career::where('published',1)->get();
