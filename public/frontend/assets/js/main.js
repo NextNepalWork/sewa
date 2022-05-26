@@ -181,53 +181,6 @@ $(".flash_men").slick({
 // Flash end
 // Recommendation For You start
 
-$(".slider_feature").slick({
-    infinite: true,
-    autoplay: true,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    arrows: true,
-    dots: false,
-    responsive: [
-        {
-            breakpoint: 1400,
-            settings: {
-                slidesToShow: 5,
-                slidesToScroll: 1,
-            },
-        },
-        {
-            breakpoint: 1080,
-            settings: {
-                slidesToShow: 5,
-                slidesToScroll: 1,
-            },
-        },
-        {
-            breakpoint: 780,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 1,
-            },
-        },
-        {
-            breakpoint: 600,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                dots: true,
-            },
-        },
-        {
-            breakpoint: 480,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                dots: true,
-            },
-        },
-    ],
-});
 // Recommendation For You end
 // Recommendation For You start
 
