@@ -404,11 +404,24 @@
 
       <div class="sub_search">
          <form action="{{ route('search') }}" method="GET" class="d-flex">
-            <input class="input_box" type="text" aria-label="Search" id="search" name="q" placeholder="Search..." autocomplete="off"/>
+            <input class="input_box" type="text" aria-label="Search" id="search_mob" name="q" placeholder="Search..." autocomplete="off"/>
             <button class="search_top" type="submit">
                <i class="fa fa-search" aria-hidden="true"></i>
             </button>
          </form>
+         <div class="type-search-box d-none">
+            <div class="search-preloader">
+                <div class="loader">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="search-nothing d-none">
+            </div>
+            <div id="mob_search-content">
+            </div>
+        </div>
       </div>
    </div>
    <!-- search mobile new end  -->
