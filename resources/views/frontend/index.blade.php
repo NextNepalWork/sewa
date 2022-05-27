@@ -608,7 +608,7 @@ $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
                         {{-- @foreach (filter_products(\App\Product::orderBy('id','DESC')->where('current_stock','>',0)->with('stocks'))->limit(12)->get() as $key => $product) --}}
 
                         @php
-                        $product = \App\Product::where('id',$product_id->product_id)->with('stocks')->first();
+                        $product = \App\Product::where('id',$product_id->product_id)->where('published',1)->with('stocks')->first();
 
                         @endphp
                         @if (($product))
@@ -937,7 +937,7 @@ $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
                 {
                     breakpoint: 600,
                     settings: {
-                        slidesToShow: 1,
+                        slidesToShow: 2,
                         slidesToScroll: 1,
                         dots: true,
                     },
