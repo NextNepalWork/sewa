@@ -54,7 +54,7 @@ class PurchaseHistoryController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'Order cancelled successfully',
-                    'order_code' => $order_code
+                    'order_code' => (string) $order_code
                 ]);
             }else{
                 return response()->json([
