@@ -111,7 +111,6 @@ class RegisterController extends Controller
     }
     public function register(Request $request)
     {
-        // dd('asdf');
         if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
             if(User::where('email', $request->email)->first() != null){
                 flash('EmailPhone already exists.');
