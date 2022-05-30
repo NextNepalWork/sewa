@@ -216,10 +216,15 @@
                                 </div>
                             @endif
                        @endif
+                       <style>
+                           .visa-master{
+                                border: 1px solid #084592;
+                           }
+                       </style>
                        <div class="col-xl-6 col-md-6 m-auto">
-                           <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="NIC">
+                           <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="Visa / Master Card">
                                <label id="file-input">
-                               <img class="img_select img-fluid" src="{{ asset('uploads/nic.jpg')}}" >
+                               <img alt="visa-master" class="visa-master img_select img-fluid" src="{{ asset('uploads/visa-master.jpg')}}" >
                                <input class="hidden" type="radio" id="file-input" name="payment_option" value="nic">
                                </label>
 
