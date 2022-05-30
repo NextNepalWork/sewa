@@ -54,6 +54,7 @@ class LoginController extends Controller
      */
     public function handleProviderCallback(Request $request, $provider)
     {
+        dd('asdf');
         try {
             if($provider == 'twitter'){
                 $user = Socialite::driver('twitter')->user();

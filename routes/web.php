@@ -15,6 +15,7 @@
 Route::get('/demo/cron_1', 'DemoController@cron_1');
 Route::get('/demo/cron_2', 'DemoController@cron_2');
 
+// Route::post('/register', 'RegisterController@register');
 
 Route::get('clear', function () {
     Artisan::call('cache:clear');
