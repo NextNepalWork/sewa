@@ -207,7 +207,7 @@
                                 <div class="col-xl-6 col-md-6 m-auto">
                                     <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="Cash on Delivery">
                                         <label id="file-input">
-                                        <img class="img_select img-fluid" src="{{ asset('frontend/images/icons/cards/cod.png')}}" 
+                                        <img class="img_select img-fluid" src="{{ asset('frontend/images/icons/cards/cod.jpg')}}" 
                                             >
                                         <input class="hidden" type="radio" id="file-input" name="payment_option" value="cash_on_delivery">
                                         </label>
@@ -217,9 +217,9 @@
                             @endif
                        @endif
                        <style>
-                           .visa-master{
+                           /* .visa-master{
                                 border: 1px solid #084592;
-                           }
+                           } */
                        </style>
                        <div class="col-xl-6 col-md-6 m-auto">
                            <div class="image_payment text-center" data-toggle="tooltip" data-placement="top" title="Visa / Master Card">
@@ -239,7 +239,7 @@
                                     {{-- <button id="payment-button">Pay with esewa</button> --}}
                                     <input type="radio" id="" name="payment_option" value="esewa">
                                     <span>
-                                        <img loading="lazy" src="https://img.favpng.com/7/14/6/esewa-fonepay-pvt-ltd-logo-portable-network-graphics-image-brand-png-favpng-aLLyxWtspEZQckmv19jDj2TWC.jpg" class="img-fluid">
+                                        <img loading="lazy" src="{{ asset('uploads/esewa.jpg')}}" class="img-fluid">
                                     </span>
                                 </label>
                             </div>
