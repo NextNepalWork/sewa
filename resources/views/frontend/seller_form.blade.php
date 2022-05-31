@@ -49,6 +49,19 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <!-- <label>{{ __('Phone') }}</label> -->
+                                                    <div class="input-group input-group--style-1">
+                                                        <input type="number" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ old('phone') }}" placeholder="{{ __('Phone') }}" name="phone">
+                                                        <span class="input-group-addon">
+                                                            <i class="text-md la la-user"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <div class="row">
                                             <div class="col-12">

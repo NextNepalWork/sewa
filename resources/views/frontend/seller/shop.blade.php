@@ -177,7 +177,7 @@
                                             <label>{{__('Bank Acc Number')}} <span class="required-star">*</span></label>
                                         </div>
                                         <div class="col-md-10">
-                                            <input type="number" class="form-control mb-3" placeholder="{{__('Bank Acc Number')}}" name="bank_acc_no" value="{{ $seller->bank_acc_no }}" required>
+                                            <input type="text" class="form-control mb-3" placeholder="{{__('Bank Acc Number')}}" name="bank_acc_no" value="{{ $seller->bank_acc_no }}" required>
                                         </div>
                                     </div>
                                     <div class="row">
