@@ -32,6 +32,14 @@
         transition: all 0.5s;
         box-shadow: 0 0 4px 0 rgb(1 1 1 / 30%);
     }
+    .search_icon_top{
+        padding:14px;
+    }
+    .social-nav a{
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
 
 </style>
 @section('content')
@@ -186,7 +194,7 @@
                             <div class="col-md-12">
                                 <div class="product-lists">
                                     <div class="right-side-wrapper">
-                                        <div class="slider_feature">
+                                        <div class="seller_shop">
                                             @foreach ($featured_product as $key => $product)
                                             {{-- @php
                                                     dd($product);
@@ -432,4 +440,57 @@
     </section>
 
 
+@endsection
+@section('script')
+    
+
+<script>
+            $(".seller_shop").slick({
+            infinite: true,
+            autoplay: true,
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            responsive: [
+                {
+                    breakpoint: 1400,
+                    settings: {
+                        slidesToShow: 5,
+                        slidesToScroll: 1,
+                    },
+                },
+                {
+                    breakpoint: 1080,
+                    settings: {
+                        slidesToShow: 5,
+                        slidesToScroll: 1,
+                    },
+                },
+                {
+                    breakpoint: 780,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1,
+                    },
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1,
+                        dots: true,
+                    },
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        dots: true,
+                    },
+                },
+            ],
+        });
+</script>
 @endsection
