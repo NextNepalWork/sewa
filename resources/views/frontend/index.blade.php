@@ -1164,6 +1164,7 @@ $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
                 },
             ],
         });
+
     });
 </script>
 @endsection
