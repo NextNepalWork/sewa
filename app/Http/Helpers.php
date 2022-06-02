@@ -410,7 +410,6 @@ if (! function_exists('home_discounted_price')) {
         $highest_price = $product->unit_price;
 
         if ($product->variant_product) {
-                // echo json_decode($stock,true);
             foreach ($product->stocks as $key => $stock) {
                 if($lowest_price > $stock->price){
                     $lowest_price = $stock->price;
@@ -420,7 +419,7 @@ if (! function_exists('home_discounted_price')) {
                 }
             }
         }
-return [$product->stocks];
+
         $flash_deals = \App\FlashDeal::where('status', 1)->get();
         $inFlashDeal = false;
         foreach ($flash_deals as $flash_deal) {
