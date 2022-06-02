@@ -191,7 +191,7 @@ else{
             <div class="footer-logo-box text_white">
               <div class="footer-title text_white footer_after">
                  <h4 class="mb-2 mb-md-4 text-white">Download app</h4>
-                 <a href="#"><img class="w-100" src="{{asset('uploads/android.png')}}" alt="Download on Android"></a>
+                 <a href="https://play.google.com/store/apps/details?id=com.sewaexpress.customer"><img class="w-100" src="{{asset('uploads/android.png')}}" alt="Download on Android"></a>
 
                  <a href="#"><img class="w-100" src="{{asset('uploads/apple.png')}}" alt="Download on Apple"></a>
   

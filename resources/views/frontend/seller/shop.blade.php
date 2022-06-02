@@ -51,6 +51,14 @@
                                             <input type="text" class="form-control mb-3" placeholder="{{__('Shop Name')}}" name="name" value="{{ $shop->name }}" required>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>{{__('Phone')}} <span class="required-star">*</span></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="number" class="form-control mb-3" placeholder="{{__('Phone')}}" name="phone" value="{{ $shop->user->phone }}" required>
+                                        </div>
+                                    </div>
                                     @if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'seller_wise_shipping')
                                         <div class="row">
                                             <div class="col-md-2">
@@ -177,7 +185,7 @@
                                             <label>{{__('Bank Acc Number')}} <span class="required-star">*</span></label>
                                         </div>
                                         <div class="col-md-10">
-                                            <input type="number" class="form-control mb-3" placeholder="{{__('Bank Acc Number')}}" name="bank_acc_no" value="{{ $seller->bank_acc_no }}" required>
+                                            <input type="text" class="form-control mb-3" placeholder="{{__('Bank Acc Number')}}" name="bank_acc_no" value="{{ $seller->bank_acc_no }}" required>
                                         </div>
                                     </div>
                                     <div class="row">

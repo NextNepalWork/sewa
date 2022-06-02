@@ -50,16 +50,21 @@ class PurchaseHistoryController extends Controller
                 $orderDetail->delivery_status = $request->status;
                 $orderDetail->save();
             }
+            // try{
+
+            // }catch(\Exception $e){
+
+            // }
             if($data->save()){
                 return response()->json([
                     'success' => true,
                     'message' => 'Order cancelled successfully',
-                    'order_code' => $order_code
+                    'order_code' => (string) $order_code
                 ]);
             }else{
                 return response()->json([
                     'success' => false,
-                    'message' => 'Order not found',
+                    'message' => 'Order not saved',
                     'order_code' => ''
                 ]);
             }

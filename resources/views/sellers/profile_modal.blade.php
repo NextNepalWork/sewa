@@ -4,7 +4,7 @@
             <!-- Simple profile -->
             <div class="text-center">
                 <div class="pad-ver">
-                    <img src="{{ asset($seller->user->avatar_original) }}" class="img-lg img-circle" alt="Profile Picture">
+                    <img src="{{ asset($seller->user->shop->logo) }}" class="img-lg img-circle" alt="Profile Picture">
                 </div>
                 <h4 class="text-lg text-overflow mar-no">{{ $seller->user->name }}</h4>
                 <p class="text-sm text-muted">{{ $seller->user->shop->name }}</p>
@@ -28,6 +28,7 @@
             <p>{{__('Bank Acc Name')}} : {{ $seller->bank_acc_name }}</p>
             <p>{{__('Bank Acc Number')}} : {{ $seller->bank_acc_no }}</p>
             <p>{{__('Bank Routing Number')}} : {{ $seller->bank_routing_no }}</p>
+            <p>{{__('Pan Number')}} : {{ $seller->pan }}</p>
 
             <br>
 

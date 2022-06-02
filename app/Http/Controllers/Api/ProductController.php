@@ -396,7 +396,7 @@ class ProductController extends Controller
         elseif ($product->tax_type == 'amount') {
             $price += $product->tax;
         }
-
+        return $stockQuantity;
         return response()->json([
             'product_id' => $product->id,
             'variant' => $str,
