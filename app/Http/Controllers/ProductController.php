@@ -540,7 +540,7 @@ class ProductController extends Controller
                 array_push($options, explode(',', $my_str));
             }
         }
-
+        $product_stock=ProductStock::where('product_id', $product->id)->delete();
         $combinations = combinations($options);
         if (count($combinations[0]) > 0) {
             $product->variant_product = 1;
