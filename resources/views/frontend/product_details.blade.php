@@ -105,9 +105,9 @@ td {
     padding: 5px;
 }
 </style>
-@php
+{{-- @php
     dd(home_discounted_price($detailedProduct->id));
-@endphp
+@endphp --}}
 
     <!-- Breadcrumbs -->
     <section id="breadcrumb-wrapper" class="position-relative bg-light">
