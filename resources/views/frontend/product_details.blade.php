@@ -104,8 +104,11 @@ td {
     border: 1px solid #dee2e6;
     padding: 5px;
 }
-
 </style>
+@php
+    dd(home_discounted_price($detailedProduct->id));
+@endphp
+
     <!-- Breadcrumbs -->
     <section id="breadcrumb-wrapper" class="position-relative bg-light">
         {{-- <div class="image">
@@ -301,7 +304,8 @@ td {
                                             <div class="second-price font-weight-bold">{{ home_discounted_price($detailedProduct->id) }}
                                             </div>
                                             <div class="d-flex">
-                                                <div class="first-price mr-2">{{ home_price($detailedProduct->id) }}
+                                                <div class="first-price mr-2">
+                                                    {{ home_price($detailedProduct->id) }}
                                                 </div>
                                                 <div class="discount">
                                                     @if (! $detailedProduct->discount == 0)
