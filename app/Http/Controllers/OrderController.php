@@ -238,8 +238,14 @@ class OrderController extends Controller
             $order->guest_id = mt_rand(100000, 999999);
         }
         $delivery_location_id = $request->session()->get('shipping_info')['delivery_location'];
-        $delivery_location = Location::where('id',$delivery_location_id)->first();
-        $delivery_charge = $delivery_location->delivery_charge;
+        $delivery_location_count = Location::where('id',$delivery_location_id)->count();
+        $delivery_charge_amount = 0;
+        if($delivery_location_count > 0){
+            $delivery_location = Location::where('id',$delivery_location_id)->first();
+            $delivery_charge_amount = $delivery_location->delivery_charge;
+
+        }
+        $delivery_charge = $delivery_charge_amount;
         
         $order->shipping_address = json_encode($request->session()->get('shipping_info'));
 
