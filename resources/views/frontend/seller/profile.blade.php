@@ -236,14 +236,14 @@
                                             <input type="text" class="form-control mb-3" placeholder="{{__('Bank Account Number')}}" value="{{ Auth::user()->seller->bank_acc_no }}" name="bank_acc_no">
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    {{-- <div class="row">
                                         <div class="col-md-2">
                                             <label>{{__('Bank Routing Number')}}</label>
                                         </div>
                                         <div class="col-md-10">
                                             <input type="number" class="form-control mb-3" placeholder="{{__('Bank Routing Number')}}" value="{{ Auth::user()->seller->bank_routing_no }}" name="bank_routing_no">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="text-right mt-4">
