@@ -103,17 +103,11 @@
 			<table>
 				@php
 					$shipping_address = json_decode($order->shipping_address);
-					$user = \App\User::where('id',$order->user_id)->count();
-					if($user > 0){
-						$user_details = \App\User::where('id',$order->user_id)->get()->toArray();
-					}else{
-						$user_details =  [];
-					}
 				@endphp
 				<tr><td class="strong small gry-color">Bill to:</td></tr>
-				<tr><td class="strong">{{ (!empty($user_details))?$user_details['name']:'Empty' }}</td></tr>
+				<tr><td class="strong">{{ (isset($shipping_address->name))?$shipping_address->name:$user['name'] }}</td></tr>
 				<tr><td class="gry-color small">{{ $shipping_address->address }}, {{ $shipping_address->city }}, {{ $shipping_address->country }}</td></tr>
-				<tr><td class="gry-color small">Email: {{ (!empty($user_details))?$user_details['email']:'Email' }}</td></tr>
+				<tr><td class="gry-color small">Email: {{ (isset($shipping_address->name))?$shipping_address->email:$user['email'] }}</td></tr>
 				<tr><td class="gry-color small">Phone: {{ $shipping_address->phone }}</td></tr>
 			</table>
 		</div>
