@@ -216,7 +216,7 @@ class OrderController extends Controller
             "isPhpEnabled"=>true,
             'logOutputFile' => storage_path('logs/log.htm'),
             'tempDir' => storage_path('logs/'),
-        ])->loadView('invoices.customer_invoice', compact('order'));
+        ])->loadView('invoices.customer_invoice', compact('order','user'));
         $output = $pdf->output();
         file_put_contents(public_path('/invoices/Order#' . $order->code . '.pdf'), $output);
 
