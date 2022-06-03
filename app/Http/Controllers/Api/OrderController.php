@@ -200,45 +200,45 @@ class OrderController extends Controller
         }
         $total_amount = $order->grand_total;
         
-        $array['view'] = 'emails.newsletter';
-        $array['subject'] = 'New Order Placed';
-        $array['from'] = 'nextnepal271@gmail.com';
-        $array['content'] = 'Thank you for ordering from Sewa Digital Express. An order of total amount Rs. '.$total_amount.' has been placed for following items.';
-        $array['content'] .= $products;
-        $array['content'] .= '.</br>You can download the invoice to this order from https://www.sewaexpress.com/purchase_history';
-        Mail::to(Auth::user()->email)->queue(new EmailManager($array));
-        // $pdf = PDF::setOptions([
-        //     'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
-        //     'logOutputFile' => storage_path('logs/log.htm'),
-        //     'tempDir' => storage_path('logs/')
-        // ])->loadView('invoices.customer_invoice', compact('order','user'));
-        // $pdf->download('order-'.$order->code.'.pdf');
-        // $user = User::where('id',$user_id)->first();
-        // return $shipping_address['email'];
-        // $pdf = PDF::setOptions([
-        //     'isHtml5ParserEnabled' => true, 
-        //     'isRemoteEnabled' => true,
-        //     "isPhpEnabled"=>true,
-        //     'logOutputFile' => storage_path('logs/log.htm'),
-        //     'tempDir' => storage_path('logs/'),
-        // ])->loadView('invoices.customer_invoice', compact('order','user'));
-        // $output = $pdf->output();
-        // file_put_contents(public_path('/invoices/Order#' . $order->code . '.pdf'), $output);
-        // $data['view'] = 'emails.invoice';
-        // $data['subject'] = 'Sewa Digital Express - Order Placed - ' . $order->code;
-        // $data['from'] = Config::get('mail.username');
-        // $data['content'] = 'Hi. Thank you for ordering from Sewa Digital Express. Here is the pdf of the invoice.';
-        // $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
-        // $data['file_name'] = 'Order#' . $order->code . '.pdf';
-        // if (Config::get('mail.username') != null) {
-        //     try {
-        //         Mail::to(Auth::user()->email)->send(new InvoiceEmailManager($data));
-        //         Log::info('Mail Sent From app');
-        //     } catch (\Exception $e) {
-        //         Log::info($e->getMessage());
-        //     }
-        // }
-        // unlink($data['file']);
+        // $array['view'] = 'emails.newsletter';
+        // $array['subject'] = 'New Order Placed';
+        // $array['from'] = 'nextnepal271@gmail.com';
+        // $array['content'] = 'Thank you for ordering from Sewa Digital Express. An order of total amount Rs. '.$total_amount.' has been placed for following items.';
+        // $array['content'] .= $products;
+        // $array['content'] .= '.</br>You can download the invoice to this order from https://www.sewaexpress.com/purchase_history';
+        // Mail::to(Auth::user()->email)->queue(new EmailManager($array));
+        
+        set_time_limit(1500);
+        //stores the pdf for invoice
+        $pdf = PDF::setOptions([
+            'isHtml5ParserEnabled' => true, 
+            'isRemoteEnabled' => true,
+            "isPhpEnabled"=>true,
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/'),
+        ])->loadView('invoices.customer_invoice', compact('order'));
+        $output = $pdf->output();
+        file_put_contents(public_path('/invoices/Order#' . $order->code . '.pdf'), $output);
+
+        // $pdf->download('Order-'.$order->code.'.pdf');
+        $data['view'] = 'emails.invoice';
+        $data['subject'] = 'Sewa Express - Order Placed - ' . $order->code;
+        $data['from'] = Config::get('mail.username');
+        $data['content'] = 'Hi. Thank you for ordering from Sewa Express. Here is the pdf of the invoice.';
+        $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
+        $data['file_name'] = 'Order#' . $order->code . '.pdf';
+
+        if (Config::get('mail.username') != null) {
+            try {
+                // Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
+                Mail::to(Auth::user()->email)->queue(new InvoiceEmailManager($data));
+                Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new InvoiceEmailManager($data));
+                Log::info('Mail Sent');
+            } catch (\Exception $e) {
+                Log::info($e->getMessage());
+            }
+        }
+        unlink($data['file']);
 
         return response()->json([
             'success' => true,
