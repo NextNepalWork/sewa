@@ -232,7 +232,7 @@ class OrderController extends Controller
             try {
                 // Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
                 Mail::to(Auth::user()->email)->queue(new InvoiceEmailManager($data));
-                Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new InvoiceEmailManager($data));
+                // Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new InvoiceEmailManager($data));
                 Log::info('Mail Sent');
             } catch (\Exception $e) {
                 Log::info($e->getMessage());
