@@ -27,7 +27,7 @@
             <p>{{__('Bank Name')}} : {{ $seller->bank_name }}</p>
             <p>{{__('Bank Acc Name')}} : {{ $seller->bank_acc_name }}</p>
             <p>{{__('Bank Acc Number')}} : {{ $seller->bank_acc_no }}</p>
-            <p>{{__('Bank Routing Number')}} : {{ $seller->bank_routing_no }}</p>
+            {{-- <p>{{__('Bank Routing Number')}} : {{ $seller->bank_routing_no }}</p> --}}
             <p>{{__('Pan Number')}} : {{ $seller->pan }}</p>
 
             <br>
