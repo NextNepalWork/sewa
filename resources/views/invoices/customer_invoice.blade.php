@@ -103,9 +103,9 @@
 			<table>
 				@php
 					$shipping_address = json_decode($order->shipping_address);
-					$user = \App\Models\User::where('id',$order->user_id)->count();
+					$user = \App\User::where('id',$order->user_id)->count();
 					if($user > 0){
-						$user_details = /App/Models/User::where('id',$order->user_id)->get()->toArray();
+						$user_details = \App\User::where('id',$order->user_id)->get()->toArray();
 					}else{
 						$user_details =  [];
 					}
