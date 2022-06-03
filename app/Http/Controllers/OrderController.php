@@ -609,7 +609,7 @@ class OrderController extends Controller
                     $message = "Sorry, your order has been cancelled. Please contact our customer care for further details.";
                 }
                 $blog = new Notification();
-                $blog->message = $request->message;
+                $blog->message = $message;
                 $blog->user_id = $order->user_id;
                 $blog->save();
 
