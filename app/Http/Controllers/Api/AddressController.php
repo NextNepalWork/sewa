@@ -196,8 +196,8 @@ class AddressController extends Controller
         $address = Address::findOrFail($id);
         $address->set_default = 1;
         $address->save();
-  return response()->json([
-            'data' => $address,
-            'message' => 'Default Address Changed !!'],200);
-    }
+        return response()->json([
+                    'data' => $address,
+                    'message' => 'Default Address Changed !!'],200);
+            }
 }
