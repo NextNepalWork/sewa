@@ -97,15 +97,16 @@ class AuthController extends Controller
 
     public function socialLogin(Request $request)
     {
-        $request->validate([
-            'email' => 'required|string'
-        ]);
+        // $request->validate([
+        //     'email' => 'required|string'
+        // ]);
         if (User::where('email', $request->email)->first() != null) {
             $user = User::where('email', $request->email)->first();
         } else {
+            $custom_email = $request->name.'@gmail.com';
             $user = new User([
                 'name' => $request->name,
-                'email' => $request->email,
+                'email' => ($request->email)?$request->email:$custom_email,
                 'provider_id' => $request->provider,
                 'email_verified_at' => Carbon::now()
             ]);
