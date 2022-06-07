@@ -596,13 +596,6 @@ class OrderController extends Controller
                         break;
                 }
 
-                $data['view'] = 'emails.delivery_status';
-                $data['subject'] = 'Order Status - ' . $order_code;
-                $data['from'] = Config::get('mail.username');
-                $data['content'] = 'Your order ' . $order_code . ' is ' . $delivery_stat;
-                $this_user = DB::select('SELECT email FROM users WHERE id = "' . $order->user_id . '"');
-                Mail::to($this_user[0]->email)->send(new CustomerEmail($data));
-
 
                 if($delivery_status == 'pending'){
                     $message = 'Your Order is Pending.';
@@ -616,7 +609,7 @@ class OrderController extends Controller
                     $message = "Sorry, your order has been cancelled. Please contact our customer care for further details.";
                 }
                 $blog = new Notification();
-                $blog->message = $request->message;
+                $blog->message = $message;
                 $blog->user_id = $order->user_id;
                 $blog->save();
 
@@ -659,6 +652,12 @@ class OrderController extends Controller
                         flash(__($response['errors'][0]))->error();
                     }
                 }
+                $data['view'] = 'emails.delivery_status';
+                $data['subject'] = 'Order Status - ' . $order_code;
+                $data['from'] = Config::get('mail.username');
+                $data['content'] = 'Your order ' . $order_code . ' is ' . $delivery_stat;
+                $this_user = DB::select('SELECT email FROM users WHERE id = "' . $order->user_id . '"');
+                Mail::to($this_user[0]->email)->send(new CustomerEmail($data));
             } catch (\Exception $e) {
 
             }
