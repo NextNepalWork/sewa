@@ -11,7 +11,7 @@
       $delivery_state_1 = $delivery_state->name; 
       
       $params = [
-        'access_key' => 'cd7ac9c06b2b3bc8915cb8c08d2e2a93',
+        'access_key' => '087087404e8f3bb89bb32acc2ce5dddd',
         'amount' => $ordercode->grand_total,
         'bill_to_address_city' => (isset($shipping['city']))?$shipping['city']:'',
         'bill_to_address_country' => 'NP',
@@ -28,7 +28,7 @@
         'card_type' => '',
         'currency' => 'NPR',
         'payment_method' => 'card',
-        'profile_id' => 'AC9E8149-F889-4C78-893B-EAF207B3C7AC',
+        'profile_id' => 'F375F85F-14E8-48FC-A629-71505B622052',
         'transaction_type' => 'sale',
         'reference_number' =>  date('Y-m-dh:i'),
         'transaction_uuid' => $ordercode->code,
@@ -46,7 +46,7 @@
     <?php
 
     define ('HMAC_SHA256', 'sha256');
-    define ('SECRET_KEY', '987d0a887554469d91f7250cc54aee72ca287c62f9b7449b99efab2a57a939e7a3bc470f59574ee784fee9455f6ddd3327d8ca2085b049da8f4899b7cb193c357517d02fc23942718239d8b54c01089be600aac7196343a6bc6ff2157ee6376ab92f9c351cdf46799bac098c6b59dc2e74908dd5e21b4f4faca456ce9bd86510');
+    define ('SECRET_KEY', 'a15aa4de086349c492352e1ba9fe8e54dfbc69bfa15e40828e0ef8334f365b9adde78224151346bfb991903b23d0aa352eb3855a8eab4d64b93a1051f754d8ec8bcb50c00970430389fe8a5eac056d2595ce23c029a94638acf3bd263495fa6edf25483287c946b2a6a6042e5dafb6d075ca3eab2b6f42ab8d93caaa6c14b8de');
 
     // dd($params);
     
