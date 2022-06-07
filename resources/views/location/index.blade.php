@@ -44,7 +44,7 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li><a href="{{route('locations.edit', encrypt($location->id))}}">{{__('Edit')}}</a></li>
-                                <li><a><button type="submit" style="background:none; border:none; padding:0;">{{__('Delete')}}</button></a></li>
+                                {{-- <li><a><button type="submit" style="background:none; border:none; padding:0;">{{__('Delete')}}</button></a></li> --}}
                             </ul>
                         </div>
                     </td>
