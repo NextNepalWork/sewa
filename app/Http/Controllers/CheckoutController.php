@@ -19,10 +19,15 @@ use App\Coupon;
 use App\CouponUsage;
 use App\User;
 use App\Address;
+use App\Mail\InvoiceEmailManager;
 use App\Models\Cart;
 use App\Models\OrderDetail;
 use App\Product;
 use Session;
+use PDF;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
+use Mail;
 
 class CheckoutController extends Controller
 {
@@ -100,6 +105,37 @@ class CheckoutController extends Controller
         $order->commission_calculated = 1;
         $order->save();
 
+        set_time_limit(1500);
+        //stores the pdf for invoice
+        $pdf = PDF::setOptions([
+            'isHtml5ParserEnabled' => true, 
+            'isRemoteEnabled' => true,
+            "isPhpEnabled"=>true,
+            'logOutputFile' => storage_path('logs/log.htm'),
+            'tempDir' => storage_path('logs/'),
+        ])->loadView('invoices.customer_invoice', compact('order'));
+        $output = $pdf->output();
+        file_put_contents(public_path('/invoices/Order#' . $order->code . '.pdf'), $output);
+
+        // $pdf->download('Order-'.$order->code.'.pdf');
+        $data['view'] = 'emails.invoice';
+        $data['subject'] = 'Sewa Digital Express - Order Placed - ' . $order->code;
+        $data['from'] = Config::get('mail.username');
+        $data['content'] = 'Hi. Thank you for ordering from Sewa Digital Express. Here is the pdf of the invoice.';
+        $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
+        $data['file_name'] = 'Order#' . $order->code . '.pdf';
+
+        if (Config::get('mail.username') != null) {
+            try {
+                // Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
+                Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($data));
+                Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new InvoiceEmailManager($data));
+                Log::info('Mail Sent');
+            } catch (\Exception $e) {
+                Log::info($e->getMessage());
+            }
+        }
+        unlink($data['file']);
         Session::put('cart', collect([]));
         // Session::forget('order_id');
         Session::forget('payment_type');
