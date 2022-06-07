@@ -3,19 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Stripe;
 use App\Order;
-use App\OrderDetail;
+use App\Http\Controllers\CustomerPackageController;
+use App\Http\Controllers\CommissionController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\WalletController;
 use App\BusinessSetting;
-use App\Seller;
-use App\Checkout;
-use Session;
 use App\CustomerPackage;
 use App\SellerPackage;
-use App\Http\Controllers\CustomerPackageController;
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\CommissionController;
-use App\Http\Controllers\WalletController;
+use App\OrderDetail;
+use App\Checkout;
+use App\Seller;
+use Session;
+use Stripe;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
+use App\Mail\InvoiceEmailManager;
+use App\User;
+use Mail;
+use PDF;
 
 class EsewaController extends Controller
 {
@@ -113,6 +119,38 @@ class EsewaController extends Controller
 
             $order->commission_calculated = 1;
             $order->save();
+
+            set_time_limit(1500);
+            //stores the pdf for invoice
+            $pdf = PDF::setOptions([
+                'isHtml5ParserEnabled' => true, 
+                'isRemoteEnabled' => true,
+                "isPhpEnabled"=>true,
+                'logOutputFile' => storage_path('logs/log.htm'),
+                'tempDir' => storage_path('logs/'),
+            ])->loadView('invoices.customer_invoice', compact('order'));
+            $output = $pdf->output();
+            file_put_contents(public_path('/invoices/Order#' . $order->code . '.pdf'), $output);
+
+            // $pdf->download('Order-'.$order->code.'.pdf');
+            $data['view'] = 'emails.invoice';
+            $data['subject'] = 'Sewa Digital Express - Order Placed - ' . $order->code;
+            $data['from'] = Config::get('mail.username');
+            $data['content'] = 'Hi. Thank you for ordering from Sewa Digital Express. Here is the pdf of the invoice.';
+            $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
+            $data['file_name'] = 'Order#' . $order->code . '.pdf';
+
+            if (Config::get('mail.username') != null) {
+                try {
+                    // Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
+                    Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($data));
+                    Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new InvoiceEmailManager($data));
+                    Log::info('Mail Sent');
+                } catch (\Exception $e) {
+                    Log::info($e->getMessage());
+                }
+            }
+            unlink($data['file']);
 
             Session::put('cart', collect([]));
             // Session::forget('order_id');
