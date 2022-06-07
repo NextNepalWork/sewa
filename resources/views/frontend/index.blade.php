@@ -724,7 +724,7 @@ $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
 <style>
     .banner-img {
         max-height: 230px;
-        object-fit: cover;
+        object-fit: contain;
         width: 100%;
     }
 </style>
