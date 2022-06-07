@@ -114,7 +114,7 @@ class CheckoutController extends Controller
         // dd($order_code,$request->all());
     }
     public function niccancel(){
-        abort(404);
+        return redirect()->route('home');
     }
     //check the selected payment gateway and redirect to that controller accordingly
     public function checkout(Request $request)
