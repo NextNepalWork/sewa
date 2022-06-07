@@ -11,7 +11,7 @@
       $delivery_state_1 = $delivery_state->name; 
       
       $params = [
-        'access_key' => '087087404e8f3bb89bb32acc2ce5dddd',
+        'access_key' => '087087404e8f3bb89bb32acc2ce5dddd ',
         'amount' => $ordercode->grand_total,
         'bill_to_address_city' => (isset($shipping['city']))?$shipping['city']:'',
         'bill_to_address_country' => 'NP',
@@ -84,7 +84,7 @@
       }
         
     </style>
-    <form id="payment_confirmation" action="https://testsecureacceptance.cybersource.com/pay" method="post" style="text-align: center;"><br/>
+    <form id="payment_confirmation" action="https://secureacceptance.cybersource.com/pay" method="post" style="text-align: center;"><br/>
       
 <input class="submit-btn" type="submit" id="submit" value="Redirecting to NIC Pay..."/>
       <?php
