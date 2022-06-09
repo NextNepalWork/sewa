@@ -210,23 +210,23 @@ class OrderController extends Controller
         
         set_time_limit(1500);
         //stores the pdf for invoice
-        $pdf = PDF::setOptions([
-            'isHtml5ParserEnabled' => true, 
-            'isRemoteEnabled' => true,
-            "isPhpEnabled"=>true,
-            'logOutputFile' => storage_path('logs/log.htm'),
-            'tempDir' => storage_path('logs/'),
-        ])->loadView('invoices.customer_invoice', compact('order','user'));
-        $output = $pdf->output();
-        file_put_contents(public_path('/invoices/Order#' . $order->code . '.pdf'), $output);
+        // $pdf = PDF::setOptions([
+        //     'isHtml5ParserEnabled' => true, 
+        //     'isRemoteEnabled' => true,
+        //     "isPhpEnabled"=>true,
+        //     'logOutputFile' => storage_path('logs/log.htm'),
+        //     'tempDir' => storage_path('logs/'),
+        // ])->loadView('invoices.customer_invoice', compact('order','user'));
+        // $output = $pdf->output();
+        // file_put_contents(public_path('/invoices/Order#' . $order->code . '.pdf'), $output);
 
         // $pdf->download('Order-'.$order->code.'.pdf');
         $data['view'] = 'emails.invoice';
         $data['subject'] = 'Sewa Express - Order Placed - ' . $order->code;
         $data['from'] = Config::get('mail.username');
-        $data['content'] = 'Hi. Thank you for ordering from Sewa Express. Here is the pdf of the invoice.';
-        $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
-        $data['file_name'] = 'Order#' . $order->code . '.pdf';
+        $data['content'] = 'Hi. Thank you for ordering from Sewa Express. Your order code is '.$order->code;
+        // $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
+        // $data['file_name'] = 'Order#' . $order->code . '.pdf';
 
         if (Config::get('mail.username') != null) {
             try {
