@@ -15,12 +15,12 @@ class PurchaseHistoryDetailCollection extends ResourceCollection
                 return [
                     'product' => (isset($product))?$product->name:'Empty',
                     'variation' => $data->variation,
-                    'price' => $data->price,
-                    'tax' => $data->tax,
-                    'shipping_cost' => $data->shipping_cost,
-                    'quantity' => $data->quantity,
-                    'payment_status' => $data->payment_status,
-                    'delivery_status' => $data->delivery_status
+                    'price' => (integer) $data->price,
+                    'tax' => (integer) $data->tax,
+                    'shipping_cost' => (integer) $data->shipping_cost,
+                    'quantity' => (integer) $data->quantity,
+                    'payment_status' => (string) $data->payment_status,
+                    'delivery_status' => (string) $data->delivery_status
                 ];
             })
         ];
