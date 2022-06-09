@@ -13,7 +13,7 @@ class PurchaseHistoryCollection extends ResourceCollection
             'data' => $this->collection->map(function($data) {
                 $placeholder_img='frontend/images/placeholder.jpg';
                 return [
-                    'order_id' => $data->id,
+                    'order_id' => (integer) $data->id,
                     'code' => $data->code,
                     'user' => [
                         'name' => $data->user->name,
@@ -28,7 +28,7 @@ class PurchaseHistoryCollection extends ResourceCollection
                     'coupon_discount' => (double) $data->coupon_discount,
                     'shipping_cost' => (double) ($data->orderDetails->sum('shipping_cost')+($data->location_charge)),
                     'subtotal' => (double) $data->orderDetails->sum('price'),
-                    'tax' => (double) $data->orderDetails->sum('tax'),
+                    'tax' => (integer) $data->orderDetails->sum('tax'),
                     'date' => Carbon::createFromTimestamp($data->date)->format('d-m-Y'),
                     'links' => [
                         'details' => route('purchaseHistory.details', $data->id)
