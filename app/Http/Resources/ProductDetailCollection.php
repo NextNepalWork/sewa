@@ -64,7 +64,7 @@ class ProductDetailCollection extends ResourceCollection
                         'shop_id' => $data->added_by == 'admin' ? '' :  (($data->user->shop)? strval($data->user->shop->id):'')
                     ],
                     'category' => [
-                        'id' => $data->category_id,
+                        'id' => (integer) $data->category_id,
                         'name' => $data->category->name,
                         'banner' => file_exists($data->category->banner) ? $data->category->banner : $placeholder_img,
                         'icon' => file_exists($data->category->icon) ? $data->category->icon : $placeholder_img,
