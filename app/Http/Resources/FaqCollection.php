@@ -11,7 +11,7 @@ class FaqCollection extends ResourceCollection
         return [
             'data' => $this->collection->map(function($data) {
                 return [
-                    'id'=>$data->id,
+                    'id' => (integer) $data->id,
                     'title' => $data->title,
                     'published' => $data->published,
                     'description' => $data->description

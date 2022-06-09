@@ -13,7 +13,7 @@ class CartCollection extends ResourceCollection
                 $placeholder_img='frontend/images/placeholder.jpg';
 
                 return [
-                    'id' => $data->id,
+                    'id' => (integer) $data->id,
                     'product' => [
                         'name' => $data->product->name,
                         'image' =>file_exists($data->product->featured_img) ? $data->product->featured_img : $placeholder_img,
