@@ -47,8 +47,8 @@ class AddressController extends Controller
         $data = [];
         foreach($states as $a => $b){
             $z = [
-                'id' => $b->id,
-                'name' => $b->name,
+                'id' => (integer) $b->id,
+                'name' => (string) $b->name,
             ];
             array_push($data,$z);
         }
@@ -61,9 +61,9 @@ class AddressController extends Controller
     public function getLocation($id){
         $states = Location::where('id',$id)->first();
         $data = [
-            'id' => $states->id,
-            'name' => $states->name,
-            'delivery_charge' => $states->delivery_charge
+            'id' => (integer) $states->id,
+            'name' => (string) $states->name,
+            'delivery_charge' => (integer) $states->delivery_charge
         ];
         return response()->json([
             'success' => true,
