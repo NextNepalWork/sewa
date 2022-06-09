@@ -76,9 +76,9 @@ class AddressController extends Controller
         $data = [];
         foreach($states as $a => $b){
             $z = [
-                'id' => $b->id,
-                'name' => $b->name,
-                'delivery_charge' => $b->delivery_charge
+                'id' => (integer) $b->id,
+                'name' => (string) $b->name,
+                'delivery_charge' => (integer) $b->delivery_charge
             ];
             array_push($data,$z);
         }
