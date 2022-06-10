@@ -64,6 +64,17 @@
                                     </span>
                                     @endif
                                 </div>
+                                <div class="form-group position-relative mb-xl-4 mb-md-3 mb-2">
+                                    <input type="number" class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none bg-transparent {{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ old('phone') }}" id="phone" placeholder="Phone" name="phone">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-phone" ></i>
+                                    </span>
+                                    @if ($errors->has('phone'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('phone') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
                             {{-- @endif --}}
                             <div class="form-group position-relative mb-xl-4 mb-md-3 mb-2">
                                 <input type="password" class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none bg-transparent {{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" placeholder="Password" name="password">
