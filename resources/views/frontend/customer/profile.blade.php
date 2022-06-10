@@ -80,6 +80,14 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
+                                        <label>{{__('Your Phone')}}</label>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input type="phone" class="form-control mb-3" placeholder="{{__('Your Phone')}}" name="phone" value="{{ Auth::user()->phone }}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
                                         <label>{{__('Photo')}}</label>
                                     </div>
                                     <div class="col-md-10">
