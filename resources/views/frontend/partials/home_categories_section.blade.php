@@ -14,7 +14,7 @@
                      </div>
                      <div class="col-xl-12">
                         <div class="slider_feature33">
-                           @foreach (filter_products(\App\Product::where('published', 1)->where('category_id', $homeCategory->category->id))->latest()->get() as $key => $product)
+                           @foreach (filter_products(\App\Product::where('published', 1)->where('category_id', $homeCategory->category->id))->latest()->limit(15)->get() as $key => $product)
                            <div class="grid-item">
                               <div class="product-grid-item">
                                  <div class="product-grid-image">
