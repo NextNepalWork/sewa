@@ -98,11 +98,11 @@ class CartController extends Controller
             'shipping_cost' => $product->shipping_type == 'free' ? 0 : $product->shipping_cost,
             'quantity' => DB::raw('quantity + '.$request->quantity)
         ]);
-        if($request->user_id && !empty($request->user_id)){
-            $lucky = Lucky::where('user_id',$request->user_id)->count();
+        if(Auth::check()){
+            $lucky = Lucky::where('user_id',Auth::user()->id)->count();
             if($lucky == 0){
                 $lucky = Lucky::create([
-                    'user_id' => $request->user_id
+                    'user_id' => Auth::user()->id
                 ]);
             }
             
