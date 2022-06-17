@@ -281,7 +281,7 @@ class HomeController extends Controller
         return view('frontend.partials.home_categories_section');
     }
     public function luckies(){
-        $data = Lucky::with('user')->whereHas('user')->paginate(100);
+        $data = Lucky::with('user')->whereHas('user')->orderBy('id','desc')->paginate(100);
         // dd($data);
         return view('luckies.index',compact('data'));
     }
