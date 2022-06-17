@@ -8,6 +8,7 @@ use App\SubSubCategory;
 use App\Category;
 use Session;
 use App\Color;
+use App\Lucky;
 use App\Models\Cart;
 use Cookie;
 use Illuminate\Support\Facades\Auth;
@@ -192,6 +193,15 @@ class CartController extends Controller
             $cart = collect([$data]);
             $request->session()->put('cart', $cart);
         }
+        if(Auth::check()){
+            $lucky = Lucky::where('user_id',Auth::user()->id)->count();
+            if($lucky == 0){
+                $lucky = Lucky::create([
+                    'user_id' => Auth::user()->id
+                ]);
+            }
+            
+        }  
 
         return view('frontend.partials.addedToCart', compact('product', 'data'));
     }

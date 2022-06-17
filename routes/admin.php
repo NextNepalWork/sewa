@@ -188,6 +188,9 @@ Route::resource('flash_deals','FlashDealController');
 	Route::resource('links','LinkController');
 	Route::get('/links/destroy/{id}', 'LinkController@destroy')->name('links.destroy');
 
+	Route::get('/luckies', 'HomeController@luckies')->name('luckies.index');
+	Route::get('/luckies/destroy/{id}', 'HomeController@luckiesDestroy')->name('luckies.destroy');
+
 	Route::resource('generalsettings','GeneralSettingController');
 	Route::get('/logo','GeneralSettingController@logo')->name('generalsettings.logo');
 	Route::post('/logo','GeneralSettingController@storeLogo')->name('generalsettings.logo.store');
