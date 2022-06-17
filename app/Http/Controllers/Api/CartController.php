@@ -10,6 +10,7 @@ use App\Models\FlashDealProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Lucky;
 
 class CartController extends Controller
 {
@@ -97,7 +98,15 @@ class CartController extends Controller
             'shipping_cost' => $product->shipping_type == 'free' ? 0 : $product->shipping_cost,
             'quantity' => DB::raw('quantity + '.$request->quantity)
         ]);
-
+        if(Auth::check()){
+            $lucky = Lucky::where('user_id',Auth::user()->id)->count();
+            if($lucky == 0){
+                $lucky = Lucky::create([
+                    'user_id' => Auth::user()->id
+                ]);
+            }
+            
+        } 
         return response()->json([
             'message' => 'Product added to cart successfully'
         ]);
