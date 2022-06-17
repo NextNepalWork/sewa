@@ -150,6 +150,12 @@
                             </a>
                         </li>
                         @endif
+                        <li class="{{ areActiveRoutes(['luckies.index'])}}">
+                            <a class="nav-link" href="{{ route('luckies.index') }}">
+                                <i class="fa fa-bolt"></i>
+                                <span class="menu-title">{{__('Lucky Draw List')}}</span>
+                            </a>
+                        </li>
 
                         @if(Auth::user()->user_type == 'admin' || in_array('3', json_decode(Auth::user()->staff->role->permissions)))
                             @php

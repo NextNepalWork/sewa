@@ -27,6 +27,7 @@ use App\Coupon;
 use App\Faq;
 use App\Http\Controllers\SearchController;
 use App\Location;
+use App\Lucky;
 use App\Recommend;
 use App\State;
 use ImageOptimizer;
@@ -278,6 +279,22 @@ class HomeController extends Controller
 
     public function load_home_categories_section(){
         return view('frontend.partials.home_categories_section');
+    }
+    public function luckies(){
+        $data = Lucky::with('user')->whereHas('user')->paginate(100);
+        // dd($data);
+        return view('luckies.index',compact('data'));
+    }
+    public function luckiesDestroy($id)
+    {
+        $order = Lucky::findOrFail($id);
+        if ($order != null) {
+            $order->delete();
+            flash('User has been deleted successfully')->success();
+        } else {
+            flash('Something went wrong')->error();
+        }
+        return back();
     }
 
     public function load_best_sellers_section(){
