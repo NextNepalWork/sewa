@@ -72,7 +72,7 @@ class CheckoutController extends Controller
                     $orderDetail->save();
                     if($orderDetail->product->user->user_type == 'seller'){
                         $seller = $orderDetail->product->user->seller;
-                        $seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price*(100-$commission_percentage))/100 + $orderDetail->tax + $orderDetail->shipping_cost;
+                        $seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price*(100-$commission_percentage))/100 + $orderDetail->tax;
                         $seller->save();
                     }
                 }
@@ -84,7 +84,8 @@ class CheckoutController extends Controller
                     if($orderDetail->product->user->user_type == 'seller'){
                         $commission_percentage = $orderDetail->product->category->commision_rate;
                         $seller = $orderDetail->product->user->seller;
-                        $seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price*(100-$commission_percentage))/100  + $orderDetail->tax + $orderDetail->shipping_cost;
+                        // + $orderDetail->shipping_cost
+                        $seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price*(100-$commission_percentage))/100  + $orderDetail->tax;
                         $seller->save();
                     }
                 }

@@ -511,6 +511,7 @@ $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
                             </div>
                         </div>
                         <div class="cart-compare">
+                         
                             <a class="all-deals effect gray" onclick="addToWishList({{ $product->id }})">
                                 <i class="fa fa-heart icon mr-2"></i>Wishlist
                             </a>
