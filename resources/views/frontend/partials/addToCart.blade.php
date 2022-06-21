@@ -222,12 +222,24 @@
                                 <span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span>
                             </button>
                         @elseif($qty > 0)
-                            <button type="button"
-                                    class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart btn-custom"
-                                    onclick="addToCart()">
-                                <i class="la la-shopping-cart"></i>
-                                <span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span>
-                            </button>
+                           
+                            @if(Auth::check())
+                                <button type="button"
+                                        class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart btn-custom"
+                                        onclick="addToCart()">
+                                    <i class="la la-shopping-cart"></i>
+                                    <span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span>
+                                </button>
+                                {{-- <a href="{{ route('checkout.shipping_info') }}" class="btn btn-styled btn-base-1">{{__('Continue to Shipping')}}</a> --}}
+                            @else
+                                <button type="button"
+                                        class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart btn-custom"
+                                        onclick="showCheckoutModal()">
+                                    <i class="la la-shopping-cart"></i>
+                                    <span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span>
+                                </button>
+                                {{-- <button class="btn btn-styled btn-base-1" onclick="showCheckoutModal()" style="background: var(--theme_color)">{{__('Continue to Shipping')}}</button> --}}
+                            @endif
                         @else
                             <button type="button" class="btn btn-styled btn-base-3 btn-icon-left strong-700" disabled>
                                 <i class="la la-cart-arrow-down"></i> {{__('Out of Stock')}}
@@ -241,9 +253,14 @@
     </div>
 </div>
 
+
 <script type="text/javascript">
     cartQuantityInitialize();
     $('#option-choice-form input').on('change', function () {
         getVariantPrice();
     });
+        function showCheckoutModal() {
+            $('#addToCart').modal('hide');
+            $('#GuestCheckout').modal();
+        }
 </script>
