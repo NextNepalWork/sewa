@@ -436,12 +436,23 @@ td {
                                         <div class="d-table-cell">
                                             <!-- Buy Now button -->
                                             @if ($qty > 0)
-                                                <button type="button" class="btn-custom ml-2" onclick="buyNow()">
-                                                     {{__('Buy Now')}}
-                                                </button>
-                                                <button type="button" class="btn-custom" onclick="addToCart()">
-                                                    <span class=" d-md-inline-block"> {{__('Add to cart')}}</span>
-                                                </button>
+                                                @if(Auth::check())                                                    
+                                                    <button type="button" class="btn-custom ml-2" onclick="buyNow()">
+                                                        {{__('Buy Now')}}
+                                                    </button>
+                                                    <button type="button" class="btn-custom" onclick="addToCart()">
+                                                        <span class=" d-md-inline-block"> {{__('Add to cart')}}</span>
+                                                    </button>
+                                                @else
+                                                                                                    
+                                                    <button type="button" class="btn-custom ml-2" onclick="showCheckoutModal()">
+                                                        {{__('Buy Now')}}
+                                                    </button>
+                                                    <button type="button" class="btn-custom" onclick="showCheckoutModal()">
+                                                        <span class=" d-md-inline-block"> {{__('Add to cart')}}</span>
+                                                    </button>
+                                                    {{-- <button class="btn btn-styled btn-base-1" onclick="showCheckoutModal()" style="background: var(--theme_color)">{{__('Continue to Shipping')}}</button> --}}
+                                                @endif
                                             @else
                                                 <button type="button" class="btn btn-effect btn-base-3 btn-icon-left strong-700" disabled>
                                                      {{__('Out of Stock')}}
@@ -1110,6 +1121,10 @@ td {
     		});
             getVariantPrice();
     	});
+        
+        function showCheckoutModal() {
+            $('#GuestCheckout').modal();
+        }
 
         function CopyToClipboard(containerid) {
             if (document.selection) {
