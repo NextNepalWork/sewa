@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Customer;
 use App\User;
 use App\Order;
+use Carbon\Carbon;
 
 class CustomerController extends Controller
 {
@@ -99,6 +100,23 @@ class CustomerController extends Controller
         if(Customer::destroy($id)){
             flash(__('Customer has been deleted successfully'))->success();
             return redirect()->route('customers.index');
+        }
+
+        flash(__('Something went wrong'))->error();
+        return back();
+    }
+    public function verify($id)
+    {
+        // $customer = Customer::findOrFail($id);
+        $user = User::findOrFail($id);
+        $user->email_verified_at = Carbon::now();
+        $user->save();
+        // dd($customer);
+        // User::where('user_id', Customer::findOrFail($id)->user->id)->delete();
+        // User::destroy(Customer::findOrFail($id)->user->id);
+        if($user->save()){
+            flash(__('User Verified'))->success();
+            return redirect()->back();
         }
 
         flash(__('Something went wrong'))->error();

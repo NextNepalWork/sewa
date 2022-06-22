@@ -112,7 +112,7 @@ class CartController extends Controller
             'message' => 'Product added to cart successfully'
         ]);
     }catch(\Exception $e){
-    return $e->getMessage();
+        return $e->getMessage();
         }
     }
 
