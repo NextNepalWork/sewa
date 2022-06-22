@@ -58,6 +58,8 @@
                                         {{__('Actions')}} <i class="dropdown-caret"></i>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a onclick="confirm_verify('{{route('user.verify', $customer->user->id)}}');">{{__('Verify User')}}</a></li>
+
                                         <li><a onclick="confirm_modal('{{route('customers.destroy', $customer->id)}}');">{{__('Delete')}}</a></li>
                                     </ul>
                                 </div>
@@ -74,10 +76,35 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="confirm-verify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
+            <div class="modal-header">
+                {{-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> --}}
+                <h4 class="modal-title" id="myModalLabel">{{__('Confirmation')}}</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>{{__('Are you sure?')}}</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{__('Cancel')}}</button>
+                <a id="verify_link" class="btn btn-danger btn-ok">{{__('Verify')}}</a>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('script')
     <script type="text/javascript">
+    
+        function confirm_verify(delete_url)
+        {
+            jQuery('#confirm-verify').modal('show', {backdrop: 'static'});
+            document.getElementById('verify_link').setAttribute('href' , delete_url);
+        }
         function sort_customers(el){
             $('#sort_customers').submit();
         }

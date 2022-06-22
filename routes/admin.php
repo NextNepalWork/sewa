@@ -93,6 +93,8 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 
 
 	Route::resource('customers','CustomerController');
+	Route::get('/user/verify/{id}', 'CustomerController@verify')->name('user.verify');
+
 	Route::get('/customers/destroy/{id}', 'CustomerController@destroy')->name('customers.destroy');
 
 	Route::get('/newsletter', 'NewsletterController@index')->name('newsletters.index');

@@ -92,6 +92,8 @@
                                         <li><a href="{{route('sellers.payment_history', encrypt($seller->id))}}">{{__('Payment History')}}</a></li>
                                         <li><a href="{{route('sellers.edit', encrypt($seller->id))}}">{{__('Edit')}}</a></li>
                                         <li><a onclick="confirm_modal('{{route('sellers.destroy', $seller->id)}}');">{{__('Delete')}}</a></li>
+                                        <li><a onclick="confirm_verify('{{route('user.verify', $seller->user->id)}}');">{{__('Verify Seller')}}</a></li>
+
                                     </ul>
                                 </div>
                             </td>
@@ -133,6 +135,26 @@
         </div>
     </div>
 
+    <div class="modal fade" id="confirm-verify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+    
+                <div class="modal-header">
+                    {{-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> --}}
+                    <h4 class="modal-title" id="myModalLabel">{{__('Confirmation')}}</h4>
+                </div>
+    
+                <div class="modal-body">
+                    <p>{{__('Are you sure?')}}</p>
+                </div>
+    
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{__('Cancel')}}</button>
+                    <a id="verify_link" class="btn btn-danger btn-ok">{{__('Verify')}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 
@@ -145,7 +167,11 @@
                 $('.demo-select2-placeholder').select2();
             });
         }
-
+        function confirm_verify(delete_url)
+        {
+            jQuery('#confirm-verify').modal('show', {backdrop: 'static'});
+            document.getElementById('verify_link').setAttribute('href' , delete_url);
+        }
         function show_seller_profile(id){
             $.post('{{ route('sellers.profile_modal') }}',{_token:'{{ @csrf_token() }}', id:id}, function(data){
                 $('#profile_modal #modal-content').html(data);
