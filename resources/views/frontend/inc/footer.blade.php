@@ -238,7 +238,7 @@ else{
           <div class="col-md-6 text-center pb-3 pt-2">
              <p class="mb-0 text-white text-right font-weight-normal">
                 Copyright All Right Reserved <?php echo(date("Y")) ?>.
-                <span class="testimonial-title">Power by NEXT NEPAL </span>
+                {{-- <span class="testimonial-title">Power by NEXT NEPAL </span> --}}
              </p>
           </div>
        </div>
