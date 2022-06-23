@@ -78,7 +78,8 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 		Route::get('edit/{id}', 'StateController@edit')->name('edit');
 		Route::put('update/{id}', 'StateController@update')->name('update');
 	});
-
+	
+	
 	Route::resource('sellers','SellerController');
 	Route::get('/sellers/destroy/{id}', 'SellerController@destroy')->name('sellers.destroy');
 	Route::get('/sellers/view/{id}/verification', 'SellerController@show_verification_request')->name('sellers.show_verification_request');
@@ -91,7 +92,9 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 	Route::post('/category_wise', 'CommissionController@categoryWiseCommission')->name('commissions.category');
 
 
-
+	Route::get('/arrangeCategory', 'SellerController@categoryArrange')->name('arrangeCategory');
+	Route::post('/arrangeCategorySave', 'SellerController@arrangeCategorySave')->name('arrangeCategorySave');
+	
 	Route::resource('customers','CustomerController');
 	Route::get('/user/verify/{id}', 'CustomerController@verify')->name('user.verify');
 

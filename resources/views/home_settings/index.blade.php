@@ -25,6 +25,9 @@ $generalsetting = \App\GeneralSetting::first();
                 <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false">{{ __('Home banner 2') }}</a>
             </li>
             <li class="">
+                <a data-toggle="tab" href="#demo-lft-tab-7" aria-expanded="false">{{ __('Home banner 3') }}</a>
+            </li>
+            <li class="">
                 <a data-toggle="tab" href="#demo-lft-tab-4" aria-expanded="false">{{ __('Home categories') }}</a>
             </li>
             <li class="">
@@ -250,9 +253,18 @@ $generalsetting = \App\GeneralSetting::first();
                 </div>
             </div>
             <div id="demo-lft-tab-5" class="tab-pane fade">
+                
+                <div class="row">
+                    <div class="col-sm-12">
+                        <a class="btn btn-rounded btn-info pull-right" onclick="show_category();">{{__('Arrange Categories')}}</a>
+
+                    </div>
+                </div>
+
                 <div class="panel">
                     <div class="panel-heading">
                         <h3 class="panel-title">{{__('Top Information')}}</h3>
+                        
                     </div>
 
                     <!--Horizontal Form-->
@@ -341,15 +353,87 @@ $generalsetting = \App\GeneralSetting::first();
                     </div>
                 </div>
             </div>
+            <div id="demo-lft-tab-7" class="tab-pane fade">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        @php
+                            $count = \App\Banner::where('position', 3)->count();
+                        @endphp
+                        @if($count < 1)
+                            <a onclick="add_banner_3()" class="btn btn-rounded btn-info pull-right">{{__('Add New Banner')}}</a>
+                        @endif
+                        
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{__('Home banner')}} (Max 1)</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-striped table-bordered demo-dt-basic" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>{{__('Photo')}}</th>
+                                    <th>{{__('Position')}}</th>
+                                    <th>{{__('Published')}}</th>
+                                    <th width="10%">{{__('Options')}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(\App\Banner::where('position', 3)->get() as $key => $banner)
+                                    <tr>
+                                        <td>{{$key+1}}</td>
+                                        <td><img loading="lazy"  class="img-md" src="{{ asset($banner->photo)}}" alt="banner Image"></td>
+                                        <td>{{ __('Banner Position ') }}{{ $banner->position }}</td>
+                                        <td><label class="switch">
+                                            <input onchange="update_banner_published(this)" value="{{ $banner->id }}" type="checkbox" <?php if($banner->published == 1) echo "checked";?> >
+                                            <span class="slider round"></span></label></td>
+                                        <td>
+                                            <div class="btn-group dropdown">
+                                                <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
+                                                    {{__('Actions')}} <i class="dropdown-caret"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li><a onclick="edit_home_banner_3({{ $banner->id }})">{{__('Edit')}}</a></li>
+                                                    <li><a onclick="confirm_modal('{{route('home_banners.destroy', $banner->id)}}');">{{__('Delete')}}</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="modal fade" id="payment_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="modal-content">
 
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
 
 <script type="text/javascript">
+    function show_category(){
+        $.get('{{ route('arrangeCategory') }}', function(data){
+            $('#payment_modal #modal-content').html(data);
+            $('#payment_modal').modal('show', {backdrop: 'static'});
+            // $('.demo-select2-placeholder').select2();
+        });
 
+    }
     function updateSettings(el, type){
         if($(el).is(':checked')){
             var value = 1;
@@ -393,12 +477,25 @@ $generalsetting = \App\GeneralSetting::first();
             $('#demo-lft-tab-3').html(data);
         });
     }
+    function add_banner_3(){
+        $.get('{{ route('home_banners.create', 3)}}', {}, function(data){
+            $('#demo-lft-tab-7').html(data);
+        });
+    }
 
     function edit_home_banner_1(id){
         var url = '{{ route("home_banners.edit", "home_banner_id") }}';
         url = url.replace('home_banner_id', id);
         $.get(url, {}, function(data){
             $('#demo-lft-tab-2').html(data);
+            $('.demo-select2-placeholder').select2();
+        });
+    }
+    function edit_home_banner_3(id){
+        var url = '{{ route("home_banners.edit", "home_banner_id") }}';
+        url = url.replace('home_banner_id', id);
+        $.get(url, {}, function(data){
+            $('#demo-lft-tab-7').html(data);
             $('.demo-select2-placeholder').select2();
         });
     }

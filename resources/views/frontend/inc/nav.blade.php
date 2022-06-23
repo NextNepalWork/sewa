@@ -529,7 +529,7 @@
             </div>
             <div class="col-10">
                <ul class="categories-nav d-flex justify-content-around align-items-center h-100">
-                @foreach(\App\Category::where('top',1)->limit(6)->get() as $top)
+                @foreach(\App\Category::where('top',1)->orderBy('digital','asc')->limit(6)->get() as $top)
                 <li>
                     <a href="{{ route('products.category', $top->slug) }}" class="category_title_top">{{$top->name}}</a>
 

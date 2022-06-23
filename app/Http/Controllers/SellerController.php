@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Commission;
 use Illuminate\Http\Request;
 use App\Seller;
@@ -210,6 +211,28 @@ class SellerController extends Controller
         $seller = Seller::findOrFail($request->id);
         return view('sellers.payment_modal', compact('seller'));
     }
+    public function categoryArrange(Request $request)
+    {
+        $data = Category::where('top',1)->orderBy('digital','asc')->get();
+        return view('home_settings.categoryArrange', compact('data'));
+    }
+    public function arrangeCategorySave(Request $request)
+    {
+        // dd($request->all());
+        $orders = $request->order;
+
+        foreach($orders as $a => $b){
+            Category::where('id',$a)->update([
+                'digital' => $b
+            ]);
+        }
+        flash(__('Order Updated'))->success();
+        return back();
+        // dd($request->all());
+        // $data = Category::where('top',1)->orderBy('digital','asc')->get();
+        // return view('home_settings.categoryArrange', compact('data'));
+    }
+    
 
     public function commission_modal(Request $request)
     {

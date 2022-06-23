@@ -98,7 +98,13 @@
         }
 
 </style>
-
+<style>
+    .banner-img {
+        max-height: 230px;
+        object-fit: contain;
+        width: 100%;
+    }
+</style>
 <!-- Categories -->
 <!-- <section class="d-lg-block d-none">
     <div class="container p-0">
@@ -405,6 +411,23 @@ $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
         </div>
     </div>
 </section> --}}
+
+<section id="banner_three" class="mb-3">
+    <div class="container">
+        <div class="row">
+            @foreach (\App\Banner::where('position', 3)->where('published', 1)->take(1)->get() as $key => $banner)
+            <div class="col-md-12 mb-3">
+                <a href="{{ $banner->url }}">
+                    {{-- two_banner_img --}}
+                    <div class="">
+                        <img src="{{ asset($banner->photo) }}" class="img-fluid banner-img" alt="{{ env('APP_NAME') }} promo">
+                    </div>
+                </a>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
 <section id="product-listing-wrapper" class=" product_listing">
     <div class="container">
         <div class="product-lists">
@@ -722,13 +745,7 @@ $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
 
 
 <!--============================================= BANNER START ======-->
-<style>
-    .banner-img {
-        max-height: 230px;
-        object-fit: contain;
-        width: 100%;
-    }
-</style>
+
 <section id="banner_two" class="mb-3">
     <div class="container">
         <div class="row">
@@ -945,6 +962,14 @@ $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
                 },
                 {
                     breakpoint: 480,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1,
+                        dots: true,
+                    },
+                },
+                {
+                    breakpoint: 320,
                     settings: {
                         slidesToShow: 1,
                         slidesToScroll: 1,
