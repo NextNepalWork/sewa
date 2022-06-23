@@ -20,7 +20,7 @@
             <div class="form-group">
                 <div class="col-sm-3">
                     <label class="control-label">{{__('Pop Up Image')}}</label>
-                    <strong>(1080px*560px)</strong>
+                    <strong>(600px*600px)</strong>
                 </div>
                 <div class="col-sm-9">
                     @if ($generalsetting->pop_img != null)
