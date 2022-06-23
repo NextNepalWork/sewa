@@ -296,7 +296,7 @@
     margin: auto;
 }
 .cus-price{
-    color: #f78035!important;
+    color: #ff6300!important;
     font-size: 20px!important;
 }
 #search-content .title{
@@ -320,7 +320,9 @@
     z-index: 1;
 } */
 
-
+.product-grid-item .category-title .category a{
+    color: rgb(74 67 67) !important;
+}
 .img-responsive {
     max-width: 100;
     height: auto;
