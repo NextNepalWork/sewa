@@ -29,6 +29,15 @@
                                 <button type="button" class="btn btn-danger close-btn remove-files"><i class="fa fa-times"></i></button>
                             </div>
                         </div>
+                    @else
+                    
+                    <div class="col-md-4 col-sm-4 col-xs-6">
+                        <div class="img-upload-preview">
+                            <img loading="lazy"  src="" alt="" class="img-responsive">
+                            <input type="hidden" name="previous_photo" value="">
+                            <button type="button" class="btn btn-danger close-btn remove-files"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
                     @endif
                     <div id="photo">
 

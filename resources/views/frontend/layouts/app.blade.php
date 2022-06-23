@@ -489,7 +489,7 @@
     @endphp
     @if ($generalsetting->pop_status == 1)
         <div class="modal fade coming-soon-modal height-100vh" id="abc" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="z-index: 99999;">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-lg" role="document" style="max-width: 600px">
                 <div class="modal-content">
                     <div class="p-0 modal-header w-100">
                         <a href="{{($generalsetting->pop_url)}}">
