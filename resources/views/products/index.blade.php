@@ -19,7 +19,7 @@
         <div class="pull-right d-flex clearfix">
             <button class="btn btn-primary" id="moveProducts" onclick="moveProducts();">Move Products</button>
             <form class="" id="sort_products" action="" method="GET">
-                @if($type == 'Seller')
+                {{-- @if($type == 'Seller') --}}
                     <div class="box-inline pad-rgt pull-left">
                         <div class="select" style="min-width: 200px;">
                             <select class="form-control demo-select2" name="type" id="type" onchange="sort_products()">
@@ -39,7 +39,7 @@
                             </select>
                         </div>
                     </div>
-                    @endif
+                    {{-- @endif --}}
                     <div class="box-inline pad-rgt pull-left">
                         <div class="" style="min-width: 200px;">
                             <input type="text" class="form-control" id="search" name="search"
