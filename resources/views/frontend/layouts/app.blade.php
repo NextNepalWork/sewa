@@ -492,7 +492,10 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="p-0 modal-header w-100">
-                        <img src="{{asset($generalsetting->pop_img)}}" class="w-100 height-100vh">
+                        <a href="{{($generalsetting->pop_url)}}">
+                            <img src="{{asset($generalsetting->pop_img)}}" class="w-100 height-100vh">
+
+                        </a>
                         <button type="button" class="close m-0 custom-close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
