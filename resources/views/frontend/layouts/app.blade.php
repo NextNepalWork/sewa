@@ -323,6 +323,9 @@
 .product-grid-item .category-title .category a{
     color: rgb(74 67 67) !important;
 }
+.product-grid-item .category-title .title a{
+    color: #ff6707 !important;
+}
 .img-responsive {
     max-width: 100;
     height: auto;
