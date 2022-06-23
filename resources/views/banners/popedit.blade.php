@@ -12,9 +12,15 @@
         {{-- <input type="hidden" name="_method" value="PATCH"> --}}
         <div class="panel-body">
             <div class="form-group">
+                <label class="col-sm-3" for="url">{{__('URL')}}</label>
+                <div class="col-sm-9">
+                    <input type="text" placeholder="{{__('URL')}}" id="url" name="pop_url" value="{{ $generalsetting->pop_url }}" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group">
                 <div class="col-sm-3">
                     <label class="control-label">{{__('Pop Up Image')}}</label>
-                    <strong>(850px*420px)</strong>
+                    <strong>(1080px*560px)</strong>
                 </div>
                 <div class="col-sm-9">
                     @if ($generalsetting->pop_img != null)

@@ -80,7 +80,9 @@ class BannerController extends Controller
 
         // $banner = Banner::find($id);pop_status
         $generalsetting->pop_img = $request->previous_photo;
+        $generalsetting->pop_url = $request->pop_url;
 
+        // dd($generalsetting);
         if($request->hasFile('photo')){
             $generalsetting->pop_img = $request->photo->store('uploads/banners');
         }
