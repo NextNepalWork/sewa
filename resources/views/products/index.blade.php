@@ -16,9 +16,10 @@
     <!--Panel heading-->
     <div class="panel-heading bord-btm clearfix pad-all h-100">
         <h3 class="panel-title pull-left pad-no">{{ __($type.' Products') }}</h3>
-        <div class="pull-right clearfix">
+        <div class="pull-right d-flex clearfix">
+            <button class="btn btn-primary" id="moveProducts" onclick="moveProducts();">Move Products</button>
             <form class="" id="sort_products" action="" method="GET">
-                @if($type == 'Seller')
+                {{-- @if($type == 'Seller') --}}
                     <div class="box-inline pad-rgt pull-left">
                         <div class="select" style="min-width: 200px;">
                             <select class="form-control demo-select2" name="type" id="type" onchange="sort_products()">
@@ -38,7 +39,7 @@
                             </select>
                         </div>
                     </div>
-                    @endif
+                    {{-- @endif --}}
                     <div class="box-inline pad-rgt pull-left">
                         <div class="" style="min-width: 200px;">
                             <input type="text" class="form-control" id="search" name="search"
@@ -175,6 +176,48 @@
         </div>
     </div>
 
+    <div class="modal fade" id="payment_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="modal-content">
+                <form class="form-horizontal" action="{{ route('moveProducts') }}" method="POST">
+                    @csrf
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">{{__('Move Products')}}</h4>
+                    </div>
+                
+                    <div class="modal-body">             
+                        <input type="hidden" id="due-id" name="product_ids" value="">
+            
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="payment_option">{{__('Seller')}}</label>
+                            <div class="col-sm-9">
+                                <select name="seller_id" id="payment_option" class="form-control demo-select2-placeholder" required>
+                                    @foreach (\App\User::where('user_type','seller')->get() as $z)                                        
+                                        <option value="{{$z->id}}">{{$z->name}}</option>
+                                    @endforeach
+                                    {{-- <option value="">{{__('Select Payment Method')}}</option> --}}
+                                    {{-- @if($seller->cash_on_delivery_status == 1) --}}
+                                        {{-- <option value="cash">{{__('Cash')}}</option> --}}
+                                    {{-- @endif --}}
+                                    {{-- @if($seller->bank_payment_status == 1) --}}
+                                        {{-- <option value="bank_payment">{{__('Bank Payment')}}</option> --}}
+                                    {{-- @endif --}}
+                                </select>
+                            </div>
+                        </div>
+                
+                    </div>
+                    <div class="modal-footer">
+                        <div class="panel-footer text-right">
+                            <button class="btn btn-purple" type="submit">{{__('Save')}}</button>
+                            <button class="btn btn-default" data-dismiss="modal">{{__('Cancel')}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 
@@ -183,7 +226,27 @@
         $(document).ready(function() {
             //$('#container').removeClass('mainnav-lg').addClass('mainnav-sm');
         });
+        function moveProducts() {
+            var allIds = [];
+            var amount = 0;
+            // if($(".rowCheck:checked").length == 0){
+            //     alert('Please Select At least one item');
+            // }
+            $(".rowCheck:checked").each(function() {
+                allIds.push($(this).val());
+                amount += $(this).data('amount');
+            });
+            $('.due-amount').val(amount);
+            $('#due-id').val(allIds.toString());
+            
+            if (allIds.length <= 0) {
+                alert("Please select row.");
+            } else {
 
+                $('#payment_modal').modal('show');
+                exit;
+ }
+        }
         function update_todays_deal(el) {
             if (el.checked) {
                 var status = 1;

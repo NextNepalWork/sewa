@@ -95,6 +95,8 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 	Route::get('/arrangeCategory', 'SellerController@categoryArrange')->name('arrangeCategory');
 	Route::post('/arrangeCategorySave', 'SellerController@arrangeCategorySave')->name('arrangeCategorySave');
 	
+	Route::post('/moveProducts', 'ProductController@moveProducts')->name('moveProducts');
+
 	Route::resource('customers','CustomerController');
 	Route::get('/user/verify/{id}', 'CustomerController@verify')->name('user.verify');
 

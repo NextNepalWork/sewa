@@ -80,7 +80,21 @@ class ProductController extends Controller
 
         return view('products.index', compact('products', 'type', 'col_name', 'query', 'seller_id', 'sort_search'));
     }
+    public function moveProducts(Request $request){
 
+        $products = explode(',',$request->product_ids);
+
+        foreach($products as $a => $b){            
+            Product::where('id',$b)->update([
+                'added_by' => 'seller',
+                'user_id' => $request->seller_id
+            ]);
+        }
+        
+        flash(__('Products Moved'))->success();
+        return back();
+        // dd($request->all());
+    }
     /**
      * Show the form for creating a new resource.
      *
